@@ -2,16 +2,15 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>오션메이드 필름 견적서</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
   --blue: #1A4F8A;
   --blue-light: #EAF1FA;
   --blue-mid: #2E6BB5;
-  --orange: #D05A1A;
+  --orange: #C05010;
   --orange-light: #FDF0E8;
   --green: #1A7A4A;
   --green-light: #E8F7EF;
@@ -23,353 +22,408 @@
   --gray-50: #FAFAF8;
   --white: #FFFFFF;
   --border: #E0DDD8;
-  --radius: 10px;
-  --shadow: 0 1px 4px rgba(0,0,0,0.07);
+  --radius: 12px;
 }
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: 'Noto Sans KR', sans-serif;
-  background: #F0EDE8;
-  color: var(--gray-900);
-  min-height: 100vh;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body { font-family: 'Noto Sans KR', sans-serif; background: #EDEAE5; color: var(--gray-900); min-height: 100vh; }
+
 header {
   background: var(--blue);
   color: white;
-  padding: 0 24px;
-  height: 56px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  padding: 0 16px;
+  height: 52px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 50;
 }
-header h1 { font-size: 16px; font-weight: 600; letter-spacing: 0.5px; }
-header span { font-size: 12px; opacity: 0.7; }
-.container { max-width: 900px; margin: 0 auto; padding: 24px 16px 80px; }
+header h1 { font-size: 15px; font-weight: 600; }
+header span { font-size: 11px; opacity: 0.65; }
 
-/* CARDS */
+.container { max-width: 540px; margin: 0 auto; padding: 14px 12px 100px; }
+
 .card {
   background: var(--white);
-  border: 1px solid var(--border);
   border-radius: var(--radius);
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   overflow: hidden;
+  border: 1px solid var(--border);
 }
 .card-header {
   background: var(--gray-50);
   border-bottom: 1px solid var(--border);
-  padding: 12px 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  padding: 11px 16px;
+  display: flex; align-items: center; gap: 8px;
 }
 .card-header .icon {
-  width: 28px; height: 28px;
-  background: var(--blue);
-  border-radius: 6px;
+  width: 26px; height: 26px;
+  background: var(--blue); border-radius: 6px;
   display: flex; align-items: center; justify-content: center;
-  color: white; font-size: 14px;
+  font-size: 13px;
 }
-.card-header h2 { font-size: 14px; font-weight: 600; color: var(--gray-700); }
-.card-body { padding: 20px; }
+.card-header h2 { font-size: 13px; font-weight: 600; color: var(--gray-700); }
+.card-body { padding: 14px 16px; }
 
 /* FORM */
-.form-grid { display: grid; gap: 14px; }
-.form-grid.g2 { grid-template-columns: 1fr 1fr; }
-.form-grid.g3 { grid-template-columns: 2fr 1fr 1fr; }
-.field label { font-size: 12px; color: var(--gray-500); font-weight: 500; display: block; margin-bottom: 5px; }
+.field { margin-bottom: 12px; }
+.field:last-child { margin-bottom: 0; }
+.field label { font-size: 11px; color: var(--gray-500); font-weight: 500; display: block; margin-bottom: 5px; }
 .field input, .field select {
-  width: 100%; padding: 9px 12px;
-  border: 1px solid var(--border);
-  border-radius: 7px;
-  font-size: 14px; font-family: inherit;
+  width: 100%; padding: 11px 12px;
+  border: 1px solid var(--border); border-radius: 8px;
+  font-size: 15px; font-family: inherit;
   background: var(--white); color: var(--gray-900);
-  transition: border-color 0.15s;
+  -webkit-appearance: none; appearance: none;
 }
-.field input:focus, .field select:focus {
-  outline: none; border-color: var(--blue-mid);
-  box-shadow: 0 0 0 3px rgba(46,107,181,0.1);
-}
+.field input:focus, .field select:focus { outline: none; border-color: var(--blue-mid); box-shadow: 0 0 0 3px rgba(46,107,181,0.12); }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
 
-/* ITEMS */
+/* ITEM CARD */
 .item-card {
   background: var(--gray-50);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   overflow: hidden;
-  transition: box-shadow 0.15s;
 }
-.item-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-
-.item-header {
-  padding: 12px 16px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  border-bottom: 1px solid var(--border);
+.item-head {
   background: white;
+  border-bottom: 1px solid var(--border);
+  padding: 10px 12px;
+  display: flex; align-items: center; gap: 8px;
 }
 .item-num {
-  width: 24px; height: 24px;
-  background: var(--blue);
-  color: white;
-  border-radius: 50%;
-  font-size: 12px; font-weight: 700;
+  width: 22px; height: 22px;
+  background: var(--blue); color: white;
+  border-radius: 50%; font-size: 11px; font-weight: 700;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
-.item-header select {
-  flex: 1;
-  padding: 6px 10px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
+.item-head select {
+  flex: 1; padding: 7px 10px;
+  border: 1px solid var(--border); border-radius: 7px;
   font-size: 13px; font-family: inherit;
   background: white; color: var(--gray-900);
+  -webkit-appearance: none; appearance: none;
 }
-.item-header select:focus { outline: none; border-color: var(--blue-mid); }
 .del-btn {
-  width: 30px; height: 30px;
-  background: none; border: 1px solid #E0DDD8;
-  border-radius: 6px; cursor: pointer;
-  color: var(--gray-500); font-size: 16px;
+  width: 32px; height: 32px;
+  background: none; border: 1px solid var(--border);
+  border-radius: 7px; font-size: 18px; color: var(--gray-500);
   display: flex; align-items: center; justify-content: center;
-  transition: all 0.15s;
+  cursor: pointer; flex-shrink: 0;
 }
-.del-btn:hover { background: #FEE; border-color: #F99; color: #C33; }
+.del-btn:active { background: #FEE; color: #C33; }
 
-.item-body { padding: 14px 16px; display: grid; gap: 12px; }
+.item-body { padding: 12px; display: flex; flex-direction: column; gap: 10px; }
 
-/* COLOR INPUT ROW */
-.color-input-row { display: flex; gap: 10px; align-items: flex-end; }
-.color-input-row .field { flex: 1; }
-
-/* PRICE DISPLAY - 핵심 UI */
-.price-display {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+/* COLOR INPUT */
+.color-field label { font-size: 11px; color: var(--gray-500); font-weight: 500; display: block; margin-bottom: 5px; }
+.color-field input {
+  width: 100%; padding: 10px 12px;
+  border: 1px solid var(--border); border-radius: 8px;
+  font-size: 15px; font-family: inherit; background: white; color: var(--gray-900);
 }
+.color-field input:focus { outline: none; border-color: var(--blue-mid); }
+
+/* PRICE BOXES - 핵심 */
+.price-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .price-box {
-  border-radius: 8px;
-  padding: 14px 16px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
+  border-radius: 10px; padding: 12px;
+  display: flex; flex-direction: column; gap: 6px;
 }
 .price-box.roll { background: var(--blue-light); border: 1.5px solid #B8CDE8; }
 .price-box.cut  { background: var(--orange-light); border: 1.5px solid #E8C4A0; }
-
-.price-box-left { flex: 1; }
-.price-tag {
-  font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
-  margin-bottom: 4px;
-}
+.price-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.3px; }
 .price-box.roll .price-tag { color: var(--blue); }
 .price-box.cut  .price-tag { color: var(--orange); }
-
-.price-value {
-  font-size: 22px; font-weight: 700; line-height: 1;
+.price-val { font-size: 20px; font-weight: 700; line-height: 1; }
+.price-box.roll .price-val { color: var(--blue); }
+.price-box.cut  .price-val { color: var(--orange); }
+.price-unit-txt { font-size: 11px; font-weight: 400; }
+.price-locked {
+  display: block; font-size: 12px; color: rgba(0,0,0,0.35);
+  text-align: right; margin-top: 2px;
 }
-.price-box.roll .price-value { color: var(--blue); }
-.price-box.cut  .price-value { color: var(--orange); }
+.price-locked::before { content: '🔒 '; font-size: 10px; }
 
-.price-unit { font-size: 12px; font-weight: 400; margin-left: 2px; }
-.price-input-wrap { flex: 0 0 90px; }
-.price-input-wrap input {
-  width: 100%; padding: 7px 8px;
-  border: 1px solid rgba(0,0,0,0.12);
-  border-radius: 6px;
-  font-size: 13px; font-family: inherit;
-  background: white; color: var(--gray-900);
-  text-align: right;
-}
-.price-input-wrap input:focus { outline: none; border-color: var(--blue-mid); }
-
-/* QTY ROW */
-.qty-row {
-  display: flex; align-items: center; gap: 12px;
+/* QTY */
+.qty-box {
   background: white; border: 1px solid var(--border);
-  border-radius: 8px; padding: 12px 16px;
+  border-radius: 10px; padding: 12px;
 }
-.qty-label { font-size: 13px; font-weight: 600; color: var(--gray-700); min-width: 60px; }
-.qty-stepper { display: flex; align-items: center; gap: 0; }
+.qty-top { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.qty-label { font-size: 13px; font-weight: 600; color: var(--gray-700); }
+.qty-stepper { display: flex; align-items: center; margin-left: auto; }
 .qty-btn {
-  width: 34px; height: 34px;
-  border: 1px solid var(--border);
-  background: var(--gray-50); cursor: pointer;
-  font-size: 18px; color: var(--gray-700);
-  display: flex; align-items: center; justify-content: center;
-  transition: background 0.1s;
+  width: 38px; height: 38px;
+  border: 1px solid var(--border); background: var(--gray-50);
+  font-size: 20px; color: var(--gray-700);
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
 }
-.qty-btn:first-child { border-radius: 7px 0 0 7px; }
-.qty-btn:last-child  { border-radius: 0 7px 7px 0; }
-.qty-btn:hover { background: var(--blue-light); color: var(--blue); }
+.qty-btn:first-child { border-radius: 8px 0 0 8px; }
+.qty-btn:last-child  { border-radius: 0 8px 8px 0; }
+.qty-btn:active { background: var(--blue-light); color: var(--blue); }
 .qty-input {
-  width: 64px; height: 34px;
+  width: 56px; height: 38px;
   border: 1px solid var(--border); border-left: none; border-right: none;
-  text-align: center; font-size: 15px; font-weight: 600;
+  text-align: center; font-size: 16px; font-weight: 700;
   font-family: inherit; color: var(--gray-900); background: white;
 }
 .qty-input:focus { outline: none; background: var(--blue-light); }
-.qty-unit { font-size: 13px; color: var(--gray-500); }
-.qty-shortcuts { display: flex; gap: 6px; margin-left: auto; flex-wrap: wrap; justify-content: flex-end; }
-.qty-short-btn {
-  padding: 4px 10px; font-size: 12px; font-family: inherit;
-  border: 1px solid var(--border); border-radius: 5px;
-  background: white; cursor: pointer; color: var(--gray-700);
-  transition: all 0.1s;
+.qty-unit { font-size: 13px; color: var(--gray-500); margin-left: 6px; }
+.qty-shorts { display: flex; gap: 6px; flex-wrap: wrap; }
+.qty-short {
+  padding: 6px 10px; font-size: 12px; font-family: inherit;
+  border: 1px solid var(--border); border-radius: 6px;
+  background: white; color: var(--gray-700); cursor: pointer;
 }
-.qty-short-btn:hover { background: var(--blue); color: white; border-color: var(--blue); }
+.qty-short:active { background: var(--blue); color: white; border-color: var(--blue); }
 
 /* BREAKDOWN */
-.breakdown-row {
+.breakdown {
   background: white; border: 1px solid var(--border);
-  border-radius: 8px; padding: 12px 16px;
+  border-radius: 10px; padding: 12px;
 }
-.breakdown-title { font-size: 12px; color: var(--gray-500); margin-bottom: 8px; font-weight: 500; }
-.breakdown-items { display: flex; gap: 8px; flex-wrap: wrap; }
-.breakdown-chip {
-  display: flex; align-items: center; gap: 6px;
-  padding: 6px 12px; border-radius: 6px;
-  font-size: 13px; font-weight: 500;
+.bd-title { font-size: 11px; color: var(--gray-500); font-weight: 500; margin-bottom: 8px; }
+.bd-chips { display: flex; flex-direction: column; gap: 6px; }
+.bd-chip {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 10px; border-radius: 7px; font-size: 13px;
 }
-.breakdown-chip.roll-chip { background: var(--blue-light); color: var(--blue); }
-.breakdown-chip.cut-chip  { background: var(--orange-light); color: var(--orange); }
-.breakdown-chip.only-chip { background: var(--green-light); color: var(--green); }
-.chip-tag { font-size: 11px; font-weight: 700; opacity: 0.7; }
-.chip-amt { font-size: 14px; font-weight: 700; }
-.breakdown-total {
+.bd-chip.roll-chip { background: var(--blue-light); }
+.bd-chip.cut-chip  { background: var(--orange-light); }
+.bd-chip .chip-left { display: flex; align-items: center; gap: 6px; }
+.bd-chip .chip-tag {
+  font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px;
+}
+.roll-chip .chip-tag { background: var(--blue); color: white; }
+.cut-chip  .chip-tag { background: var(--orange); color: white; }
+.bd-chip .chip-desc { font-size: 12px; color: var(--gray-700); }
+.bd-chip .chip-amt { font-size: 14px; font-weight: 700; }
+.roll-chip .chip-amt { color: var(--blue); }
+.cut-chip  .chip-amt { color: var(--orange); }
+.bd-total {
   margin-top: 10px; padding-top: 10px;
   border-top: 1px solid var(--border);
-  display: flex; align-items: baseline; gap: 8px;
+  display: flex; justify-content: space-between; align-items: baseline;
 }
-.breakdown-total .label { font-size: 12px; color: var(--gray-500); }
-.breakdown-total .val { font-size: 20px; font-weight: 700; color: var(--gray-900); }
+.bd-total .lbl { font-size: 12px; color: var(--gray-500); }
+.bd-total .val { font-size: 20px; font-weight: 700; color: var(--gray-900); }
 
-/* ADD BUTTON */
+/* ADD BTN */
 .add-btn {
-  width: 100%; padding: 13px;
-  border: 2px dashed var(--border);
-  border-radius: var(--radius);
-  background: none; cursor: pointer;
-  font-size: 14px; font-family: inherit;
-  color: var(--gray-500);
-  transition: all 0.15s;
-  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; padding: 14px;
+  border: 2px dashed var(--border); border-radius: var(--radius);
+  background: none; font-size: 14px; font-family: inherit;
+  color: var(--gray-500); cursor: pointer;
 }
-.add-btn:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
+.add-btn:active { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
 
-/* TOTAL FOOTER */
+/* TOTAL BAR */
 .total-bar {
-  background: var(--blue);
-  border-radius: var(--radius);
-  padding: 18px 24px;
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 16px;
-  color: white;
+  background: var(--blue); border-radius: var(--radius);
+  padding: 16px 20px;
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 12px; color: white;
 }
-.total-bar .label { font-size: 15px; font-weight: 500; opacity: 0.85; }
-.total-bar .amount { font-size: 28px; font-weight: 700; }
+.total-bar .lbl { font-size: 14px; opacity: 0.8; }
+.total-bar .amt { font-size: 26px; font-weight: 700; }
 
-/* ACTION BUTTONS */
-.actions { display: flex; gap: 10px; }
+/* BUTTONS */
+.actions { display: flex; gap: 8px; }
 .btn-reset {
-  padding: 12px 24px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: white; cursor: pointer;
-  font-size: 14px; font-family: inherit;
-  color: var(--gray-700);
-  transition: all 0.15s;
+  padding: 14px 20px;
+  border: 1px solid var(--border); border-radius: var(--radius);
+  background: white; font-size: 14px; font-family: inherit; color: var(--gray-700); cursor: pointer;
 }
-.btn-reset:hover { background: var(--gray-100); }
 .btn-preview {
   flex: 1; padding: 14px;
-  background: var(--blue); color: white;
-  border: none; border-radius: var(--radius);
-  font-size: 15px; font-weight: 600; font-family: inherit;
-  cursor: pointer; transition: background 0.15s;
+  background: var(--blue); color: white; border: none;
+  border-radius: var(--radius); font-size: 15px; font-weight: 600;
+  font-family: inherit; cursor: pointer;
 }
-.btn-preview:hover { background: #163F6E; }
+.btn-preview:active { background: #163F6E; }
 
-/* MODAL */
+/* ===== PASSWORD SCREEN ===== */
+.pw-screen {
+  position: fixed; inset: 0; z-index: 999;
+  background: var(--blue);
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+}
+.pw-screen.hidden { display: none; }
+.pw-box {
+  background: white; border-radius: 16px;
+  padding: 32px 28px; width: 100%; max-width: 340px;
+  text-align: center;
+}
+.pw-logo { font-size: 40px; margin-bottom: 12px; }
+.pw-title { font-size: 18px; font-weight: 700; color: var(--gray-900); margin-bottom: 4px; }
+.pw-sub { font-size: 13px; color: var(--gray-500); margin-bottom: 24px; }
+.pw-input {
+  width: 100%; padding: 14px 16px;
+  border: 1.5px solid var(--border); border-radius: 10px;
+  font-size: 20px; font-family: inherit; letter-spacing: 6px;
+  text-align: center; color: var(--gray-900);
+  margin-bottom: 12px;
+}
+.pw-input:focus { outline: none; border-color: var(--blue-mid); box-shadow: 0 0 0 3px rgba(46,107,181,0.12); }
+.pw-btn {
+  width: 100%; padding: 14px;
+  background: var(--blue); color: white; border: none;
+  border-radius: 10px; font-size: 15px; font-weight: 600;
+  font-family: inherit; cursor: pointer;
+}
+.pw-btn:active { background: #163F6E; }
+.pw-error { font-size: 13px; color: #C03030; margin-top: 10px; display: none; }
+.pw-error.show { display: block; }
+
+/* ===== MODAL / PREVIEW ===== */
 .ovl {
   display: none; position: fixed; inset: 0;
-  background: rgba(0,0,0,0.55); z-index: 200;
-  align-items: flex-start; justify-content: center;
-  padding: 20px; overflow-y: auto;
+  background: rgba(0,0,0,0.6); z-index: 200;
+  overflow-y: auto;
 }
-.ovl.show { display: flex; }
+.ovl.show { display: block; }
 .modal {
-  background: white;
-  border-radius: 12px;
-  width: 720px; max-width: 100%;
-  margin: auto;
+  background: white; margin: 0;
+  min-height: 100vh;
 }
 .modal-bar {
+  position: sticky; top: 0; z-index: 10;
+  background: white; border-bottom: 1px solid var(--border);
+  padding: 12px 16px;
   display: flex; justify-content: space-between; align-items: center;
-  padding: 14px 20px; border-bottom: 1px solid var(--border);
 }
 .modal-bar h3 { font-size: 15px; font-weight: 600; }
-.modal-actions { display: flex; gap: 8px; align-items: center; }
+.modal-actions { display: flex; gap: 8px; }
 .btn-print {
-  padding: 7px 18px;
-  background: var(--blue); color: white;
-  border: none; border-radius: 7px;
-  font-size: 13px; font-weight: 600; font-family: inherit;
-  cursor: pointer;
+  padding: 8px 16px;
+  background: var(--blue); color: white; border: none;
+  border-radius: 7px; font-size: 13px; font-weight: 600; font-family: inherit; cursor: pointer;
 }
-.btn-print:hover { background: #163F6E; }
 .close-btn {
-  width: 32px; height: 32px;
+  width: 36px; height: 36px;
   background: none; border: 1px solid var(--border);
-  border-radius: 7px; cursor: pointer;
-  font-size: 20px; color: var(--gray-500);
-  display: flex; align-items: center; justify-content: center;
-}
-.parea { padding: 32px 36px; font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; }
-
-/* PRINT STYLES */
-.ptitle { text-align: center; font-size: 24px; font-weight: 700; letter-spacing: 8px; margin-bottom: 22px; }
-.pmeta { display: grid; grid-template-columns: 1fr 1fr; border: 1.5px solid #333; margin-bottom: 14px; }
-.pml { border-right: 1.5px solid #333; padding: 12px 16px; }
-.pmr { padding: 12px 16px; }
-.mrow { display: flex; align-items: baseline; gap: 8px; margin-bottom: 7px; font-size: 13px; color: #222; }
-.mk { min-width: 80px; color: #666; font-size: 12px; }
-.stbl { width: 100%; border-collapse: collapse; font-size: 12px; }
-.stbl td { padding: 4px 8px; border: 0.5px solid #bbb; }
-.stbl .sk { color: #666; background: #f5f5f5; width: 80px; }
-.ptbl { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 13px; }
-.ptbl th { background: #f0f0f0; border: 1px solid #999; padding: 8px; font-weight: 700; text-align: center; }
-.ptbl td { border: 1px solid #ccc; padding: 7px 10px; }
-.ptbl .sub-row td { font-size: 12px; color: #555; background: #fafafa; }
-.psum td { font-weight: 700; background: #f0f0f0; font-size: 14px; }
-.pbank { font-size: 12px; margin-top: 12px; padding: 10px 14px; background: #f5f5f5; border-radius: 5px; }
-.pnote { font-size: 11px; color: #888; margin-top: 10px; }
-
-/* GROUP LABEL */
-.group-badge {
-  display: inline-block; font-size: 10px; padding: 2px 7px;
-  border-radius: 4px; background: var(--gray-100); color: var(--gray-500);
-  font-weight: 600; margin-left: 6px; vertical-align: middle;
+  border-radius: 7px; font-size: 22px; color: var(--gray-500);
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
 }
 
-@media (max-width: 600px) {
-  .form-grid.g2, .form-grid.g3 { grid-template-columns: 1fr; }
-  .price-display { grid-template-columns: 1fr; }
-  .qty-shortcuts { display: none; }
+/* ===== PRINT / PREVIEW AREA ===== */
+.parea { padding: 20px 16px; }
+
+/* 모바일 견적서 카드형 */
+.p-header {
+  text-align: center; font-size: 22px; font-weight: 700;
+  letter-spacing: 8px; margin-bottom: 18px; color: #111;
+}
+.p-info-box {
+  border: 1.5px solid #333; border-radius: 0;
+  margin-bottom: 14px; overflow: hidden;
+}
+.p-info-row {
+  display: flex; border-bottom: 1px solid #ddd;
+  font-size: 13px;
+}
+.p-info-row:last-child { border-bottom: none; }
+.p-info-key {
+  width: 80px; min-width: 80px; padding: 8px 10px;
+  background: #f5f5f5; color: #555; font-size: 12px;
+  border-right: 1px solid #ddd; font-weight: 500;
+}
+.p-info-val { padding: 8px 10px; color: #222; flex: 1; word-break: break-all; }
+
+.p-supplier {
+  border: 1.5px solid #333; border-radius: 0;
+  margin-bottom: 14px; overflow: hidden;
+}
+.p-supplier-title {
+  background: #f0f0f0; text-align: center;
+  padding: 7px; font-size: 13px; font-weight: 700;
+  border-bottom: 1px solid #ddd;
+}
+
+.p-note { font-size: 11px; color: #666; margin-bottom: 12px; line-height: 1.6; }
+
+/* 품목 카드형 */
+.p-item {
+  border: 1.5px solid #ccc; border-radius: 8px;
+  margin-bottom: 10px; overflow: hidden;
+}
+.p-item-name {
+  background: #f5f5f5; padding: 10px 14px;
+  font-size: 14px; font-weight: 700; color: #111;
+  border-bottom: 1px solid #ddd;
+}
+.p-item-rows { padding: 0; }
+.p-item-row {
+  display: flex; align-items: center;
+  padding: 9px 14px; border-bottom: 1px solid #eee;
+  font-size: 13px;
+}
+.p-item-row:last-child { border-bottom: none; }
+.p-item-row .k { color: #666; min-width: 60px; font-size: 12px; }
+.p-item-row .v { font-weight: 600; color: #111; margin-left: auto; }
+.p-item-row .tag-r {
+  font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px;
+  background: #EAF1FA; color: #1A4F8A; margin-right: 6px;
+}
+.p-item-row .tag-c {
+  font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px;
+  background: #FDF0E8; color: #C05010; margin-right: 6px;
+}
+.p-item-subtotal {
+  background: #f9f9f9; padding: 10px 14px;
+  display: flex; justify-content: space-between; align-items: center;
+  border-top: 1px solid #ddd;
+}
+.p-item-subtotal .sl { font-size: 12px; color: #888; }
+.p-item-subtotal .sv { font-size: 16px; font-weight: 700; color: #1A4F8A; }
+
+.p-total {
+  background: #1A4F8A; color: white;
+  border-radius: 8px; padding: 14px 16px;
+  display: flex; justify-content: space-between; align-items: center;
+  margin: 14px 0 12px;
+}
+.p-total .tl { font-size: 14px; opacity: 0.85; }
+.p-total .tv { font-size: 22px; font-weight: 700; }
+
+.p-bank {
+  font-size: 12px; color: #333;
+  padding: 10px 14px; background: #f5f5f5; border-radius: 6px; margin-bottom: 10px;
+}
+.p-footnote { font-size: 11px; color: #999; }
+
+@media print {
+  header, .modal-bar { display: none !important; }
+  .ovl { position: static !important; background: none !important; }
+  .modal { min-height: unset; }
+  .parea { padding: 10px; }
 }
 </style>
 </head>
 <body>
 
+<!-- 비밀번호 화면 -->
+<div class="pw-screen" id="pw-screen">
+  <div class="pw-box">
+    <div class="pw-logo">🎬</div>
+    <div class="pw-title">오션메이드 견적서</div>
+    <div class="pw-sub">비밀번호를 입력하세요</div>
+    <input class="pw-input" id="pw-input" type="password" maxlength="20"
+      onkeydown="if(event.key==='Enter') checkPw()">
+    <button class="pw-btn" onclick="checkPw()">확인</button>
+    <div class="pw-error" id="pw-error">비밀번호가 틀렸습니다</div>
+  </div>
+</div>
+
 <header>
   <h1>🎬 오션메이드 필름 견적서</h1>
-  <span>예림 인테리어 필름 단가표 25.12 기준</span>
+  <span>예림 단가표 25.12</span>
 </header>
 
 <div class="container">
-
   <!-- 거래처 -->
   <div class="card">
     <div class="card-header">
@@ -377,11 +431,11 @@ header span { font-size: 12px; opacity: 0.7; }
       <h2>거래처 정보</h2>
     </div>
     <div class="card-body">
-      <div class="form-grid g2">
-        <div class="field"><label>거래처명</label><input id="client" type="text" placeholder="예: 새로이홈"></div>
-        <div class="field"><label>현장명 (선택)</label><input id="site" type="text" placeholder="예: 부영아파트 401호"></div>
+      <div class="row2">
+        <div class="field"><label>거래처명</label><input id="client" type="text"></div>
+        <div class="field"><label>현장명 (선택)</label><input id="site" type="text"></div>
       </div>
-      <div class="form-grid g3" style="margin-top:14px">
+      <div class="row3">
         <div class="field"><label>접수일</label><input id="rdate" type="date"></div>
         <div class="field"><label>출고일</label><input id="sdate" type="date"></div>
         <div class="field"><label>출고방식</label>
@@ -405,16 +459,14 @@ header span { font-size: 12px; opacity: 0.7; }
     </div>
   </div>
 
-  <!-- 합계 -->
   <div class="total-bar">
-    <span class="label">총 합계</span>
-    <span class="amount" id="total-display">0 원</span>
+    <span class="lbl">총 합계</span>
+    <span class="amt" id="total-display">0 원</span>
   </div>
 
-  <!-- 액션 -->
   <div class="actions">
     <button class="btn-reset" onclick="resetForm()">↺ 초기화</button>
-    <button class="btn-preview" onclick="showPreview()">견적서 미리보기 →</button>
+    <button class="btn-preview" onclick="showPreview()">견적서 보기 →</button>
   </div>
 </div>
 
@@ -422,9 +474,9 @@ header span { font-size: 12px; opacity: 0.7; }
 <div class="ovl" id="ovl">
   <div class="modal">
     <div class="modal-bar">
-      <h3>견적서 미리보기</h3>
+      <h3>견적서</h3>
       <div class="modal-actions">
-        <button class="btn-print" onclick="doPrint()">🖨 인쇄 / PDF 저장</button>
+        <button class="btn-print" onclick="doPrint()">🖨 인쇄/저장</button>
         <button class="close-btn" onclick="closePreview()">×</button>
       </div>
     </div>
@@ -434,360 +486,299 @@ header span { font-size: 12px; opacity: 0.7; }
 
 <script>
 const ROLL_M = 25;
+const PASSWORD = '8253'; // ← 여기서 비밀번호 변경
+
+function checkPw(){
+  const val = document.getElementById('pw-input').value;
+  if(val === PASSWORD){
+    document.getElementById('pw-screen').classList.add('hidden');
+    sessionStorage.setItem('auth','1');
+  } else {
+    const err = document.getElementById('pw-error');
+    err.classList.add('show');
+    document.getElementById('pw-input').value='';
+    setTimeout(()=>err.classList.remove('show'), 2000);
+  }
+}
+// 세션 유지
+if(sessionStorage.getItem('auth')==='1'){
+  document.getElementById('pw-screen').classList.add('hidden');
+}
+// 포커스
+setTimeout(()=>{ const i=document.getElementById('pw-input'); if(i) i.focus(); }, 100);
 
 const PRODUCTS = [
-  {label:'HSM 슈퍼매트 (01-34)', group:'솔리드', roll:7600, cut:10400},
-  {label:'HA 슈퍼매트 (911)', group:'솔리드', roll:7600, cut:10400},
-  {label:'HS 솔리드 (001-053)', group:'솔리드', roll:5200, cut:8000},
-  {label:'HE 텍스처/펄 (401-406)', group:'솔리드', roll:5400, cut:8400},
-  {label:'HE 텍스처/펄 (407)', group:'솔리드', roll:7600, cut:11800},
-  {label:'HP 페인티드우드 (505-517)', group:'솔리드', roll:5200, cut:8000},
-  {label:'HP 페인티드우드 (501-504, 518-540)', group:'솔리드', roll:5400, cut:8400},
-  {label:'HW 우드 (얇은글씨)', group:'우드', roll:5400, cut:8400},
-  {label:'HWB 우드 (굵은글씨)', group:'우드', roll:5800, cut:8900},
-  {label:'HPW 키친우드 (20-24)', group:'우드', roll:5400, cut:8400},
-  {label:'HN 스톤 (2001-2013)', group:'스톤', roll:5800, cut:8900},
-  {label:'HM 마블 (2101-2104)', group:'마블', roll:5800, cut:8900},
-  {label:'HT 메탈 (2301-2309)', group:'메탈', roll:6000, cut:9200},
-  {label:'HF 패브릭 (2201-2210)', group:'패브릭', roll:5800, cut:8900},
-  {label:'HCP 세라믹 (01-04)', group:'세라믹', roll:5800, cut:8900},
-  {label:'HLC 콘크리트 (010-011)', group:'콘크리트', roll:5800, cut:8900},
-  {label:'HC 솔리드향균 (801-804)', group:'향균', roll:5200, cut:8000},
-  {label:'HLC 우드향균 (1851-1852)', group:'향균', roll:5400, cut:8400},
-  {label:'HR 리얼우드 (3001-3008)', group:'프리미엄우드', roll:10900, cut:16900},
-  {label:'HU 리얼터치우드 (3301-3304)', group:'프리미엄우드', roll:12800, cut:19800},
-  {label:'HI PP SOLID (4001, 4002)', group:'프리미엄우드', roll:14000, cut:21600},
-  {label:'HO PP WOOD (4301-4303)', group:'프리미엄우드', roll:14000, cut:21600},
+  {label:'HSM 슈퍼매트 (01-34)',          group:'솔리드',     roll:7600,  cut:10400},
+  {label:'HA 슈퍼매트 (911)',              group:'솔리드',     roll:7600,  cut:10400},
+  {label:'HS 솔리드 (001-053)',            group:'솔리드',     roll:5200,  cut:8000},
+  {label:'HE 텍스처/펄 (401-406)',         group:'솔리드',     roll:5400,  cut:8400},
+  {label:'HE 텍스처/펄 (407)',             group:'솔리드',     roll:7600,  cut:11800},
+  {label:'HP 페인티드우드 (505-517)',       group:'솔리드',     roll:5200,  cut:8000},
+  {label:'HP 페인티드우드 (501-504,518-540)',group:'솔리드',   roll:5400,  cut:8400},
+  {label:'HW 우드 (얇은글씨)',             group:'우드',       roll:5400,  cut:8400},
+  {label:'HWB 우드 (굵은글씨)',            group:'우드',       roll:5800,  cut:8900},
+  {label:'HPW 키친우드 (20-24)',           group:'우드',       roll:5400,  cut:8400},
+  {label:'HN 스톤 (2001-2013)',            group:'스톤',       roll:5800,  cut:8900},
+  {label:'HM 마블 (2101-2104)',            group:'마블',       roll:5800,  cut:8900},
+  {label:'HT 메탈 (2301-2309)',            group:'메탈',       roll:6000,  cut:9200},
+  {label:'HF 패브릭 (2201-2210)',          group:'패브릭',     roll:5800,  cut:8900},
+  {label:'HCP 세라믹 (01-04)',             group:'세라믹',     roll:5800,  cut:8900},
+  {label:'HLC 콘크리트 (010-011)',         group:'콘크리트',   roll:5800,  cut:8900},
+  {label:'HC 솔리드향균 (801-804)',        group:'향균',       roll:5200,  cut:8000},
+  {label:'HLC 우드향균 (1851-1852)',       group:'향균',       roll:5400,  cut:8400},
+  {label:'HR 리얼우드 (3001-3008)',        group:'프리미엄우드',roll:10900, cut:16900},
+  {label:'HU 리얼터치우드 (3301-3304)',    group:'프리미엄우드',roll:12800, cut:19800},
+  {label:'HI PP SOLID (4001,4002)',        group:'프리미엄우드',roll:14000, cut:21600},
+  {label:'HO PP WOOD (4301-4303)',         group:'프리미엄우드',roll:14000, cut:21600},
 ];
 
 let items = [];
-let itemCounter = 0;
+let cnt = 0;
 
-function todayStr() { return new Date().toISOString().slice(0,10); }
-document.getElementById('rdate').value = todayStr();
-document.getElementById('sdate').value = todayStr();
+function today(){ return new Date().toISOString().slice(0,10); }
+document.getElementById('rdate').value = today();
+document.getElementById('sdate').value = today();
 
-function calcAmt(qty, rollP, cutP) {
-  if (qty <= 0) return { amt: 0, rollM: 0, cutM: 0 };
-  const rolls = Math.floor(qty / ROLL_M);
-  const rem = qty % ROLL_M;
-  const rollM = rolls * ROLL_M;
-  const cutM = rem;
-  const amt = rollM * rollP + cutM * cutP;
-  return { amt, rollM, cutM };
+function calc(qty, r, c){
+  if(qty<=0) return {amt:0,rollM:0,cutM:0};
+  const rollM = Math.floor(qty/ROLL_M)*ROLL_M;
+  const cutM  = qty % ROLL_M;
+  return { amt: rollM*r + cutM*c, rollM, cutM };
 }
 
-function groupedOptions() {
-  const groups = {};
-  PRODUCTS.forEach((p, i) => {
-    if (!groups[p.group]) groups[p.group] = [];
-    groups[p.group].push({ ...p, idx: i });
-  });
-  let html = '';
-  for (const [grp, prods] of Object.entries(groups)) {
-    html += `<optgroup label="── ${grp} ──">`;
-    prods.forEach(p => {
-      html += `<option value="${p.idx}">${p.label}</option>`;
-    });
-    html += `</optgroup>`;
-  }
-  return html;
+function groupedOpts(){
+  const g={};
+  PRODUCTS.forEach((p,i)=>{ if(!g[p.group]) g[p.group]=[]; g[p.group].push({...p,i}); });
+  return Object.entries(g).map(([grp,ps])=>
+    `<optgroup label="── ${grp} ──">${ps.map(p=>`<option value="${p.i}">${p.label}</option>`).join('')}</optgroup>`
+  ).join('');
 }
 
-function addItem() {
-  const id = itemCounter++;
-  items.push({ id, pidx: 0, color: '', qty: 5, customRoll: PRODUCTS[0].roll, customCut: PRODUCTS[0].cut });
+function addItem(){
+  const id=cnt++;
+  items.push({id,pidx:0,color:'',qty:5,r:PRODUCTS[0].roll,c:PRODUCTS[0].cut});
   renderAll();
 }
+function removeItem(id){ items=items.filter(x=>x.id!==id); renderAll(); }
+function get(id){ return items.find(x=>x.id===id); }
 
-function removeItem(id) {
-  items = items.filter(it => it.id !== id);
+function onProd(id,val){
+  const it=get(id); it.pidx=+val;
+  const p=PRODUCTS[it.pidx]; it.r=p.roll; it.c=p.cut;
   renderAll();
 }
+function onColor(id,v){ get(id).color=v; }
+function onQty(id,v){ get(id).qty=+v||0; renderAll(); }
+function stepQty(id,d){ const it=get(id); it.qty=Math.max(0,it.qty+d); renderAll(); }
+function setQty(id,v){ get(id).qty=v; renderAll(); }
 
-function getItem(id) { return items.find(it => it.id === id); }
-
-function renderAll() {
-  const wrap = document.getElementById('items-wrap');
-  wrap.innerHTML = '';
-  let total = 0;
-  items.forEach((it, idx) => {
-    const { amt } = calcAmt(it.qty, it.customRoll, it.customCut);
-    total += amt;
-    wrap.appendChild(buildItemEl(it, idx + 1));
+function renderAll(){
+  const wrap=document.getElementById('items-wrap');
+  wrap.innerHTML='';
+  let total=0;
+  items.forEach((it,idx)=>{
+    const {amt}=calc(it.qty,it.r,it.c);
+    total+=amt;
+    wrap.appendChild(buildEl(it,idx+1));
   });
-  document.getElementById('total-display').textContent = total.toLocaleString() + ' 원';
+  document.getElementById('total-display').textContent=total.toLocaleString()+' 원';
 }
 
-function buildItemEl(it, num) {
-  const p = PRODUCTS[it.pidx];
-  const { amt, rollM, cutM } = calcAmt(it.qty, it.customRoll, it.customCut);
+function buildEl(it,num){
+  const p=PRODUCTS[it.pidx];
+  const {amt,rollM,cutM}=calc(it.qty,it.r,it.c);
+  const div=document.createElement('div');
+  div.className='item-card';
 
-  const div = document.createElement('div');
-  div.className = 'item-card';
-  div.dataset.id = it.id;
-
-  // breakdown chips
-  let breakdownHtml = '';
-  if (it.qty > 0) {
-    if (rollM > 0 && cutM > 0) {
-      breakdownHtml = `
-        <div class="breakdown-chip roll-chip">
-          <span class="chip-tag">롤</span>
-          <span>${rollM}m × ${it.customRoll.toLocaleString()} =</span>
-          <span class="chip-amt">${(rollM * it.customRoll).toLocaleString()}원</span>
+  let chips='';
+  if(it.qty>0){
+    if(rollM>0&&cutM>0){
+      chips=`
+        <div class="bd-chip roll-chip">
+          <div class="chip-left"><span class="chip-tag">롤</span><span class="chip-desc">${rollM}m × ${it.r.toLocaleString()}원</span></div>
+          <span class="chip-amt">${(rollM*it.r).toLocaleString()}원</span>
         </div>
-        <div style="font-size:18px;color:#ccc;align-self:center">+</div>
-        <div class="breakdown-chip cut-chip">
-          <span class="chip-tag">절단</span>
-          <span>${cutM}m × ${it.customCut.toLocaleString()} =</span>
-          <span class="chip-amt">${(cutM * it.customCut).toLocaleString()}원</span>
+        <div class="bd-chip cut-chip">
+          <div class="chip-left"><span class="chip-tag">절단</span><span class="chip-desc">${cutM}m × ${it.c.toLocaleString()}원</span></div>
+          <span class="chip-amt">${(cutM*it.c).toLocaleString()}원</span>
         </div>`;
-    } else if (rollM > 0) {
-      breakdownHtml = `
-        <div class="breakdown-chip roll-chip">
-          <span class="chip-tag">롤</span>
-          <span>${rollM}m × ${it.customRoll.toLocaleString()} =</span>
-          <span class="chip-amt">${amt.toLocaleString()}원</span>
-        </div>`;
+    } else if(rollM>0){
+      chips=`<div class="bd-chip roll-chip">
+        <div class="chip-left"><span class="chip-tag">롤</span><span class="chip-desc">${rollM}m × ${it.r.toLocaleString()}원</span></div>
+        <span class="chip-amt">${amt.toLocaleString()}원</span>
+      </div>`;
     } else {
-      breakdownHtml = `
-        <div class="breakdown-chip cut-chip">
-          <span class="chip-tag">절단</span>
-          <span>${cutM}m × ${it.customCut.toLocaleString()} =</span>
-          <span class="chip-amt">${amt.toLocaleString()}원</span>
-        </div>`;
+      chips=`<div class="bd-chip cut-chip">
+        <div class="chip-left"><span class="chip-tag">절단</span><span class="chip-desc">${cutM}m × ${it.c.toLocaleString()}원</span></div>
+        <span class="chip-amt">${amt.toLocaleString()}원</span>
+      </div>`;
     }
   }
 
-  div.innerHTML = `
-    <div class="item-header">
+  div.innerHTML=`
+    <div class="item-head">
       <div class="item-num">${num}</div>
-      <select onchange="onProductChange(${it.id}, this.value)">${groupedOptions()}</select>
+      <select onchange="onProd(${it.id},this.value)">${groupedOpts()}</select>
       <button class="del-btn" onclick="removeItem(${it.id})">×</button>
     </div>
     <div class="item-body">
-
-      <div class="color-input-row">
-        <div class="field" style="flex:1">
-          <label>색상명 직접입력 <span class="group-badge">${p.group}</span></label>
-          <input type="text" value="${it.color}" placeholder="예: HWB1064 오크딥" oninput="onColorChange(${it.id}, this.value)">
-        </div>
+      <div class="color-field">
+        <label>색상명 직접입력</label>
+        <input type="text" value="${it.color}" oninput="onColor(${it.id},this.value)">
       </div>
-
-      <div class="price-display">
+      <div class="price-row">
         <div class="price-box roll">
-          <div class="price-box-left">
-            <div class="price-tag">롤 단가 (25m 이상)</div>
-            <div class="price-value">${it.customRoll.toLocaleString()}<span class="price-unit">원/m</span></div>
-          </div>
-          <div class="price-input-wrap">
-            <label style="font-size:11px;color:#1A4F8A;display:block;margin-bottom:3px">수정</label>
-            <input type="number" value="${it.customRoll}" oninput="onPriceChange(${it.id},'roll',this.value)">
-          </div>
+          <div class="price-tag">롤 단가 (25m↑)</div>
+          <div class="price-val">${it.r.toLocaleString()}<span class="price-unit-txt">원/m</span></div>
+          <div class="price-edit"><span class="price-locked">${it.r.toLocaleString()}</span></div>
         </div>
         <div class="price-box cut">
-          <div class="price-box-left">
-            <div class="price-tag">절단 단가 (25m 미만)</div>
-            <div class="price-value">${it.customCut.toLocaleString()}<span class="price-unit">원/m</span></div>
+          <div class="price-tag">절단 단가 (25m↓)</div>
+          <div class="price-val">${it.c.toLocaleString()}<span class="price-unit-txt">원/m</span></div>
+          <div class="price-edit"><span class="price-locked">${it.c.toLocaleString()}</span></div>
+        </div>
+      </div>
+      <div class="qty-box">
+        <div class="qty-top">
+          <span class="qty-label">수 량</span>
+          <div class="qty-stepper">
+            <button class="qty-btn" onclick="stepQty(${it.id},-5)">−</button>
+            <input class="qty-input" type="number" value="${it.qty}" oninput="onQty(${it.id},this.value)">
+            <button class="qty-btn" onclick="stepQty(${it.id},5)">＋</button>
           </div>
-          <div class="price-input-wrap">
-            <label style="font-size:11px;color:#D05A1A;display:block;margin-bottom:3px">수정</label>
-            <input type="number" value="${it.customCut}" oninput="onPriceChange(${it.id},'cut',this.value)">
-          </div>
+          <span class="qty-unit">m</span>
+        </div>
+        <div class="qty-shorts">
+          ${[5,10,15,20,25,30,40,50,75,100].map(q=>`<button class="qty-short" onclick="setQty(${it.id},${q})">${q}m</button>`).join('')}
         </div>
       </div>
-
-      <div class="qty-row">
-        <span class="qty-label">수 량</span>
-        <div class="qty-stepper">
-          <button class="qty-btn" onclick="changeQty(${it.id}, -5)">−</button>
-          <input class="qty-input" type="number" value="${it.qty}" min="0" step="5" oninput="onQtyChange(${it.id}, this.value)">
-          <button class="qty-btn" onclick="changeQty(${it.id}, 5)">＋</button>
-        </div>
-        <span class="qty-unit">m</span>
-        <div class="qty-shortcuts">
-          ${[5,10,15,20,25,30,40,50].map(q=>`<button class="qty-short-btn" onclick="setQty(${it.id},${q})">${q}m</button>`).join('')}
-        </div>
+      <div class="breakdown">
+        <div class="bd-title">계산 내역</div>
+        <div class="bd-chips">${chips}</div>
+        <div class="bd-total"><span class="lbl">소계</span><span class="val">${amt.toLocaleString()} 원</span></div>
       </div>
+    </div>`;
 
-      <div class="breakdown-row">
-        <div class="breakdown-title">계산 내역</div>
-        <div class="breakdown-items">${breakdownHtml}</div>
-        <div class="breakdown-total">
-          <span class="label">소계</span>
-          <span class="val">${amt.toLocaleString()} 원</span>
-        </div>
-      </div>
-
-    </div>
-  `;
-
-  div.querySelector('select').value = it.pidx;
+  div.querySelector('select').value=it.pidx;
   return div;
 }
 
-function onProductChange(id, pidx) {
-  const it = getItem(id);
-  it.pidx = Number(pidx);
-  const p = PRODUCTS[it.pidx];
-  it.customRoll = p.roll;
-  it.customCut = p.cut;
-  renderAll();
-}
-function onColorChange(id, val) { getItem(id).color = val; updateTotal(); }
-function onPriceChange(id, field, val) {
-  const it = getItem(id);
-  if (field === 'roll') it.customRoll = Number(val) || 0;
-  else it.customCut = Number(val) || 0;
-  renderAll();
-}
-function onQtyChange(id, val) { getItem(id).qty = Number(val) || 0; renderAll(); }
-function changeQty(id, delta) {
-  const it = getItem(id);
-  it.qty = Math.max(0, it.qty + delta);
-  renderAll();
-}
-function setQty(id, val) { getItem(id).qty = val; renderAll(); }
-function updateTotal() {
-  const total = items.reduce((s, it) => s + calcAmt(it.qty, it.customRoll, it.customCut).amt, 0);
-  document.getElementById('total-display').textContent = total.toLocaleString() + ' 원';
+function resetForm(){
+  if(items.length>0&&!confirm('초기화할까요?')) return;
+  document.getElementById('client').value='';
+  document.getElementById('site').value='';
+  document.getElementById('rdate').value=today();
+  document.getElementById('sdate').value=today();
+  document.getElementById('smethod').value='직접출고';
+  items=[]; cnt=0; renderAll();
 }
 
-function resetForm() {
-  if (items.length > 0 && !confirm('초기화하시겠습니까?')) return;
-  document.getElementById('client').value = '';
-  document.getElementById('site').value = '';
-  document.getElementById('rdate').value = todayStr();
-  document.getElementById('sdate').value = todayStr();
-  document.getElementById('smethod').value = '직접출고';
-  items = []; itemCounter = 0;
-  renderAll();
-}
+function showPreview(){
+  const client=document.getElementById('client').value||'(거래처명)';
+  const site=document.getElementById('site').value||'';
+  const rd=document.getElementById('rdate').value;
+  const sd=document.getElementById('sdate').value;
+  const sm=document.getElementById('smethod').value;
+  let total=0;
 
-function showPreview() {
-  const client = document.getElementById('client').value || '(거래처명)';
-  const site = document.getElementById('site').value || '';
-  const rd = document.getElementById('rdate').value;
-  const sd = document.getElementById('sdate').value;
-  const sm = document.getElementById('smethod').value;
-
-  let rows = '';
-  let total = 0;
-
-  items.forEach(it => {
-    const p = PRODUCTS[it.pidx];
-    const { amt, rollM, cutM } = calcAmt(it.qty, it.customRoll, it.customCut);
-    total += amt;
-    const name = it.color || p.label;
-
-    if (rollM > 0 && cutM > 0) {
-      rows += `<tr>
-        <td rowspan="2">${name}</td>
-        <td style="text-align:center">${rollM}m</td>
-        <td style="text-align:right">${it.customRoll.toLocaleString()}</td>
-        <td style="text-align:right">${(rollM * it.customRoll).toLocaleString()}</td>
-        <td style="text-align:center;font-size:11px;color:#1A4F8A;font-weight:700">롤단가</td>
-      </tr>
-      <tr class="sub-row">
-        <td style="text-align:center">${cutM}m</td>
-        <td style="text-align:right">${it.customCut.toLocaleString()}</td>
-        <td style="text-align:right">${(cutM * it.customCut).toLocaleString()}</td>
-        <td style="text-align:center;font-size:11px;color:#D05A1A;font-weight:700">절단가</td>
-      </tr>`;
+  const itemsHtml = items.map(it=>{
+    const p=PRODUCTS[it.pidx];
+    const {amt,rollM,cutM}=calc(it.qty,it.r,it.c);
+    total+=amt;
+    const name=it.color||p.label;
+    let rows='';
+    if(rollM>0&&cutM>0){
+      rows+=`<div class="p-item-row">
+        <span class="k"><span class="tag-r">롤</span>${rollM}m</span>
+        <span>× ${it.r.toLocaleString()}원/m</span>
+        <span class="v">${(rollM*it.r).toLocaleString()}원</span>
+      </div>
+      <div class="p-item-row">
+        <span class="k"><span class="tag-c">절단</span>${cutM}m</span>
+        <span>× ${it.c.toLocaleString()}원/m</span>
+        <span class="v">${(cutM*it.c).toLocaleString()}원</span>
+      </div>`;
     } else {
-      const m = rollM || cutM;
-      const pr = rollM > 0 ? it.customRoll : it.customCut;
-      const tag = rollM > 0 ? '롤단가' : '절단가';
-      const tagColor = rollM > 0 ? '#1A4F8A' : '#D05A1A';
-      rows += `<tr>
-        <td>${name}</td>
-        <td style="text-align:center">${m}m</td>
-        <td style="text-align:right">${pr.toLocaleString()}</td>
-        <td style="text-align:right">${amt.toLocaleString()}</td>
-        <td style="text-align:center;font-size:11px;color:${tagColor};font-weight:700">${tag}</td>
-      </tr>`;
+      const m=rollM||cutM; const pr=rollM>0?it.r:it.c;
+      const tag=rollM>0?'<span class="tag-r">롤</span>':'<span class="tag-c">절단</span>';
+      rows+=`<div class="p-item-row">
+        <span class="k">${tag}${m}m</span>
+        <span>× ${pr.toLocaleString()}원/m</span>
+        <span class="v">${amt.toLocaleString()}원</span>
+      </div>`;
     }
-  });
+    return `<div class="p-item">
+      <div class="p-item-name">${name}</div>
+      <div class="p-item-rows">${rows}</div>
+      <div class="p-item-subtotal"><span class="sl">소계</span><span class="sv">${amt.toLocaleString()}원</span></div>
+    </div>`;
+  }).join('');
 
-  document.getElementById('parea').innerHTML = `
-    <div class="ptitle">견 &nbsp; 적 &nbsp; 서</div>
-    <div class="pmeta">
-      <div class="pml">
-        <div class="mrow"><span class="mk">거 래 처 명</span><span>: ${client}</span></div>
-        <div class="mrow"><span class="mk">현 &nbsp;장 &nbsp;명</span><span>: ${site}</span></div>
-        <div class="mrow"><span class="mk">접 &nbsp;수 &nbsp;일</span><span>: ${rd}</span></div>
-        <div class="mrow"><span class="mk">출 &nbsp;고 &nbsp;일</span><span>: ${sd}</span></div>
-        <div class="mrow"><span class="mk">출 고 방 식</span><span>: ${sm}</span></div>
-      </div>
-      <div class="pmr">
-        <table class="stbl">
-          <tr><td colspan="2" style="text-align:center;font-weight:700;padding:5px;background:#f0f0f0">공 &nbsp;급 &nbsp;자</td></tr>
-          <tr><td class="sk">등록번호</td><td>591-86-03453</td></tr>
-          <tr><td class="sk">상호(법인명)</td><td>오션메이드</td></tr>
-          <tr><td class="sk">성명</td><td>정근도 (인)</td></tr>
-          <tr><td class="sk">사업장 주소</td><td style="font-size:11px">충남 아산시 신창면 환경공원로 213-9</td></tr>
-          <tr><td class="sk">업태</td><td>제조, 유통</td></tr>
-          <tr><td class="sk">업종</td><td>가구도어, 필름</td></tr>
-          <tr><td class="sk">전화번호</td><td>041) 534-7475</td></tr>
-        </table>
-      </div>
+  document.getElementById('parea').innerHTML=`
+    <div class="p-header">견 &nbsp; 적 &nbsp; 서</div>
+    <div class="p-info-box">
+      <div class="p-info-row"><div class="p-info-key">거래처명</div><div class="p-info-val">${client}</div></div>
+      ${site?`<div class="p-info-row"><div class="p-info-key">현장명</div><div class="p-info-val">${site}</div></div>`:''}
+      <div class="p-info-row"><div class="p-info-key">접수일</div><div class="p-info-val">${rd}</div></div>
+      <div class="p-info-row"><div class="p-info-key">출고일</div><div class="p-info-val">${sd}</div></div>
+      <div class="p-info-row"><div class="p-info-key">출고방식</div><div class="p-info-val">${sm}</div></div>
     </div>
-    <div style="font-size:11px;color:#666;margin-bottom:10px">
-      ※ 인테리어 필름은 5m 단위 절단 가능 &nbsp;|&nbsp; 25m 이상 구매 시 롤단가 적용
+    <div class="p-supplier">
+      <div class="p-supplier-title">공 &nbsp; 급 &nbsp; 자</div>
+      <div class="p-info-row"><div class="p-info-key">상호</div><div class="p-info-val">오션메이드</div></div>
+      <div class="p-info-row"><div class="p-info-key">등록번호</div><div class="p-info-val">591-86-03453</div></div>
+      <div class="p-info-row"><div class="p-info-key">성명</div><div class="p-info-val">정근도 (인)</div></div>
+      <div class="p-info-row"><div class="p-info-key">주소</div><div class="p-info-val">충남 아산시 신창면 환경공원로 213-9</div></div>
+      <div class="p-info-row"><div class="p-info-key">전화</div><div class="p-info-val">041) 534-7475</div></div>
     </div>
-    <table class="ptbl">
-      <thead>
-        <tr>
-          <th style="width:35%">색상명</th>
-          <th style="width:12%">수량</th>
-          <th style="width:16%">단가(m)</th>
-          <th style="width:18%">금액</th>
-          <th style="width:19%">비고</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${rows}
-        <tr class="psum">
-          <td colspan="3" style="text-align:right;font-size:14px">총 합계</td>
-          <td style="text-align:right;font-size:16px">${total.toLocaleString()}</td>
-          <td></td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="pbank"><strong>입금계좌 :</strong> 332-135674-04-011 기업은행 &nbsp; 예금주 : 주식회사 오션메이드</div>
-    <div class="pnote">※ 본 견적서는 양도소득세 공제용 견적서가 아닙니다.</div>
+    <div class="p-note">※ 인테리어 필름 5m 단위 절단 가능 &nbsp;|&nbsp; 25m 이상 롤단가 적용</div>
+    ${itemsHtml}
+    <div class="p-total"><span class="tl">총 합계</span><span class="tv">${total.toLocaleString()} 원</span></div>
+    <div class="p-bank"><strong>입금계좌:</strong> 332-135674-04-011 기업은행 &nbsp; 예금주: 주식회사 오션메이드</div>
+    <div class="p-footnote">※ 본 견적서는 양도소득세 공제용 견적서가 아닙니다.</div>
   `;
   document.getElementById('ovl').classList.add('show');
+  document.getElementById('ovl').scrollTop=0;
 }
 
-function closePreview() { document.getElementById('ovl').classList.remove('show'); }
+function closePreview(){ document.getElementById('ovl').classList.remove('show'); }
 
-function doPrint() {
-  const content = document.getElementById('parea').innerHTML;
-  const win = window.open('', '_blank', 'width=800,height=950');
-  win.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>견적서 - 오션메이드</title>
+function doPrint(){
+  const content=document.getElementById('parea').innerHTML;
+  const win=window.open('','_blank','width=420,height=900');
+  win.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>견적서</title>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:'Malgun Gothic','Apple SD Gothic Neo',sans-serif;padding:30px 40px;color:#111}
-    .ptitle{text-align:center;font-size:24px;font-weight:700;letter-spacing:8px;margin-bottom:20px}
-    .pmeta{display:grid;grid-template-columns:1fr 1fr;border:1.5px solid #333;margin-bottom:14px}
-    .pml{border-right:1.5px solid #333;padding:12px 16px}.pmr{padding:12px 16px}
-    .mrow{display:flex;align-items:baseline;gap:8px;margin-bottom:7px;font-size:13px}.mk{min-width:80px;color:#666;font-size:12px}
-    .stbl{width:100%;border-collapse:collapse;font-size:12px}.stbl td{padding:4px 8px;border:.5px solid #bbb}.stbl .sk{color:#666;background:#f5f5f5;width:80px}
-    .ptbl{width:100%;border-collapse:collapse;margin-top:12px;font-size:13px}
-    .ptbl th{background:#f0f0f0;border:1px solid #999;padding:8px;font-weight:700;text-align:center}
-    .ptbl td{border:1px solid #ccc;padding:7px 10px}
-    .sub-row td{font-size:12px;color:#555;background:#fafafa}
-    .psum td{font-weight:700;background:#f0f0f0;font-size:14px}
-    .pbank{font-size:12px;margin-top:12px;padding:10px 14px;background:#f5f5f5;border-radius:4px}
-    .pnote{font-size:11px;color:#888;margin-top:10px}
-    @media print{body{padding:16px 24px}}
+    body{font-family:'Malgun Gothic','Apple SD Gothic Neo',sans-serif;padding:16px;color:#111;max-width:480px;margin:0 auto}
+    .p-header{text-align:center;font-size:22px;font-weight:700;letter-spacing:8px;margin-bottom:16px}
+    .p-info-box,.p-supplier{border:1.5px solid #333;margin-bottom:12px;overflow:hidden}
+    .p-info-row{display:flex;border-bottom:1px solid #ddd;font-size:13px}
+    .p-info-row:last-child{border-bottom:none}
+    .p-info-key{width:80px;min-width:80px;padding:8px 10px;background:#f5f5f5;color:#555;font-size:12px;border-right:1px solid #ddd;font-weight:500}
+    .p-info-val{padding:8px 10px;color:#222;flex:1;word-break:break-all}
+    .p-supplier-title{background:#f0f0f0;text-align:center;padding:7px;font-size:13px;font-weight:700;border-bottom:1px solid #ddd}
+    .p-note{font-size:11px;color:#666;margin-bottom:10px;line-height:1.6}
+    .p-item{border:1.5px solid #ccc;border-radius:6px;margin-bottom:8px;overflow:hidden}
+    .p-item-name{background:#f5f5f5;padding:9px 12px;font-size:14px;font-weight:700;border-bottom:1px solid #ddd}
+    .p-item-row{display:flex;align-items:center;padding:8px 12px;border-bottom:1px solid #eee;font-size:13px}
+    .p-item-row:last-child{border-bottom:none}
+    .p-item-row .k{color:#666;min-width:70px;font-size:12px}
+    .p-item-row .v{font-weight:700;color:#111;margin-left:auto}
+    .tag-r{font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;background:#EAF1FA;color:#1A4F8A;margin-right:4px}
+    .tag-c{font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;background:#FDF0E8;color:#C05010;margin-right:4px}
+    .p-item-subtotal{background:#f9f9f9;padding:9px 12px;display:flex;justify-content:space-between;border-top:1px solid #ddd}
+    .p-item-subtotal .sl{font-size:12px;color:#888}
+    .p-item-subtotal .sv{font-size:15px;font-weight:700;color:#1A4F8A}
+    .p-total{background:#1A4F8A;color:white;border-radius:6px;padding:12px 16px;display:flex;justify-content:space-between;margin:12px 0 10px}
+    .p-total .tl{font-size:13px;opacity:.85}
+    .p-total .tv{font-size:20px;font-weight:700}
+    .p-bank{font-size:12px;padding:9px 12px;background:#f5f5f5;border-radius:4px;margin-bottom:8px}
+    .p-footnote{font-size:11px;color:#999}
+    @media print{body{padding:8px}}
   </style></head><body>${content}<script>window.onload=()=>window.print()<\/script></body></html>`);
   win.document.close();
 }
 
-// 초기 품목 1개
 addItem();
 </script>
 </body>
