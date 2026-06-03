@@ -297,6 +297,11 @@ header span { font-size: 11px; opacity: 0.65; }
 }
 .modal-bar h3 { font-size: 15px; font-weight: 600; }
 .modal-actions { display: flex; gap: 8px; }
+.btn-confirm {
+  padding: 8px 16px;
+  background: #1A7A4A; color: white; border: none;
+  border-radius: 7px; font-size: 13px; font-weight: 600; font-family: inherit; cursor: pointer;
+}
 .btn-print {
   padding: 8px 16px;
   background: var(--blue); color: white; border: none;
@@ -413,6 +418,27 @@ header span { font-size: 11px; opacity: 0.65; }
 }
 .p-footnote { font-size: 11px; color: #999; }
 
+/* STATS */
+.stats-section { margin-bottom: 20px; }
+.stats-section h4 { font-size: 13px; font-weight: 600; color: var(--gray-700); margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+.stat-card { background: var(--gray-50); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; margin-bottom: 8px; }
+.stat-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.stat-name { font-size: 13px; font-weight: 600; color: var(--gray-900); flex: 1; }
+.stat-qty { font-size: 12px; color: var(--gray-500); min-width: 50px; text-align: right; }
+.stat-amt { font-size: 14px; font-weight: 700; color: var(--blue); min-width: 90px; text-align: right; }
+.stat-bar-wrap { height: 6px; background: var(--border); border-radius: 3px; }
+.stat-bar { height: 6px; background: var(--blue); border-radius: 3px; transition: width 0.3s; }
+.stat-bar.orange { background: var(--orange); }
+.stats-empty { text-align: center; padding: 40px; color: var(--gray-500); font-size: 14px; }
+.stat-summary { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+.summary-box { background: var(--blue); color: white; border-radius: 10px; padding: 14px; text-align: center; }
+.summary-box.green { background: #1A7A4A; }
+.summary-box .s-lbl { font-size: 11px; opacity: 0.8; margin-bottom: 4px; }
+.summary-box .s-val { font-size: 20px; font-weight: 700; }
+.stat-client-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+.stat-client-row:last-child { border-bottom: none; }
+.reset-stats-btn { width: 100%; padding: 10px; border: 1px solid #F99; border-radius: 8px; background: none; color: #C33; font-size: 13px; font-family: inherit; cursor: pointer; margin-top: 8px; }
+
 @media print {
   header, .modal-bar { display: none !important; }
   .ovl { position: static !important; background: none !important; }
@@ -438,6 +464,7 @@ header span { font-size: 11px; opacity: 0.65; }
 
 <header>
   <h1>🎬 오션메이드 필름 견적서</h1>
+  <button onclick="showStats()" style="background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.4);color:white;padding:6px 12px;border-radius:7px;font-size:12px;font-family:inherit;cursor:pointer">📊 판매현황</button>
 </header>
 
 <div class="container">
@@ -493,11 +520,26 @@ header span { font-size: 11px; opacity: 0.65; }
     <div class="modal-bar">
       <h3>견적서</h3>
       <div class="modal-actions">
+        <button class="btn-confirm" onclick="confirmQuote()">✅ 견적 확정</button>
         <button class="btn-print" onclick="doPrint()">🖨 인쇄/저장</button>
         <button class="close-btn" onclick="closePreview()">×</button>
       </div>
     </div>
     <div class="parea" id="parea"></div>
+  </div>
+</div>
+
+<!-- 판매현황 모달 -->
+<div class="ovl" id="stats-ovl">
+  <div class="modal">
+    <div class="modal-bar">
+      <h3>📊 판매현황</h3>
+      <div class="modal-actions">
+        <button class="btn-print" onclick="exportStats()" style="background:#1A7A4A">📥 내보내기</button>
+        <button class="close-btn" onclick="closeStats()">×</button>
+      </div>
+    </div>
+    <div class="parea" id="stats-area"></div>
   </div>
 </div>
 
@@ -803,6 +845,166 @@ function doPrint(){
     @media print{body{padding:8px}}
   </style></head><body>${content}<script>window.onload=()=>window.print()<\/script></body></html>`);
   win.document.close();
+}
+
+// ===== 판매 데이터 =====
+function loadSales(){ try{ return JSON.parse(localStorage.getItem('om_sales')||'[]'); }catch(e){ return []; } }
+function saveSales(data){ localStorage.setItem('om_sales', JSON.stringify(data)); }
+
+function confirmQuote(){
+  const client = document.getElementById('client').value || '(거래처명)';
+  const rd = document.getElementById('rdate').value;
+  if(items.length === 0){ alert('품목을 추가해주세요.'); return; }
+
+  const sales = loadSales();
+  const month = rd.slice(0, 7); // YYYY-MM
+  items.forEach(it => {
+    const p = PRODUCTS[it.pidx];
+    const {amt, rollM, cutM} = calc(it.qty, it.r, it.c);
+    sales.push({
+      date: rd,
+      month,
+      client,
+      product: it.color || p.label,
+      group: p.group,
+      qty: it.qty,
+      amt,
+      rollM,
+      cutM
+    });
+  });
+  saveSales(sales);
+
+  // 확정 표시
+  const btn = document.querySelector('.btn-confirm');
+  btn.textContent = '✅ 저장완료!';
+  btn.style.background = '#888';
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.textContent = '✅ 견적 확정';
+    btn.style.background = '#1A7A4A';
+    btn.disabled = false;
+  }, 2000);
+}
+
+function showStats(){
+  const sales = loadSales();
+  const area = document.getElementById('stats-area');
+
+  if(sales.length === 0){
+    area.innerHTML = '<div class="stats-empty">📭 아직 확정된 견적이 없어요<br><br>견적서 보기 → 견적 확정 버튼을 누르면<br>데이터가 쌓여요!</div>';
+    document.getElementById('stats-ovl').classList.add('show');
+    return;
+  }
+
+  // 집계
+  const totalAmt = sales.reduce((s,x)=>s+x.amt,0);
+  const totalQty = sales.reduce((s,x)=>s+x.qty,0);
+
+  // 제품별
+  const byProduct = {};
+  sales.forEach(x=>{
+    if(!byProduct[x.product]) byProduct[x.product]={qty:0,amt:0};
+    byProduct[x.product].qty += x.qty;
+    byProduct[x.product].amt += x.amt;
+  });
+  const topProducts = Object.entries(byProduct).sort((a,b)=>b[1].amt-a[1].amt).slice(0,10);
+  const maxAmt = topProducts[0]?.[1]?.amt || 1;
+
+  // 거래처별
+  const byClient = {};
+  sales.forEach(x=>{
+    if(!byClient[x.client]) byClient[x.client]={qty:0,amt:0,cnt:0};
+    byClient[x.client].qty += x.qty;
+    byClient[x.client].amt += x.amt;
+    byClient[x.client].cnt++;
+  });
+  const topClients = Object.entries(byClient).sort((a,b)=>b[1].amt-a[1].amt).slice(0,8);
+
+  // 월별
+  const byMonth = {};
+  sales.forEach(x=>{
+    if(!byMonth[x.month]) byMonth[x.month]={amt:0,qty:0};
+    byMonth[x.month].amt += x.amt;
+    byMonth[x.month].qty += x.qty;
+  });
+  const months = Object.entries(byMonth).sort((a,b)=>a[0].localeCompare(b[0])).slice(-6);
+  const maxMonthAmt = Math.max(...months.map(m=>m[1].amt)) || 1;
+
+  area.innerHTML = `
+    <div class="stat-summary">
+      <div class="summary-box"><div class="s-lbl">총 매출액</div><div class="s-val">${(totalAmt/10000).toFixed(0)}만원</div></div>
+      <div class="summary-box green"><div class="s-lbl">총 판매량</div><div class="s-val">${totalQty}m</div></div>
+    </div>
+
+    <div class="stats-section">
+      <h4>🏆 제품별 판매 순위</h4>
+      ${topProducts.map(([name,d],i)=>`
+        <div class="stat-card">
+          <div class="stat-row">
+            <span style="font-size:13px;font-weight:700;color:var(--gray-500);min-width:20px">${i+1}</span>
+            <span class="stat-name">${name}</span>
+            <span class="stat-qty">${d.qty}m</span>
+            <span class="stat-amt">${d.amt.toLocaleString()}원</span>
+          </div>
+          <div class="stat-bar-wrap"><div class="stat-bar" style="width:${Math.round(d.amt/maxAmt*100)}%"></div></div>
+        </div>
+      `).join('')}
+    </div>
+
+    <div class="stats-section">
+      <h4>🏢 거래처별 매출</h4>
+      <div class="stat-card">
+        ${topClients.map(([name,d])=>`
+          <div class="stat-client-row">
+            <span style="font-weight:600">${name}</span>
+            <span style="color:var(--gray-500);font-size:12px">${d.cnt}건 · ${d.qty}m</span>
+            <span style="font-weight:700;color:var(--blue)">${d.amt.toLocaleString()}원</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <div class="stats-section">
+      <h4>📅 월별 매출</h4>
+      ${months.map(([month,d])=>`
+        <div class="stat-card">
+          <div class="stat-row">
+            <span class="stat-name">${month}</span>
+            <span class="stat-qty">${d.qty}m</span>
+            <span class="stat-amt">${d.amt.toLocaleString()}원</span>
+          </div>
+          <div class="stat-bar-wrap"><div class="stat-bar orange" style="width:${Math.round(d.amt/maxMonthAmt*100)}%"></div></div>
+        </div>
+      `).join('')}
+    </div>
+
+    <button class="reset-stats-btn" onclick="resetStats()">🗑 데이터 전체 삭제</button>
+  `;
+
+  document.getElementById('stats-ovl').classList.add('show');
+  document.getElementById('stats-ovl').scrollTop = 0;
+}
+
+function closeStats(){ document.getElementById('stats-ovl').classList.remove('show'); }
+
+function resetStats(){
+  if(!confirm('모든 판매 데이터를 삭제할까요?')) return;
+  localStorage.removeItem('om_sales');
+  closeStats();
+}
+
+function exportStats(){
+  const sales = loadSales();
+  if(sales.length === 0){ alert('데이터가 없어요.'); return; }
+  const header = '날짜,월,거래처,제품명,그룹,수량(m),금액,롤(m),절단(m)';
+  const rows = sales.map(x=>`${x.date},${x.month},${x.client},${x.product},${x.group},${x.qty},${x.amt},${x.rollM},${x.cutM}`);
+  const csv = '\uFEFF' + [header, ...rows].join('\n');
+  const blob = new Blob([csv], {type:'text/csv'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `오션메이드_판매데이터_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
 }
 
 addItem();
