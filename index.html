@@ -553,19 +553,27 @@ const PRODUCTS = [
   {label:'HW 우드 (얇은글씨)',             group:'우드',       roll:5400,  cut:8400},
   {label:'HWB 우드 (굵은글씨)',            group:'우드',       roll:5800,  cut:8900},
   {label:'HPW 키친우드 (20-24)',           group:'우드',       roll:5400,  cut:8400},
-  {label:'HN 스톤 (2001-2013)',            group:'스톤',       roll:5800,  cut:8900},
-  {label:'HM 마블 (2101-2104)',            group:'마블',       roll:5800,  cut:8900},
-  {label:'HT 메탈 (2301-2309)',            group:'메탈',       roll:6000,  cut:9200},
-  {label:'HF 패브릭 (2201-2210)',          group:'패브릭',     roll:5800,  cut:8900},
-  {label:'HCP 세라믹 (01-04)',             group:'세라믹',     roll:5800,  cut:8900},
-  {label:'HLC 콘크리트 (010-011)',         group:'콘크리트',   roll:5800,  cut:8900},
   {label:'HC 솔리드향균 (801-804)',        group:'향균',       roll:5200,  cut:8000},
-  {label:'HLC 우드향균 (1851-1852)',       group:'향균',       roll:5400,  cut:8400},
+  {label:'HL 우드향균 (1851-1852)',        group:'향균',       roll:5400,  cut:8400},
   {label:'HR 리얼우드 (3001-3008)',        group:'프리미엄우드',roll:10900, cut:16900},
   {label:'HU 리얼터치우드 (3301-3304)',    group:'프리미엄우드',roll:12800, cut:19800},
-  {label:'HI PP SOLID (4001,4002)',        group:'프리미엄우드',roll:14000, cut:21600},
-  {label:'HO PP WOOD (4301-4303)',         group:'프리미엄우드',roll:14000, cut:21600},
 ];
+
+// ===== 전체 모델 데이터베이스 =====
+const MODEL_DB = {
+  'HSM 슈퍼매트': { pidx:0, models:['HSM01 매트화이트','HSM02 매트밀크화이트','HSM03 매트캐시미어','HSM04 매트브라운','HSM06 매트그레이','HSM07 매트다크그레이','HSM10 매트딥그린','HSM11 매트딥블루','HSM16 매트아이보리','HSM20 매트라이트그레이','HSM21 매트샌드그레이','HSM25 매트미스틱블루','HSM27 매트문빔그레이','HSM28 매트스노우베이지','HSM29 매트포그그레이','HSM30 매트듀이클라우드','HSM31 매트코타화이트','HSM34 매트스카이브리즈'] },
+  'HS 솔리드': { pidx:2, models:['HS001 순백','HS002 유백','HS004 크림화이트','HS005 밀크화이트','HS007 쿨그레이','HS008','HS009 라이트그레이','HS010 진그레이','HS011','HS012 차콜','HS013 어반그레이','HS014 올블랙','HS015','HS016','HS017','HS018','HS019','HS020','HS021','HS022 베이비핑크','HS023','HS024','HS025','HS026','HS027 소프트블루','HS028 윈디블루','HS029 어반블루','HS030 로열블루','HS031 헤일네이버','HS032 샌드베이지','HS033','HS034 어반카키','HS035 휴그린','HS036','HS037 딥오션','HS038 머드그레이','HS039 샌드베이지2','HS040 옐로우','HS041 베이비그린','HS042 소프트민트','HS043 라벤더','HS044 퓨어레드','HS045','HS046','HS047','HS048','HS049','HS050','HS051','HS052','HS053'] },
+  'HP 페인티드우드': { pidx:6, models:['HP508 웜그레이페인트','HP509','HP510','HP511','HP512','HP513 브라운페인트','HP514 딥그레이페인트','HP515 로즈핑크페인트','HP516 미드그레이페인트','HP517 매트블랙페인트','HP518','HP519','HP520','HP521','HP522','HP523','HP524','HP525','HP526','HP530','HP540'] },
+  'HE 텍스처/펄': { pidx:3, models:['HE401 화이트펄','HE402 우드블랙','HE403 소프트화이트','HE404 스킨','HE405 민트그레이','HE406 브라운','HE407'] },
+  'HC 향균솔리드': { pidx:10, models:['HC801 퓨어화이트','HC802 페일그레이','HO803 모노그레이','HO804 클래식블루'] },
+  'HL 향균우드': { pidx:11, models:['HL1851 라이트애쉬','HL1852 스킨오크'] },
+  'HW 우드 (얇은글씨)': { pidx:7, models:['HW1001 클리어오크','HW1002 심플그레인','HW1004 크림오크','HW1009 브러쉬오크소프트','HW1010 버치','HW1016 프렌치오크','HW1019 오크마일드','HW1020 브러쉬오크마일드','HW1021 리얼오크','HW1023 콰트로러스크(세로)','HW1024 로열워시오크','HW1025 빈티지오크','HW1028 클래식오크','HW1031 화이트오크','HW1033 그레이오크','HW1035 워시애쉬','HW1036 콰트로브룩클린(세로)','HW1038 중체리','HW1039 연체리','HW1040 콰트로시에나(세로)','HW1041 메이플','HW1044 레드티크','HW1045 레드오크','HW1046 홍송','HW1047 콰트로엄버(세로)','HW1049 월넛','HW1050 크린웬지','HW1055 로열아카시아','HW1056 로열월넛','HW1058 티크','HW1059 아카시아','HW1060 연월넛','HW1065','HW1066','HW1067','HW1068','HW1069','HW1070','HW1071','HW1072','HW1073','HW1077','HW1078','HW1079','HW1083','HW1084'] },
+  'HWB 우드 (굵은글씨)': { pidx:8, models:['HWB1003 소프트워시오크','HWB1005 화인오크','HWB1007 브룩시더(세로)','HWB1008 브룩시더(가로)','HWB1011 락메이플','HWB1012 쉬머오크','HWB1013 샤인오크','HWB1014 브룩시더베이지(세로)','HWB1015 브룩시더베이지(가로)','HWB1017 마일드워시오크','HWB1018 쏘마크오크','HWB1022 스트라이프우드','HWB1027 크림월넛','HWB1029 퓨어오크','HWB1030 펄오크','HWB1034 베이지오크','HWB1042 내츄럴브라운','HWB1052 애쉬브라운','HWB1061','HWB1062 워시그레이','HWB1063','HWB1064 오크딥','HWB1076','HWB1080','HWB1081','HWB1082'] },
+  'HPW 키친우드': { pidx:9, models:['HPW21 프렌치오크','HPW22 피넛오크','HPW23 카카오월넛','HPW24 던오크'] },
+  'HR 리얼우드': { pidx:12, models:['HR3002 트라이베카','HR3004 팜비치애쉬','HR3007 로베레켄들','HR3008 윌리스플럼'] },
+  'HU 리얼터치우드': { pidx:13, models:['HU3301 로베레UK','HU3302 로베레아즈데코','HU3303 노체비스코토','HU3304 로베레카카오'] },
+};
+const MODEL_KEYS = Object.keys(MODEL_DB);
 
 let items = [];
 let cnt = 0;
@@ -581,96 +589,79 @@ function calc(qty, r, c){
   return { amt: rollM*r + cutM*c, rollM, cutM };
 }
 
-function groupedOpts(){
-  const g={};
-  PRODUCTS.forEach((p,i)=>{ if(!g[p.group]) g[p.group]=[]; g[p.group].push({...p,i}); });
-  return Object.entries(g).map(([grp,ps])=>
-    `<optgroup label="── ${grp} ──">${ps.map(p=>`<option value="${p.i}">${p.label}</option>`).join('')}</optgroup>`
-  ).join('');
-}
+const MODEL_KEYS = Object.keys(MODEL_DB);
 
 function addItem(){
   const id=cnt++;
-  items.push({id,pidx:0,color:'',qty:5,r:PRODUCTS[0].roll,c:PRODUCTS[0].cut});
+  const firstKey=MODEL_KEYS[0];
+  const db=MODEL_DB[firstKey];
+  const p=PRODUCTS[db.pidx];
+  items.push({id, catKey:firstKey, modelName:db.models[0], qty:5, r:p.roll, c:p.cut});
   renderAll();
 }
 function removeItem(id){ items=items.filter(x=>x.id!==id); renderAll(); }
 function get(id){ return items.find(x=>x.id===id); }
 
-function onProd(id,val){
-  const it=get(id); it.pidx=+val;
-  const p=PRODUCTS[it.pidx]; it.r=p.roll; it.c=p.cut;
+function onCat(id, catKey){
+  const it=get(id); it.catKey=catKey;
+  const db=MODEL_DB[catKey]; const p=PRODUCTS[db.pidx];
+  it.modelName=db.models[0]; it.r=p.roll; it.c=p.cut;
   renderAll();
 }
-function onColor(id,v){ get(id).color=v; }
+function onModel(id, modelName){ get(id).modelName=modelName; renderAll(); }
 function onQty(id,v){ get(id).qty=+v||0; renderAll(); }
 function stepQty(id,d){ const it=get(id); it.qty=Math.max(0,it.qty+d); renderAll(); }
 function setQty(id,v){ get(id).qty=v; renderAll(); }
 
 function renderAll(){
   const wrap=document.getElementById('items-wrap');
-  wrap.innerHTML='';
-  let total=0;
-  items.forEach((it,idx)=>{
-    const {amt}=calc(it.qty,it.r,it.c);
-    total+=amt;
-    wrap.appendChild(buildEl(it,idx+1));
-  });
+  wrap.innerHTML=''; let total=0;
+  items.forEach((it,idx)=>{ const{amt}=calc(it.qty,it.r,it.c); total+=amt; wrap.appendChild(buildEl(it,idx+1)); });
   document.getElementById('total-display').textContent=total.toLocaleString()+' 원';
 }
 
 function buildEl(it,num){
-  const p=PRODUCTS[it.pidx];
+  const db=MODEL_DB[it.catKey];
   const {amt,rollM,cutM}=calc(it.qty,it.r,it.c);
-  const div=document.createElement('div');
-  div.className='item-card';
-
+  const div=document.createElement('div'); div.className='item-card';
   let chips='';
   if(it.qty>0){
     if(rollM>0&&cutM>0){
-      chips=`
-        <div class="bd-chip roll-chip">
-          <div class="chip-left"><span class="chip-tag">롤</span><span class="chip-desc">${rollM}m × ${it.r.toLocaleString()}원</span></div>
-          <span class="chip-amt">${(rollM*it.r).toLocaleString()}원</span>
-        </div>
-        <div class="bd-chip cut-chip">
-          <div class="chip-left"><span class="chip-tag">절단</span><span class="chip-desc">${cutM}m × ${it.c.toLocaleString()}원</span></div>
-          <span class="chip-amt">${(cutM*it.c).toLocaleString()}원</span>
-        </div>`;
+      chips=`<div class="bd-chip roll-chip"><div class="chip-left"><span class="chip-tag">롤</span><span class="chip-desc">${rollM}m × ${it.r.toLocaleString()}원</span></div><span class="chip-amt">${(rollM*it.r).toLocaleString()}원</span></div>
+             <div class="bd-chip cut-chip"><div class="chip-left"><span class="chip-tag">절단</span><span class="chip-desc">${cutM}m × ${it.c.toLocaleString()}원</span></div><span class="chip-amt">${(cutM*it.c).toLocaleString()}원</span></div>`;
     } else if(rollM>0){
-      chips=`<div class="bd-chip roll-chip">
-        <div class="chip-left"><span class="chip-tag">롤</span><span class="chip-desc">${rollM}m × ${it.r.toLocaleString()}원</span></div>
-        <span class="chip-amt">${amt.toLocaleString()}원</span>
-      </div>`;
+      chips=`<div class="bd-chip roll-chip"><div class="chip-left"><span class="chip-tag">롤</span><span class="chip-desc">${rollM}m × ${it.r.toLocaleString()}원</span></div><span class="chip-amt">${amt.toLocaleString()}원</span></div>`;
     } else {
-      chips=`<div class="bd-chip cut-chip">
-        <div class="chip-left"><span class="chip-tag">절단</span><span class="chip-desc">${cutM}m × ${it.c.toLocaleString()}원</span></div>
-        <span class="chip-amt">${amt.toLocaleString()}원</span>
-      </div>`;
+      chips=`<div class="bd-chip cut-chip"><div class="chip-left"><span class="chip-tag">절단</span><span class="chip-desc">${cutM}m × ${it.c.toLocaleString()}원</span></div><span class="chip-amt">${amt.toLocaleString()}원</span></div>`;
     }
   }
+  const catOpts=MODEL_KEYS.map(k=>`<option value="${k}"${k===it.catKey?' selected':''}>${k}</option>`).join('');
+  const modelOpts=db.models.map(m=>`<option value="${m}"${m===it.modelName?' selected':''}>${m}</option>`).join('');
 
   div.innerHTML=`
     <div class="item-head">
       <div class="item-num">${num}</div>
-      <select onchange="onProd(${it.id},this.value)">${groupedOpts()}</select>
       <button class="del-btn" onclick="removeItem(${it.id})">×</button>
     </div>
     <div class="item-body">
       <div class="color-field">
-        <label>색상명 직접입력</label>
-        <input type="text" value="${it.color}" oninput="onColor(${it.id},this.value)">
+        <label>① 대분류</label>
+        <select onchange="onCat(${it.id},this.value)">${catOpts}</select>
+      </div>
+      <div class="color-field">
+        <label>② 품명 선택</label>
+        <select onchange="onModel(${it.id},this.value)">${modelOpts}</select>
       </div>
       <div class="price-row">
         <div class="price-box roll">
           <div class="price-tag">롤 단가 (25m↑)</div>
           <div class="price-val">${it.r.toLocaleString()}<span class="price-unit-txt">원/m</span></div>
-          <div class="price-edit"><span class="price-locked">${it.r.toLocaleString()}</span></div>
+          <span class="price-locked">고정단가</span>
         </div>
         <div class="price-box cut">
           <div class="price-tag">절단 단가 (25m↓)</div>
           <div class="price-val">${it.c.toLocaleString()}<span class="price-unit-txt">원/m</span></div>
-          <div class="price-edit"><span class="price-locked">${it.c.toLocaleString()}</span></div>
+          <span class="price-locked">고정단가</span>
         </div>
       </div>
       <div class="qty-box">
@@ -693,8 +684,6 @@ function buildEl(it,num){
         <div class="bd-total"><span class="lbl">소계</span><span class="val">${amt.toLocaleString()} 원</span></div>
       </div>
     </div>`;
-
-  div.querySelector('select').value=it.pidx;
   return div;
 }
 
@@ -717,10 +706,9 @@ function showPreview(){
   let total=0;
 
   const itemsHtml = items.map(it=>{
-    const p=PRODUCTS[it.pidx];
     const {amt,rollM,cutM}=calc(it.qty,it.r,it.c);
     total+=amt;
-    const name=it.color||p.label;
+    const name=it.modelName;
     let rows='';
     if(rollM>0&&cutM>0){
       rows+=`<tr><td>${name}</td><td><span class="tag-r">롤</span>${rollM}m</td><td>${it.r.toLocaleString()}</td><td>${(rollM*it.r).toLocaleString()}</td></tr>
@@ -828,18 +816,13 @@ function confirmQuote(){
   const sales = loadSales();
   const month = rd.slice(0, 7); // YYYY-MM
   items.forEach(it => {
-    const p = PRODUCTS[it.pidx];
+    const p = PRODUCTS[MODEL_DB[it.catKey].pidx];
     const {amt, rollM, cutM} = calc(it.qty, it.r, it.c);
     sales.push({
-      date: rd,
-      month,
-      client,
-      product: it.color || p.label,
-      group: p.group,
-      qty: it.qty,
-      amt,
-      rollM,
-      cutM
+      date: rd, month, client,
+      product: it.modelName,
+      group: it.catKey,
+      qty: it.qty, amt, rollM, cutM
     });
   });
   saveSales(sales);
