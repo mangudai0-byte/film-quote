@@ -390,8 +390,26 @@ header span { font-size: 11px; opacity: 0.65; }
 .p-total .tv { font-size: 22px; font-weight: 700; }
 
 .p-bank {
-  font-size: 12px; color: #333;
-  padding: 10px 14px; background: #f5f5f5; border-radius: 6px; margin-bottom: 10px;
+  border: 2px solid #1A4F8A;
+  border-radius: 10px; margin-bottom: 14px;
+  overflow: hidden;
+}
+.p-bank-notice {
+  background: #D05010; color: white;
+  text-align: center; padding: 10px;
+  font-size: 16px; font-weight: 700; letter-spacing: 2px;
+}
+.p-bank-label {
+  font-size: 11px; color: #666; font-weight: 500;
+  padding: 10px 16px 2px;
+}
+.p-bank-num {
+  font-size: 24px; font-weight: 700; color: #1A4F8A;
+  padding: 0 16px 6px; letter-spacing: 1px;
+}
+.p-bank-info {
+  font-size: 13px; color: #444;
+  padding: 0 16px 12px;
 }
 .p-footnote { font-size: 11px; color: #999; }
 
@@ -485,7 +503,7 @@ header span { font-size: 11px; opacity: 0.65; }
 
 <script>
 const ROLL_M = 25;
-const PASSWORD = '8253'; // ← 여기서 비밀번호 변경
+const PASSWORD = '0000'; // ← 여기서 비밀번호 변경
 
 function checkPw(){
   const val = document.getElementById('pw-input').value;
@@ -725,7 +743,12 @@ function showPreview(){
     <div class="p-note">※ 인테리어 필름 5m 단위 절단 가능 &nbsp;|&nbsp; 25m 이상 롤단가 적용</div>
     ${itemsHtml}
     <div class="p-total"><span class="tl">총 합계</span><span class="tv">${total.toLocaleString()} 원</span></div>
-    <div class="p-bank"><strong>입금계좌:</strong> 332-135674-04-011 기업은행 &nbsp; 예금주: 주식회사 오션메이드</div>
+    <div class="p-bank">
+      <div class="p-bank-notice">⚠️ 선입금 후 발주</div>
+      <div class="p-bank-label">입금계좌</div>
+      <div class="p-bank-num">332-135674-04-011</div>
+      <div class="p-bank-info">기업은행 &nbsp;|&nbsp; 예금주: 주식회사 오션메이드</div>
+    </div>
     <div class="p-supplier">
       <div class="p-supplier-title">공 &nbsp; 급 &nbsp; 자</div>
       <div class="p-info-row"><div class="p-info-key">상호</div><div class="p-info-val">오션메이드</div></div>
@@ -771,7 +794,11 @@ function doPrint(){
     .p-total{background:#1A4F8A;color:white;border-radius:6px;padding:12px 16px;display:flex;justify-content:space-between;margin:12px 0 10px}
     .p-total .tl{font-size:13px;opacity:.85}
     .p-total .tv{font-size:20px;font-weight:700}
-    .p-bank{font-size:12px;padding:9px 12px;background:#f5f5f5;border-radius:4px;margin-bottom:8px}
+    .p-bank{border:2px solid #1A4F8A;border-radius:8px;margin-bottom:12px;overflow:hidden}
+    .p-bank-notice{background:#D05010;color:white;text-align:center;padding:9px;font-size:15px;font-weight:700;letter-spacing:2px}
+    .p-bank-label{font-size:11px;color:#666;font-weight:500;padding:10px 14px 2px}
+    .p-bank-num{font-size:22px;font-weight:700;color:#1A4F8A;padding:0 14px 6px;letter-spacing:1px}
+    .p-bank-info{font-size:13px;color:#444;padding:0 14px 10px}
     .p-footnote{font-size:11px;color:#999}
     @media print{body{padding:8px}}
   </style></head><body>${content}<script>window.onload=()=>window.print()<\/script></body></html>`);
