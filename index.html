@@ -336,10 +336,11 @@ header h1 { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; }
   border-radius: 7px; font-size: 13px; font-weight: 600; font-family: inherit; cursor: pointer;
 }
 .close-btn {
-  width: 36px; height: 36px;
+  height: 36px; padding: 0 12px;
   background: none; border: 1px solid var(--border);
-  border-radius: 7px; font-size: 22px; color: var(--gray-500);
+  border-radius: 7px; font-size: 14px; color: var(--gray-500);
   display: flex; align-items: center; justify-content: center; cursor: pointer;
+  white-space: nowrap;
 }
 
 /* ===== PRINT / PREVIEW AREA ===== */
@@ -436,11 +437,31 @@ header h1 { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; }
 </div>
 
 <header>
-  <h1>🎬 오션메이드 필름 견적서</h1>
-  <button onclick="showStats()" style="background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.4);color:white;padding:6px 12px;border-radius:7px;font-size:12px;font-family:inherit;cursor:pointer">📊 판매현황</button>
+  <h1>🏠 오션메이드 필름 견적서</h1>
+  <button onclick="openClientMgr()" style="background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.4);color:white;padding:6px 12px;border-radius:7px;font-size:12px;font-family:inherit;cursor:pointer;white-space:nowrap">👥 거래처</button>
 </header>
 
+<!-- 거래처 관리 모달 -->
+<div class="ovl" id="client-ovl">
+  <div class="modal" style="max-height:80vh;margin:10vh auto auto;border-radius:16px;overflow:hidden;max-width:500px">
+    <div class="modal-bar">
+      <h3>👥 거래처 관리</h3>
+      <button class="close-btn" onclick="closeClientMgr()">×</button>
+    </div>
+    <div style="padding:16px;overflow-y:auto;max-height:calc(80vh - 60px)">
+      <div style="display:flex;gap:8px;margin-bottom:14px">
+        <input id="new-client" type="text" placeholder="새 거래처명 입력"
+          onkeydown="if(event.key==='Enter')saveClient()"
+          style="flex:1;padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:15px;font-family:inherit">
+        <button onclick="saveClient()" style="padding:0 18px;background:var(--blue);color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;flex-shrink:0">추가</button>
+      </div>
+      <div id="client-chips"></div>
+    </div>
+  </div>
+</div>
+
 <div class="container">
+
   <!-- 거래처 -->
   <div class="card">
     <div class="card-header">
@@ -449,7 +470,12 @@ header h1 { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; }
     </div>
     <div class="card-body">
       <div class="row2">
-        <div class="field"><label>거래처명</label><input id="client" type="text"></div>
+        <div class="field">
+          <label>거래처명</label>
+          <select id="client">
+            <option value="">-- 선택 --</option>
+          </select>
+        </div>
         <div class="field"><label>현장명 (선택)</label><input id="site" type="text"></div>
       </div>
       <div class="field"><label>견적일</label><input id="rdate" type="date"></div>
@@ -459,7 +485,7 @@ header h1 { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; }
   <!-- 품목 -->
   <div class="card">
     <div class="card-header">
-      <div class="icon">🎞</div>
+      <div class="icon">🎨</div>
       <h2>품목</h2>
     </div>
     <div class="card-body">
@@ -473,6 +499,7 @@ header h1 { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; }
     <span class="amt" id="total-display">0 원</span>
   </div>
 
+
   <div class="actions">
     <button class="btn-reset" onclick="resetForm()">↺ 초기화</button>
     <button class="btn-preview" onclick="showPreview()">견적서 보기 →</button>
@@ -483,8 +510,9 @@ header h1 { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; }
 <div class="ovl" id="ovl">
   <div class="modal">
     <div class="modal-bar">
+      <button class="close-btn" onclick="closePreview()" style="font-size:18px;font-weight:700;color:var(--blue);border-color:var(--blue-light);background:var(--blue-light)">‹ 뒤로</button>
       <h3>견적서</h3>
-      <button class="close-btn" onclick="closePreview()">×</button>
+      <div style="width:60px"></div>
     </div>
     <div class="parea" id="parea"></div>
     <div style="display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--border);background:white;position:sticky;bottom:0">
@@ -494,19 +522,7 @@ header h1 { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; }
   </div>
 </div>
 
-<!-- 판매현황 모달 -->
-<div class="ovl" id="stats-ovl">
-  <div class="modal">
-    <div class="modal-bar">
-      <h3>📊 판매현황</h3>
-      <div class="modal-actions">
-        <button class="btn-print" onclick="exportStats()" style="background:#1A7A4A">📥 내보내기</button>
-        <button class="close-btn" onclick="closeStats()">×</button>
-      </div>
-    </div>
-    <div class="parea" id="stats-area"></div>
-  </div>
-</div>
+
 
 <script>
 const ROLL_M = 25;
@@ -524,6 +540,58 @@ function checkPw(){
     setTimeout(()=>err.classList.remove('show'), 2000);
   }
 }
+function openClientMgr(){
+  refreshClientUI();
+  document.getElementById('client-ovl').classList.add('show');
+  setTimeout(()=>document.getElementById('new-client').focus(), 100);
+}
+function closeClientMgr(){
+  document.getElementById('client-ovl').classList.remove('show');
+}
+
+// ===== 거래처 저장/불러오기 =====
+function loadClients(){
+  try{ return JSON.parse(localStorage.getItem('om_clients')||'[]'); }catch(e){ return []; }
+}
+function saveClient(){
+  const val = document.getElementById('new-client').value.trim();
+  if(!val) return;
+  const clients = loadClients();
+  if(!clients.includes(val)){
+    clients.unshift(val);
+    if(clients.length > 50) clients.pop();
+    localStorage.setItem('om_clients', JSON.stringify(clients));
+  }
+  document.getElementById('new-client').value = '';
+  refreshClientUI();
+}
+function deleteClient(name){
+  const clients = loadClients().filter(c=>c!==name);
+  localStorage.setItem('om_clients', JSON.stringify(clients));
+  refreshClientUI();
+}
+function refreshClientUI(){
+  const clients = loadClients();
+  // 리스트 형태로 표시
+  const chips = document.getElementById('client-chips');
+  if(chips){
+    chips.innerHTML = clients.length === 0
+      ? '<p style="font-size:13px;color:var(--gray-500);text-align:center;padding:20px 0">저장된 거래처가 없습니다</p>'
+      : clients.map(c=>`
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:11px 14px;background:var(--gray-50);border:1px solid var(--border);border-radius:10px;margin-bottom:6px">
+            <span style="font-size:15px;font-weight:600;color:var(--gray-900)">${c}</span>
+            <button onclick="deleteClient('${c.replace(/'/g,"\\'")}')" style="background:none;border:1px solid #DDBBBB;border-radius:6px;color:#CC6666;cursor:pointer;font-size:12px;padding:3px 8px">삭제</button>
+          </div>`).join('');
+  }
+  // 거래처 선택 드롭다운
+  const sel = document.getElementById('client');
+  if(sel){
+    const cur = sel.value;
+    sel.innerHTML = '<option value="">-- 선택 --</option>' +
+      clients.map(c=>`<option value="${c}"${c===cur?' selected':''}>${c}</option>`).join('');
+  }
+}
+
 // 세션 유지
 if(sessionStorage.getItem('auth')==='1'){
   document.getElementById('pw-screen').classList.add('hidden');
@@ -1163,6 +1231,7 @@ function exportStats(){
 }
 
 addItem();
+refreshClientUI();
 </script>
 </body>
 </html>
