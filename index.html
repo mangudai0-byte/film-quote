@@ -519,13 +519,13 @@ header span { font-size: 11px; opacity: 0.65; }
   <div class="modal">
     <div class="modal-bar">
       <h3>견적서</h3>
-      <div class="modal-actions">
-        <button class="btn-confirm" onclick="confirmQuote()">✅ 견적 확정</button>
-        <button class="btn-print" onclick="doPrint()">🖨 인쇄/저장</button>
-        <button class="close-btn" onclick="closePreview()">×</button>
-      </div>
+      <button class="close-btn" onclick="closePreview()">×</button>
     </div>
     <div class="parea" id="parea"></div>
+    <div style="display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--border);background:white;position:sticky;bottom:0">
+      <button class="btn-confirm" onclick="confirmQuote()" style="flex:1">✅ 견적 확정</button>
+      <button class="btn-print" onclick="doPrint()" style="flex:1">🖨 인쇄/저장</button>
+    </div>
   </div>
 </div>
 
@@ -545,7 +545,7 @@ header span { font-size: 11px; opacity: 0.65; }
 
 <script>
 const ROLL_M = 25;
-const PASSWORD = '0000'; // ← 여기서 비밀번호 변경
+const PASSWORD = '8253';
 
 function checkPw(){
   const val = document.getElementById('pw-input').value;
