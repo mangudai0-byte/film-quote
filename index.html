@@ -420,7 +420,6 @@ header span { font-size: 11px; opacity: 0.65; }
 
 <header>
   <h1>🎬 오션메이드 필름 견적서</h1>
-  <span>예림 단가표 25.12</span>
 </header>
 
 <div class="container">
@@ -435,14 +434,14 @@ header span { font-size: 11px; opacity: 0.65; }
         <div class="field"><label>거래처명</label><input id="client" type="text"></div>
         <div class="field"><label>현장명 (선택)</label><input id="site" type="text"></div>
       </div>
-      <div class="row3">
+      <div class="row2">
         <div class="field"><label>접수일</label><input id="rdate" type="date"></div>
         <div class="field"><label>출고일</label><input id="sdate" type="date"></div>
-        <div class="field"><label>출고방식</label>
-          <select id="smethod">
-            <option>직접출고</option><option>택배</option><option>방문수령</option><option>기타</option>
-          </select>
-        </div>
+      </div>
+      <div class="field"><label>출고방식</label>
+        <select id="smethod">
+          <option>직접출고</option><option>택배</option><option>방문수령</option><option>기타</option>
+        </select>
       </div>
     </div>
   </div>
@@ -723,6 +722,10 @@ function showPreview(){
       <div class="p-info-row"><div class="p-info-key">출고일</div><div class="p-info-val">${sd}</div></div>
       <div class="p-info-row"><div class="p-info-key">출고방식</div><div class="p-info-val">${sm}</div></div>
     </div>
+    <div class="p-note">※ 인테리어 필름 5m 단위 절단 가능 &nbsp;|&nbsp; 25m 이상 롤단가 적용</div>
+    ${itemsHtml}
+    <div class="p-total"><span class="tl">총 합계</span><span class="tv">${total.toLocaleString()} 원</span></div>
+    <div class="p-bank"><strong>입금계좌:</strong> 332-135674-04-011 기업은행 &nbsp; 예금주: 주식회사 오션메이드</div>
     <div class="p-supplier">
       <div class="p-supplier-title">공 &nbsp; 급 &nbsp; 자</div>
       <div class="p-info-row"><div class="p-info-key">상호</div><div class="p-info-val">오션메이드</div></div>
@@ -731,10 +734,6 @@ function showPreview(){
       <div class="p-info-row"><div class="p-info-key">주소</div><div class="p-info-val">충남 아산시 신창면 환경공원로 213-9</div></div>
       <div class="p-info-row"><div class="p-info-key">전화</div><div class="p-info-val">041) 534-7475</div></div>
     </div>
-    <div class="p-note">※ 인테리어 필름 5m 단위 절단 가능 &nbsp;|&nbsp; 25m 이상 롤단가 적용</div>
-    ${itemsHtml}
-    <div class="p-total"><span class="tl">총 합계</span><span class="tv">${total.toLocaleString()} 원</span></div>
-    <div class="p-bank"><strong>입금계좌:</strong> 332-135674-04-011 기업은행 &nbsp; 예금주: 주식회사 오션메이드</div>
     <div class="p-footnote">※ 본 견적서는 양도소득세 공제용 견적서가 아닙니다.</div>
   `;
   document.getElementById('ovl').classList.add('show');
