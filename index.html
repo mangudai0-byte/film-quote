@@ -226,6 +226,17 @@ header h1 { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; }
 .bd-total .val { font-size: 22px; font-weight: 800; color: var(--gray-900); }
 
 /* ADD BTN */
+.confirm-item-btn {
+  width: 100%; padding: 13px;
+  background: linear-gradient(135deg, #1A7A4A, #239E5F);
+  color: white; border: none; border-radius: 10px;
+  font-size: 15px; font-weight: 700; font-family: inherit; cursor: pointer;
+  box-shadow: 0 3px 10px rgba(26,122,74,0.3);
+  letter-spacing: -0.2px;
+}
+.confirm-item-btn:active { background: #155E39; }
+
+/* ADD BTN */
 .add-btn {
   width: 100%; padding: 15px;
   border: 2px dashed #C0CEDE; border-radius: var(--radius);
@@ -717,12 +728,98 @@ function onCat(id, catKey){
   const it=get(id); it.catKey=catKey;
   const db=MODEL_DB[catKey]; const p=PRODUCTS[db.pidx];
   it.modelName=db.models[0]; it.r=p.roll; it.c=p.cut;
-  renderAll();
+  // 소분류 드롭다운만 갱신 (전체 re-render 안 함)
+  const modelSel = document.querySelector(`.item-detail[data-id="${id}"] .sel-block.model select`);
+  if(modelSel){
+    modelSel.innerHTML = db.models.map(m=>`<option value="${m}">${m}</option>`).join('');
+    modelSel.value = it.modelName;
+  }
+  // 단가 표시 갱신
+  updatePriceDisplay(id);
 }
-function onModel(id, modelName){ get(id).modelName=modelName; renderAll(); }
-function onQty(id,v){ get(id).qty=+v||0; renderAll(); }
-function stepQty(id,d){ const it=get(id); it.qty=Math.max(0,it.qty+d); renderAll(); }
-function setQty(id,v){ get(id).qty=v; renderAll(); }
+function onModel(id, modelName){
+  get(id).modelName = modelName;
+  // re-render 없음 — 확정 버튼 눌러야 반영
+}
+function onQty(id,v){ get(id).qty=+v||0; updateBreakdown(id); }
+function stepQty(id,d){
+  const it=get(id); it.qty=Math.max(0,it.qty+d);
+  const inp = document.querySelector(`.item-detail[data-id="${id}"] .qty-input`);
+  if(inp) inp.value = it.qty;
+  updateBreakdown(id);
+}
+function setQty(id,v){
+  get(id).qty=v;
+  const inp = document.querySelector(`.item-detail[data-id="${id}"] .qty-input`);
+  if(inp) inp.value = v;
+  updateBreakdown(id);
+}
+
+function updatePriceDisplay(id){
+  const it=get(id);
+  const detail = document.querySelector(`.item-detail[data-id="${id}"]`);
+  if(!detail) return;
+  const rollVal = detail.querySelector('.price-box.roll .price-val');
+  const cutVal  = detail.querySelector('.price-box.cut .price-val');
+  if(rollVal) rollVal.innerHTML = `${it.r.toLocaleString()}<span class="price-unit-txt">원/m</span>`;
+  if(cutVal)  cutVal.innerHTML  = `${it.c.toLocaleString()}<span class="price-unit-txt">원/m</span>`;
+  updateBreakdown(id);
+}
+
+function updateBreakdown(id){
+  const it=get(id);
+  const {amt,rollM,cutM}=calc(it.qty,it.r,it.c);
+  const detail = document.querySelector(`.item-detail[data-id="${id}"]`);
+  if(!detail) return;
+  let chips='';
+  if(it.qty>0){
+    if(rollM>0&&cutM>0){
+      chips=`<div class="bd-chip roll-chip"><div class="chip-left"><span class="chip-tag">롤</span><span class="chip-desc">${rollM}m × ${it.r.toLocaleString()}원</span></div><span class="chip-amt">${(rollM*it.r).toLocaleString()}원</span></div>
+             <div class="bd-chip cut-chip"><div class="chip-left"><span class="chip-tag">절단</span><span class="chip-desc">${cutM}m × ${it.c.toLocaleString()}원</span></div><span class="chip-amt">${(cutM*it.c).toLocaleString()}원</span></div>`;
+    } else if(rollM>0){
+      chips=`<div class="bd-chip roll-chip"><div class="chip-left"><span class="chip-tag">롤</span><span class="chip-desc">${rollM}m × ${it.r.toLocaleString()}원</span></div><span class="chip-amt">${amt.toLocaleString()}원</span></div>`;
+    } else {
+      chips=`<div class="bd-chip cut-chip"><div class="chip-left"><span class="chip-tag">절단</span><span class="chip-desc">${cutM}m × ${it.c.toLocaleString()}원</span></div><span class="chip-amt">${amt.toLocaleString()}원</span></div>`;
+    }
+  }
+  const bdChips = detail.querySelector('.bd-chips');
+  const bdVal   = detail.querySelector('.bd-total .val');
+  if(bdChips) bdChips.innerHTML = chips;
+  if(bdVal)   bdVal.textContent = amt.toLocaleString()+' 원';
+}
+
+function confirmItem(id){
+  const it=get(id);
+  it.confirmed = true;
+  // 모델명 최신값 읽기
+  const modelSel = document.querySelector(`.item-detail[data-id="${id}"] .sel-block.model select`);
+  if(modelSel) it.modelName = modelSel.value;
+  // 수량 최신값 읽기
+  const qtyInp = document.querySelector(`.item-detail[data-id="${id}"] .qty-input`);
+  if(qtyInp) it.qty = +qtyInp.value||0;
+  // 접고 요약 갱신
+  const {amt,rollM,cutM}=calc(it.qty,it.r,it.c);
+  const typeStr = rollM>0&&cutM>0?`롤${rollM}m+절단${cutM}m`:rollM>0?`롤 ${rollM}m`:`절단 ${it.qty}m`;
+  const row = document.querySelector(`.item-card .item-row[onclick*="toggleItem(${id})"]`);
+  if(row){
+    row.querySelector('.item-row-name').textContent = it.modelName;
+    row.querySelector('.item-row-sub').textContent  = it.qty>0 ? typeStr : '수량을 입력하세요';
+    const amtEl = row.querySelector('.item-row-amt');
+    amtEl.textContent = amt>0 ? amt.toLocaleString()+'원' : '0원';
+    amtEl.className   = 'item-row-amt' + (amt===0?' zero':'');
+    row.querySelector('.item-expand-btn').textContent = '✎';
+  }
+  // 패널 닫기
+  const detail = document.querySelector(`.item-detail[data-id="${id}"]`);
+  if(detail) detail.classList.add('hidden');
+  // 총합계 갱신
+  updateTotal();
+}
+
+function updateTotal(){
+  const total = items.reduce((s,it)=>s+calc(it.qty,it.r,it.c).amt, 0);
+  document.getElementById('total-display').textContent = total.toLocaleString()+' 원';
+}
 
 function renderAll(){
   const wrap=document.getElementById('items-wrap');
@@ -763,8 +860,8 @@ function buildEl(it,num){
   const catOpts=MODEL_KEYS.map(k=>`<option value="${k}"${k===it.catKey?' selected':''}>${k}</option>`).join('');
   const modelOpts=db.models.map(m=>`<option value="${m}"${m===it.modelName?' selected':''}>${m}</option>`).join('');
 
-  // 새로 추가된 항목은 펼쳐서 보여줌 (qty=5이면 아직 설정 중)
-  const isNew = it.qty === 5 && it.modelName === db.models[0];
+  // 새 항목은 항상 펼쳐서 보여줌, 기존건 접혀있음
+  const isNew = !it.confirmed;
   const detailHidden = isNew ? '' : 'hidden';
   const expandIcon = isNew ? '▲' : '✎';
 
@@ -822,6 +919,7 @@ function buildEl(it,num){
           <div class="bd-chips">${chips}</div>
           <div class="bd-total"><span class="lbl">소계</span><span class="val">${amt.toLocaleString()} 원</span></div>
         </div>
+        <button class="confirm-item-btn" onclick="confirmItem(${it.id})">✅ 이 품목 확정</button>
       </div>
     </div>`;
   return div;
