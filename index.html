@@ -343,84 +343,111 @@ header h1 { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; }
 }
 
 /* ===== PRINT / PREVIEW AREA ===== */
-.parea { padding: 12px 12px; }
+.parea { padding: 0; background: white; }
 
-/* 모바일 견적서 카드형 */
+/* 견적서 헤더 */
+.p-doc {
+  padding: 24px 20px 20px;
+  font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
+}
 .p-header {
-  text-align: center; font-size: 18px; font-weight: 700;
-  letter-spacing: 6px; margin-bottom: 10px; color: #111;
+  display: flex; align-items: flex-end; justify-content: space-between;
+  margin-bottom: 20px; padding-bottom: 14px;
+  border-bottom: 3px solid #1A4F8A;
 }
-.p-info-box {
-  border: 1.5px solid #333; border-radius: 0;
-  margin-bottom: 8px; overflow: hidden;
+.p-header-left h1 {
+  font-size: 26px; font-weight: 800; color: #1A4F8A;
+  letter-spacing: 4px; margin-bottom: 2px;
 }
-.p-info-row {
-  display: flex; border-bottom: 1px solid #ddd;
-  font-size: 12px;
-}
-.p-info-row:last-child { border-bottom: none; }
-.p-info-key {
-  width: 70px; min-width: 70px; padding: 6px 8px;
-  background: #f5f5f5; color: #555; font-size: 11px;
-  border-right: 1px solid #ddd; font-weight: 500;
-}
-.p-info-val { padding: 6px 8px; color: #222; flex: 1; word-break: break-all; }
+.p-header-left p { font-size: 11px; color: #888; }
+.p-header-right { text-align: right; }
+.p-header-right .p-date { font-size: 12px; color: #666; }
+.p-header-right .p-no { font-size: 11px; color: #aaa; margin-top: 2px; }
 
-.p-supplier {
-  border: 1.5px solid #333; border-radius: 0;
-  margin-bottom: 8px; overflow: hidden;
+/* 거래처 + 공급자 2단 */
+.p-parties { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+.p-party { border: 1px solid #E0DDD8; border-radius: 8px; overflow: hidden; }
+.p-party-title {
+  background: #1A4F8A; color: white;
+  padding: 7px 12px; font-size: 11px; font-weight: 700; letter-spacing: 1px;
 }
-.p-supplier-title {
-  background: #f0f0f0; text-align: center;
-  padding: 5px; font-size: 12px; font-weight: 700;
-  border-bottom: 1px solid #ddd;
-}
-
-.p-note { font-size: 10px; color: #666; margin-bottom: 8px; line-height: 1.5; }
+.p-party-body { padding: 10px 12px; }
+.p-party-row { display: flex; gap: 6px; margin-bottom: 5px; font-size: 12px; }
+.p-party-row:last-child { margin-bottom: 0; }
+.p-party-key { color: #999; min-width: 44px; font-size: 11px; }
+.p-party-val { color: #222; font-weight: 500; flex: 1; word-break: break-all; }
+.p-party-val.big { font-size: 14px; font-weight: 700; color: #111; }
 
 /* 품목 테이블 */
-.p-table { width:100%; border-collapse:collapse; margin-bottom:8px; font-size:13px; }
-.p-table thead tr { background:#1A4F8A; color:white; }
-.p-table th { padding:7px 8px; text-align:left; font-size:11px; font-weight:600; }
-.p-table th:last-child, .p-table td:last-child { text-align:right; }
-.p-table th:nth-child(2), .p-table td:nth-child(2) { text-align:center; }
-.p-table th:nth-child(3), .p-table td:nth-child(3) { text-align:right; }
-.p-table td { padding:6px 8px; border-bottom:1px solid #eee; color:#222; }
-.p-table tbody tr:nth-child(even) { background:#fafafa; }
-.p-table tfoot td { padding:8px 8px; background:#f0f0f0; border-top:2px solid #1A4F8A; font-size:13px; }
-
-.p-total {
-  background: #1A4F8A; color: white;
-  border-radius: 7px; padding: 10px 14px;
-  display: flex; justify-content: space-between; align-items: center;
-  margin: 8px 0 8px;
+.p-table-wrap { margin-bottom: 14px; border-radius: 8px; overflow: hidden; border: 1px solid #E0DDD8; }
+.p-table { width:100%; border-collapse:collapse; font-size:13px; }
+.p-table thead tr { background:#1A4F8A; }
+.p-table th {
+  padding: 10px 10px; color: white; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.3px;
 }
-.p-total .tl { font-size: 13px; opacity: 0.85; }
-.p-total .tv { font-size: 20px; font-weight: 700; }
+.p-table th:first-child { text-align: left; padding-left: 14px; }
+.p-table th:nth-child(2) { text-align: center; }
+.p-table th:nth-child(3) { text-align: right; }
+.p-table th:last-child { text-align: right; padding-right: 14px; }
+.p-table td { padding: 10px 10px; border-bottom: 1px solid #F0EDE8; color: #222; }
+.p-table td:first-child { text-align: left; padding-left: 14px; font-weight: 600; }
+.p-table td:nth-child(2) { text-align: center; color: #555; }
+.p-table td:nth-child(3) { text-align: right; color: #555; }
+.p-table td:last-child { text-align: right; padding-right: 14px; font-weight: 600; }
+.p-table tbody tr:nth-child(even) { background: #FAFAF8; }
+.p-table .sub-row td { background: #F8F8F6; color: #777; font-size: 12px; font-weight: 400; }
+.p-table .sub-row td:first-child { padding-left: 22px; color: #999; }
+.p-table tfoot td {
+  padding: 11px 10px; background: #F4F1EC;
+  border-top: 2px solid #1A4F8A; font-size: 13px; font-weight: 700; color: #1A4F8A;
+}
+.p-table tfoot td:first-child { padding-left: 14px; }
+.p-table tfoot td:last-child { padding-right: 14px; }
 
+/* 총합계 바 */
+.p-total-bar {
+  background: #1A4F8A;
+  border-radius: 10px; padding: 14px 18px;
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 14px; color: white;
+}
+.p-total-bar .tl { font-size: 13px; opacity: 0.8; font-weight: 500; }
+.p-total-bar .tv { font-size: 24px; font-weight: 800; letter-spacing: -0.5px; }
+
+/* 입금계좌 */
 .p-bank {
-  border: 2px solid #1A4F8A;
-  border-radius: 8px; margin-bottom: 8px;
-  overflow: hidden;
+  border: 1.5px solid #1A4F8A; border-radius: 10px;
+  overflow: hidden; margin-bottom: 12px;
 }
 .p-bank-notice {
-  background: #D05010; color: white;
-  text-align: center; padding: 7px;
-  font-size: 14px; font-weight: 700; letter-spacing: 2px;
+  background: #C05010; color: white;
+  text-align: center; padding: 9px;
+  font-size: 13px; font-weight: 800; letter-spacing: 3px;
 }
-.p-bank-label {
-  font-size: 10px; color: #666; font-weight: 500;
-  padding: 7px 12px 1px;
+.p-bank-body { padding: 12px 16px; }
+.p-bank-label { font-size: 10px; color: #999; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 4px; text-transform: uppercase; }
+.p-bank-num { font-size: 22px; font-weight: 800; color: #1A4F8A; letter-spacing: 1px; margin-bottom: 4px; }
+.p-bank-info { font-size: 12px; color: #666; }
+
+/* 공급자 (접힘) */
+.p-supplier {
+  border: 1px solid #E0DDD8; border-radius: 8px;
+  overflow: hidden; margin-bottom: 8px;
 }
-.p-bank-num {
-  font-size: 20px; font-weight: 700; color: #1A4F8A;
-  padding: 0 12px 4px; letter-spacing: 1px;
-}
-.p-bank-info {
-  font-size: 12px; color: #444;
-  padding: 0 12px 8px;
+.p-supplier-title {
+  background: #F4F1EC; text-align: center;
+  padding: 8px; font-size: 12px; font-weight: 700; color: #555;
+  border-bottom: 1px solid #E0DDD8; cursor: pointer;
+  letter-spacing: 2px;
 }
 .p-footnote { display: none; }
+
+/* 기존 호환용 — 사용안함 */
+.p-info-box, .p-info-row, .p-info-key, .p-info-val { display: none; }
+.p-note { display: none; }
+.p-total { display: none; }
+.p-bank-label-old { display: none; }
 
 /* STATS */
 .stats-section { margin-bottom: 20px; }
@@ -949,52 +976,79 @@ function showPreview(){
     const name=it.modelName;
     let rows='';
     if(rollM>0&&cutM>0){
-      rows+=`<tr><td>${name}</td><td><span class="tag-r">롤</span>${rollM}m</td><td>${it.r.toLocaleString()}</td><td>${(rollM*it.r).toLocaleString()}</td></tr>
-             <tr><td style="color:#aaa;font-size:11px;padding-left:10px">└ 절단</td><td><span class="tag-c">절단</span>${cutM}m</td><td>${it.c.toLocaleString()}</td><td>${(cutM*it.c).toLocaleString()}</td></tr>`;
+      rows+=`<tr><td>${name}</td><td>롤 ${rollM}m</td><td>${it.r.toLocaleString()}</td><td>${(rollM*it.r).toLocaleString()}</td></tr>
+             <tr class="sub-row"><td>└ 절단</td><td>절단 ${cutM}m</td><td>${it.c.toLocaleString()}</td><td>${(cutM*it.c).toLocaleString()}</td></tr>`;
     } else {
       const m=rollM||cutM; const pr=rollM>0?it.r:it.c;
-      const tag=rollM>0?'<span class="tag-r">롤</span>':'<span class="tag-c">절단</span>';
-      rows+=`<tr><td>${name}</td><td>${tag}${m}m</td><td>${pr.toLocaleString()}</td><td>${amt.toLocaleString()}</td></tr>`;
+      const typeLabel=rollM>0?`롤 ${m}m`:`절단 ${m}m`;
+      rows+=`<tr><td>${name}</td><td>${typeLabel}</td><td>${pr.toLocaleString()}</td><td>${amt.toLocaleString()}</td></tr>`;
     }
     return rows;
   }).join('');
 
-  const tableHtml = `
-    <table class="p-table">
-      <thead><tr><th>색상명</th><th>수량</th><th>단가</th><th>금액</th></tr></thead>
-      <tbody>${itemsHtml}</tbody>
-      <tfoot><tr><td colspan="3" style="text-align:right;font-weight:700">합계</td><td style="font-weight:700;color:#1A4F8A">${total.toLocaleString()}</td></tr></tfoot>
-    </table>`;
-
   document.getElementById('parea').innerHTML=`
-    <div class="p-header">견 &nbsp; 적 &nbsp; 서</div>
-    <div class="p-info-box">
-      <div class="p-info-row"><div class="p-info-key">거래처명</div><div class="p-info-val">${client}</div></div>
-      ${site?`<div class="p-info-row"><div class="p-info-key">현장명</div><div class="p-info-val">${site}</div></div>`:''}
-      <div class="p-info-row"><div class="p-info-key">접수일</div><div class="p-info-val">${rd}</div></div>
-      <div class="p-info-row"><div class="p-info-key">출고일</div><div class="p-info-val">${sd}</div></div>
-      <div class="p-info-row"><div class="p-info-key">출고방식</div><div class="p-info-val">${sm}</div></div>
-    </div>
-    <div class="p-note" style="display:none">※ 인테리어 필름 5m 단위 절단 가능 &nbsp;|&nbsp; 25m 이상 롤단가 적용</div>
-    ${tableHtml}
-    <div class="p-total"><span class="tl">총 합계</span><span class="tv">${total.toLocaleString()} 원</span></div>
-    <div class="p-bank">
-      <div class="p-bank-notice">⚠️ 선입금 후 발주</div>
-      <div class="p-bank-label">입금계좌</div>
-      <div class="p-bank-num">332-135674-04-011</div>
-      <div class="p-bank-info">기업은행 &nbsp;|&nbsp; 예금주: 주식회사 오션메이드</div>
-    </div>
-    <div class="p-supplier">
-      <div class="p-supplier-title" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'" style="cursor:pointer">공 &nbsp; 급 &nbsp; 자 &nbsp; ▾</div>
-      <div style="display:none">
-        <div class="p-info-row"><div class="p-info-key">상호</div><div class="p-info-val">오션메이드</div></div>
-        <div class="p-info-row"><div class="p-info-key">등록번호</div><div class="p-info-val">591-86-03453</div></div>
-        <div class="p-info-row"><div class="p-info-key">성명</div><div class="p-info-val">정근도 (인)</div></div>
-        <div class="p-info-row"><div class="p-info-key">주소</div><div class="p-info-val">충남 아산시 신창면 환경공원로 213-9</div></div>
-        <div class="p-info-row"><div class="p-info-key">전화</div><div class="p-info-val">041) 534-7475</div></div>
+  <div class="p-doc">
+    <div class="p-header">
+      <div class="p-header-left">
+        <h1>견 &nbsp; 적 &nbsp; 서</h1>
+        <p>QUOTATION · 주식회사 오션메이드</p>
+      </div>
+      <div class="p-header-right">
+        <div class="p-date">출고일 ${sd}</div>
+        <div class="p-no">접수일 ${rd}</div>
       </div>
     </div>
-    <div class="p-footnote"></div>
+
+    <div class="p-parties">
+      <div class="p-party">
+        <div class="p-party-title">거 래 처</div>
+        <div class="p-party-body">
+          <div class="p-party-row"><span class="p-party-key">상호</span><span class="p-party-val big">${client}</span></div>
+          ${site?`<div class="p-party-row"><span class="p-party-key">현장명</span><span class="p-party-val">${site}</span></div>`:''}
+          <div class="p-party-row"><span class="p-party-key">출고</span><span class="p-party-val">${sm}</span></div>
+        </div>
+      </div>
+      <div class="p-party">
+        <div class="p-party-title">공 급 자</div>
+        <div class="p-party-body">
+          <div class="p-party-row"><span class="p-party-key">상호</span><span class="p-party-val big">오션메이드</span></div>
+          <div class="p-party-row"><span class="p-party-key">성명</span><span class="p-party-val">정근도</span></div>
+          <div class="p-party-row"><span class="p-party-key">전화</span><span class="p-party-val">041-534-7475</span></div>
+          <div class="p-party-row"><span class="p-party-key">등록</span><span class="p-party-val">591-86-03453</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-table-wrap">
+      <table class="p-table">
+        <thead>
+          <tr><th>색상명</th><th>수량</th><th>단가(원/m)</th><th>금액(원)</th></tr>
+        </thead>
+        <tbody>${itemsHtml}</tbody>
+        <tfoot>
+          <tr><td colspan="3" style="text-align:right">합 계</td><td>${total.toLocaleString()}</td></tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div class="p-total-bar">
+      <span class="tl">총 합계</span>
+      <span class="tv">${total.toLocaleString()} 원</span>
+    </div>
+
+    <div class="p-bank">
+      <div class="p-bank-notice">⚠ &nbsp; 선 입 금 후 발 주</div>
+      <div class="p-bank-body">
+        <div class="p-bank-label">입금계좌</div>
+        <div class="p-bank-num">332-135674-04-011</div>
+        <div class="p-bank-info">기업은행 &nbsp;|&nbsp; 예금주: 주식회사 오션메이드</div>
+      </div>
+    </div>
+
+    <div style="font-size:10px;color:#aaa;text-align:center;padding:8px 0">
+      ※ 인테리어 필름 5m 단위 절단 · 25m 이상 롤단가 적용
+    </div>
+  </div>
   `;
   document.getElementById('ovl').classList.add('show');
   document.getElementById('ovl').scrollTop=0;
@@ -1004,40 +1058,57 @@ function closePreview(){ document.getElementById('ovl').classList.remove('show')
 
 function doPrint(){
   const content=document.getElementById('parea').innerHTML;
-  const win=window.open('','_blank','width=420,height=900');
-  win.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>견적서</title>
+  const win=window.open('','_blank','width=460,height=900');
+  win.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>견적서 - 오션메이드</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:'Malgun Gothic','Apple SD Gothic Neo',sans-serif;padding:16px;color:#111;max-width:480px;margin:0 auto}
-    .p-header{text-align:center;font-size:22px;font-weight:700;letter-spacing:8px;margin-bottom:16px}
-    .p-info-box,.p-supplier{border:1.5px solid #333;margin-bottom:12px;overflow:hidden}
-    .p-info-row{display:flex;border-bottom:1px solid #ddd;font-size:13px}
-    .p-info-row:last-child{border-bottom:none}
-    .p-info-key{width:80px;min-width:80px;padding:8px 10px;background:#f5f5f5;color:#555;font-size:12px;border-right:1px solid #ddd;font-weight:500}
-    .p-info-val{padding:8px 10px;color:#222;flex:1;word-break:break-all}
-    .p-supplier-title{background:#f0f0f0;text-align:center;padding:7px;font-size:13px;font-weight:700;border-bottom:1px solid #ddd}
-    .p-note{font-size:11px;color:#666;margin-bottom:10px;line-height:1.6}
-    .p-table{width:100%;border-collapse:collapse;margin-bottom:10px;font-size:13px}
-    .p-table thead tr{background:#1A4F8A;color:white}
-    .p-table th{padding:7px 8px;text-align:left;font-size:11px;font-weight:600}
-    .p-table th:last-child,.p-table td:last-child{text-align:right}
-    .p-table th:nth-child(2),.p-table td:nth-child(2){text-align:center}
-    .p-table th:nth-child(3),.p-table td:nth-child(3){text-align:right}
-    .p-table td{padding:6px 8px;border-bottom:1px solid #eee;color:#222}
-    .p-table tbody tr:nth-child(even){background:#fafafa}
-    .p-table tfoot td{padding:8px;background:#f0f0f0;border-top:2px solid #1A4F8A;font-size:13px}
-    .tag-r{font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;background:#EAF1FA;color:#1A4F8A;margin-right:4px}
-    .tag-c{font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;background:#FDF0E8;color:#C05010;margin-right:4px}
-    .p-total{background:#1A4F8A;color:white;border-radius:6px;padding:12px 16px;display:flex;justify-content:space-between;margin:12px 0 10px}
-    .p-total .tl{font-size:13px;opacity:.85}
-    .p-total .tv{font-size:20px;font-weight:700}
-    .p-bank{border:2px solid #1A4F8A;border-radius:8px;margin-bottom:12px;overflow:hidden}
-    .p-bank-notice{background:#D05010;color:white;text-align:center;padding:9px;font-size:15px;font-weight:700;letter-spacing:2px}
-    .p-bank-label{font-size:11px;color:#666;font-weight:500;padding:10px 14px 2px}
-    .p-bank-num{font-size:22px;font-weight:700;color:#1A4F8A;padding:0 14px 6px;letter-spacing:1px}
-    .p-bank-info{font-size:13px;color:#444;padding:0 14px 10px}
-    .p-footnote{font-size:11px;color:#999}
-    @media print{body{padding:8px}}
+    body{font-family:'Noto Sans KR','Malgun Gothic',sans-serif;background:white;color:#111;max-width:500px;margin:0 auto;padding:0}
+    .p-doc{padding:24px 20px 20px}
+    .p-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:20px;padding-bottom:14px;border-bottom:3px solid #1A4F8A}
+    .p-header-left h1{font-size:26px;font-weight:800;color:#1A4F8A;letter-spacing:4px;margin-bottom:2px}
+    .p-header-left p{font-size:11px;color:#888}
+    .p-header-right{text-align:right}
+    .p-date{font-size:12px;color:#666}
+    .p-no{font-size:11px;color:#aaa;margin-top:2px}
+    .p-parties{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+    .p-party{border:1px solid #E0DDD8;border-radius:8px;overflow:hidden}
+    .p-party-title{background:#1A4F8A;color:white;padding:7px 12px;font-size:11px;font-weight:700;letter-spacing:1px}
+    .p-party-body{padding:10px 12px}
+    .p-party-row{display:flex;gap:6px;margin-bottom:5px;font-size:12px}
+    .p-party-row:last-child{margin-bottom:0}
+    .p-party-key{color:#999;min-width:44px;font-size:11px}
+    .p-party-val{color:#222;font-weight:500;flex:1;word-break:break-all}
+    .p-party-val.big{font-size:14px;font-weight:700;color:#111}
+    .p-table-wrap{margin-bottom:14px;border-radius:8px;overflow:hidden;border:1px solid #E0DDD8}
+    .p-table{width:100%;border-collapse:collapse;font-size:13px}
+    .p-table thead tr{background:#1A4F8A}
+    .p-table th{padding:10px 10px;color:white;font-size:11px;font-weight:700;letter-spacing:0.3px}
+    .p-table th:first-child{text-align:left;padding-left:14px}
+    .p-table th:nth-child(2){text-align:center}
+    .p-table th:nth-child(3){text-align:right}
+    .p-table th:last-child{text-align:right;padding-right:14px}
+    .p-table td{padding:10px 10px;border-bottom:1px solid #F0EDE8;color:#222}
+    .p-table td:first-child{text-align:left;padding-left:14px;font-weight:600}
+    .p-table td:nth-child(2){text-align:center;color:#555}
+    .p-table td:nth-child(3){text-align:right;color:#555}
+    .p-table td:last-child{text-align:right;padding-right:14px;font-weight:600}
+    .p-table tbody tr:nth-child(even){background:#FAFAF8}
+    .sub-row td{background:#F8F8F6!important;color:#888;font-size:12px;font-weight:400!important}
+    .sub-row td:first-child{padding-left:22px!important;color:#aaa}
+    .p-table tfoot td{padding:11px 10px;background:#F4F1EC;border-top:2px solid #1A4F8A;font-size:13px;font-weight:700;color:#1A4F8A}
+    .p-table tfoot td:first-child{padding-left:14px}
+    .p-table tfoot td:last-child{padding-right:14px}
+    .p-total-bar{background:#1A4F8A;border-radius:10px;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;color:white}
+    .p-total-bar .tl{font-size:13px;opacity:.8;font-weight:500}
+    .p-total-bar .tv{font-size:24px;font-weight:800;letter-spacing:-0.5px}
+    .p-bank{border:1.5px solid #1A4F8A;border-radius:10px;overflow:hidden;margin-bottom:12px}
+    .p-bank-notice{background:#C05010;color:white;text-align:center;padding:9px;font-size:13px;font-weight:800;letter-spacing:3px}
+    .p-bank-body{padding:12px 16px}
+    .p-bank-label{font-size:10px;color:#999;font-weight:600;letter-spacing:.5px;margin-bottom:4px;text-transform:uppercase}
+    .p-bank-num{font-size:22px;font-weight:800;color:#1A4F8A;letter-spacing:1px;margin-bottom:4px}
+    .p-bank-info{font-size:12px;color:#666}
+    @media print{body{padding:0}.p-doc{padding:16px}}
   </style></head><body>${content}<script>window.onload=()=>window.print()<\/script></body></html>`);
   win.document.close();
 }
