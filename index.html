@@ -82,29 +82,54 @@ header h1 { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; }
 /* ITEM CARD */
 .item-card {
   background: var(--white); border: 1.5px solid var(--border);
-  border-radius: var(--radius); margin-bottom: 14px; overflow: hidden;
+  border-radius: var(--radius); margin-bottom: 8px; overflow: hidden;
   box-shadow: var(--shadow-sm);
 }
-.item-head {
-  background: linear-gradient(135deg, #1A4F8A, #2563a8);
-  padding: 11px 14px; display: flex; align-items: center; gap: 10px;
+
+/* 접힌 상태 — 한 줄 요약 */
+.item-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 11px 14px; cursor: pointer;
+  background: white; transition: background 0.1s;
 }
+.item-row:active { background: var(--gray-50); }
 .item-num {
-  width: 24px; height: 24px;
-  background: rgba(255,255,255,0.2); color: white;
-  border-radius: 50%; font-size: 12px; font-weight: 700;
+  width: 22px; height: 22px; flex-shrink: 0;
+  background: var(--blue); color: white;
+  border-radius: 50%; font-size: 11px; font-weight: 700;
   display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; border: 1.5px solid rgba(255,255,255,0.35);
 }
-.item-head-label { flex: 1; font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.85); }
-.del-btn {
-  width: 30px; height: 30px;
-  background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
-  border-radius: 8px; font-size: 16px; color: rgba(255,255,255,0.8);
+.item-row-info { flex: 1; min-width: 0; }
+.item-row-name {
+  font-size: 13px; font-weight: 700; color: var(--gray-900);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.item-row-sub { font-size: 11px; color: var(--gray-500); margin-top: 1px; }
+.item-row-amt {
+  font-size: 14px; font-weight: 800; color: var(--blue);
+  white-space: nowrap; flex-shrink: 0;
+}
+.item-row-amt.zero { color: var(--gray-300); }
+.item-expand-btn {
+  width: 26px; height: 26px; flex-shrink: 0;
+  background: var(--gray-50); border: 1px solid var(--border);
+  border-radius: 6px; font-size: 11px; color: var(--gray-500);
   display: flex; align-items: center; justify-content: center; cursor: pointer;
 }
-.del-btn:active { background: rgba(220,50,50,0.5); color: white; }
+.del-btn {
+  width: 28px; height: 28px; flex-shrink: 0;
+  background: none; border: 1px solid #EEDDDD;
+  border-radius: 6px; font-size: 15px; color: #CC6666;
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+}
+.del-btn:active { background: #FEE; }
 
+/* 펼쳐진 상태 */
+.item-detail {
+  border-top: 1px solid var(--border);
+  background: #FAFAF8;
+}
+.item-detail.hidden { display: none; }
 .item-body { padding: 14px; display: flex; flex-direction: column; gap: 12px; }
 
 /* ★ 셀렉트 박스 새 디자인 */
@@ -535,29 +560,30 @@ if(sessionStorage.getItem('auth')==='1'){
 setTimeout(()=>{ const i=document.getElementById('pw-input'); if(i) i.focus(); }, 100);
 
 const PRODUCTS = [
-  {label:'HSM 슈퍼매트',    group:'솔리드',      roll:7600,  cut:10400}, // 0
-  {label:'HS 솔리드',       group:'솔리드',      roll:5200,  cut:8000},  // 1
-  {label:'HP 페인티드우드', group:'솔리드',      roll:5400,  cut:8400},  // 2  (501-504,518~)
-  {label:'HE 텍스처/펄',    group:'솔리드',      roll:5400,  cut:8400},  // 3  (401-406)
-  {label:'HE407',           group:'솔리드',      roll:7600,  cut:11800}, // 4
-  {label:'HC 솔리드향균',   group:'향균',        roll:5200,  cut:8000},  // 5
-  {label:'HL 우드향균',     group:'향균',        roll:5400,  cut:8400},  // 6
-  {label:'HW 우드',         group:'우드',        roll:5400,  cut:8400},  // 7
-  {label:'HWB 우드',        group:'우드',        roll:5800,  cut:8900},  // 8
-  {label:'HPW 키친우드',    group:'우드',        roll:5400,  cut:8400},  // 9
-  {label:'HN 스톤',         group:'스톤',        roll:5800,  cut:8900},  // 10
-  {label:'HM 마블',         group:'마블',        roll:5800,  cut:8900},  // 11
-  {label:'HT 메탈',         group:'메탈',        roll:6000,  cut:9200},  // 12
-  {label:'HF 패브릭',       group:'패브릭',      roll:5800,  cut:8900},  // 13
-  {label:'HCP 세라믹',      group:'세라믹',      roll:5800,  cut:8900},  // 14
-  {label:'HLC 콘크리트',    group:'콘크리트',    roll:5800,  cut:8900},  // 15
-  {label:'HR 리얼우드',     group:'프리미엄우드', roll:10900, cut:16900}, // 16
-  {label:'HU 리얼터치우드', group:'프리미엄우드', roll:12800, cut:19800}, // 17
-  {label:'HI PP SOLID',     group:'프리미엄우드', roll:14000, cut:21600}, // 18
-  {label:'HO PP WOOD',      group:'프리미엄우드', roll:14000, cut:21600}, // 19
+  {label:'HSM 슈퍼매트',           group:'솔리드',       roll:7600,  cut:10400}, // 0
+  {label:'HS 솔리드',              group:'솔리드',       roll:5200,  cut:8000},  // 1
+  {label:'HP 페인티드우드(저가)',   group:'솔리드',       roll:5200,  cut:8000},  // 2  505-517
+  {label:'HP 페인티드우드(고가)',   group:'솔리드',       roll:5400,  cut:8400},  // 3  501-504,518-540
+  {label:'HE 텍스처/펄',           group:'솔리드',       roll:5400,  cut:8400},  // 4  401-406
+  {label:'HE407 (고단가)',          group:'솔리드',       roll:7600,  cut:11800}, // 5
+  {label:'HC 솔리드향균',          group:'향균',         roll:5200,  cut:8000},  // 6
+  {label:'HL 우드향균',            group:'향균',         roll:5400,  cut:8400},  // 7
+  {label:'HW 우드 (얇은글씨)',     group:'우드',         roll:5400,  cut:8400},  // 8
+  {label:'HWB 우드 (굵은글씨)',    group:'우드',         roll:5800,  cut:8900},  // 9
+  {label:'HPW 키친우드',           group:'우드',         roll:5400,  cut:8400},  // 10
+  {label:'HN 스톤',                group:'스톤',         roll:5800,  cut:8900},  // 11
+  {label:'HM 마블',                group:'마블',         roll:5800,  cut:8900},  // 12
+  {label:'HT 메탈',                group:'메탈',         roll:6000,  cut:9200},  // 13
+  {label:'HF 패브릭',              group:'패브릭',       roll:5800,  cut:8900},  // 14
+  {label:'HCP 세라믹',             group:'세라믹',       roll:5800,  cut:8900},  // 15
+  {label:'HLC 콘크리트',           group:'콘크리트',     roll:5800,  cut:8900},  // 16
+  {label:'HR 리얼우드',            group:'프리미엄우드',  roll:10900, cut:16900}, // 17
+  {label:'HU 리얼터치우드',        group:'프리미엄우드',  roll:12800, cut:19800}, // 18
+  {label:'HI PP SOLID',            group:'프리미엄우드',  roll:14000, cut:21600}, // 19
+  {label:'HO PP WOOD',             group:'프리미엄우드',  roll:14000, cut:21600}, // 20
 ];
 
-// ===== 전체 모델 데이터베이스 (파일 기준) =====
+// ===== 전체 모델 데이터베이스 =====
 const MODEL_DB = {
   'HSM 슈퍼매트': { pidx:0, models:[
     'HSM01 매트화이트','HSM02 매트밀크화이트','HSM16 매트아이보리','HSM03 매트캐시미어',
@@ -578,24 +604,28 @@ const MODEL_DB = {
     'HS041 베이비그린','HS042 소프트민트','HS043 라벤더','HS044 퓨어레드',
     'HS045','HS046','HS047','HS048','HS049','HS050','HS051','HS052','HS053'
   ]},
-  'HP 페인티드우드': { pidx:2, models:[
+  'HP 페인티드우드(저가)': { pidx:2, models:[
+    'HP505','HP506','HP507',
     'HP508 웜그레이페인트','HP509','HP510','HP511','HP512',
     'HP513 브라운페인트','HP514 딥그레이페인트','HP515 로즈핑크페인트',
-    'HP516 미드그레이페인트','HP517 매트블랙페인트','HP518','HP519','HP520',
-    'HP521','HP522','HP523','HP524','HP525','HP526','HP530','HP540'
+    'HP516 미드그레이페인트','HP517 매트블랙페인트'
   ]},
-  'HE 텍스처/펄': { pidx:3, models:[
+  'HP 페인티드우드(고가)': { pidx:3, models:[
+    'HP501','HP502','HP503','HP504',
+    'HP518','HP519','HP520','HP521','HP522','HP523','HP524','HP525','HP526','HP530','HP540'
+  ]},
+  'HE 텍스처/펄': { pidx:4, models:[
     'HE401 화이트펄','HE402 우드블랙','HE403 소프트화이트',
     'HE404 스킨','HE405 민트그레이','HE406 브라운'
   ]},
-  'HE407 (고단가)': { pidx:4, models:['HE407']},
-  'HC 솔리드향균': { pidx:5, models:[
+  'HE407 (고단가)': { pidx:5, models:['HE407'] },
+  'HC 솔리드향균': { pidx:6, models:[
     'HC801 퓨어화이트','HC802 페일그레이','HO803 모노그레이','HO804 클래식블루'
   ]},
-  'HL 우드향균': { pidx:6, models:[
+  'HL 우드향균': { pidx:7, models:[
     'HL1851 라이트애쉬','HL1852 스킨오크'
   ]},
-  'HW 우드 (얇은글씨)': { pidx:7, models:[
+  'HW 우드 (얇은글씨)': { pidx:8, models:[
     'HW1001 클리어오크','HW1002 심플그레인','HW1004 크림오크','HW1009 브러쉬오크소프트',
     'HW1010 버치','HW1016 프렌치오크','HW1019 오크마일드','HW1020 브러쉬오크마일드',
     'HW1021 리얼오크','HW1023 콰트로러스크(세로)','HW1024 로열워시오크','HW1025 빈티지오크',
@@ -607,7 +637,7 @@ const MODEL_DB = {
     'HW1065','HW1066','HW1067','HW1068','HW1069','HW1070',
     'HW1071','HW1072','HW1073','HW1077','HW1078','HW1079','HW1083','HW1084'
   ]},
-  'HWB 우드 (굵은글씨)': { pidx:8, models:[
+  'HWB 우드 (굵은글씨)': { pidx:9, models:[
     'HWB1003 소프트워시오크','HWB1005 화인오크','HWB1007 브룩시더(세로)','HWB1008 브룩시더(가로)',
     'HWB1011 락메이플','HWB1012 쉬머오크','HWB1013 샤인오크',
     'HWB1014 브룩시더베이지(세로)','HWB1015 브룩시더베이지(가로)',
@@ -617,42 +647,42 @@ const MODEL_DB = {
     'HWB1061','HWB1062 워시그레이','HWB1063','HWB1064 오크딥',
     'HWB1076','HWB1080','HWB1081','HWB1082'
   ]},
-  'HPW 키친우드': { pidx:9, models:[
+  'HPW 키친우드': { pidx:10, models:[
     'HPW21 프렌치오크','HPW22 피넛오크','HPW23 카카오월넛','HPW24 던오크'
   ]},
-  'HN 스톤': { pidx:10, models:[
+  'HN 스톤': { pidx:11, models:[
     'HN2001 솔리드콘크리트그레이','HN2002 솔리드콘크리트다크',
     'HN2003','HN2004','HN2005','HN2006','HN2007',
     'HN2008','HN2009','HN2010','HN2011','HN2012','HN2013'
   ]},
-  'HM 마블': { pidx:11, models:[
+  'HM 마블': { pidx:12, models:[
     'HM2101','HM2102','HM2103','HM2104'
   ]},
-  'HT 메탈': { pidx:12, models:[
+  'HT 메탈': { pidx:13, models:[
     'HT2301 메탈그레이','HT2302 골드',
     'HT2303','HT2304','HT2305','HT2306','HT2307','HT2308','HT2309'
   ]},
-  'HF 패브릭': { pidx:13, models:[
+  'HF 패브릭': { pidx:14, models:[
     'HF2201 코트니브라운','HF2202 코트니베이지',
     'HF2205 패브릭베이지','HF2206 패브릭네이비',
     'HF2207','HF2208','HF2209','HF2210'
   ]},
-  'HCP 세라믹': { pidx:14, models:[
+  'HCP 세라믹': { pidx:15, models:[
     'HCP01 세라믹문퍼시픽','HCP02 세라믹문그레이','HCP03 세라믹문움브라','HCP04 세라믹문브릭'
   ]},
-  'HLC 콘크리트': { pidx:15, models:[
+  'HLC 콘크리트': { pidx:16, models:[
     'HLC010 콘크리트화이트','HLC011 콘크리트그레이'
   ]},
-  'HR 리얼우드': { pidx:16, models:[
+  'HR 리얼우드': { pidx:17, models:[
     'HR3002 트라이베카','HR3004 팜비치애쉬','HR3007 로베레켄들','HR3008 윌리스플럼'
   ]},
-  'HU 리얼터치우드': { pidx:17, models:[
+  'HU 리얼터치우드': { pidx:18, models:[
     'HU3301 로베레UK','HU3302 로베레아즈데코','HU3303 노체비스코토','HU3304 로베레카카오'
   ]},
-  'HI PP SOLID': { pidx:18, models:[
+  'HI PP SOLID': { pidx:19, models:[
     'HL4001 스카이오크화이트','HL4002 스카이오크그레이'
   ]},
-  'HO PP WOOD': { pidx:19, models:[
+  'HO PP WOOD': { pidx:20, models:[
     'HO4301 카타니아오크','HO4302 네이처오크','HO4303 그레이쉬오크'
   ]},
 };
@@ -701,10 +731,24 @@ function renderAll(){
   document.getElementById('total-display').textContent=total.toLocaleString()+' 원';
 }
 
+function toggleItem(id){
+  const el = document.querySelector(`.item-detail[data-id="${id}"]`);
+  const btn = document.querySelector(`.item-expand-btn[data-id="${id}"]`);
+  if(!el) return;
+  const hidden = el.classList.toggle('hidden');
+  btn.textContent = hidden ? '✎' : '▲';
+}
+
 function buildEl(it,num){
   const db=MODEL_DB[it.catKey];
   const {amt,rollM,cutM}=calc(it.qty,it.r,it.c);
   const div=document.createElement('div'); div.className='item-card';
+
+  // 접힌 상태 요약
+  const qtyStr = it.qty > 0 ? `${it.qty}m` : '수량미입력';
+  const typeStr = rollM>0&&cutM>0 ? `롤${rollM}m+절단${cutM}m` : rollM>0 ? `롤 ${rollM}m` : `절단 ${it.qty}m`;
+  const amtStr = amt > 0 ? amt.toLocaleString()+'원' : '0원';
+
   let chips='';
   if(it.qty>0){
     if(rollM>0&&cutM>0){
@@ -719,53 +763,65 @@ function buildEl(it,num){
   const catOpts=MODEL_KEYS.map(k=>`<option value="${k}"${k===it.catKey?' selected':''}>${k}</option>`).join('');
   const modelOpts=db.models.map(m=>`<option value="${m}"${m===it.modelName?' selected':''}>${m}</option>`).join('');
 
+  // 새로 추가된 항목은 펼쳐서 보여줌 (qty=5이면 아직 설정 중)
+  const isNew = it.qty === 5 && it.modelName === db.models[0];
+  const detailHidden = isNew ? '' : 'hidden';
+  const expandIcon = isNew ? '▲' : '✎';
+
   div.innerHTML=`
-    <div class="item-head">
+    <div class="item-row" onclick="toggleItem(${it.id})">
       <div class="item-num">${num}</div>
-      <span class="item-head-label">${it.catKey}</span>
-      <button class="del-btn" onclick="removeItem(${it.id})">×</button>
+      <div class="item-row-info">
+        <div class="item-row-name">${it.modelName}</div>
+        <div class="item-row-sub">${it.qty > 0 ? typeStr : '수량을 입력하세요'}</div>
+      </div>
+      <div class="item-row-amt ${amt===0?'zero':''}">${amtStr}</div>
+      <button class="item-expand-btn" data-id="${it.id}" onclick="event.stopPropagation();toggleItem(${it.id})">${expandIcon}</button>
+      <button class="del-btn" onclick="event.stopPropagation();removeItem(${it.id})">×</button>
     </div>
-    <div class="item-body">
-      <div class="sel-group">
-        <div class="sel-block cat">
-          <label>① 대분류</label>
-          <select onchange="onCat(${it.id},this.value)">${catOpts}</select>
-        </div>
-        <div class="sel-block model">
-          <label>② 품명</label>
-          <select onchange="onModel(${it.id},this.value)">${modelOpts}</select>
-        </div>
-      </div>
-      <div class="price-row">
-        <div class="price-box roll">
-          <div class="price-tag">롤 단가 (25m↑)</div>
-          <div class="price-val">${it.r.toLocaleString()}<span class="price-unit-txt">원/m</span></div>
-          <span class="price-locked">고정단가</span>
-        </div>
-        <div class="price-box cut">
-          <div class="price-tag">절단 단가 (25m↓)</div>
-          <div class="price-val">${it.c.toLocaleString()}<span class="price-unit-txt">원/m</span></div>
-          <span class="price-locked">고정단가</span>
-        </div>
-      </div>
-      <div class="qty-box">
-        <div class="qty-top">
-          <span class="qty-label">수 량</span>
-          <div class="qty-stepper">
-            <button class="qty-btn" onclick="stepQty(${it.id},-5)">−</button>
-            <input class="qty-input" type="number" value="${it.qty}" oninput="onQty(${it.id},this.value)">
-            <button class="qty-btn" onclick="stepQty(${it.id},5)">＋</button>
+    <div class="item-detail ${detailHidden}" data-id="${it.id}">
+      <div class="item-body">
+        <div class="sel-group">
+          <div class="sel-block cat">
+            <label>① 대분류</label>
+            <select onchange="onCat(${it.id},this.value)">${catOpts}</select>
           </div>
-          <span class="qty-unit">m</span>
+          <div class="sel-block model">
+            <label>② 품명</label>
+            <select onchange="onModel(${it.id},this.value)">${modelOpts}</select>
+          </div>
         </div>
-        <div class="qty-shorts">
-          ${[5,10,15,20,25,30,40,50,75,100].map(q=>`<button class="qty-short" onclick="setQty(${it.id},${q})">${q}m</button>`).join('')}
+        <div class="price-row">
+          <div class="price-box roll">
+            <div class="price-tag">롤 단가 (25m↑)</div>
+            <div class="price-val">${it.r.toLocaleString()}<span class="price-unit-txt">원/m</span></div>
+            <span class="price-locked">고정단가</span>
+          </div>
+          <div class="price-box cut">
+            <div class="price-tag">절단 단가 (25m↓)</div>
+            <div class="price-val">${it.c.toLocaleString()}<span class="price-unit-txt">원/m</span></div>
+            <span class="price-locked">고정단가</span>
+          </div>
         </div>
-      </div>
-      <div class="breakdown">
-        <div class="bd-title">계산 내역</div>
-        <div class="bd-chips">${chips}</div>
-        <div class="bd-total"><span class="lbl">소계</span><span class="val">${amt.toLocaleString()} 원</span></div>
+        <div class="qty-box">
+          <div class="qty-top">
+            <span class="qty-label">수 량</span>
+            <div class="qty-stepper">
+              <button class="qty-btn" onclick="stepQty(${it.id},-5)">−</button>
+              <input class="qty-input" type="number" value="${it.qty}" oninput="onQty(${it.id},this.value)">
+              <button class="qty-btn" onclick="stepQty(${it.id},5)">＋</button>
+            </div>
+            <span class="qty-unit">m</span>
+          </div>
+          <div class="qty-shorts">
+            ${[5,10,15,20,25,30,40,50,75,100].map(q=>`<button class="qty-short" onclick="setQty(${it.id},${q})">${q}m</button>`).join('')}
+          </div>
+        </div>
+        <div class="breakdown">
+          <div class="bd-title">계산 내역</div>
+          <div class="bd-chips">${chips}</div>
+          <div class="bd-total"><span class="lbl">소계</span><span class="val">${amt.toLocaleString()} 원</span></div>
+        </div>
       </div>
     </div>`;
   return div;
