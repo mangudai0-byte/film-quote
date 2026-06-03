@@ -17,230 +17,222 @@
   --gray-900: #1A1A1A;
   --gray-700: #3D3D3D;
   --gray-500: #6B6B6B;
-  --gray-300: #BBBBBB;
   --gray-100: #F4F4F2;
   --gray-50: #FAFAF8;
   --white: #FFFFFF;
-  --border: #E0DDD8;
-  --radius: 12px;
+  --border: #E2DED9;
+  --radius: 14px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-body { font-family: 'Noto Sans KR', sans-serif; background: #EDEAE5; color: var(--gray-900); min-height: 100vh; }
+body { font-family: 'Noto Sans KR', sans-serif; background: #E8E4DE; color: var(--gray-900); min-height: 100vh; }
 
 header {
-  background: var(--blue);
-  color: white;
-  padding: 0 16px;
-  height: 52px;
+  background: linear-gradient(135deg, #1A4F8A 0%, #2563a8 100%);
+  color: white; padding: 0 20px; height: 56px;
   display: flex; align-items: center; justify-content: space-between;
   position: sticky; top: 0; z-index: 50;
+  box-shadow: 0 2px 12px rgba(26,79,138,0.3);
 }
-header h1 { font-size: 15px; font-weight: 600; }
-header span { font-size: 11px; opacity: 0.65; }
+header h1 { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; }
 
-.container { max-width: 540px; margin: 0 auto; padding: 14px 12px 100px; }
+.container { max-width: 540px; margin: 0 auto; padding: 16px 14px 100px; }
 
 .card {
-  background: var(--white);
-  border-radius: var(--radius);
-  margin-bottom: 12px;
-  overflow: hidden;
-  border: 1px solid var(--border);
+  background: var(--white); border-radius: var(--radius);
+  margin-bottom: 14px; overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.06); box-shadow: var(--shadow-sm);
 }
 .card-header {
-  background: var(--gray-50);
-  border-bottom: 1px solid var(--border);
-  padding: 11px 16px;
-  display: flex; align-items: center; gap: 8px;
+  background: linear-gradient(to right, #F8F6F3, #FAFAF8);
+  border-bottom: 1px solid var(--border); padding: 12px 18px;
+  display: flex; align-items: center; gap: 10px;
 }
 .card-header .icon {
-  width: 26px; height: 26px;
-  background: var(--blue); border-radius: 6px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 13px;
+  width: 28px; height: 28px;
+  background: linear-gradient(135deg, var(--blue), var(--blue-mid));
+  border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  font-size: 14px; box-shadow: 0 2px 6px rgba(26,79,138,0.25);
 }
-.card-header h2 { font-size: 13px; font-weight: 600; color: var(--gray-700); }
-.card-body { padding: 14px 16px; }
+.card-header h2 { font-size: 13px; font-weight: 700; color: var(--gray-700); letter-spacing: -0.2px; }
+.card-body { padding: 16px 18px; }
 
 /* FORM */
 .field { margin-bottom: 12px; }
 .field:last-child { margin-bottom: 0; }
-.field label { font-size: 11px; color: var(--gray-500); font-weight: 500; display: block; margin-bottom: 5px; }
+.field label {
+  font-size: 10px; color: var(--gray-500); font-weight: 700;
+  display: block; margin-bottom: 6px; letter-spacing: 0.4px; text-transform: uppercase;
+}
 .field input, .field select {
-  width: 100%; padding: 11px 12px;
-  border: 1px solid var(--border); border-radius: 8px;
-  font-size: 15px; font-family: inherit;
+  width: 100%; padding: 11px 14px;
+  border: 1.5px solid var(--border); border-radius: 10px;
+  font-size: 14px; font-family: inherit;
   background: var(--white); color: var(--gray-900);
   -webkit-appearance: none; appearance: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
-.field input:focus, .field select:focus { outline: none; border-color: var(--blue-mid); box-shadow: 0 0 0 3px rgba(46,107,181,0.12); }
+.field input:focus, .field select:focus {
+  outline: none; border-color: var(--blue-mid);
+  box-shadow: 0 0 0 3px rgba(46,107,181,0.12);
+}
 .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
 
 /* ITEM CARD */
 .item-card {
-  background: var(--gray-50);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  margin-bottom: 10px;
-  overflow: hidden;
+  background: var(--white); border: 1.5px solid var(--border);
+  border-radius: var(--radius); margin-bottom: 14px; overflow: hidden;
+  box-shadow: var(--shadow-sm);
 }
 .item-head {
-  background: white;
-  border-bottom: 1px solid var(--border);
-  padding: 10px 12px;
-  display: flex; align-items: center; gap: 8px;
+  background: linear-gradient(135deg, #1A4F8A, #2563a8);
+  padding: 11px 14px; display: flex; align-items: center; gap: 10px;
 }
 .item-num {
-  width: 22px; height: 22px;
-  background: var(--blue); color: white;
-  border-radius: 50%; font-size: 11px; font-weight: 700;
+  width: 24px; height: 24px;
+  background: rgba(255,255,255,0.2); color: white;
+  border-radius: 50%; font-size: 12px; font-weight: 700;
   display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
+  flex-shrink: 0; border: 1.5px solid rgba(255,255,255,0.35);
 }
-.item-head select {
-  flex: 1; padding: 7px 10px;
-  border: 1px solid var(--border); border-radius: 7px;
-  font-size: 13px; font-family: inherit;
-  background: white; color: var(--gray-900);
-  -webkit-appearance: none; appearance: none;
-}
+.item-head-label { flex: 1; font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.85); }
 .del-btn {
-  width: 32px; height: 32px;
-  background: none; border: 1px solid var(--border);
-  border-radius: 7px; font-size: 18px; color: var(--gray-500);
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; flex-shrink: 0;
+  width: 30px; height: 30px;
+  background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 8px; font-size: 16px; color: rgba(255,255,255,0.8);
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
 }
-.del-btn:active { background: #FEE; color: #C33; }
+.del-btn:active { background: rgba(220,50,50,0.5); color: white; }
 
-.item-body { padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+.item-body { padding: 14px; display: flex; flex-direction: column; gap: 12px; }
 
-/* COLOR INPUT */
-.color-field label { font-size: 11px; color: var(--gray-500); font-weight: 500; display: block; margin-bottom: 5px; }
-.color-field input {
-  width: 100%; padding: 10px 12px;
-  border: 1px solid var(--border); border-radius: 8px;
-  font-size: 15px; font-family: inherit; background: white; color: var(--gray-900);
+/* ★ 셀렉트 박스 새 디자인 */
+.sel-group { display: flex; flex-direction: column; gap: 8px; }
+.sel-block { position: relative; }
+.sel-block label {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.4px;
+  text-transform: uppercase; display: block; margin-bottom: 5px;
 }
-.color-field input:focus { outline: none; border-color: var(--blue-mid); }
-
-/* PRICE BOXES - 핵심 */
-.price-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.price-box {
-  border-radius: 10px; padding: 12px;
-  display: flex; flex-direction: column; gap: 6px;
+.sel-block.cat label { color: var(--blue); }
+.sel-block.model label { color: #1A6A3A; }
+.sel-block::after {
+  content: '▾'; position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+  font-size: 11px; pointer-events: none; margin-top: 8px;
 }
-.price-box.roll { background: var(--blue-light); border: 1.5px solid #B8CDE8; }
-.price-box.cut  { background: var(--orange-light); border: 1.5px solid #E8C4A0; }
+.sel-block.cat::after { color: var(--blue); }
+.sel-block.model::after { color: #1A6A3A; }
+.sel-block select {
+  width: 100%; padding: 11px 36px 11px 14px;
+  border-radius: 10px; font-size: 14px; font-family: inherit;
+  -webkit-appearance: none; appearance: none; cursor: pointer;
+  transition: all 0.15s; font-weight: 600;
+}
+.sel-block.cat select {
+  border: 1.5px solid #A8C4E8; background: linear-gradient(to bottom, #EAF1FA, #DDE8F5);
+  color: var(--blue);
+}
+.sel-block.cat select:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(26,79,138,0.15); }
+.sel-block.model select {
+  border: 1.5px solid #A8CEB8; background: linear-gradient(to bottom, #EEF6F0, #E2F0E6);
+  color: #1A5A2A;
+}
+.sel-block.model select:focus { outline: none; border-color: #1A6A3A; box-shadow: 0 0 0 3px rgba(26,106,58,0.12); }
+
+/* PRICE */
+.price-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.price-box { border-radius: 12px; padding: 14px 12px; display: flex; flex-direction: column; gap: 4px; }
+.price-box.roll { background: linear-gradient(135deg, #EAF1FA, #DAE8F5); border: 1.5px solid #B0CCE8; }
+.price-box.cut  { background: linear-gradient(135deg, #FDF0E8, #F8E4D4); border: 1.5px solid #E8BEA0; }
 .price-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.3px; }
 .price-box.roll .price-tag { color: var(--blue); }
 .price-box.cut  .price-tag { color: var(--orange); }
-.price-val { font-size: 20px; font-weight: 700; line-height: 1; }
+.price-val { font-size: 22px; font-weight: 800; line-height: 1.1; }
 .price-box.roll .price-val { color: var(--blue); }
 .price-box.cut  .price-val { color: var(--orange); }
-.price-unit-txt { font-size: 11px; font-weight: 400; }
-.price-locked {
-  display: block; font-size: 12px; color: rgba(0,0,0,0.35);
-  text-align: right; margin-top: 2px;
-}
-.price-locked::before { content: '🔒 '; font-size: 10px; }
+.price-unit-txt { font-size: 11px; font-weight: 500; opacity: 0.7; }
+.price-locked { display: flex; align-items: center; gap: 3px; font-size: 10px; color: rgba(0,0,0,0.28); margin-top: 2px; }
+.price-locked::before { content: '🔒'; font-size: 9px; }
 
 /* QTY */
-.qty-box {
-  background: white; border: 1px solid var(--border);
-  border-radius: 10px; padding: 12px;
-}
+.qty-box { background: var(--gray-50); border: 1.5px solid var(--border); border-radius: 12px; padding: 12px 14px; }
 .qty-top { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-.qty-label { font-size: 13px; font-weight: 600; color: var(--gray-700); }
-.qty-stepper { display: flex; align-items: center; margin-left: auto; }
+.qty-label { font-size: 12px; font-weight: 700; color: var(--gray-700); }
+.qty-stepper { display: flex; align-items: center; margin-left: auto; border-radius: 10px; overflow: hidden; border: 1.5px solid var(--border); }
 .qty-btn {
-  width: 38px; height: 38px;
-  border: 1px solid var(--border); background: var(--gray-50);
-  font-size: 20px; color: var(--gray-700);
+  width: 40px; height: 40px; border: none; background: white;
+  font-size: 20px; color: var(--blue); font-weight: 700;
   display: flex; align-items: center; justify-content: center; cursor: pointer;
 }
-.qty-btn:first-child { border-radius: 8px 0 0 8px; }
-.qty-btn:last-child  { border-radius: 0 8px 8px 0; }
-.qty-btn:active { background: var(--blue-light); color: var(--blue); }
+.qty-btn:active { background: var(--blue-light); }
 .qty-input {
-  width: 56px; height: 38px;
-  border: 1px solid var(--border); border-left: none; border-right: none;
+  width: 58px; height: 40px; border: none;
+  border-left: 1.5px solid var(--border); border-right: 1.5px solid var(--border);
   text-align: center; font-size: 16px; font-weight: 700;
   font-family: inherit; color: var(--gray-900); background: white;
 }
 .qty-input:focus { outline: none; background: var(--blue-light); }
-.qty-unit { font-size: 13px; color: var(--gray-500); margin-left: 6px; }
+.qty-unit { font-size: 13px; color: var(--gray-500); margin-left: 6px; font-weight: 500; }
 .qty-shorts { display: flex; gap: 6px; flex-wrap: wrap; }
 .qty-short {
-  padding: 6px 10px; font-size: 12px; font-family: inherit;
-  border: 1px solid var(--border); border-radius: 6px;
+  padding: 6px 11px; font-size: 12px; font-family: inherit; font-weight: 600;
+  border: 1.5px solid var(--border); border-radius: 8px;
   background: white; color: var(--gray-700); cursor: pointer;
 }
 .qty-short:active { background: var(--blue); color: white; border-color: var(--blue); }
 
 /* BREAKDOWN */
-.breakdown {
-  background: white; border: 1px solid var(--border);
-  border-radius: 10px; padding: 12px;
-}
-.bd-title { font-size: 11px; color: var(--gray-500); font-weight: 500; margin-bottom: 8px; }
-.bd-chips { display: flex; flex-direction: column; gap: 6px; }
-.bd-chip {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 8px 10px; border-radius: 7px; font-size: 13px;
-}
-.bd-chip.roll-chip { background: var(--blue-light); }
-.bd-chip.cut-chip  { background: var(--orange-light); }
-.bd-chip .chip-left { display: flex; align-items: center; gap: 6px; }
-.bd-chip .chip-tag {
-  font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px;
-}
+.breakdown { background: white; border: 1.5px solid var(--border); border-radius: 12px; padding: 12px 14px; }
+.bd-title { font-size: 10px; font-weight: 700; color: var(--gray-500); margin-bottom: 8px; letter-spacing: 0.5px; text-transform: uppercase; }
+.bd-chips { display: flex; flex-direction: column; gap: 7px; }
+.bd-chip { display: flex; align-items: center; justify-content: space-between; padding: 9px 12px; border-radius: 9px; font-size: 13px; }
+.bd-chip.roll-chip { background: linear-gradient(to right, #EAF1FA, #DFF0FF); }
+.bd-chip.cut-chip  { background: linear-gradient(to right, #FDF0E8, #FFF3E8); }
+.bd-chip .chip-left { display: flex; align-items: center; gap: 7px; }
+.bd-chip .chip-tag { font-size: 10px; font-weight: 700; padding: 3px 7px; border-radius: 5px; }
 .roll-chip .chip-tag { background: var(--blue); color: white; }
 .cut-chip  .chip-tag { background: var(--orange); color: white; }
 .bd-chip .chip-desc { font-size: 12px; color: var(--gray-700); }
 .bd-chip .chip-amt { font-size: 14px; font-weight: 700; }
 .roll-chip .chip-amt { color: var(--blue); }
 .cut-chip  .chip-amt { color: var(--orange); }
-.bd-total {
-  margin-top: 10px; padding-top: 10px;
-  border-top: 1px solid var(--border);
-  display: flex; justify-content: space-between; align-items: baseline;
-}
-.bd-total .lbl { font-size: 12px; color: var(--gray-500); }
-.bd-total .val { font-size: 20px; font-weight: 700; color: var(--gray-900); }
+.bd-total { margin-top: 10px; padding-top: 10px; border-top: 1.5px dashed var(--border); display: flex; justify-content: space-between; align-items: baseline; }
+.bd-total .lbl { font-size: 12px; color: var(--gray-500); font-weight: 600; }
+.bd-total .val { font-size: 22px; font-weight: 800; color: var(--gray-900); }
 
 /* ADD BTN */
 .add-btn {
-  width: 100%; padding: 14px;
-  border: 2px dashed var(--border); border-radius: var(--radius);
-  background: none; font-size: 14px; font-family: inherit;
-  color: var(--gray-500); cursor: pointer;
+  width: 100%; padding: 15px;
+  border: 2px dashed #C0CEDE; border-radius: var(--radius);
+  background: rgba(234,241,250,0.5); font-size: 14px; font-family: inherit;
+  color: var(--blue); cursor: pointer; font-weight: 600;
 }
-.add-btn:active { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
+.add-btn:active { border-color: var(--blue); background: var(--blue-light); }
 
 /* TOTAL BAR */
 .total-bar {
-  background: var(--blue); border-radius: var(--radius);
-  padding: 16px 20px;
+  background: linear-gradient(135deg, #1A4F8A, #2563a8);
+  border-radius: var(--radius); padding: 18px 22px;
   display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 12px; color: white;
+  margin-bottom: 14px; color: white;
+  box-shadow: 0 4px 16px rgba(26,79,138,0.35);
 }
-.total-bar .lbl { font-size: 14px; opacity: 0.8; }
-.total-bar .amt { font-size: 26px; font-weight: 700; }
+.total-bar .lbl { font-size: 14px; opacity: 0.85; font-weight: 500; }
+.total-bar .amt { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; }
 
 /* BUTTONS */
-.actions { display: flex; gap: 8px; }
+.actions { display: flex; gap: 10px; }
 .btn-reset {
-  padding: 14px 20px;
-  border: 1px solid var(--border); border-radius: var(--radius);
-  background: white; font-size: 14px; font-family: inherit; color: var(--gray-700); cursor: pointer;
+  padding: 14px 22px; border: 1.5px solid var(--border); border-radius: var(--radius);
+  background: white; font-size: 14px; font-family: inherit; color: var(--gray-700); cursor: pointer; font-weight: 600;
+  box-shadow: var(--shadow-sm);
 }
 .btn-preview {
-  flex: 1; padding: 14px;
-  background: var(--blue); color: white; border: none;
-  border-radius: var(--radius); font-size: 15px; font-weight: 600;
+  flex: 1; padding: 15px;
+  background: linear-gradient(135deg, #1A4F8A, #2563a8); color: white; border: none;
+  border-radius: var(--radius); font-size: 15px; font-weight: 700;
   font-family: inherit; cursor: pointer;
+  box-shadow: 0 4px 14px rgba(26,79,138,0.35);
 }
 .btn-preview:active { background: #163F6E; }
 
@@ -543,35 +535,125 @@ if(sessionStorage.getItem('auth')==='1'){
 setTimeout(()=>{ const i=document.getElementById('pw-input'); if(i) i.focus(); }, 100);
 
 const PRODUCTS = [
-  {label:'HSM 슈퍼매트 (01-34)',          group:'솔리드',     roll:7600,  cut:10400},
-  {label:'HA 슈퍼매트 (911)',              group:'솔리드',     roll:7600,  cut:10400},
-  {label:'HS 솔리드 (001-053)',            group:'솔리드',     roll:5200,  cut:8000},
-  {label:'HE 텍스처/펄 (401-406)',         group:'솔리드',     roll:5400,  cut:8400},
-  {label:'HE 텍스처/펄 (407)',             group:'솔리드',     roll:7600,  cut:11800},
-  {label:'HP 페인티드우드 (505-517)',       group:'솔리드',     roll:5200,  cut:8000},
-  {label:'HP 페인티드우드 (501-504,518-540)',group:'솔리드',   roll:5400,  cut:8400},
-  {label:'HW 우드 (얇은글씨)',             group:'우드',       roll:5400,  cut:8400},
-  {label:'HWB 우드 (굵은글씨)',            group:'우드',       roll:5800,  cut:8900},
-  {label:'HPW 키친우드 (20-24)',           group:'우드',       roll:5400,  cut:8400},
-  {label:'HC 솔리드향균 (801-804)',        group:'향균',       roll:5200,  cut:8000},
-  {label:'HL 우드향균 (1851-1852)',        group:'향균',       roll:5400,  cut:8400},
-  {label:'HR 리얼우드 (3001-3008)',        group:'프리미엄우드',roll:10900, cut:16900},
-  {label:'HU 리얼터치우드 (3301-3304)',    group:'프리미엄우드',roll:12800, cut:19800},
+  {label:'HSM 슈퍼매트',    group:'솔리드',      roll:7600,  cut:10400}, // 0
+  {label:'HS 솔리드',       group:'솔리드',      roll:5200,  cut:8000},  // 1
+  {label:'HP 페인티드우드', group:'솔리드',      roll:5400,  cut:8400},  // 2  (501-504,518~)
+  {label:'HE 텍스처/펄',    group:'솔리드',      roll:5400,  cut:8400},  // 3  (401-406)
+  {label:'HE407',           group:'솔리드',      roll:7600,  cut:11800}, // 4
+  {label:'HC 솔리드향균',   group:'향균',        roll:5200,  cut:8000},  // 5
+  {label:'HL 우드향균',     group:'향균',        roll:5400,  cut:8400},  // 6
+  {label:'HW 우드',         group:'우드',        roll:5400,  cut:8400},  // 7
+  {label:'HWB 우드',        group:'우드',        roll:5800,  cut:8900},  // 8
+  {label:'HPW 키친우드',    group:'우드',        roll:5400,  cut:8400},  // 9
+  {label:'HN 스톤',         group:'스톤',        roll:5800,  cut:8900},  // 10
+  {label:'HM 마블',         group:'마블',        roll:5800,  cut:8900},  // 11
+  {label:'HT 메탈',         group:'메탈',        roll:6000,  cut:9200},  // 12
+  {label:'HF 패브릭',       group:'패브릭',      roll:5800,  cut:8900},  // 13
+  {label:'HCP 세라믹',      group:'세라믹',      roll:5800,  cut:8900},  // 14
+  {label:'HLC 콘크리트',    group:'콘크리트',    roll:5800,  cut:8900},  // 15
+  {label:'HR 리얼우드',     group:'프리미엄우드', roll:10900, cut:16900}, // 16
+  {label:'HU 리얼터치우드', group:'프리미엄우드', roll:12800, cut:19800}, // 17
+  {label:'HI PP SOLID',     group:'프리미엄우드', roll:14000, cut:21600}, // 18
+  {label:'HO PP WOOD',      group:'프리미엄우드', roll:14000, cut:21600}, // 19
 ];
 
-// ===== 전체 모델 데이터베이스 =====
+// ===== 전체 모델 데이터베이스 (파일 기준) =====
 const MODEL_DB = {
-  'HSM 슈퍼매트': { pidx:0, models:['HSM01 매트화이트','HSM02 매트밀크화이트','HSM03 매트캐시미어','HSM04 매트브라운','HSM06 매트그레이','HSM07 매트다크그레이','HSM10 매트딥그린','HSM11 매트딥블루','HSM16 매트아이보리','HSM20 매트라이트그레이','HSM21 매트샌드그레이','HSM25 매트미스틱블루','HSM27 매트문빔그레이','HSM28 매트스노우베이지','HSM29 매트포그그레이','HSM30 매트듀이클라우드','HSM31 매트코타화이트','HSM34 매트스카이브리즈'] },
-  'HS 솔리드': { pidx:2, models:['HS001 순백','HS002 유백','HS004 크림화이트','HS005 밀크화이트','HS007 쿨그레이','HS008','HS009 라이트그레이','HS010 진그레이','HS011','HS012 차콜','HS013 어반그레이','HS014 올블랙','HS015','HS016','HS017','HS018','HS019','HS020','HS021','HS022 베이비핑크','HS023','HS024','HS025','HS026','HS027 소프트블루','HS028 윈디블루','HS029 어반블루','HS030 로열블루','HS031 헤일네이버','HS032 샌드베이지','HS033','HS034 어반카키','HS035 휴그린','HS036','HS037 딥오션','HS038 머드그레이','HS039 샌드베이지2','HS040 옐로우','HS041 베이비그린','HS042 소프트민트','HS043 라벤더','HS044 퓨어레드','HS045','HS046','HS047','HS048','HS049','HS050','HS051','HS052','HS053'] },
-  'HP 페인티드우드': { pidx:6, models:['HP508 웜그레이페인트','HP509','HP510','HP511','HP512','HP513 브라운페인트','HP514 딥그레이페인트','HP515 로즈핑크페인트','HP516 미드그레이페인트','HP517 매트블랙페인트','HP518','HP519','HP520','HP521','HP522','HP523','HP524','HP525','HP526','HP530','HP540'] },
-  'HE 텍스처/펄': { pidx:3, models:['HE401 화이트펄','HE402 우드블랙','HE403 소프트화이트','HE404 스킨','HE405 민트그레이','HE406 브라운','HE407'] },
-  'HC 향균솔리드': { pidx:10, models:['HC801 퓨어화이트','HC802 페일그레이','HO803 모노그레이','HO804 클래식블루'] },
-  'HL 향균우드': { pidx:11, models:['HL1851 라이트애쉬','HL1852 스킨오크'] },
-  'HW 우드 (얇은글씨)': { pidx:7, models:['HW1001 클리어오크','HW1002 심플그레인','HW1004 크림오크','HW1009 브러쉬오크소프트','HW1010 버치','HW1016 프렌치오크','HW1019 오크마일드','HW1020 브러쉬오크마일드','HW1021 리얼오크','HW1023 콰트로러스크(세로)','HW1024 로열워시오크','HW1025 빈티지오크','HW1028 클래식오크','HW1031 화이트오크','HW1033 그레이오크','HW1035 워시애쉬','HW1036 콰트로브룩클린(세로)','HW1038 중체리','HW1039 연체리','HW1040 콰트로시에나(세로)','HW1041 메이플','HW1044 레드티크','HW1045 레드오크','HW1046 홍송','HW1047 콰트로엄버(세로)','HW1049 월넛','HW1050 크린웬지','HW1055 로열아카시아','HW1056 로열월넛','HW1058 티크','HW1059 아카시아','HW1060 연월넛','HW1065','HW1066','HW1067','HW1068','HW1069','HW1070','HW1071','HW1072','HW1073','HW1077','HW1078','HW1079','HW1083','HW1084'] },
-  'HWB 우드 (굵은글씨)': { pidx:8, models:['HWB1003 소프트워시오크','HWB1005 화인오크','HWB1007 브룩시더(세로)','HWB1008 브룩시더(가로)','HWB1011 락메이플','HWB1012 쉬머오크','HWB1013 샤인오크','HWB1014 브룩시더베이지(세로)','HWB1015 브룩시더베이지(가로)','HWB1017 마일드워시오크','HWB1018 쏘마크오크','HWB1022 스트라이프우드','HWB1027 크림월넛','HWB1029 퓨어오크','HWB1030 펄오크','HWB1034 베이지오크','HWB1042 내츄럴브라운','HWB1052 애쉬브라운','HWB1061','HWB1062 워시그레이','HWB1063','HWB1064 오크딥','HWB1076','HWB1080','HWB1081','HWB1082'] },
-  'HPW 키친우드': { pidx:9, models:['HPW21 프렌치오크','HPW22 피넛오크','HPW23 카카오월넛','HPW24 던오크'] },
-  'HR 리얼우드': { pidx:12, models:['HR3002 트라이베카','HR3004 팜비치애쉬','HR3007 로베레켄들','HR3008 윌리스플럼'] },
-  'HU 리얼터치우드': { pidx:13, models:['HU3301 로베레UK','HU3302 로베레아즈데코','HU3303 노체비스코토','HU3304 로베레카카오'] },
+  'HSM 슈퍼매트': { pidx:0, models:[
+    'HSM01 매트화이트','HSM02 매트밀크화이트','HSM16 매트아이보리','HSM03 매트캐시미어',
+    'HSM21 매트샌드그레이','HSM04 매트브라운','HSM20 매트라이트그레이','HSM06 매트그레이',
+    'HSM07 매트다크그레이','HSM10 매트딥그린','HSM11 매트딥블루','HSM25 매트미스틱블루',
+    'HSM27 매트문빔그레이','HSM28 매트스노우베이지','HSM29 매트포그그레이',
+    'HSM30 매트듀이클라우드','HSM31 매트코타화이트','HSM34 매트스카이브리즈'
+  ]},
+  'HS 솔리드': { pidx:1, models:[
+    'HS001 순백','HS002 유백','HS004 크림화이트','HS005 밀크화이트','HS007 쿨그레이',
+    'HS008','HS009 라이트그레이','HS010 진그레이','HS011','HS012 차콜',
+    'HS013 어반그레이','HS014 올블랙','HS015','HS016','HS017','HS018','HS019','HS020','HS021',
+    'HS022 베이비핑크','HS023','HS024','HS025','HS026',
+    'HS027 소프트블루','HS028 윈디블루','HS029 어반블루','HS030 로열블루',
+    'HS031 헤일네이버','HS032 샌드베이지','HS033','HS034 어반카키','HS035 휴그린','HS036',
+    'HS037 딥오션','HS038 머드그레이','HS039 샌드베이지','HS040 옐로우',
+    'HS041 베이비그린','HS042 소프트민트','HS043 라벤더','HS044 퓨어레드',
+    'HS045','HS046','HS047','HS048','HS049','HS050','HS051','HS052','HS053'
+  ]},
+  'HP 페인티드우드': { pidx:2, models:[
+    'HP508 웜그레이페인트','HP509','HP510','HP511','HP512',
+    'HP513 브라운페인트','HP514 딥그레이페인트','HP515 로즈핑크페인트',
+    'HP516 미드그레이페인트','HP517 매트블랙페인트','HP518','HP519','HP520',
+    'HP521','HP522','HP523','HP524','HP525','HP526','HP530','HP540'
+  ]},
+  'HE 텍스처/펄': { pidx:3, models:[
+    'HE401 화이트펄','HE402 우드블랙','HE403 소프트화이트',
+    'HE404 스킨','HE405 민트그레이','HE406 브라운'
+  ]},
+  'HE407 (고단가)': { pidx:4, models:['HE407']},
+  'HC 솔리드향균': { pidx:5, models:[
+    'HC801 퓨어화이트','HC802 페일그레이','HO803 모노그레이','HO804 클래식블루'
+  ]},
+  'HL 우드향균': { pidx:6, models:[
+    'HL1851 라이트애쉬','HL1852 스킨오크'
+  ]},
+  'HW 우드 (얇은글씨)': { pidx:7, models:[
+    'HW1001 클리어오크','HW1002 심플그레인','HW1004 크림오크','HW1009 브러쉬오크소프트',
+    'HW1010 버치','HW1016 프렌치오크','HW1019 오크마일드','HW1020 브러쉬오크마일드',
+    'HW1021 리얼오크','HW1023 콰트로러스크(세로)','HW1024 로열워시오크','HW1025 빈티지오크',
+    'HW1028 클래식오크','HW1031 화이트오크','HW1033 그레이오크','HW1035 워시애쉬',
+    'HW1036 콰트로브룩클린(세로)','HW1038 중체리','HW1039 연체리',
+    'HW1040 콰트로시에나(세로)','HW1041 메이플','HW1044 레드티크','HW1045 레드오크',
+    'HW1046 홍송','HW1047 콰트로엄버(세로)','HW1049 월넛','HW1050 크린웬지',
+    'HW1055 로열아카시아','HW1056 로열월넛','HW1058 티크','HW1059 아카시아','HW1060 연월넛',
+    'HW1065','HW1066','HW1067','HW1068','HW1069','HW1070',
+    'HW1071','HW1072','HW1073','HW1077','HW1078','HW1079','HW1083','HW1084'
+  ]},
+  'HWB 우드 (굵은글씨)': { pidx:8, models:[
+    'HWB1003 소프트워시오크','HWB1005 화인오크','HWB1007 브룩시더(세로)','HWB1008 브룩시더(가로)',
+    'HWB1011 락메이플','HWB1012 쉬머오크','HWB1013 샤인오크',
+    'HWB1014 브룩시더베이지(세로)','HWB1015 브룩시더베이지(가로)',
+    'HWB1017 마일드워시오크','HWB1018 쏘마크오크','HWB1022 스트라이프우드',
+    'HWB1027 크림월넛','HWB1029 퓨어오크','HWB1030 펄오크','HWB1034 베이지오크',
+    'HWB1042 내츄럴브라운','HWB1052 애쉬브라운',
+    'HWB1061','HWB1062 워시그레이','HWB1063','HWB1064 오크딥',
+    'HWB1076','HWB1080','HWB1081','HWB1082'
+  ]},
+  'HPW 키친우드': { pidx:9, models:[
+    'HPW21 프렌치오크','HPW22 피넛오크','HPW23 카카오월넛','HPW24 던오크'
+  ]},
+  'HN 스톤': { pidx:10, models:[
+    'HN2001 솔리드콘크리트그레이','HN2002 솔리드콘크리트다크',
+    'HN2003','HN2004','HN2005','HN2006','HN2007',
+    'HN2008','HN2009','HN2010','HN2011','HN2012','HN2013'
+  ]},
+  'HM 마블': { pidx:11, models:[
+    'HM2101','HM2102','HM2103','HM2104'
+  ]},
+  'HT 메탈': { pidx:12, models:[
+    'HT2301 메탈그레이','HT2302 골드',
+    'HT2303','HT2304','HT2305','HT2306','HT2307','HT2308','HT2309'
+  ]},
+  'HF 패브릭': { pidx:13, models:[
+    'HF2201 코트니브라운','HF2202 코트니베이지',
+    'HF2205 패브릭베이지','HF2206 패브릭네이비',
+    'HF2207','HF2208','HF2209','HF2210'
+  ]},
+  'HCP 세라믹': { pidx:14, models:[
+    'HCP01 세라믹문퍼시픽','HCP02 세라믹문그레이','HCP03 세라믹문움브라','HCP04 세라믹문브릭'
+  ]},
+  'HLC 콘크리트': { pidx:15, models:[
+    'HLC010 콘크리트화이트','HLC011 콘크리트그레이'
+  ]},
+  'HR 리얼우드': { pidx:16, models:[
+    'HR3002 트라이베카','HR3004 팜비치애쉬','HR3007 로베레켄들','HR3008 윌리스플럼'
+  ]},
+  'HU 리얼터치우드': { pidx:17, models:[
+    'HU3301 로베레UK','HU3302 로베레아즈데코','HU3303 노체비스코토','HU3304 로베레카카오'
+  ]},
+  'HI PP SOLID': { pidx:18, models:[
+    'HL4001 스카이오크화이트','HL4002 스카이오크그레이'
+  ]},
+  'HO PP WOOD': { pidx:19, models:[
+    'HO4301 카타니아오크','HO4302 네이처오크','HO4303 그레이쉬오크'
+  ]},
 };
 const MODEL_KEYS = Object.keys(MODEL_DB);
 
@@ -588,8 +670,6 @@ function calc(qty, r, c){
   const cutM  = qty % ROLL_M;
   return { amt: rollM*r + cutM*c, rollM, cutM };
 }
-
-const MODEL_KEYS = Object.keys(MODEL_DB);
 
 function addItem(){
   const id=cnt++;
@@ -641,16 +721,19 @@ function buildEl(it,num){
   div.innerHTML=`
     <div class="item-head">
       <div class="item-num">${num}</div>
+      <span class="item-head-label">${it.catKey}</span>
       <button class="del-btn" onclick="removeItem(${it.id})">×</button>
     </div>
     <div class="item-body">
-      <div class="color-field">
-        <label>① 대분류</label>
-        <select onchange="onCat(${it.id},this.value)">${catOpts}</select>
-      </div>
-      <div class="color-field">
-        <label>② 품명 선택</label>
-        <select onchange="onModel(${it.id},this.value)">${modelOpts}</select>
+      <div class="sel-group">
+        <div class="sel-block cat">
+          <label>① 대분류</label>
+          <select onchange="onCat(${it.id},this.value)">${catOpts}</select>
+        </div>
+        <div class="sel-block model">
+          <label>② 품명</label>
+          <select onchange="onModel(${it.id},this.value)">${modelOpts}</select>
+        </div>
       </div>
       <div class="price-row">
         <div class="price-box roll">
