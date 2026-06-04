@@ -1460,21 +1460,37 @@ function getDoorGrade(w, h) {
 
 
 // ===== 가로 절단 알고리즘 (By Length - 수평 절단) =====
-// 원판: 2440(가로/길이) × 1220(세로/절단방향)
-// 규칙: 긴쪽=가로(≤2440 보존), 짧은쪽=세로(절단 소비)
-// 같은 높이 조각 → 같은 행에 가로로 나란히 배치
 // ===== 재단 배치도 생성 (컬럼 기반 FFD) =====
-// 컬럼: rowH(짧은쪽)가 폭(x), rowL(긴쪽)들을 y방향으로 쌓기
-// 원판: 여러 컬럼을 x방향으로 배치 (FFD)
+// 컬럼폭(colW) >= rowH 이면 같은 컬럼에 y방향으로 쌓기 가능
+// → 더 작은 조각(376)이 더 큰 컬럼(446)에 들어갈 수 있음
 
 function normalizePiece(w, h) {
   return { rowL: Math.max(w,h), rowH: Math.min(w,h) };
 }
 
-function optimizeCuts(doors) {
-  const SHEET_LONG = 2440;
-  const SHEET_SHORT = 1220;
+function buildColumns(pieces) {
+  // 긴 것(rowL), 큰 폭(rowH) 우선 배치
+  const sorted = [...pieces].sort((a,b) => b.rowL - a.rowL || b.rowH - a.rowH);
+  const columns = [];
+  for(const p of sorted) {
+    let placed = false;
+    for(const col of columns) {
+      // 컬럼폭 >= rowH 이고 y공간 남으면 쌓기
+      if(p.rowH <= col.colW && col.usedY + p.rowL <= 2440) {
+        col.items.push(p);
+        col.usedY += p.rowL + KERF;
+        placed = true;
+        break;
+      }
+    }
+    if(!placed) {
+      columns.push({ colW: p.rowH, usedY: p.rowL + KERF, items: [p] });
+    }
+  }
+  return columns;
+}
 
+function optimizeCuts(doors) {
   const pieces = [];
   doors.forEach(d => {
     for(let i=0; i<d.qty; i++) {
@@ -1483,44 +1499,15 @@ function optimizeCuts(doors) {
     }
   });
 
-  // rowH 기준 그룹 → 각 그룹 내에서 y방향으로 쌓는 컬럼 생성
-  const groups = {};
-  pieces.forEach(p => {
-    if(!groups[p.rowH]) groups[p.rowH] = [];
-    groups[p.rowH].push(p);
-  });
-
-  const columns = [];
-  // rowH 내림차순으로 처리 (큰 것 먼저)
-  Object.keys(groups).sort((a,b)=>b-a).forEach(rowH => {
-    const grp = groups[rowH].sort((a,b) => b.rowL - a.rowL);
-    grp.forEach(p => {
-      // 기존 컬럼에 y방향으로 쌓을 수 있으면 추가
-      let placed = false;
-      for(const col of columns) {
-        if(col.colW === +rowH && col.usedY + p.rowL <= SHEET_LONG) {
-          col.items.push(p);
-          col.usedY += p.rowL + KERF;
-          placed = true;
-          break;
-        }
-      }
-      if(!placed) {
-        columns.push({ colW: +rowH, usedY: p.rowL + KERF, items: [p] });
-      }
-    });
-  });
-
-  // 컬럼을 폭 내림차순 정렬
+  const columns = buildColumns(pieces);
   columns.sort((a,b) => b.colW - a.colW);
 
-  // FFD: 각 컬럼을 원판에 x방향으로 배치
   const sheets = [];
   for(const col of columns) {
     let placed = false;
     for(const sh of sheets) {
       const addX = sh.usedX > 0 ? KERF : 0;
-      if(sh.usedX + addX + col.colW <= SHEET_SHORT) {
+      if(sh.usedX + addX + col.colW <= 1220) {
         const x = sh.usedX + addX;
         let y = 0;
         col.items.forEach(item => {
@@ -1534,8 +1521,7 @@ function optimizeCuts(doors) {
       }
     }
     if(!placed) {
-      let y = 0;
-      const pcs = [];
+      let y = 0; const pcs = [];
       col.items.forEach(item => {
         pcs.push({ x:0, y, w:col.colW, h:item.rowL,
           origW:item.origW, origH:item.origH, name:item.name });
@@ -1547,53 +1533,37 @@ function optimizeCuts(doors) {
   return sheets;
 }
 
-// 규칙: min(w,h)=절단소비높이, max(w,h)=가로길이
-// 같은 가로길이(rowL) 조각들 → 가장 큰 rowH 한 번 컷으로 처리
-// (작은 rowH는 큰 rowH 컷 안에서 함께 생산 가능)
-// 단, 가로합이 2440 초과 시 여러 번 컷
-// 소요량 = 컷별 rowH 합계 → 100mm 단위 올림
 function calcSheetDecimal(pieces) {
   if(!pieces || pieces.length === 0) return 0;
 
-  const SHEET_LONG = 2440;
-  const SHEET_SHORT = 1220;
-
-  const normalized = pieces.map(p => ({
+  const pcs = pieces.map(p => ({
     rowL: Math.max(p.w, p.h),
     rowH: Math.min(p.w, p.h)
   }));
 
-  // rowH 기준 컬럼 생성 (y방향으로 쌓기)
-  const groups = {};
-  normalized.forEach(p => {
-    if(!groups[p.rowH]) groups[p.rowH] = [];
-    groups[p.rowH].push(p.rowL);
-  });
-
+  // buildColumns와 동일한 로직
+  const sorted = [...pcs].sort((a,b) => b.rowL - a.rowL || b.rowH - a.rowH);
   const columns = [];
-  Object.keys(groups).sort((a,b)=>b-a).forEach(rowH => {
-    const rowLs = groups[rowH].sort((a,b) => b - a);
-    rowLs.forEach(rowL => {
-      let placed = false;
-      for(const col of columns) {
-        if(col.colW === +rowH && col.usedY + rowL <= SHEET_LONG) {
-          col.usedY += rowL + KERF;
-          placed = true;
-          break;
-        }
+  for(const p of sorted) {
+    let placed = false;
+    for(const col of columns) {
+      if(p.rowH <= col.colW && col.usedY + p.rowL <= 2440) {
+        col.usedY += p.rowL + KERF;
+        placed = true;
+        break;
       }
-      if(!placed) columns.push({ colW: +rowH, usedY: rowL + KERF });
-    });
-  });
+    }
+    if(!placed) columns.push({ colW: p.rowH, usedY: p.rowL + KERF });
+  }
 
-  // FFD로 원판에 컬럼 배치 → 실제 usedX 기준으로 소요량 계산
-  columns.sort((a,b) => b.colW - a.colW);
+  // FFD로 원판 배치 후 실제 usedX 기준 소요량
+  const colsSorted = [...columns].sort((a,b) => b.colW - a.colW);
   const sheets = [];
-  for(const col of columns) {
+  for(const col of colsSorted) {
     let placed = false;
     for(const sh of sheets) {
       const addX = sh.usedX > 0 ? KERF : 0;
-      if(sh.usedX + addX + col.colW <= SHEET_SHORT) {
+      if(sh.usedX + addX + col.colW <= 1220) {
         sh.usedX = sh.usedX + addX + col.colW;
         placed = true;
         break;
@@ -1602,7 +1572,6 @@ function calcSheetDecimal(pieces) {
     if(!placed) sheets.push({ usedX: col.colW });
   }
 
-  // 소요량: 완전 사용 원판 + 마지막 원판의 usedX
   if(sheets.length === 0) return 0;
   const fullSheets = sheets.length - 1;
   const lastUsedX = sheets[sheets.length - 1].usedX;
