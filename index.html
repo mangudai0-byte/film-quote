@@ -426,8 +426,79 @@ header h1 { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; }
 <!-- 비밀번호 화면 -->
 <div class="pw-screen" id="pw-screen">
   <div class="pw-box">
-    <div class="pw-logo">🎬</div>
-    <div class="pw-title">오션메이드 견적서</div>
+    <!-- 척척박사 일러스트 -->
+    <div style="margin-bottom:16px">
+      <svg width="120" height="140" viewBox="0 0 120 140" xmlns="http://www.w3.org/2000/svg">
+        <!-- 몸통 -->
+        <rect x="35" y="78" width="50" height="44" rx="10" fill="#1A4F8A"/>
+        <!-- 넥타이 -->
+        <polygon points="60,82 55,95 60,100 65,95" fill="#C05010"/>
+        <!-- 셔츠 흰부분 -->
+        <rect x="53" y="78" width="14" height="20" rx="2" fill="white" opacity="0.9"/>
+        <!-- 팔 왼쪽 -->
+        <rect x="20" y="80" width="16" height="30" rx="8" fill="#1A4F8A"/>
+        <!-- 팔 오른쪽 -->
+        <rect x="84" y="80" width="16" height="30" rx="8" fill="#1A4F8A"/>
+        <!-- 손 왼쪽 -->
+        <circle cx="28" cy="114" r="7" fill="#FFD0A0"/>
+        <!-- 손 오른쪽 - 책 들고 있음 -->
+        <circle cx="92" cy="114" r="7" fill="#FFD0A0"/>
+        <!-- 책 -->
+        <rect x="95" y="100" width="18" height="24" rx="2" fill="#2E6BB5"/>
+        <rect x="96" y="102" width="16" height="20" rx="1" fill="white" opacity="0.9"/>
+        <line x1="104" y1="104" x2="110" y2="104" stroke="#1A4F8A" stroke-width="1.2"/>
+        <line x1="104" y1="108" x2="110" y2="108" stroke="#1A4F8A" stroke-width="1.2"/>
+        <line x1="104" y1="112" x2="110" y2="112" stroke="#1A4F8A" stroke-width="1.2"/>
+        <!-- 다리 왼쪽 -->
+        <rect x="42" y="118" width="14" height="20" rx="7" fill="#163F6E"/>
+        <!-- 다리 오른쪽 -->
+        <rect x="64" y="118" width="14" height="20" rx="7" fill="#163F6E"/>
+        <!-- 신발 왼쪽 -->
+        <ellipse cx="49" cy="138" rx="10" ry="5" fill="#111"/>
+        <!-- 신발 오른쪽 -->
+        <ellipse cx="71" cy="138" rx="10" ry="5" fill="#111"/>
+        <!-- 목 -->
+        <rect x="52" y="68" width="16" height="12" rx="4" fill="#FFD0A0"/>
+        <!-- 얼굴 -->
+        <ellipse cx="60" cy="52" rx="24" ry="22" fill="#FFD0A0"/>
+        <!-- 귀 -->
+        <ellipse cx="37" cy="52" rx="5" ry="6" fill="#FFB080"/>
+        <ellipse cx="83" cy="52" rx="5" ry="6" fill="#FFB080"/>
+        <!-- 눈 왼쪽 -->
+        <ellipse cx="52" cy="50" rx="4" ry="5" fill="white"/>
+        <circle cx="53" cy="51" r="2.5" fill="#1A3A5A"/>
+        <circle cx="54" cy="50" r="1" fill="white"/>
+        <!-- 눈 오른쪽 -->
+        <ellipse cx="68" cy="50" rx="4" ry="5" fill="white"/>
+        <circle cx="69" cy="51" r="2.5" fill="#1A3A5A"/>
+        <circle cx="70" cy="50" r="1" fill="white"/>
+        <!-- 눈썹 -->
+        <path d="M48 44 Q52 41 56 44" stroke="#6B4423" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <path d="M64 44 Q68 41 72 44" stroke="#6B4423" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <!-- 코 -->
+        <ellipse cx="60" cy="56" rx="3" ry="2" fill="#FFB080"/>
+        <!-- 입 (미소) -->
+        <path d="M53 62 Q60 68 67 62" stroke="#C05010" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <!-- 볼터치 -->
+        <ellipse cx="46" cy="59" rx="5" ry="3" fill="#FFB0B0" opacity="0.5"/>
+        <ellipse cx="74" cy="59" rx="5" ry="3" fill="#FFB0B0" opacity="0.5"/>
+        <!-- 학사모 -->
+        <rect x="38" y="32" width="44" height="8" rx="3" fill="#1A2A4A"/>
+        <polygon points="40,32 60,18 80,32" fill="#1A2A4A"/>
+        <!-- 학사모 상단 버튼 -->
+        <circle cx="60" cy="18" r="3" fill="#C05010"/>
+        <!-- 학사모 끈 -->
+        <line x1="60" y1="18" x2="78" y2="28" stroke="#C05010" stroke-width="1.5"/>
+        <circle cx="79" cy="30" r="3" fill="#C05010"/>
+        <!-- 안경 -->
+        <rect x="44" y="46" width="14" height="11" rx="4" fill="none" stroke="#5A3A10" stroke-width="1.5"/>
+        <rect x="62" y="46" width="14" height="11" rx="4" fill="none" stroke="#5A3A10" stroke-width="1.5"/>
+        <line x1="58" y1="51" x2="62" y2="51" stroke="#5A3A10" stroke-width="1.5"/>
+        <line x1="44" y1="51" x2="40" y2="50" stroke="#5A3A10" stroke-width="1.5"/>
+        <line x1="76" y1="51" x2="80" y2="50" stroke="#5A3A10" stroke-width="1.5"/>
+      </svg>
+    </div>
+    <div class="pw-title">오션 척척박사</div>
     <div class="pw-sub">비밀번호를 입력하세요</div>
     <input class="pw-input" id="pw-input" type="password" maxlength="20"
       onkeydown="if(event.key==='Enter') checkPw()">
@@ -437,24 +508,69 @@ header h1 { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; }
 </div>
 
 <header>
-  <h1 id="app-title">🏠 오션메이드</h1>
+  <h1 id="app-title">🎓 오션 척척박사</h1>
   <button onclick="openClientMgr()" style="background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.4);color:white;padding:6px 12px;border-radius:7px;font-size:12px;font-family:inherit;cursor:pointer;white-space:nowrap">👥 거래처</button>
 </header>
 
 <!-- 모드 선택 화면 -->
 <div id="mode-screen" style="display:none;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 56px);padding:24px;gap:16px;max-width:400px;margin:0 auto">
   <div style="text-align:center;margin-bottom:8px">
-    <div style="font-size:40px;margin-bottom:8px">🏠</div>
-    <div style="font-size:16px;font-weight:700;color:var(--gray-900)">오션메이드</div>
+    <div style="font-size:40px;margin-bottom:8px">🎓</div>
+    <div style="font-size:18px;font-weight:800;color:var(--blue)">오션 척척박사</div>
     <div style="font-size:13px;color:var(--gray-500);margin-top:4px">견적 유형을 선택하세요</div>
   </div>
-  <button onclick="setMode('film')" style="width:100%;padding:20px;background:white;border:2px solid var(--border);border-radius:16px;cursor:pointer;text-align:left;box-shadow:var(--shadow-sm);transition:all 0.15s" onmouseover="this.style.borderColor='#1A4F8A'" onmouseout="this.style.borderColor='var(--border)'">
-    <div style="font-size:24px;margin-bottom:6px">🎨</div>
+  <button onclick="setMode('film')" style="width:100%;padding:20px;background:white;border:2px solid var(--border);border-radius:16px;cursor:pointer;text-align:left;box-shadow:var(--shadow-sm)" onmouseover="this.style.borderColor='#1A4F8A'" onmouseout="this.style.borderColor='var(--border)'">
+    <div style="margin-bottom:6px">
+      <!-- 인테리어 필름 롤 아이콘 -->
+      <svg width="36" height="36" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+        <rect x="4" y="10" width="28" height="16" rx="3" fill="#1A4F8A"/>
+        <rect x="6" y="12" width="24" height="12" rx="2" fill="#EAF1FA"/>
+        <rect x="8" y="13" width="4" height="10" rx="1" fill="#B8D4E8"/>
+        <rect x="13" y="13" width="4" height="10" rx="1" fill="#C8E6C8"/>
+        <rect x="18" y="13" width="4" height="10" rx="1" fill="#F5D5B0"/>
+        <rect x="23" y="13" width="4" height="10" rx="1" fill="#F5C5D0"/>
+        <circle cx="4" cy="18" r="4" fill="#2E6BB5"/>
+        <circle cx="4" cy="18" r="2" fill="#163F6E"/>
+        <circle cx="32" cy="18" r="4" fill="#2E6BB5"/>
+        <circle cx="32" cy="18" r="2" fill="#163F6E"/>
+        <rect x="2" y="26" width="32" height="3" rx="1.5" fill="#1A4F8A" opacity="0.3"/>
+      </svg>
+    </div>
     <div style="font-size:16px;font-weight:700;color:var(--gray-900)">인테리어 필름 견적</div>
     <div style="font-size:12px;color:var(--gray-500);margin-top:4px">예림 필름 단가표 기준 · 롤/절단 자동계산</div>
   </button>
-  <button onclick="setMode('door')" style="width:100%;padding:20px;background:white;border:2px solid var(--border);border-radius:16px;cursor:pointer;text-align:left;box-shadow:var(--shadow-sm);transition:all 0.15s" onmouseover="this.style.borderColor='#1A4F8A'" onmouseout="this.style.borderColor='var(--border)'">
-    <div style="font-size:24px;margin-bottom:6px">🚪</div>
+  <button onclick="setMode('door')" style="width:100%;padding:20px;background:white;border:2px solid var(--border);border-radius:16px;cursor:pointer;text-align:left;box-shadow:var(--shadow-sm)" onmouseover="this.style.borderColor='#1A4F8A'" onmouseout="this.style.borderColor='var(--border)'">
+    <div style="margin-bottom:6px">
+      <!-- 싱크대 아이콘 -->
+      <svg width="36" height="36" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+        <!-- 상판 -->
+        <rect x="2" y="12" width="32" height="3" rx="1" fill="#1A4F8A"/>
+        <!-- 싱크대 본체 -->
+        <rect x="2" y="15" width="32" height="16" rx="2" fill="#2E6BB5"/>
+        <!-- 싱크볼 -->
+        <rect x="6" y="17" width="10" height="9" rx="2" fill="#EAF1FA"/>
+        <rect x="18" y="17" width="10" height="9" rx="2" fill="#EAF1FA"/>
+        <!-- 배수구 -->
+        <circle cx="11" cy="22" r="1.5" fill="#1A4F8A"/>
+        <circle cx="23" cy="22" r="1.5" fill="#1A4F8A"/>
+        <!-- 수도꼭지 -->
+        <rect x="15" y="8" width="2" height="7" rx="1" fill="#C0C0C0"/>
+        <rect x="12" y="8" width="8" height="2" rx="1" fill="#C0C0C0"/>
+        <circle cx="12" cy="9" r="1.5" fill="#999"/>
+        <circle cx="20" cy="9" r="1.5" fill="#999"/>
+        <!-- 하부장 -->
+        <rect x="4" y="31" width="12" height="4" rx="1" fill="#163F6E"/>
+        <rect x="20" y="31" width="12" height="4" rx="1" fill="#163F6E"/>
+        <circle cx="10" cy="33" r="1" fill="#EAF1FA"/>
+        <circle cx="26" cy="33" r="1" fill="#EAF1FA"/>
+        <!-- 상부장 -->
+        <rect x="2" y="2" width="32" height="9" rx="2" fill="#163F6E"/>
+        <rect x="4" y="3.5" width="12" height="6" rx="1" fill="#2E6BB5"/>
+        <rect x="20" y="3.5" width="12" height="6" rx="1" fill="#2E6BB5"/>
+        <circle cx="10" cy="6.5" r="1" fill="#EAF1FA"/>
+        <circle cx="26" cy="6.5" r="1" fill="#EAF1FA"/>
+      </svg>
+    </div>
     <div style="font-size:16px;font-weight:700;color:var(--gray-900)">비규격 도어 발주 견적</div>
     <div style="font-size:12px;color:var(--gray-500);margin-top:4px">SUPER 레이저도어 · 재단 최적화 자동계산</div>
   </button>
@@ -607,16 +723,37 @@ function closeClientMgr(){
   document.getElementById('client-ovl').classList.remove('show');
 }
 
+function moveClient(name, type, dir) {
+  const clients = loadClients(type);
+  const idx = clients.indexOf(name);
+  if(idx < 0) return;
+  const newIdx = idx + dir;
+  if(newIdx < 0 || newIdx >= clients.length) return;
+  clients.splice(idx, 1);
+  clients.splice(newIdx, 0, name);
+  localStorage.setItem(`om_clients_${type}`, JSON.stringify(clients));
+  refreshClientUI();
+}
+
 function refreshClientUI(){
   const clients = loadClients(currentClientTab);
   const chips = document.getElementById('client-chips');
   if(chips){
     chips.innerHTML = clients.length === 0
       ? `<p style="font-size:13px;color:var(--gray-500);text-align:center;padding:20px 0">${currentClientTab==='film'?'필름':'도어'} 거래처가 없습니다</p>`
-      : clients.map(c=>`
-          <div style="display:flex;align-items:center;justify-content:space-between;padding:11px 14px;background:var(--gray-50);border:1px solid var(--border);border-radius:10px;margin-bottom:6px">
-            <span style="font-size:15px;font-weight:600;color:var(--gray-900)">${c}</span>
-            <button onclick="deleteClient('${c.replace(/'/g,"\\'")}','${currentClientTab}')" style="background:none;border:1px solid #DDBBBB;border-radius:6px;color:#CC6666;cursor:pointer;font-size:12px;padding:3px 8px">삭제</button>
+      : clients.map((c, idx) => `
+          <div style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--gray-50);border:1px solid var(--border);border-radius:10px;margin-bottom:6px">
+            <div style="display:flex;flex-direction:column;gap:2px">
+              <button onclick="moveClient('${c.replace(/'/g,"\\'")}','${currentClientTab}',-1)"
+                ${idx===0?'disabled':''}
+                style="background:none;border:1px solid var(--border);border-radius:4px;cursor:pointer;font-size:10px;padding:1px 5px;color:${idx===0?'#ccc':'var(--blue)'};line-height:1.2">▲</button>
+              <button onclick="moveClient('${c.replace(/'/g,"\\'")}','${currentClientTab}',1)"
+                ${idx===clients.length-1?'disabled':''}
+                style="background:none;border:1px solid var(--border);border-radius:4px;cursor:pointer;font-size:10px;padding:1px 5px;color:${idx===clients.length-1?'#ccc':'var(--blue)'};line-height:1.2">▼</button>
+            </div>
+            <span style="flex:1;font-size:15px;font-weight:600;color:var(--gray-900)">${c}</span>
+            <button onclick="deleteClient('${c.replace(/'/g,"\\'")}','${currentClientTab}')"
+              style="background:none;border:1px solid #DDBBBB;border-radius:6px;color:#CC6666;cursor:pointer;font-size:12px;padding:3px 8px">삭제</button>
           </div>`).join('');
   }
   // 필름 거래처 드롭다운
@@ -1312,8 +1449,7 @@ function setMode(mode){
   document.getElementById('mode-screen').style.display = 'none';
   document.getElementById('film-section').style.display = mode==='film' ? 'block' : 'none';
   document.getElementById('door-section').style.display = mode==='door' ? 'block' : 'none';
-  document.getElementById('app-title').textContent = mode==='film' ? '🎨 필름 견적' : '🚪 도어 발주';
-  refreshClientUI();
+  document.getElementById('app-title').textContent = mode==='film' ? '🎨 필름 견적' : '🚪 도어 발주';  refreshClientUI();
 }
 function goHome(){
   document.getElementById('mode-screen').style.display = 'flex';
@@ -1473,17 +1609,22 @@ function buildColumns(pieces) {
   const sorted = [...pieces].sort((a,b) => b.rowL - a.rowL || b.rowH - a.rowH);
   const columns = [];
   for(const p of sorted) {
-    let placed = false;
+    // Best-fit: colW >= rowH 중 가장 작은(낭비 최소) 컬럼 선택
+    let bestCol = null;
+    let bestWaste = Infinity;
     for(const col of columns) {
-      // 컬럼폭 >= rowH 이고 y공간 남으면 쌓기
       if(p.rowH <= col.colW && col.usedY + p.rowL <= 2440) {
-        col.items.push(p);
-        col.usedY += p.rowL + KERF;
-        placed = true;
-        break;
+        const waste = col.colW - p.rowH;
+        if(waste < bestWaste) {
+          bestWaste = waste;
+          bestCol = col;
+        }
       }
     }
-    if(!placed) {
+    if(bestCol) {
+      bestCol.items.push(p);
+      bestCol.usedY += p.rowL + KERF;
+    } else {
       columns.push({ colW: p.rowH, usedY: p.rowL + KERF, items: [p] });
     }
   }
@@ -1504,23 +1645,28 @@ function optimizeCuts(doors) {
 
   const sheets = [];
   for(const col of columns) {
-    let placed = false;
+    // Best-fit: 남는 공간이 가장 작은 원판에 배치
+    let bestSh = null;
+    let bestWaste = Infinity;
     for(const sh of sheets) {
       const addX = sh.usedX > 0 ? KERF : 0;
-      if(sh.usedX + addX + col.colW <= 1220) {
-        const x = sh.usedX + addX;
-        let y = 0;
-        col.items.forEach(item => {
-          sh.pieces.push({ x, y, w: col.colW, h: item.rowL,
-            origW: item.origW, origH: item.origH, name: item.name });
-          y += item.rowL + KERF;
-        });
-        sh.usedX = x + col.colW;
-        placed = true;
-        break;
+      const remaining = 1220 - sh.usedX - addX - col.colW;
+      if(remaining >= 0 && remaining < bestWaste) {
+        bestWaste = remaining;
+        bestSh = sh;
       }
     }
-    if(!placed) {
+    if(bestSh) {
+      const addX = bestSh.usedX > 0 ? KERF : 0;
+      const x = bestSh.usedX + addX;
+      let y = 0;
+      col.items.forEach(item => {
+        bestSh.pieces.push({ x, y, w: col.colW, h: item.rowL,
+          origW: item.origW, origH: item.origH, name: item.name });
+        y += item.rowL + KERF;
+      });
+      bestSh.usedX = x + col.colW;
+    } else {
       let y = 0; const pcs = [];
       col.items.forEach(item => {
         pcs.push({ x:0, y, w:col.colW, h:item.rowL,
@@ -1530,9 +1676,10 @@ function optimizeCuts(doors) {
       sheets.push({ pieces: pcs, usedX: col.colW });
     }
   }
+  // 원판을 usedX 내림차순 정렬 (꽉 찬 것부터 표시)
+  sheets.sort((a,b) => b.usedX - a.usedX);
   return sheets;
 }
-
 function calcSheetDecimal(pieces) {
   if(!pieces || pieces.length === 0) return 0;
 
@@ -1556,23 +1703,29 @@ function calcSheetDecimal(pieces) {
     if(!placed) columns.push({ colW: p.rowH, usedY: p.rowL + KERF });
   }
 
-  // FFD로 원판 배치 후 실제 usedX 기준 소요량
+  // BFD로 원판에 컬럼 배치
   const colsSorted = [...columns].sort((a,b) => b.colW - a.colW);
   const sheets = [];
   for(const col of colsSorted) {
-    let placed = false;
+    let bestSh = null, bestWaste = Infinity;
     for(const sh of sheets) {
       const addX = sh.usedX > 0 ? KERF : 0;
-      if(sh.usedX + addX + col.colW <= 1220) {
-        sh.usedX = sh.usedX + addX + col.colW;
-        placed = true;
-        break;
+      const remaining = 1220 - sh.usedX - addX - col.colW;
+      if(remaining >= 0 && remaining < bestWaste) {
+        bestWaste = remaining; bestSh = sh;
       }
     }
-    if(!placed) sheets.push({ usedX: col.colW });
+    if(bestSh) {
+      bestSh.usedX = bestSh.usedX + (bestSh.usedX > 0 ? KERF : 0) + col.colW;
+    } else {
+      sheets.push({ usedX: col.colW });
+    }
   }
 
+
   if(sheets.length === 0) return 0;
+  // 원판을 usedX 내림차순 정렬 → 마지막 원판이 가장 작은 usedX
+  sheets.sort((a,b) => b.usedX - a.usedX);
   const fullSheets = sheets.length - 1;
   const lastUsedX = sheets[sheets.length - 1].usedX;
   return fullSheets + Math.ceil(lastUsedX / 100) / 10;
