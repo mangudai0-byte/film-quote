@@ -444,7 +444,19 @@ header h1{font-size:15px;font-weight:800;letter-spacing:.3px;z-index:1;}
       <div class="card-header"><div class="icon">📋</div><h2>거래처 정보</h2></div>
       <div class="card-body">
         <div class="row2">
-          <div class="field"><label>거래처명</label><select id="client"><option value="">-- 선택 --</option></select></div>
+          <div class="field"><label>거래처명</label>
+            <div style="position:relative">
+              <div id="client-display" onclick="toggleClientDrop('film')"
+                style="width:100%;padding:11px 36px 11px 14px;border:2px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;background:white;cursor:pointer;color:var(--gray-500);position:relative;user-select:none">
+                <span id="client-display-text">-- 선택 --</span>
+                <span style="position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--gray-500);font-size:12px">▾</span>
+              </div>
+              <div id="client-drop" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:white;border:2px solid var(--pk-blue);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,0.15);z-index:200;max-height:200px;overflow-y:auto">
+                <div id="client-drop-list"></div>
+              </div>
+            </div>
+            <input type="hidden" id="client" value="">
+          </div>
           <div class="field"><label>견적일</label><input id="rdate" type="date"></div>
         </div>
         <div class="field"><label>현장명 (선택)</label><input id="site" type="text" placeholder="현장명을 입력하세요"></div>
@@ -674,20 +686,6 @@ function buildEl(it, num){
             </select>
           </div>
         </div>
-        <div class="price-row">
-          <div class="price-box roll">
-            <div class="price-tag">롤 단가 / m</div>
-            <div class="price-val roll-val">${it.r.toLocaleString()}</div>
-            <div class="price-unit-txt">원 / 1m</div>
-            <div class="price-locked">25m 단위</div>
-          </div>
-          <div class="price-box cut">
-            <div class="price-tag">절단 단가 / m</div>
-            <div class="price-val cut-val">${it.c.toLocaleString()}</div>
-            <div class="price-unit-txt">원 / 1m</div>
-            <div class="price-locked">25m 미만</div>
-          </div>
-        </div>
         <div class="qty-box">
           <div class="qty-top">
             <span class="qty-label">수량</span>
@@ -700,6 +698,17 @@ function buildEl(it, num){
           </div>
           <div class="qty-shorts">
             ${[5,10,25,50,75,100].map(v=>`<button class="qty-short" onclick="setQty(${it.id},${v})">${v}m</button>`).join('')}
+          </div>
+        </div>
+        <!-- 단가 (소형) -->
+        <div style="display:flex;gap:8px">
+          <div style="flex:1;background:var(--blue-light);border:1.5px solid #B8CDE8;border-radius:9px;padding:8px 10px;display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:10px;font-weight:700;color:var(--blue)">롤 단가</span>
+            <span class="roll-val" style="font-size:13px;font-weight:800;color:var(--blue)">${it.r.toLocaleString()}<span style="font-size:10px;font-weight:500">원</span></span>
+          </div>
+          <div style="flex:1;background:var(--orange-light);border:1.5px solid #E8C0B0;border-radius:9px;padding:8px 10px;display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:10px;font-weight:700;color:var(--orange)">절단 단가</span>
+            <span class="cut-val" style="font-size:13px;font-weight:800;color:var(--orange)">${it.c.toLocaleString()}<span style="font-size:10px;font-weight:500">원</span></span>
           </div>
         </div>
         <div class="breakdown">
@@ -817,6 +826,39 @@ function switchClientTab(type){
   if(db){ db.style.borderBottomColor=type==='door'?'var(--pk-red)':'transparent'; db.style.color=type==='door'?'var(--pk-red)':'var(--gray-500)'; db.style.fontWeight=type==='door'?'700':'600'; }
   refreshClientUI();
 }
+function toggleClientDrop(type){
+  const drop = document.getElementById(type==='film'?'client-drop':'door-client-drop');
+  if(!drop) return;
+  const isOpen = drop.style.display !== 'none';
+  // 모든 드롭 닫기
+  ['client-drop','door-client-drop'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.style.display='none';
+  });
+  if(!isOpen) drop.style.display='block';
+}
+
+function selectClient(type, name){
+  const hiddenInput = document.getElementById(type==='film'?'client':'door-client');
+  const displayText = document.getElementById(type==='film'?'client-display-text':'door-client-display-text');
+  const display = document.getElementById(type==='film'?'client-display':'door-client-display');
+  const drop = document.getElementById(type==='film'?'client-drop':'door-client-drop');
+  if(hiddenInput) hiddenInput.value = name;
+  if(displayText){ displayText.textContent = name; displayText.style.color='var(--gray-900)'; }
+  if(display) display.style.borderColor = 'var(--pk-blue)';
+  if(drop) drop.style.display = 'none';
+}
+
+// 외부 클릭 시 드롭 닫기
+document.addEventListener('click', e=>{
+  if(!e.target.closest('[id$="-drop"]') && !e.target.closest('[id$="-display"]')){
+    ['client-drop','door-client-drop'].forEach(id=>{
+      const el=document.getElementById(id);
+      if(el) el.style.display='none';
+    });
+  }
+});
+
 function openClientMgr(){
   const doorVisible=document.getElementById('door-section').style.display!=='none';
   currentClientTab=doorVisible?'door':'film';
@@ -841,10 +883,30 @@ function refreshClientUI(){
           <button onclick="deleteClient('${c.replace(/'/g,"\\'")}','${currentClientTab}')" style="background:none;border:1.5px solid #FFAAAA;border-radius:6px;color:var(--pk-red);cursor:pointer;font-size:12px;padding:3px 8px">삭제</button>
         </div>`).join('');
   }
-  const filmSel=document.getElementById('client');
-  if(filmSel){ const cur=filmSel.value; filmSel.innerHTML='<option value="">-- 선택 --</option>'+loadClients('film').map(c=>`<option value="${c}"${c===cur?' selected':''}>${c}</option>`).join(''); }
-  const doorSel=document.getElementById('door-client');
-  if(doorSel){ const cur=doorSel.value; doorSel.innerHTML='<option value="">-- 선택 --</option>'+loadClients('door').map(c=>`<option value="${c}"${c===cur?' selected':''}>${c}</option>`).join(''); }
+
+  // 필름 드롭다운 목록
+  const filmList = document.getElementById('client-drop-list');
+  if(filmList){
+    const filmClients = loadClients('film');
+    filmList.innerHTML = filmClients.length===0
+      ? `<div style="padding:12px;text-align:center;font-size:13px;color:var(--gray-500)">저장된 거래처가 없습니다</div>`
+      : filmClients.map(c=>`
+          <div onclick="selectClient('film','${c.replace(/'/g,"\\'")}');refreshClientUI()"
+            style="padding:12px 16px;font-size:14px;font-weight:600;cursor:pointer;border-bottom:1px solid var(--border);color:var(--gray-900)"
+            onmouseover="this.style.background='var(--blue-light)'" onmouseout="this.style.background='white'">${c}</div>`).join('');
+  }
+
+  // 도어 드롭다운 목록
+  const doorList = document.getElementById('door-client-drop-list');
+  if(doorList){
+    const doorClients = loadClients('door');
+    doorList.innerHTML = doorClients.length===0
+      ? `<div style="padding:12px;text-align:center;font-size:13px;color:var(--gray-500)">저장된 거래처가 없습니다</div>`
+      : doorClients.map(c=>`
+          <div onclick="selectClient('door','${c.replace(/'/g,"\\'")}');refreshClientUI()"
+            style="padding:12px 16px;font-size:14px;font-weight:600;cursor:pointer;border-bottom:1px solid var(--border);color:var(--gray-900)"
+            onmouseover="this.style.background='var(--blue-light)'" onmouseout="this.style.background='white'">${c}</div>`).join('');
+  }
 }
 
 addItem();
@@ -1750,7 +1812,17 @@ function doDoorPrint(){
         <div class="row2">
           <div class="field">
             <label>거래처명</label>
-            <select id="door-client"><option value="">-- 선택 --</option></select>
+            <div style="position:relative">
+              <div id="door-client-display" onclick="toggleClientDrop('door')"
+                style="width:100%;padding:11px 36px 11px 14px;border:2px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;background:white;cursor:pointer;color:var(--gray-500);position:relative;user-select:none">
+                <span id="door-client-display-text">-- 선택 --</span>
+                <span style="position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--gray-500);font-size:12px">▾</span>
+              </div>
+              <div id="door-client-drop" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:white;border:2px solid var(--pk-blue);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,0.15);z-index:200;max-height:200px;overflow-y:auto">
+                <div id="door-client-drop-list"></div>
+              </div>
+            </div>
+            <input type="hidden" id="door-client" value="">
           </div>
           <div class="field"><label>견적일</label><input id="door-date" type="date"></div>
         </div>
