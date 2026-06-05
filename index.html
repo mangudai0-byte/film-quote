@@ -508,56 +508,29 @@ setTimeout(()=>{ const i=document.getElementById('pw-input'); if(i) i.focus(); }
 
 // ===== 제품 데이터 =====
 const ROLL_M = 25;
-const PRODUCTS = [
-  {name:'HSM 슈퍼매트',    roll:7600,  cut:10400},
-  {name:'HS 솔리드',       roll:5200,  cut:8000},
-  {name:'HP 페인티드우드(저가)',roll:5200,cut:8000},
-  {name:'HP 페인티드우드(고가)',roll:5400,cut:8400},
-  {name:'HE 텍스처/펄',    roll:5400,  cut:8400},
-  {name:'HE407',           roll:7600,  cut:11800},
-  {name:'HC 솔리드항균',   roll:5200,  cut:8000},
-  {name:'HL 우드항균',     roll:5400,  cut:8400},
-  {name:'HW 우드얇',       roll:5400,  cut:8400},
-  {name:'HWB 우드굵',      roll:5800,  cut:8900},
-  {name:'HPW 키친우드',    roll:5400,  cut:8400},
-  {name:'HN 스톤',         roll:5800,  cut:8900},
-  {name:'HM 마블',         roll:5800,  cut:8900},
-  {name:'HT 메탈',         roll:6000,  cut:9200},
-  {name:'HF 패브릭',       roll:5800,  cut:8900},
-  {name:'HCP 세라믹',      roll:5800,  cut:8900},
-  {name:'HLC 콘크리트',    roll:5800,  cut:8900},
-  {name:'HR 리얼우드',     roll:10900, cut:16900},
-  {name:'HU 리얼터치우드', roll:12800, cut:19800},
-  {name:'HI PP SOLID',     roll:14000, cut:21600},
-  {name:'HO PP WOOD',      roll:14000, cut:21600},
-];
-const MODEL_DB = {};
-(function(){
-  const cats = {
-    'HSM 슈퍼매트': {pidx:0, models:['HSM001W 화이트','HSM002S 아이보리','HSM003G 그레이','HSM004B 블랙','HSM005C 크림']},
-    'HS 솔리드': {pidx:1, models:['HS001W 화이트','HS002I 아이보리','HS003G 라이트그레이','HS004G 미디엄그레이','HS005B 블랙']},
-    'HP 페인티드우드(저가)': {pidx:2, models:['HP101 화이트우드','HP102 아이보리우드','HP103 그레이우드','HP104 베이지우드']},
-    'HP 페인티드우드(고가)': {pidx:3, models:['HP201 프리미엄화이트','HP202 프리미엄아이보리','HP203 프리미엄그레이']},
-    'HE 텍스처/펄': {pidx:4, models:['HE101 실크화이트','HE102 실크아이보리','HE103 실크그레이','HE201 펄화이트','HE202 펄골드']},
-    'HE407': {pidx:5, models:['HE407 스페셜']},
-    'HC 솔리드항균': {pidx:6, models:['HC001W 항균화이트','HC002I 항균아이보리','HC003G 항균그레이']},
-    'HL 우드항균': {pidx:7, models:['HL101 항균라이트우드','HL102 항균미디엄우드','HL103 항균다크우드']},
-    'HW 우드얇': {pidx:8, models:['HW101 라이트오크','HW102 내추럴오크','HW103 다크오크','HW104 체리우드']},
-    'HWB 우드굵': {pidx:9, models:['HWB101 와이드라이트','HWB102 와이드내추럴','HWB103 와이드다크']},
-    'HPW 키친우드': {pidx:10, models:['HPW101 키친화이트','HPW102 키친우드','HPW103 키친그레이']},
-    'HN 스톤': {pidx:11, models:['HN101 라이트스톤','HN102 미디엄스톤','HN103 다크스톤','HN104 그레이스톤']},
-    'HM 마블': {pidx:12, models:['HM101 화이트마블','HM102 그레이마블','HM103 베이지마블','HM104 블랙마블']},
-    'HT 메탈': {pidx:13, models:['HT101 실버','HT102 골드','HT103 브론즈','HT104 블랙메탈']},
-    'HF 패브릭': {pidx:14, models:['HF101 라이트패브릭','HF102 미디엄패브릭','HF103 다크패브릭']},
-    'HCP 세라믹': {pidx:15, models:['HCP101 화이트세라믹','HCP102 그레이세라믹','HCP103 베이지세라믹']},
-    'HLC 콘크리트': {pidx:16, models:['HLC101 라이트콘크리트','HLC102 미디엄콘크리트','HLC103 다크콘크리트']},
-    'HR 리얼우드': {pidx:17, models:['HR101 리얼오크','HR102 리얼체리','HR103 리얼월넛']},
-    'HU 리얼터치우드': {pidx:18, models:['HU101 터치오크','HU102 터치월넛','HU103 터치체리']},
-    'HI PP SOLID': {pidx:19, models:['HI101 PP화이트','HI102 PP아이보리','HI103 PP그레이']},
-    'HO PP WOOD': {pidx:20, models:['HO101 PP우드라이트','HO102 PP우드내추럴','HO103 PP우드다크']},
-  };
-  Object.assign(MODEL_DB, cats);
-})();
+
+const MODEL_DB = {
+  'HSM': {name:'슈퍼매트', roll:7600, cut:10400, models:['HSM01 매트화이트','HSM02 매트밀크화이트','HSM16 매트아이보리','HSM03 매트캐시미어','HSM21 매트샌드그레이','HSM04 매트브라운','HSM20 매트라이트그레이','HSM06 매트그레이','HSM07 매트다크그레이','HSM10 매트딥그린','HSM11 매트딥블루','HSM25 매트미스틱블루','HSM27 매트문빔그레이','HSM28 매트스노우베이지','HSM29 매트포그그레이','HSM30 매트듀이클라우드','HSM31 매트코타화이트','HSM34 매트스카이브리즈']},
+  'HS':  {name:'솔리드', roll:5200, cut:8000, models:['HS001 순백','HS002 유백','HS004 크림화이트','HS005 밀크화이트','HS007 쿨그레이','HS009 라이트그레이','HS010 진그레이','HS013 차콜','HS014 어반그레이','HS015 올블랙','HS022 베이비핑크','HS027 소프트블루','HS028 윈디블루','HS029 어반블루','HS030 로열블루','HS031 헤일네이버','HS032 샌드베이지','HS034 어반카키','HS035 휴그린','HS037 딥오션','HS038 머드그레이','HS039 샌드베이지','HS040 옐로우','HS041 베이비그린','HS042 소프트민트','HS043 라벤더','HS044 퓨어레드']},
+  'HP_low': {name:'페인티드우드(저가)', roll:5200, cut:8000, models:['HP505','HP506','HP507','HP508 웜그레이페인트','HP509','HP510','HP511','HP512','HP513 브라운페인트','HP514 딥그레이페인트','HP515 로즈핑크페인트','HP516 미드그레이페인트','HP517 매트블랙페인트']},
+  'HP_high': {name:'페인티드우드(고가)', roll:5400, cut:8400, models:['HP501','HP502','HP503','HP504','HP518','HP519','HP520','HP521','HP522','HP523','HP524','HP525','HP526','HP530','HP540']},
+  'HE':  {name:'텍스처/펄', roll:5400, cut:8400, models:['HE401 화이트펄','HE402 우드블랙','HE403 소프트화이트','HE404 스킨','HE405 민트그레이','HE406 브라운','HE407']},
+  'HC':  {name:'솔리드항균', roll:5200, cut:8000, models:['HC801 퓨어화이트','HC802 페일그레이','HC803 모노그레이','HC804 클래식블루']},
+  'HL':  {name:'우드항균', roll:5400, cut:8400, models:['HL1851 라이트애쉬','HL1852 스킨오크']},
+  'HW':  {name:'우드(얇)', roll:5400, cut:8400, models:['HW1001 클리어오크','HW1002 심플그레인','HW1004 크림오크','HW1009 브러쉬오크소프트','HW1010 버치','HW1011 피치우드','HW1012 스칸디나비안우드','HW1013 스칸디나비안우드다크','HW1014 우드민트','HW1015 러스틱오크','HW1016 그레이우드','HW1017 다크우드','HW1018 소프트화이트우드','HW1019 노르딕우드','HW1020 웜우드베이지','HW1021 클라우드우드','HW1022 샌드스톤우드','HW1024 라이트오크','HW1025 아크릭오크','HW1026 새틴우드','HW1027 버치화이트','HW1028 버치그레이','HW1029 오크화이트','HW1030 오크그레이','HW1031 골든오크','HW1032 허니오크','HW1033 체스트넛오크','HW1034 코코아오크','HW1035 다크오크','HW1036 에보니우드','HW1037 화이트애쉬','HW1038 그레이애쉬','HW1039 다크애쉬','HW1040 라이트월넛','HW1041 미디엄월넛','HW1042 다크월넛','HW1043 노체','HW1044 빈티지오크','HW1045 웨더드우드','HW1046 드리프트우드']},
+  'HWB': {name:'우드(굵)', roll:5800, cut:8900, models:['HWB1003 소프트워시오크','HWB1005 화인오크','HWB1007 브룩시더(세로)','HWB1008 브룩시더(가로)','HWB1011 락메이플','HWB1012 살구나무','HWB1013 웜그레이우드','HWB1014 그레이우드','HWB1015 쿨그레이우드','HWB1016 다크오크','HWB1017 허니오크','HWB1018 골든우드','HWB1019 새틴우드굵','HWB1020 크림오크굵','HWB1021 라이트오크굵','HWB1022 내추럴오크굵','HWB1023 다크월넛굵','HWB1024 체리우드굵','HWB1025 에스프레소우드','HWB1026 빈티지브라운','HWB1027 노르딕우드굵','HWB1028 스칸디나비안오크']},
+  'HPW': {name:'키친우드', roll:5400, cut:8400, models:['HPW21 프렌치오크','HPW22 피넛오크','HPW23 카카오월넛','HPW24 던오크']},
+  'HN':  {name:'스톤', roll:5800, cut:8900, models:['HN2001 솔리드콘크리트그레이','HN2002 솔리드콘크리트다크','HN2003','HN2004','HN2005','HN2006','HN2007','HN2008','HN2009','HN2010','HN2011','HN2012','HN2013']},
+  'HM':  {name:'마블', roll:5800, cut:8900, models:['HM2101','HM2102','HM2103','HM2104']},
+  'HT':  {name:'메탈', roll:6000, cut:9200, models:['HT2301 메탈그레이','HT2302 골드','HT2303','HT2304','HT2305','HT2306','HT2307','HT2308','HT2309']},
+  'HF':  {name:'패브릭', roll:5800, cut:8900, models:['HF2201 코트니브라운','HF2202 코트니베이지','HF2205 패브릭베이지','HF2206 패브릭네이비','HF2207','HF2208','HF2209','HF2210']},
+  'HCP': {name:'세라믹', roll:5800, cut:8900, models:['HCP01 세라믹문퍼시픽','HCP02 세라믹문그레이','HCP03 세라믹문움브라','HCP04 세라믹문브릭']},
+  'HLC': {name:'콘크리트', roll:5800, cut:8900, models:['HLC010 콘크리트화이트','HLC011 콘크리트그레이']},
+  'HR':  {name:'리얼우드', roll:10900, cut:16900, models:['HR3002 트라이베카','HR3004 팜비치애쉬','HR3007 로베레켄들','HR3008 윌리스플럼']},
+  'HU':  {name:'리얼터치우드', roll:12800, cut:19800, models:['HU3301 로베레UK','HU3302 로베레아즈데코','HU3303 노체비스코토','HU3304 로베레카카오']},
+  'HI':  {name:'PP SOLID', roll:14000, cut:21600, models:['HI4001 스카이오크화이트','HI4002 스카이오크그레이']},
+  'HO':  {name:'PP WOOD', roll:14000, cut:21600, models:['HO4301 카타니아오크','HO4302 네이처오크','HO4303 그레이쉬오크']},
+};
 const MODEL_KEYS = Object.keys(MODEL_DB);
 
 // ===== 필름 견적 로직 =====
@@ -578,8 +551,7 @@ function addItem(){
   const id=cnt++;
   const firstKey=MODEL_KEYS[0];
   const db=MODEL_DB[firstKey];
-  const p=PRODUCTS[db.pidx];
-  items.push({id, catKey:firstKey, modelName:db.models[0], qty:5, r:p.roll, c:p.cut});
+  items.push({id, catKey:firstKey, modelName:db.models[0], qty:5, r:db.roll, c:db.cut, open:true});
   renderAll();
 }
 
@@ -587,15 +559,80 @@ function removeItem(id){ items=items.filter(x=>x.id!==id); renderAll(); }
 function get(id){ return items.find(x=>x.id===id); }
 
 function onCat(id, catKey){
-  const it=get(id); it.catKey=catKey;
-  const db=MODEL_DB[catKey]; const p=PRODUCTS[db.pidx];
-  it.modelName=db.models[0]; it.r=p.roll; it.c=p.cut;
-  renderAll();
+  const it=get(id);
+  it.catKey=catKey;
+  const db=MODEL_DB[catKey];
+  it.modelName=db.models[0];
+  it.r=db.roll;
+  it.c=db.cut;
+  // 카드 닫지 않고 소분류 셀렉트만 업데이트
+  const det=document.getElementById('det-'+id);
+  if(det && !det.classList.contains('hidden')){
+    // 소분류 셀렉트 내용 교체
+    const modelSel=det.querySelector('.model-sel');
+    if(modelSel){
+      modelSel.innerHTML=db.models.map(m=>`<option value="${m}"${m===it.modelName?' selected':''}>${m}</option>`).join('');
+      // 소분류로 자동 포커스
+      setTimeout(()=>modelSel.focus(), 30);
+    }
+    // 단가 박스 업데이트
+    const rollVal=det.querySelector('.roll-val');
+    const cutVal=det.querySelector('.cut-val');
+    if(rollVal) rollVal.textContent=it.r.toLocaleString();
+    if(cutVal) cutVal.textContent=it.c.toLocaleString();
+  }
+  // 헤더(이름, 금액)만 업데이트
+  updateItemHeader(id);
 }
-function onModel(id, modelName){ get(id).modelName=modelName; renderAll(); }
-function onQty(id,v){ get(id).qty=+v||0; renderAll(); }
-function stepQty(id,d){ const it=get(id); it.qty=Math.max(0,it.qty+d); renderAll(); }
-function setQty(id,v){ get(id).qty=v; renderAll(); }
+
+function onModel(id, modelName){
+  const it=get(id);
+  it.modelName=modelName;
+  updateItemHeader(id);
+  updateBreakdown(id);
+  // 수량 입력으로 자동 포커스
+  const det=document.getElementById('det-'+id);
+  if(det && !det.classList.contains('hidden')){
+    setTimeout(()=>{
+      const qtyInput=det.querySelector('.qty-input');
+      if(qtyInput){ qtyInput.focus(); qtyInput.select(); }
+    }, 30);
+  }
+}
+
+function onQty(id,v){ const it=get(id); it.qty=+v||0; updateItemHeader(id); updateBreakdown(id); }
+function stepQty(id,d){ const it=get(id); it.qty=Math.max(0,it.qty+d); const inp=document.querySelector(`#det-${id} .qty-input`); if(inp) inp.value=it.qty; updateItemHeader(id); updateBreakdown(id); }
+function setQty(id,v){ const it=get(id); it.qty=v; const inp=document.querySelector(`#det-${id} .qty-input`); if(inp) inp.value=v; updateItemHeader(id); updateBreakdown(id); }
+
+function updateItemHeader(id){
+  const it=get(id); if(!it) return;
+  const db=MODEL_DB[it.catKey]; if(!db) return;
+  const {amt}=calc(it.qty,it.r,it.c);
+  const nameEl=document.querySelector(`#det-${id}`)?.closest('.item-card')?.querySelector('.item-row-name');
+  const subEl=document.querySelector(`#det-${id}`)?.closest('.item-card')?.querySelector('.item-row-sub');
+  const amtEl=document.querySelector(`#det-${id}`)?.closest('.item-card')?.querySelector('.item-row-amt');
+  if(nameEl) nameEl.textContent=db.name;
+  if(subEl) subEl.textContent=`${it.modelName} · ${it.qty}m`;
+  if(amtEl){ amtEl.textContent=amt.toLocaleString()+'원'; amtEl.className='item-row-amt'+(amt===0?' zero':''); }
+  // 합계 업데이트
+  let total=0; items.forEach(x=>{const{amt}=calc(x.qty,x.r,x.c); total+=amt;});
+  document.getElementById('total-amt').textContent=total.toLocaleString()+' 원';
+}
+
+function updateBreakdown(id){
+  const it=get(id); if(!it) return;
+  const {rollM,cutM,amt}=calc(it.qty,it.r,it.c);
+  const det=document.getElementById('det-'+id); if(!det) return;
+  const chipsEl=det.querySelector('.bd-chips');
+  const totalEl=det.querySelector('.bd-total .val');
+  if(chipsEl){
+    let html='';
+    if(rollM>0) html+=`<div class="bd-chip roll-chip"><div class="chip-left"><span class="chip-tag">롤</span><span class="chip-desc">${rollM}m × ${it.r.toLocaleString()}원</span></div><span class="chip-amt">${(rollM*it.r).toLocaleString()}원</span></div>`;
+    if(cutM>0) html+=`<div class="bd-chip cut-chip"><div class="chip-left"><span class="chip-tag">절단</span><span class="chip-desc">${cutM}m × ${it.c.toLocaleString()}원</span></div><span class="chip-amt">${(cutM*it.c).toLocaleString()}원</span></div>`;
+    chipsEl.innerHTML=html;
+  }
+  if(totalEl) totalEl.textContent=amt.toLocaleString()+'원';
+}
 
 function renderAll(){
   const wrap=document.getElementById('items-wrap');
@@ -607,30 +644,32 @@ function renderAll(){
 function buildEl(it, num){
   const {amt,rollM,cutM}=calc(it.qty,it.r,it.c);
   const db=MODEL_DB[it.catKey];
+  if(!db) return document.createElement('div');
   const div=document.createElement('div');
   div.className='item-card';
+  const isOpen = it.open !== false;
   div.innerHTML=`
     <div class="item-row" onclick="toggleDetail(${it.id})">
       <div class="item-num">${num}</div>
       <div class="item-row-info">
-        <div class="item-row-name">${it.catKey}</div>
+        <div class="item-row-name">${db.name}</div>
         <div class="item-row-sub">${it.modelName} · ${it.qty}m</div>
       </div>
       <div class="item-row-amt${amt===0?' zero':''}">${amt.toLocaleString()}원</div>
-      <div class="item-expand-btn" id="exp-${it.id}">▼</div>
+      <div class="item-expand-btn" id="exp-${it.id}">${isOpen?'▲':'▼'}</div>
     </div>
-    <div class="item-detail hidden" id="det-${it.id}">
+    <div class="item-detail${isOpen?'':' hidden'}" id="det-${it.id}">
       <div class="item-body">
         <div class="sel-group">
           <div class="sel-block cat">
             <label>대분류</label>
             <select onchange="onCat(${it.id},this.value)">
-              ${MODEL_KEYS.map(k=>`<option value="${k}"${k===it.catKey?' selected':''}>${k}</option>`).join('')}
+              ${MODEL_KEYS.map(k=>`<option value="${k}"${k===it.catKey?' selected':''}>${MODEL_DB[k].name}</option>`).join('')}
             </select>
           </div>
           <div class="sel-block model">
             <label>품명</label>
-            <select onchange="onModel(${it.id},this.value)">
+            <select class="model-sel" onchange="onModel(${it.id},this.value)">
               ${db.models.map(m=>`<option value="${m}"${m===it.modelName?' selected':''}>${m}</option>`).join('')}
             </select>
           </div>
@@ -638,13 +677,13 @@ function buildEl(it, num){
         <div class="price-row">
           <div class="price-box roll">
             <div class="price-tag">롤 단가 / m</div>
-            <div class="price-val">${it.r.toLocaleString()}</div>
+            <div class="price-val roll-val">${it.r.toLocaleString()}</div>
             <div class="price-unit-txt">원 / 1m</div>
             <div class="price-locked">25m 단위</div>
           </div>
           <div class="price-box cut">
             <div class="price-tag">절단 단가 / m</div>
-            <div class="price-val">${it.c.toLocaleString()}</div>
+            <div class="price-val cut-val">${it.c.toLocaleString()}</div>
             <div class="price-unit-txt">원 / 1m</div>
             <div class="price-locked">25m 미만</div>
           </div>
@@ -672,22 +711,26 @@ function buildEl(it, num){
           <div class="bd-total"><span class="lbl">소계</span><span class="val">${amt.toLocaleString()}원</span></div>
         </div>
         <button class="confirm-item-btn" onclick="collapseItem(${it.id})">✅ 확정</button>
-        <button style="width:100%;padding:11px;border:2px solid #FFAAAA;border-radius:10px;background:none;color:var(--pk-red);font-size:14px;font-weight:700;font-family:inherit;cursor:pointer" onclick="removeItem(${it.id})">🗑 삭제</button>
+        <button style="width:100%;padding:11px;border:2px solid #FFAAAA;border-radius:10px;background:none;color:var(--pk-red);font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;margin-top:6px" onclick="removeItem(${it.id})">🗑 삭제</button>
       </div>
     </div>`;
   return div;
 }
 
 function toggleDetail(id){
+  const it=get(id);
   const det=document.getElementById('det-'+id);
   const exp=document.getElementById('exp-'+id);
   const hidden=det.classList.contains('hidden');
   det.classList.toggle('hidden');
   exp.textContent=hidden?'▲':'▼';
+  if(it) it.open=hidden; // 열림 상태 저장
 }
 function collapseItem(id){
+  const it=get(id);
   document.getElementById('det-'+id).classList.add('hidden');
   document.getElementById('exp-'+id).textContent='▼';
+  if(it) it.open=false;
 }
 
 function resetForm(){
@@ -818,7 +861,6 @@ function confirmQuote(){
   const sales = loadSales();
   const month = rd.slice(0, 7); // YYYY-MM
   items.forEach(it => {
-    const p = PRODUCTS[MODEL_DB[it.catKey].pidx];
     const {amt, rollM, cutM} = calc(it.qty, it.r, it.c);
     sales.push({
       date: rd, month, client,
@@ -960,9 +1002,6 @@ function exportStats(){
   a.download = `오션메이드_판매데이터_${new Date().toISOString().slice(0,10)}.csv`;
   a.click();
 }
-
-
-addItem();
 refreshClientUI();
 // 도어 날짜 초기화
 const dd = document.getElementById('door-date');
