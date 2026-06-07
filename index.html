@@ -65,10 +65,28 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
 #app{display:none;position:relative;}
 
 /* ── 바텀탭 ── */
-#bnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:540px;background:#fff;border-top:1px solid var(--bd);display:flex;z-index:500;box-shadow:0 -2px 10px rgba(61,31,10,.08);}
-.bn{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 2px 5px;border:none;background:none;cursor:pointer;color:#B09070;font-size:9px;font-family:var(--fn);font-weight:700;letter-spacing:.2px;transition:color .15s;}
-.bn.on{color:var(--or);}
-.bn-ico{font-size:19px;line-height:1.2;}
+#bnav{
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+  width:100%;max-width:540px;background:var(--br);
+  display:flex;z-index:500;
+  box-shadow:0 -4px 20px rgba(61,31,10,.35);
+  border-top:2px solid var(--or);
+}
+.bn{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
+  padding:8px 2px 7px;border:none;background:none;cursor:pointer;
+  color:rgba(250,245,238,.45);font-size:9px;font-family:var(--fn);
+  font-weight:700;letter-spacing:.3px;transition:all .2s;
+  border-right:1px solid rgba(250,245,238,.08);position:relative;
+}
+.bn:last-child{border-right:none;}
+.bn.on{color:#fff;}
+.bn.on::after{
+  content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:28px;height:3px;background:var(--or);border-radius:0 0 4px 4px;
+}
+.bn-ico{font-size:20px;line-height:1.2;transition:transform .2s;}
+.bn.on .bn-ico{transform:translateY(-1px);}
 
 /* ── 탭 페이지 공통 ── */
 .tp{display:none;min-height:100vh;padding-bottom:60px;}
@@ -687,7 +705,10 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
         <div class="card-hd"><div class="ico">🏠</div><h2>공사 품목</h2></div>
         <div class="card-bd" style="padding:0">
           <!-- 주방 -->
-          <div class="ig-cat">🍳 주방 목대·상판</div>
+          <div class="ig-cat" style="display:flex;justify-content:space-between;align-items:center;">
+            <span>🍳 주방 목대·상판</span>
+            <span style="font-size:10px;color:var(--g5);font-weight:600;background:rgba(250,245,238,.6);padding:2px 8px;border-radius:8px;">mm 단위 입력 (예: 2400)</span>
+          </div>
           <div id="cs-kitchen"></div>
           <!-- 장류 -->
           <div class="ig-cat">🗄 장 류</div>
@@ -766,12 +787,30 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
 
 <!-- ═══ 바텀 네비 ═══ -->
 <nav id="bnav">
-  <button class="bn on" id="bn-chat" onclick="switchTab('chat')"><span class="bn-ico">💬</span>척척박사</button>
-  <button class="bn" id="bn-film" onclick="switchTab('film')"><span class="bn-ico">🎨</span>필름</button>
-  <button class="bn" id="bn-door" onclick="switchTab('door')"><span class="bn-ico">🚪</span>도어</button>
-  <button class="bn" id="bn-ig" onclick="switchTab('ig')"><span class="bn-ico">🔩</span>임가공</button>
-  <button class="bn" id="bn-cs" onclick="switchTab('cs')"><span class="bn-ico">🏠</span>공사</button>
-  <button class="bn" id="bn-data" onclick="switchTab('data')"><span class="bn-ico">📊</span>데이터</button>
+  <button class="bn on" id="bn-chat" onclick="switchTab('chat')">
+    <span class="bn-ico">🤖</span>
+    <span>척척박사</span>
+  </button>
+  <button class="bn" id="bn-film" onclick="switchTab('film')">
+    <span class="bn-ico">🎨</span>
+    <span>필름</span>
+  </button>
+  <button class="bn" id="bn-door" onclick="switchTab('door')">
+    <span class="bn-ico">🚪</span>
+    <span>도어</span>
+  </button>
+  <button class="bn" id="bn-ig" onclick="switchTab('ig')">
+    <span class="bn-ico">🔩</span>
+    <span>임가공</span>
+  </button>
+  <button class="bn" id="bn-cs" onclick="switchTab('cs')">
+    <span class="bn-ico">🏠</span>
+    <span>공사</span>
+  </button>
+  <button class="bn" id="bn-data" onclick="switchTab('data')">
+    <span class="bn-ico">📊</span>
+    <span>데이터</span>
+  </button>
 </nav>
 
 </div><!-- /app -->
@@ -2095,7 +2134,7 @@ function showIgPreview(){
       </div>
       <div class="pv-tw"><table class="pv-tb">
         <thead><tr><th>품명</th><th>수량</th><th>단가</th><th>공급가</th></tr></thead>
-        <tbody>${rows.map(r=>`<tr><td>${r.label}</td><td style="text-align:right">${r.qty}${r.unit}</td><td style="text-align:right">${r.price.toLocaleString()}</td><td style="text-align:right;font-weight:700">${r.amt.toLocaleString()}</td></tr>`).join('')}</tbody>
+        <tbody>${rows.map(r=>`<tr><td>${r.label}</td><td style="text-align:right">${r.dispQty||r.qty+r.unit}</td><td style="text-align:right">${r.price.toLocaleString()}/${r.unit}</td><td style="text-align:right;font-weight:700">${r.amt.toLocaleString()}</td></tr>`).join('')}</tbody>
         <tfoot><tr><td colspan="3">공 급 가</td><td>${total.toLocaleString()}</td></tr>
                <tr style="background:var(--cr);"><td colspan="3" style="font-size:12px;color:var(--g5)">부 가 세 (10%)</td><td style="font-size:12px;color:var(--g5)">${vat.toLocaleString()}</td></tr>
                <tr><td colspan="3">합 계</td><td>${(total+vat).toLocaleString()}</td></tr></tfoot>
@@ -2123,22 +2162,22 @@ function resetIg(){ igEtcItems=[]; renderIgItems(); document.getElementById('ig-
 /* ════════════ 공사견적 ════════════ */
 const CS_DATA = {
   kitchen:[
-    {label:'상부장 목대', unit:'M', price:220000},
-    {label:'하부장 목대', unit:'M', price:280000},
-    {label:'인조대리석', unit:'M', price:200000},
-    {label:'인조대리석 광폭', unit:'M', price:340000},
-    {label:'냉장고장', unit:'M', price:300000},
-    {label:'키큰장', unit:'M', price:500000},
-    {label:'EP/오픈장 MD', unit:'장', price:150000},
+    {label:'상부장 목대', unit:'mm', price:220000, isMm:true},
+    {label:'하부장 목대', unit:'mm', price:280000, isMm:true},
+    {label:'인조대리석', unit:'mm', price:200000, isMm:true},
+    {label:'인조대리석 광폭', unit:'mm', price:340000, isMm:true},
+    {label:'냉장고장', unit:'mm', price:300000, isMm:true},
+    {label:'키큰장', unit:'mm', price:500000, isMm:true},
+    {label:'EP/오픈장 MD', unit:'장', price:150000, isMm:false},
   ],
   cabinet:[
-    {label:'붙박이장', unit:'자', price:140000},
-    {label:'신발장', unit:'자', price:140000},
-    {label:'전체오픈장', unit:'자', price:180000},
-    {label:'반통오픈장', unit:'자', price:90000},
-    {label:'롱수납장', unit:'자', price:140000},
-    {label:'반수납장', unit:'M', price:330000},
-    {label:'EP/오픈박스 MD', unit:'장', price:150000},
+    {label:'붙박이장', unit:'자', price:140000, isMm:false},
+    {label:'신발장', unit:'자', price:140000, isMm:false},
+    {label:'전체오픈장', unit:'자', price:180000, isMm:false},
+    {label:'반통오픈장', unit:'자', price:90000, isMm:false},
+    {label:'롱수납장', unit:'자', price:140000, isMm:false},
+    {label:'반수납장', unit:'mm', price:330000, isMm:true},
+    {label:'EP/오픈박스 MD', unit:'장', price:150000, isMm:false},
   ],
   storage:[]
 };
@@ -2150,9 +2189,13 @@ function renderCsItems(){
     el.innerHTML=CS_DATA[cat].map((item,i)=>`
       <div class="cs-item"><div class="cs-row">
         <span class="ig-label">${item.label}</span>
-        <input class="ig-inp" type="number" id="cs-${cat}-${i}" value="" min="0" step="0.1" placeholder="0"
+        <input class="ig-inp" type="number" id="cs-${cat}-${i}" value="" min="0"
+               step="${item.isMm?100:1}" placeholder="${item.isMm?'예)2400':'0'}"
                oninput="calcCsTotal()">
-        <div style="text-align:right"><span class="ig-sub" id="cs-sub-${cat}-${i}">0원</span><br><span class="cs-unit">${item.price.toLocaleString()}/${item.unit}</span></div>
+        <div style="text-align:right">
+          <span class="ig-sub" id="cs-sub-${cat}-${i}">0원</span><br>
+          <span class="cs-unit">${item.isMm?(item.price/1000).toLocaleString()+'/mm':item.price.toLocaleString()+'/'+item.unit}</span>
+        </div>
         <span></span>
       </div></div>`).join('');
   });
@@ -2182,7 +2225,8 @@ function calcCsTotal(){
   ['kitchen','cabinet'].forEach(cat=>{
     CS_DATA[cat].forEach((item,i)=>{
       const el=document.getElementById(`cs-${cat}-${i}`);
-      const qty=parseFloat(el?.value)||0;
+      const raw=parseFloat(el?.value)||0;
+      const qty = item.isMm ? raw/1000 : raw; // mm입력이면 M으로 변환
       const amt=Math.round(qty*item.price);
       const sub=document.getElementById(`cs-sub-${cat}-${i}`);
       if(sub) sub.textContent=amt.toLocaleString()+'원';
@@ -2198,8 +2242,13 @@ function getCsRows(){
   const rows=[];
   ['kitchen','cabinet'].forEach(cat=>{
     CS_DATA[cat].forEach((item,i)=>{
-      const qty=parseFloat(document.getElementById(`cs-${cat}-${i}`)?.value)||0;
-      if(qty>0) rows.push({label:item.label,qty,unit:item.unit,price:item.price,amt:Math.round(qty*item.price)});
+      const raw=parseFloat(document.getElementById(`cs-${cat}-${i}`)?.value)||0;
+      if(raw>0){
+        const qty = item.isMm ? raw/1000 : raw;
+        const dispQty = item.isMm ? raw+'mm' : raw+item.unit;
+        const dispUnit = item.isMm ? 'M' : item.unit;
+        rows.push({label:item.label, qty, dispQty, unit:dispUnit, price:item.price, amt:Math.round(qty*item.price)});
+      }
     });
   });
   csCustomItems.forEach(it=>{
@@ -2228,7 +2277,7 @@ function showCsPreview(){
       </div>
       <div class="pv-tw"><table class="pv-tb">
         <thead><tr><th>품명</th><th>수량</th><th>단가</th><th>공급가</th></tr></thead>
-        <tbody>${rows.map(r=>`<tr><td>${r.label}</td><td style="text-align:right">${r.qty}${r.unit}</td><td style="text-align:right">${r.price.toLocaleString()}</td><td style="text-align:right;font-weight:700">${r.amt.toLocaleString()}</td></tr>`).join('')}</tbody>
+        <tbody>${rows.map(r=>`<tr><td>${r.label}</td><td style="text-align:right">${r.dispQty||r.qty+r.unit}</td><td style="text-align:right">${r.price.toLocaleString()}/${r.unit}</td><td style="text-align:right;font-weight:700">${r.amt.toLocaleString()}</td></tr>`).join('')}</tbody>
         <tfoot><tr><td colspan="3">공 급 가</td><td>${total.toLocaleString()}</td></tr>
                <tr style="background:var(--cr);"><td colspan="3" style="font-size:12px;color:var(--g5)">부 가 세</td><td style="font-size:12px;color:var(--g5)">${vat.toLocaleString()}</td></tr>
                <tr><td colspan="3">합 계 금 액</td><td>${(total+vat).toLocaleString()}</td></tr></tfoot>
@@ -2396,66 +2445,191 @@ const KB={
   cs_price:'상부장목대:220,000/M | 하부장목대:280,000/M | 인조대리석:200,000/M | 인조대리석광폭:340,000/M | 냉장고장:300,000/M | 키큰장:500,000/M | EP오픈장:150,000/장 | 붙박이장:140,000/자 | 신발장:140,000/자 | 전체오픈장:180,000/자 | 반통오픈장:90,000/자 | 롱수납장:140,000/자 | 반수납장:330,000/M'
 };
 
-function getAnswer(q){
-  const lq=q.toLowerCase().replace(/\s/g,'');
-  if(lq.includes('임가공')&&(lq.includes('단가')||lq.includes('가격')||lq.includes('얼마'))){
-    return `🔩 <b>임가공 단가표</b><br><br>${KB.ig_price.split(' | ').map(s=>`• ${s}`).join('<br>')}`;
-  }
-  if(lq.includes('공사')&&(lq.includes('단가')||lq.includes('가격')||lq.includes('얼마'))){
-    return `🏠 <b>공사견적 단가표</b><br><br>${KB.cs_price.split(' | ').map(s=>`• ${s}`).join('<br>')}`;
-  }
-  if(lq.includes('직원')||lq.includes('구성원')){
-    return `👥 <b>오션메이드 구성원</b><br><br>`+Object.entries(KB.staff).map(([k,v])=>`• <b>${k}</b>: ${v}`).join('<br>');
-  }
-  for(const [code,name] of Object.entries(KB.edge)){
-    if(lq.includes(code.toLowerCase())||lq.includes(name.replace(/[()]/g,'').replace(/\s/g,'').toLowerCase().slice(0,5))){
-      return `🎨 <b>${code}</b> = <b>${name}</b><br>레하우/지오시스템(문정우) 주문 | HG=글로시, MT=매트`;
-    }
-  }
-  if(lq.includes('엣지')&&(lq.includes('코드')||lq.includes('표')||lq.includes('목록'))){
-    return `🎨 <b>레이저 엣지 코드표</b><br><br>`+Object.entries(KB.edge).map(([k,v])=>`<span class="ctag">${k}</span>${v}`).join('  ')+'<br><br>💡 HG=글로시 MT=매트 | 공급: 레하우(문정우)';
-  }
-  if(lq.includes('단가')||(lq.includes('얼마')&&lq.includes('도어'))){
-    const g=Object.entries(KB.pricing).map(([k,v])=>`• <b>${k}</b>: ${v}`).join('<br>');
-    const e=Object.entries(KB.extras).map(([k,v])=>`• ${k}: ${v}`).join('<br>');
-    return `💰 <b>도어 단가 기준</b><br><br>${g}<br><br>➕ <b>추가비용</b><br>${e}`;
-  }
-  if(lq.includes('흐름')||lq.includes('프로세스')||(lq.includes('발주')&&lq.includes('출고'))){
-    return `🔄 <b>발주→출고 업무흐름</b><br><br>${KB.flow.split(' → ').join('<br>→ ')}`;
-  }
-  if(lq.includes('소수점')||lq.includes('잔바리')){ return `📊 <b>소수점 견적 규칙</b><br><br>${KB.decimal.split(' | ').map(s=>`• ${s}`).join('<br>')}`; }
-  if(lq.includes('보링')){ return `🔧 <b>보링 기준</b><br><br>${KB.boring.split(' | ').map(s=>`• ${s}`).join('<br>')}`; }
-  if(lq.includes('예림')||(lq.includes('합판')&&lq.includes('주문'))){ return `📦 <b>예림키친 합판 주문</b><br><br>${KB.supply.board.split(' | ').map(s=>`• ${s}`).join('<br>')}`; }
-  if(lq.includes('레하우')||(lq.includes('엣지')&&lq.includes('주문'))){ return `📦 <b>레하우 엣지 주문</b><br><br>${KB.supply.edge.split(' | ').map(s=>`• ${s}`).join('<br>')}`; }
-  if(lq.includes('결제')||lq.includes('입금방식')){
-    return `💳 <b>결제방식</b><br><br><b>즉시선입금</b>: 서산백조, MK퍼니처, 서산새롬, 라온씽크<br><b>발주확정(후불)</b>: 서산가야, 상록수, 이천, 윤퍼니, JJ 등<br>→ "발주되었습니다 감사합니다"로 확정`;
-  }
-  if(lq.includes('서산')&&lq.includes('거래처')){
-    return `📋 <b>서산 거래처</b><br><br>• <b>서산백조</b>: 즉시선입금, 글로시선호<br>• <b>서산가야</b>: 김동겸, 빠른배송, 보링조율잦음<br>• <b>서산새롬</b>: 입금귀신, 우량<br>• <b>서산다림</b>: 정기거래<br><br>⚠️ <b>토요일 예림배송 없음!</b>`;
-  }
-  if(lq.includes('윤퍼니')){ const v=KB.interior['윤퍼니']; return `🏢 <b>윤퍼니</b><br><br>${v.split(' | ').map(s=>`• ${s}`).join('<br>')}`; }
-  const allC={...KB.sinks,...KB.interior};
-  for(const [key,val] of Object.entries(allC)){
-    if(lq.includes(key.replace(/\s/g,'').toLowerCase().slice(0,4))){
-      return `🏭 <b>${key}</b><br><br>${val.split(' | ').map(s=>`• ${s}`).join('<br>')}`;
-    }
-  }
-  if(lq.includes('도움말')||lq.includes('기능')){
-    return `📖 <b>척척박사 도움말</b><br><br><span class="ctag">결제방식</span><span class="ctag">엣지코드</span><span class="ctag">도어단가</span><span class="ctag">업무흐름</span><span class="ctag">보링기준</span><span class="ctag">합판주문</span><span class="ctag">소수점규칙</span><span class="ctag">임가공단가</span><span class="ctag">공사단가</span><br><br>예시: "서산가야 담당자", "GY008MT 무슨색", "PB15t 단가", "상부장 목대 단가"`;
-  }
-  return `🤔 좀 더 구체적으로 물어봐 주세요!<br><span class="ctag">도움말</span> 을 눌러보세요.`;
+/* ══════════════════════════════════════
+   진짜 AI 채팅 - Anthropic API 연동
+══════════════════════════════════════ */
+
+// 회사 지식베이스 (시스템 프롬프트에 삽입)
+const SYSTEM_PROMPT = `당신은 주식회사 오션메이드의 전담 AI 비서 "척척박사"입니다.
+직원들이 업무 중 질문하면 친절하고 정확하게 답변하세요.
+답변은 간결하게, 필요시 불릿포인트로 정리해주세요.
+HTML 태그 사용 가능: <b>, <br>, <span class="ctag">태그명</span>
+
+【회사 기본정보】
+- 주식회사 오션메이드 | 대표: 정근도 | 사업자: 591-86-03453
+- 주소: 충남 아산시 신창면 환경공원로 213-9 | 전화: 041-534-7475
+- 계좌: 기업은행 332-135674-04-011 (예금주: 주식회사 오션메이드)
+- 도어사업부: 비규격 싱크대도어 제조납품 / 필름사업부: 예림인테리어필름 유통
+
+【직원 구성】
+- 정근도(대표/오션봇): 생산지시·출고승인·입금확인
+- 정해빈(이사): 영업·발주접수·현장관리·배송조율
+- 김남현(공장장): 재단·생산관리·견적서작성·재고관리
+- 이석원(직원): 엣지밴딩·보링·포장·출고 / 안현(직원): 보조작업
+
+【도어 단가 기준】
+- S등급(특판): 89,000원/장 기준 (윤퍼니·이천·서산거래처)
+- 1등급: 93,000~98,000원/장 / 2등급: 88,000원/장 / 3등급: 83,000원 이하(JJ)
+- 글로시류: 92,000~98,000원 / 세라믹류: 105,000원
+- 한솔피넛오크: 94,000원 / 한솔씨에라오크·콘크리트: 118,000원
+- PP류(카타니아·네이처오크): 122,000원 / ARC류: 117,000원
+- 추가비용: 식세기마이다 5,000 / 써라(서라운드) 10,000 / 조명타공 5,000/개 / 조립비 20,000/통 / F바 16,500(부가세포함)
+
+【거래처 정보】
+싱크대공장: 서산백조(즉시선입금,글로시선호), 서산가야(김동겸,빠른배송,보링조율잦음), 서산새롬(선입금,우량,1등급), 서산다림(정기), 이천씽크(임사장,대량발주증가), 미래씽크(재단사진필수), 우리씽크(천안), 상록수씽크(오종교,천안,정해빈중계,2026년1월시작), 라온씽크(최윤열,선입금), 하미주(당진)
+인테리어: 윤퍼니(최대거래처,이현지/임소연발주,박상현출고,급발주잦음,롤써라묶기출고,발주파일명:오션 발주서 YYMMDD 현장주소.xlsx), 디자인리그리다(고급현장,AS빈번), MK퍼니처(카카오없음,반드시선입금,전화발주), JJ(3등급단가)
+
+【레이저 엣지 코드표】(공급: 레하우/지오시스템, 담당: 문정우, 결제: 당일/익일즉시입금, 주의: 한번에모아서발주)
+WH002MT=매트밀크화이트, WH007MT=매트화이트, WH003HG=글로시화이트, WH002HG=글로시밀크화이트
+GY002MT=매트그레이, GY002HG=글로시그레이, GY003MT=매트다크그레이, GY005MT=매트라이트그레이
+GY007MT=매트샌드그레이, GY008MT=매트포그그레이, GY017MT=듀이클라우드(구-재고불안), GY022MT=듀이클라우드(신)
+CC001MT=콘크리트그레이, ST009MT=콘크리트화이트, BG005MT=매트캐시미어, BG011MT=매트스노우베이지
+BG013MT=아크퓨어코튼, BR001MT=매트브라운, BL001MT=코튼블루, GR001MT=딥그린, GR002MT=미스트그린
+WD006MT=던오크/피넛오크, WD007MT=피넛오크, WD009MT=카카오월넛, WD033MT=LX리치오크
+WD044MT=카타니아오크, WD047MT=카카오월넛(신), WD049MT=던오크(신)
+ST004MT=세라믹문그레이, ST005MT=세라믹문움브라, ST008MT=세라믹문퍼시픽
+HG=글로시, MT=매트
+
+【합판 공급: 예림키친】
+담당: 김아름·이정무·신숙영·하용이
+주문형식: 카카오톡 "특판)색상명 OO장 엣지 O개 부탁드립니다"
+⚠️ 토요일 서산배송 없음! 특판=장당1,000원할인(MD70장/PB80장 밴딩단위)
+급할때 "첫집으로 배송" 요청가능
+
+【생산 프로세스】
+① 발주서접수 → ② 견적서작성(김남현) → ③ 선입금확인(오션봇) → ④ 네스팅라우터재단(2440→2420실출고) → ⑤ 엣지밴딩(PUR/EVA) → ⑥ 보링 → ⑦ 품질검사·사이즈체크 → ⑧ 포장(밴딩기) → ⑨ 출고(용달/직접수령)
+
+【보링 기준】
+- 일반도어: 위120/아래700 (기본)
+- 상부장: 100~120/100~120 / 소형(폭좁음): 80~100으로조율
+- 1200mm이상: 3구보링(센터보링)가능
+- 폭협소시 120→100→80 순으로협의
+
+【소수점 견적 규칙】
+- 예림기본컬러(매트밀크·캐시미어·포그 등)만 소수점청구가능
+- 글로시류·특수합판=정장청구 / 잔바리(짜투리)재고 활용시 소수점가능
+- 라우터=CNC보다 약15%더소요
+
+【임가공 단가】
+PB15t: 81,000/장 / PB18t: 85,000/장
+MD일반: 100,000/장 / MD럭스: 120,000/장 / MD프리미엄: 140,000/장 / MD우라: 80,000/장
+서랍재(볼레일): 10,000/개 / 서랍재(언더레일·쿠커레일): 30,000/개 / 망장: 70,000/개
+경첩: 900/개 / 다릿발: 400/개 / 걸레캡: 1,000/개 / 라벨러: 2,000/개
+쇼바: 5,000/개 / 옷봉: 15,000/개 / F바·심플바·C채널: 15,000/개 / 푸시: 4,000/개
+추가가공비: 100,000/건
+
+【공사견적 단가】
+상부장목대: 220,000/M / 하부장목대: 280,000/M
+인조대리석: 200,000/M / 인조대리석광폭: 340,000/M
+냉장고장: 300,000/M / 키큰장: 500,000/M / EP·오픈장MD: 150,000/장
+붙박이장: 140,000/자 / 신발장: 140,000/자 / 전체오픈장: 180,000/자
+반통오픈장: 90,000/자 / 롱수납장: 140,000/자 / 반수납장: 330,000/M
+
+【결제방식】
+즉시선입금: 서산백조("입금했습니다" 즉시확인), MK퍼니처(카카오없음·전화발주), 서산새롬, 라온씽크
+발주확정(후불추정): 서산가야·상록수·이천·윤퍼니·JJ 등 → "발주되었습니다 감사합니다"로 확정
+
+일반적인 대화(인사, 날씨 등)도 자연스럽게 답변하세요.
+앱 기능 안내: 이 앱에는 척척박사(AI상담)·필름견적·도어견적·임가공견적·공사견적·데이터(통계) 탭이 있습니다.`;
+
+
+/* ── 채팅 UI 헬퍼 함수 ── */
+let chatInited = false;
+let chatHistory = [];
+
+function initChat(){
+  if(chatInited) return; chatInited = true;
+  chatHistory = [];
+  addBot(`안녕하세요! <b>오션 척척박사</b>입니다 🤖<br><br>거래처·단가·엣지·임가공·공사 등 업무 전반을 도와드려요.<br>자유롭게 말씀해 주세요!<br><br><b>예시:</b><br>• "가구 공사 견적 내고 싶은데요"<br>• "서산가야 결제방식이 어떻게 돼요?"<br>• "GY008MT 무슨 색이에요?"<br>• "보링을 120으로 하면 너무 좁을 것 같은데"`);
 }
 
-let chatInited=false;
-function initChat(){
-  if(chatInited) return; chatInited=true;
-  addBot(`안녕하세요! <b>오션 척척박사</b>입니다 🎓<br>거래처·단가·엣지·임가공·공사 견적 무엇이든 도와드려요!<br><br><span class="ctag">도움말</span> 을 탭해보세요.`);
+function addBot(html){
+  const b = document.getElementById('chat-msgs'); if(!b) return;
+  const d = document.createElement('div');
+  d.className = 'cbw';
+  d.innerHTML = `<div class="cav">🤖</div><div class="cbl bot-bl">${html}</div>`;
+  b.appendChild(d); b.scrollTop = b.scrollHeight;
 }
-function addBot(html){ const b=document.getElementById('chat-msgs'); if(!b) return; const d=document.createElement('div'); d.className='cbw'; d.innerHTML=`<div class="cav">🤖</div><div class="cbl bot-bl">${html}</div>`; b.appendChild(d); b.scrollTop=b.scrollHeight; }
-function addUsr(txt){ const b=document.getElementById('chat-msgs'); if(!b) return; const d=document.createElement('div'); d.className='cbw u'; d.innerHTML=`<div class="cav u">나</div><div class="cbl usr-bl">${txt}</div>`; b.appendChild(d); b.scrollTop=b.scrollHeight; }
-function showDots(){ const b=document.getElementById('chat-msgs'); if(!b) return; const d=document.createElement('div'); d.className='cbw'; d.id='tdot'; d.innerHTML=`<div class="cav">🤖</div><div class="cbl bot-bl"><div class="tdot"><span></span><span></span><span></span></div></div>`; b.appendChild(d); b.scrollTop=b.scrollHeight; }
-function sendChat(){ const i=document.getElementById('chat-inp'); const t=i.value.trim(); if(!t) return; addUsr(t); i.value=''; showDots(); setTimeout(()=>{ const d=document.getElementById('tdot'); if(d) d.remove(); addBot(getAnswer(t)); },400); }
-function askBot(q){ switchTab('chat'); setTimeout(()=>{ document.getElementById('chat-inp').value=q; sendChat(); },100); }
+
+function addUsr(txt){
+  const b = document.getElementById('chat-msgs'); if(!b) return;
+  const d = document.createElement('div');
+  d.className = 'cbw u';
+  d.innerHTML = `<div class="cav u">나</div><div class="cbl usr-bl">${txt}</div>`;
+  b.appendChild(d); b.scrollTop = b.scrollHeight;
+}
+
+function showDots(){
+  const b = document.getElementById('chat-msgs'); if(!b) return;
+  const d = document.createElement('div');
+  d.className = 'cbw'; d.id = 'tdot';
+  d.innerHTML = `<div class="cav">🤖</div><div class="cbl bot-bl"><div class="tdot"><span></span><span></span><span></span></div></div>`;
+  b.appendChild(d); b.scrollTop = b.scrollHeight;
+}
+
+async function sendToAI(userMsg) {
+  chatHistory.push({ role: 'user', content: userMsg });
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: SYSTEM_PROMPT,
+        messages: chatHistory.slice(-10) // 최근 10개 메시지만 유지
+      })
+    });
+
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error?.message || `API 오류 ${res.status}`);
+    }
+
+    const data = await res.json();
+    const reply = data.content?.[0]?.text || '답변을 가져오지 못했습니다.';
+    chatHistory.push({ role: 'assistant', content: reply });
+    return reply;
+
+  } catch(e) {
+    chatHistory.pop(); // 실패시 히스토리에서 제거
+    console.error('AI 오류:', e);
+    throw e;
+  }
+}
+
+async function sendChat() {
+  const i = document.getElementById('chat-inp');
+  const t = i.value.trim();
+  if(!t) return;
+  addUsr(t);
+  i.value = '';
+  i.disabled = true;
+  document.querySelector('.chat-send').disabled = true;
+  showDots();
+
+  try {
+    const reply = await sendToAI(t);
+    const d = document.getElementById('tdot'); if(d) d.remove();
+    addBot(reply.replace(/\n/g, '<br>'));
+  } catch(e) {
+    const d = document.getElementById('tdot'); if(d) d.remove();
+    addBot(`⚠️ 연결 오류가 발생했습니다.<br><small style="color:#999">${e.message}</small>`);
+  } finally {
+    i.disabled = false;
+    document.querySelector('.chat-send').disabled = false;
+    i.focus();
+  }
+}
+
+function askBot(q) {
+  switchTab('chat');
+  setTimeout(() => {
+    document.getElementById('chat-inp').value = q;
+    sendChat();
+  }, 150);
+}
 
 /* film/door 거래처 드롭 호환 */
 function refreshFilmDoorDrops(){
