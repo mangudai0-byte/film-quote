@@ -2,493 +2,245 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>오션메이드 필름 견적서</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>오션메이드 척척박사</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root {
-  --om-orange:   #E8630A;
-  --om-brown:    #3D1F0A;
-  --om-brown-mid:#6B3A1F;
-  --om-cream:    #FAF5EE;
-  --om-cream-dk: #F0E6D6;
-  --om-gold:     #C8941A;
-
-  --pk-red:    #E8630A;
-  --pk-yellow: #C8941A;
-  --pk-blue:   #3D1F0A;
-  --blue:      #3D1F0A;
-  --blue-light:#FAF5EE;
-  --blue-mid:  #6B3A1F;
-  --orange:    #E8630A;
-  --orange-light:#FEF0E4;
-  --green:     #4A6741;
-  --green-light:#EAF0E8;
-  --yellow:    #C8941A;
-
-  --gray-900: #1A0F05;
-  --gray-700: #3D1F0A;
-  --gray-500: #7A5535;
-  --gray-100: #F5EDE0;
-  --gray-50:  #FAF7F2;
-  --white:    #FFFFFF;
-  --border:   #DDD0BC;
-  --radius:   10px;
-  --shadow-sm:0 2px 8px rgba(61,31,10,.10);
-  --shadow:   0 4px 18px rgba(61,31,10,.15);
-
-  --font-main: 'Noto Sans KR', sans-serif;
+:root{
+  --br:#3D1F0A; --br-mid:#6B3A1F; --or:#E8630A; --cr:#FAF5EE; --cr-dk:#F0E6D6;
+  --gd:#C8941A; --gn:#4A6741; --gn-l:#EAF0E8;
+  --g9:#1A0F05; --g7:#3D1F0A; --g5:#7A5535; --g1:#F5EDE0; --g0:#FAF7F2;
+  --bd:#DDD0BC; --wh:#FFFFFF;
+  --sh:0 2px 8px rgba(61,31,10,.10); --sh2:0 4px 18px rgba(61,31,10,.15);
+  --fn:'Noto Sans KR',sans-serif;
+  --r:10px;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-body{
-  font-family:var(--font-main);
-  background: var(--om-cream);
-  color:var(--gray-900); min-height:100vh;
-}
+body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh;max-width:540px;margin:0 auto;}
 
-/* ── 헤더 ── */
-header{
-  background: var(--om-brown);
-  color: var(--om-cream);
-  padding:0 18px; height:58px;
-  display:flex; align-items:center; justify-content:space-between;
-  position:sticky; top:0; z-index:50;
-  box-shadow:0 2px 12px rgba(61,31,10,.4);
-  border-bottom:2px solid var(--om-orange);
-}
-header h1{
-  font-family:var(--font-main);
-  font-size:16px; font-weight:700; letter-spacing:.5px;
-  color:var(--om-cream);
-}
+/* ── 비밀번호 ── */
+.pw-screen{position:fixed;inset:0;z-index:9999;background:var(--br);display:flex;align-items:center;justify-content:center;}
+.pw-screen.hidden{display:none;}
+.pw-box{background:var(--cr);border-radius:20px;padding:36px 28px;width:300px;text-align:center;border:2px solid var(--or);box-shadow:0 24px 64px rgba(0,0,0,.5);}
+.pw-title{font-size:22px;font-weight:900;color:var(--br);margin-bottom:4px;}
+.pw-sub{font-size:13px;color:var(--g5);margin-bottom:20px;}
+.pw-input{width:100%;padding:13px;border:1.5px solid var(--bd);border-radius:10px;font-size:18px;text-align:center;font-family:inherit;letter-spacing:6px;background:#fff;outline:none;}
+.pw-input:focus{border-color:var(--or);}
+.pw-btn{width:100%;margin-top:10px;padding:14px;background:var(--or);color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:800;font-family:inherit;cursor:pointer;}
+.pw-err{color:var(--or);font-size:13px;font-weight:600;margin-top:8px;opacity:0;transition:opacity .2s;}
+.pw-err.show{opacity:1;}
 
-/* ── 레이아웃 ── */
-.container{max-width:540px;margin:0 auto;padding:16px 14px 100px;}
+/* ── 앱쉘 ── */
+#app{display:none;position:relative;}
 
-/* ── 카드 ── */
-.card{
-  background:var(--white);
-  border-radius:var(--radius);
-  margin-bottom:14px;
-  border:1.5px solid var(--border);
-  box-shadow:var(--shadow-sm);
-  overflow:hidden;
-}
-.card-header{
-  background: linear-gradient(to right, var(--om-cream-dk), #F5E8D5);
-  border-bottom:1.5px solid var(--border);
-  padding:11px 18px;
-  display:flex; align-items:center; gap:10px;
-}
-.card-header .icon{
-  width:28px;height:28px;
-  background: var(--om-orange);
-  border-radius:7px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:14px;
-  box-shadow:0 2px 6px rgba(232,99,10,.3);
-}
-.card-header h2{
-  font-family:var(--font-main);
-  font-size:13px;font-weight:700;color:var(--om-brown);
-  letter-spacing:.3px;
-}
-.card-body{padding:16px 18px;}
+/* ── 바텀탭 ── */
+#bnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:540px;background:#fff;border-top:1px solid var(--bd);display:flex;z-index:500;box-shadow:0 -2px 10px rgba(61,31,10,.08);}
+.bn{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:7px 2px 5px;border:none;background:none;cursor:pointer;color:#B09070;font-size:9px;font-family:var(--fn);font-weight:700;letter-spacing:.2px;transition:color .15s;}
+.bn.on{color:var(--or);}
+.bn-ico{font-size:19px;line-height:1.2;}
 
-/* ── 폼 ── */
-.field{margin-bottom:12px;}
+/* ── 탭 페이지 공통 ── */
+.tp{display:none;min-height:100vh;padding-bottom:60px;}
+.tp.on{display:block;}
+.tp-chat{display:none;flex-direction:column;height:100svh;}
+.tp-chat.on{display:flex;}
+
+/* ── 탭 헤더 ── */
+.th{background:var(--br);padding:13px 16px 11px;border-bottom:2px solid var(--or);position:sticky;top:0;z-index:100;}
+.th-row{display:flex;align-items:center;gap:10px;}
+.th-av{width:36px;height:36px;border-radius:50%;background:var(--or);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;box-shadow:0 2px 8px rgba(232,99,10,.4);}
+.th-ttl{font-size:15px;font-weight:800;color:var(--cr);font-family:var(--fn);}
+.th-sub{font-size:11px;color:rgba(250,245,238,.6);margin-top:1px;}
+.th-btn{margin-left:auto;background:rgba(250,245,238,.12);border:1.5px solid rgba(250,245,238,.25);color:var(--cr);padding:6px 11px;border-radius:8px;font-size:11px;font-family:inherit;cursor:pointer;font-weight:700;white-space:nowrap;}
+
+/* ── 채팅 ── */
+#chat-msgs{flex:1;overflow-y:auto;padding:14px 14px 8px;display:flex;flex-direction:column;gap:10px;background:#F5EDE4;-webkit-overflow-scrolling:touch;}
+.cbw{display:flex;gap:8px;max-width:90%;animation:fadeup .2s ease;}
+.cbw.u{align-self:flex-end;flex-direction:row-reverse;}
+@keyframes fadeup{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.cav{width:32px;height:32px;border-radius:50%;background:var(--br);display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;margin-top:2px;}
+.cav.u{background:var(--gd);font-size:11px;font-weight:800;color:var(--br);}
+.cbl{padding:10px 13px;border-radius:18px;font-size:13.5px;line-height:1.65;font-family:var(--fn);max-width:100%;}
+.bot-bl{background:#fff;border-radius:4px 18px 18px 18px;color:var(--g9);box-shadow:0 1px 4px rgba(61,31,10,.1);border:1px solid rgba(221,208,188,.5);}
+.usr-bl{background:var(--br);color:var(--cr);border-radius:18px 4px 18px 18px;}
+.ctag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:10px;background:#FEF0E4;color:var(--or);margin:2px 2px 2px 0;font-weight:700;}
+.tdot{display:flex;gap:4px;align-items:center;padding:3px 0;}
+.tdot span{width:7px;height:7px;background:#C8A070;border-radius:50%;animation:tb 1.2s infinite;}
+.tdot span:nth-child(2){animation-delay:.2s;}.tdot span:nth-child(3){animation-delay:.4s;}
+@keyframes tb{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-7px)}}
+/* 칩 */
+.chips-wrap{padding:7px 12px 5px;display:flex;gap:6px;overflow-x:auto;background:#fff;border-top:1px solid var(--bd);flex-shrink:0;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.chips-wrap::-webkit-scrollbar{display:none;}
+.qc{font-size:11.5px;padding:5px 12px;border:1.5px solid #C8A070;border-radius:20px;background:#fff;color:var(--br-mid);cursor:pointer;white-space:nowrap;font-family:var(--fn);font-weight:700;flex-shrink:0;}
+.qc:active{background:var(--or);color:#fff;border-color:var(--or);}
+/* 입력바 */
+.chat-bar{padding:8px 12px;background:#fff;border-top:1px solid var(--bd);display:flex;gap:8px;flex-shrink:0;padding-bottom:calc(60px + 8px);}
+.chat-inp{flex:1;border:1.5px solid var(--bd);border-radius:22px;padding:10px 16px;font-size:14px;font-family:var(--fn);outline:none;background:var(--g0);}
+.chat-inp:focus{border-color:var(--or);}
+.chat-send{width:42px;height:42px;border-radius:50%;background:var(--or);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 8px rgba(232,99,10,.4);}
+
+/* ── 카드/폼 공통 ── */
+.container{max-width:540px;margin:0 auto;padding:14px 14px 0;}
+.card{background:var(--wh);border-radius:var(--r);margin-bottom:12px;border:1.5px solid var(--bd);box-shadow:var(--sh);overflow:hidden;}
+.card-hd{background:linear-gradient(to right,var(--cr-dk),#F5E8D5);border-bottom:1.5px solid var(--bd);padding:10px 16px;display:flex;align-items:center;gap:9px;}
+.card-hd .ico{width:26px;height:26px;background:var(--or);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;box-shadow:0 2px 6px rgba(232,99,10,.3);}
+.card-hd h2{font-size:13px;font-weight:700;color:var(--br);}
+.card-bd{padding:14px 16px;}
+.field{margin-bottom:11px;}
 .field:last-child{margin-bottom:0;}
-.field label{
-  font-size:10px;color:var(--gray-500);font-weight:700;
-  display:block;margin-bottom:5px;
-  letter-spacing:.8px;text-transform:uppercase;
-  font-family:var(--font-main);
-}
-.field input,.field select{
-  width:100%;padding:11px 14px;
-  border:1.5px solid var(--border);border-radius:8px;
-  font-size:14px;font-family:inherit;
-  background:var(--white);color:var(--gray-900);
-  -webkit-appearance:none;appearance:none;
-}
-.field input:focus,.field select:focus{
-  outline:none;border-color:var(--om-orange);
-  box-shadow:0 0 0 3px rgba(232,99,10,.12);
-}
+.field label{font-size:10px;color:var(--g5);font-weight:700;display:block;margin-bottom:4px;letter-spacing:.7px;text-transform:uppercase;}
+.field input,.field select,.field textarea{width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;background:#fff;color:var(--g9);-webkit-appearance:none;outline:none;}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--or);}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
 
-/* ── 아이템 카드 ── */
-.item-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);margin-bottom:8px;overflow:hidden;box-shadow:var(--shadow-sm);}
-.item-row{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;}
-.item-num{
-  width:24px;height:24px;flex-shrink:0;
-  background:var(--om-orange);color:white;
-  border-radius:50%;font-size:11px;font-weight:800;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 2px 6px rgba(232,99,10,.3);
-}
-.item-row-info{flex:1;min-width:0;}
-.item-row-name{
-  font-size:13px;font-weight:700;color:var(--gray-900);
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-  font-family:var(--font-main);
-}
-.item-row-sub{font-size:11px;color:var(--gray-500);margin-top:2px;}
-.item-row-amt{font-size:14px;font-weight:800;color:var(--om-brown);white-space:nowrap;flex-shrink:0;}
-.item-expand-btn{width:24px;height:24px;flex-shrink:0;background:var(--om-cream);border:1.5px solid var(--border);border-radius:5px;font-size:10px;color:var(--gray-500);display:flex;align-items:center;justify-content:center;cursor:pointer;}
-.del-btn{width:28px;height:28px;flex-shrink:0;background:none;border:1.5px solid #E8C0A0;border-radius:6px;font-size:15px;color:var(--om-orange);display:flex;align-items:center;justify-content:center;cursor:pointer;}
-.item-detail{border-top:1.5px solid var(--border);background:var(--om-cream);}
-.item-detail.hidden{display:none;}
-.item-body{padding:14px;display:flex;flex-direction:column;gap:11px;}
-
-/* ── 셀렉트 ── */
-.sel-group{display:flex;flex-direction:column;gap:8px;}
-.sel-block{position:relative;}
-.sel-block label{font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;display:block;margin-bottom:5px;font-family:var(--font-main);}
-.sel-block.cat label{color:var(--om-brown);}
-.sel-block.model label{color:var(--om-brown-mid);}
-.sel-block::after{content:'▾';position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:11px;pointer-events:none;margin-top:8px;}
-.sel-block.cat::after{color:var(--om-brown);}
-.sel-block.model::after{color:var(--om-brown-mid);}
-.sel-block select{width:100%;padding:11px 36px 11px 14px;border-radius:8px;font-size:14px;font-family:inherit;-webkit-appearance:none;appearance:none;cursor:pointer;font-weight:600;}
-.sel-block.cat select{border:1.5px solid #C8A070;background:linear-gradient(to bottom,#FAF0E4,#F5E6D2);color:var(--om-brown);}
-.sel-block.model select{border:1.5px solid #D4B090;background:linear-gradient(to bottom,#FBF5EC,#F5EDE0);color:var(--om-brown-mid);}
-
-/* ── 수량 ── */
-.qty-box{background:var(--om-cream);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;}
-.qty-top{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
-.qty-label{font-size:12px;font-weight:700;color:var(--om-brown);font-family:var(--font-main);}
-.qty-stepper{display:flex;align-items:center;margin-left:auto;border-radius:9px;overflow:hidden;border:1.5px solid var(--border);}
-.qty-btn{width:40px;height:40px;border:none;background:white;font-size:20px;color:var(--om-brown);font-weight:800;display:flex;align-items:center;justify-content:center;cursor:pointer;}
-.qty-btn:active{background:var(--om-cream-dk);}
-.qty-input{width:58px;height:40px;border:none;border-left:1.5px solid var(--border);border-right:1.5px solid var(--border);text-align:center;font-size:16px;font-weight:700;font-family:inherit;color:var(--gray-900);background:white;}
-.qty-unit{font-size:13px;color:var(--gray-500);margin-left:6px;font-weight:500;}
-.qty-shorts{display:flex;gap:5px;flex-wrap:wrap;}
-.qty-short{padding:6px 9px;font-size:12px;font-family:inherit;font-weight:700;border:1.5px solid var(--border);border-radius:7px;background:white;color:var(--om-brown);cursor:pointer;display:flex;flex-direction:column;align-items:center;line-height:1.2;min-width:38px;}
-.qty-short:active{background:var(--om-orange);color:white;border-color:var(--om-orange);}
-
-/* ── 계산 내역 ── */
-.breakdown{background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;}
-.bd-title{font-size:10px;font-weight:700;color:var(--gray-500);margin-bottom:8px;letter-spacing:.8px;text-transform:uppercase;font-family:var(--font-main);}
-.bd-chips{display:flex;flex-direction:column;gap:7px;}
-.bd-chip{display:flex;align-items:center;justify-content:space-between;padding:9px 12px;border-radius:8px;}
-.bd-chip.roll-chip{background:linear-gradient(to right,#FAF0E4,#FBF5EC);}
-.bd-chip.cut-chip{background:linear-gradient(to right,#FEF0E4,#FFF5EE);}
-.bd-chip .chip-left{display:flex;align-items:center;gap:7px;}
-.bd-chip .chip-tag{font-size:10px;font-weight:700;padding:3px 7px;border-radius:5px;}
-.roll-chip .chip-tag{background:var(--om-brown);color:var(--om-cream);}
-.cut-chip .chip-tag{background:var(--om-orange);color:white;}
-.bd-chip .chip-desc{font-size:12px;color:var(--gray-700);}
-.bd-chip .chip-amt{font-size:14px;font-weight:700;}
-.roll-chip .chip-amt{color:var(--om-brown);}
-.cut-chip .chip-amt{color:var(--om-orange);}
-.bd-total{margin-top:10px;padding-top:10px;border-top:1.5px dashed var(--border);display:flex;justify-content:space-between;align-items:baseline;}
-.bd-total .lbl{font-size:12px;color:var(--gray-500);font-weight:600;font-family:var(--font-main);}
-.bd-total .val{font-size:22px;font-weight:800;color:var(--gray-900);font-family:var(--font-main);}
-
-/* ── 확정 버튼 ── */
-.confirm-item-btn{width:100%;padding:13px;background:var(--om-brown);color:var(--om-cream);border:none;border-radius:9px;font-size:15px;font-weight:700;font-family:var(--font-main);cursor:pointer;letter-spacing:.5px;}
-
-/* ── 추가 버튼 ── */
-.add-btn{width:100%;padding:14px;border:1.5px dashed #C8A070;border-radius:var(--radius);background:rgba(250,245,238,.6);font-size:14px;font-family:var(--font-main);color:var(--om-brown);cursor:pointer;font-weight:700;letter-spacing:.3px;}
-.add-btn:active{background:var(--om-cream-dk);}
-
-/* ── 합계 바 ── */
-.total-bar{
-  background: var(--om-orange);
-  border-radius:var(--radius);padding:18px 22px;
-  display:flex;justify-content:space-between;align-items:center;
-  margin-bottom:14px;
-  box-shadow:0 4px 18px rgba(232,99,10,.35);
-  border:1.5px solid var(--om-brown);
-}
-.total-bar .lbl{font-size:13px;opacity:.9;font-weight:600;color:var(--om-cream);font-family:var(--font-main);letter-spacing:.5px;}
-.total-bar .amt{font-size:28px;font-weight:900;color:var(--om-cream);font-family:var(--font-main);letter-spacing:-1px;}
+/* ── 총액바 ── */
+.total-bar{background:var(--or);border-radius:var(--r);padding:16px 20px;display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;box-shadow:0 4px 18px rgba(232,99,10,.3);border:1.5px solid var(--br);}
+.total-bar .lbl{font-size:13px;color:var(--cr);font-weight:600;opacity:.9;}
+.total-bar .amt{font-size:26px;font-weight:900;color:var(--cr);letter-spacing:-1px;}
 
 /* ── 버튼 ── */
-.actions{display:flex;gap:10px;}
-.btn-reset{padding:14px 20px;border:1.5px solid var(--border);border-radius:var(--radius);background:white;font-size:14px;font-family:inherit;color:var(--gray-700);cursor:pointer;font-weight:700;}
-.btn-preview{flex:1;padding:15px;background:var(--om-brown);color:var(--om-cream);border:none;border-radius:var(--radius);font-size:15px;font-weight:800;font-family:var(--font-main);cursor:pointer;letter-spacing:.5px;box-shadow:0 4px 14px rgba(61,31,10,.3);}
-.btn-print{flex:1;padding:14px;background:var(--om-brown);color:var(--om-cream);border:none;border-radius:var(--radius);font-size:14px;font-weight:700;font-family:var(--font-main);cursor:pointer;}
-.btn-confirm{flex:1;padding:14px;background:var(--green);color:white;border:none;border-radius:var(--radius);font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;}
+.actions{display:flex;gap:8px;margin-bottom:14px;}
+.btn-rst{padding:13px 18px;border:1.5px solid var(--bd);border-radius:var(--r);background:#fff;font-size:14px;font-family:inherit;color:var(--g7);cursor:pointer;font-weight:700;}
+.btn-pv{flex:1;padding:14px;background:var(--br);color:var(--cr);border:none;border-radius:var(--r);font-size:15px;font-weight:800;font-family:var(--fn);cursor:pointer;box-shadow:0 4px 14px rgba(61,31,10,.3);}
+.btn-pr{flex:1;padding:13px;background:var(--br);color:var(--cr);border:none;border-radius:var(--r);font-size:14px;font-weight:700;font-family:var(--fn);cursor:pointer;}
+.btn-cf{flex:1;padding:13px;background:var(--gn);color:#fff;border:none;border-radius:var(--r);font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;}
+.btn-add{width:100%;padding:13px;border:1.5px dashed #C8A070;border-radius:var(--r);background:rgba(250,245,238,.6);font-size:14px;font-family:var(--fn);color:var(--br);cursor:pointer;font-weight:700;}
 
-/* ── 비밀번호 화면 ── */
-.pw-screen{
-  position:fixed;inset:0;z-index:200;
-  background: var(--om-brown);
-  display:flex;align-items:center;justify-content:center;
-}
-.pw-screen.hidden{display:none;}
-.pw-box{
-  background:var(--om-cream);border-radius:20px;
-  padding:40px 32px;width:320px;text-align:center;
-  box-shadow:0 24px 64px rgba(0,0,0,.5);
-  border:2px solid var(--om-orange);
-}
-.pw-title{
-  font-size:22px;font-weight:900;color:var(--om-brown);
-  margin-bottom:4px;font-family:var(--font-main);letter-spacing:.5px;
-}
-.pw-sub{font-size:13px;color:var(--gray-500);margin-bottom:24px;font-family:var(--font-main);}
-.pw-input{
-  width:100%;padding:13px;border:1.5px solid var(--border);border-radius:10px;
-  font-size:18px;text-align:center;font-family:inherit;margin-bottom:12px;
-  letter-spacing:6px;background:white;
-}
-.pw-input:focus{outline:none;border-color:var(--om-orange);box-shadow:0 0 0 3px rgba(232,99,10,.15);}
-.pw-btn{
-  width:100%;padding:14px;
-  background:var(--om-orange);color:white;
-  border:none;border-radius:10px;font-size:16px;font-weight:800;
-  font-family:var(--font-main);cursor:pointer;letter-spacing:.5px;
-  box-shadow:0 4px 14px rgba(232,99,10,.4);
-}
-.pw-error{color:var(--om-orange);font-size:13px;font-weight:600;margin-top:10px;opacity:0;transition:opacity .2s;font-family:var(--font-main);}
-.pw-error.show{opacity:1;}
-
-/* ── 모달 ── */
-.ovl{position:fixed;inset:0;z-index:100;background:rgba(61,31,10,.7);overflow-y:auto;display:none;}
+/* ── 오버레이/모달 ── */
+.ovl{position:fixed;inset:0;z-index:300;background:rgba(61,31,10,.7);overflow-y:auto;display:none;}
 .ovl.show{display:block;}
-.modal{background:var(--om-cream);max-width:540px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;}
-.modal-bar{
-  background:var(--om-brown);
-  padding:0 16px;height:56px;
-  display:flex;align-items:center;justify-content:space-between;
-  position:sticky;top:0;z-index:10;
-  border-bottom:2px solid var(--om-orange);
-}
-.modal-bar h3{font-size:15px;font-weight:800;color:var(--om-cream);font-family:var(--font-main);letter-spacing:.5px;}
-.close-btn{height:36px;padding:0 12px;background:rgba(250,245,238,.15);border:1.5px solid rgba(250,245,238,.4);border-radius:7px;font-size:14px;color:var(--om-cream);font-weight:700;display:flex;align-items:center;cursor:pointer;white-space:nowrap;}
-.parea{flex:1;overflow-y:auto;padding:16px;}
+.modal{background:var(--cr);max-width:540px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;}
+.modal-bar{background:var(--br);padding:0 14px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;border-bottom:2px solid var(--or);}
+.modal-bar h3{font-size:15px;font-weight:800;color:var(--cr);font-family:var(--fn);}
+.cls-btn{height:34px;padding:0 12px;background:rgba(250,245,238,.15);border:1.5px solid rgba(250,245,238,.35);border-radius:7px;font-size:13px;color:var(--cr);font-weight:700;cursor:pointer;}
+.parea{flex:1;overflow-y:auto;padding:14px;}
 
-/* ── 견적서 ── */
-.pv-wrap{padding:6px 0 24px;}
-.pv-title{text-align:center;font-size:22px;font-weight:900;letter-spacing:8px;color:var(--om-brown);margin-bottom:14px;padding-bottom:12px;border-bottom:2px solid var(--om-orange);font-family:var(--font-main);}
-.pv-info{border:1.5px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:12px;background:white;}
-.pv-row{display:flex;align-items:baseline;padding:9px 14px;border-bottom:1px solid #EEE8E0;font-size:13px;}
+/* ── 견적서 공통 ── */
+.pv-wrap{padding:4px 0 20px;}
+.pv-title{text-align:center;font-size:20px;font-weight:900;letter-spacing:6px;color:var(--br);margin-bottom:12px;padding-bottom:10px;border-bottom:2px solid var(--or);font-family:var(--fn);}
+.pv-info{border:1.5px solid var(--bd);border-radius:10px;overflow:hidden;margin-bottom:10px;background:#fff;}
+.pv-row{display:flex;align-items:baseline;padding:8px 13px;border-bottom:1px solid #EEE8E0;font-size:13px;}
 .pv-row:last-child{border-bottom:none;}
-.pv-k{color:var(--gray-500);font-size:10px;min-width:60px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;font-family:var(--font-main);}
+.pv-k{color:var(--g5);font-size:10px;min-width:56px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;}
 .pv-v{color:#111;font-weight:500;flex:1;}
-.pv-v.bold{font-size:16px;font-weight:900;font-family:var(--font-main);color:var(--om-brown);}
-.pv-table-wrap{border:1.5px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:12px;}
-.pv-table{width:100%;border-collapse:collapse;font-size:13px;}
-.pv-table thead tr{background:var(--om-brown);}
-.pv-table th{padding:9px 6px;color:var(--om-cream);font-size:11px;font-weight:700;letter-spacing:.4px;font-family:var(--font-main);}
-.pv-table th:first-child{text-align:left;padding-left:12px;}
-.pv-table th:nth-child(n+2){text-align:right;padding-right:8px;}
-.pv-table td{padding:10px 6px;border-bottom:1px solid #F0E8DC;color:#111;}
-.pv-table td:first-child{text-align:left;padding-left:12px;font-weight:700;}
-.pv-table td:nth-child(n+2){text-align:right;padding-right:8px;}
-.pv-table tbody tr:nth-child(even){background:var(--om-cream);}
-.sub-row td{font-size:12px!important;font-weight:400!important;color:#AAA!important;background:var(--om-cream)!important;}
-.pv-table tfoot td{padding:12px 6px;background:var(--om-cream-dk);border-top:2px solid var(--om-orange);font-weight:900;color:var(--om-brown);font-size:15px;font-family:var(--font-main);}
-.pv-table tfoot td:first-child{padding-left:12px;}
-.pv-table tfoot td:last-child{text-align:right;padding-right:8px;font-size:18px;}
-.pv-bank{border:2px solid var(--om-orange);border-radius:12px;overflow:hidden;margin-bottom:12px;}
-.pv-bank-notice{background:var(--om-orange);color:white;text-align:center;padding:9px;font-size:13px;font-weight:800;letter-spacing:4px;font-family:var(--font-main);}
-.pv-bank-body{padding:12px 16px;background:white;}
-.pv-bank-num{font-size:22px;font-weight:900;color:var(--om-brown);letter-spacing:1px;margin-bottom:4px;font-family:var(--font-main);}
+.pv-v.bold{font-size:15px;font-weight:900;color:var(--br);}
+.pv-tw{border:1.5px solid var(--bd);border-radius:10px;overflow:hidden;margin-bottom:10px;}
+.pv-tb{width:100%;border-collapse:collapse;font-size:12px;}
+.pv-tb thead tr{background:var(--br);}
+.pv-tb th{padding:8px 6px;color:var(--cr);font-size:11px;font-weight:700;}
+.pv-tb th:first-child{text-align:left;padding-left:12px;}
+.pv-tb th:not(:first-child){text-align:right;padding-right:8px;}
+.pv-tb td{padding:9px 6px;border-bottom:1px solid #F0E8DC;color:#111;}
+.pv-tb td:first-child{text-align:left;padding-left:12px;font-weight:600;}
+.pv-tb td:not(:first-child){text-align:right;padding-right:8px;}
+.pv-tb tbody tr:nth-child(even){background:var(--cr);}
+.pv-tb tfoot td{padding:11px 6px;background:var(--cr-dk);border-top:2px solid var(--or);font-weight:900;color:var(--br);font-size:14px;}
+.pv-tb tfoot td:first-child{padding-left:12px;}
+.pv-tb tfoot td:last-child{text-align:right;padding-right:8px;font-size:16px;}
+.pv-bank{border:2px solid var(--or);border-radius:10px;overflow:hidden;margin-bottom:10px;}
+.pv-bank-n{background:var(--or);color:#fff;text-align:center;padding:8px;font-size:13px;font-weight:800;letter-spacing:4px;}
+.pv-bank-b{padding:10px 14px;background:#fff;}
+.pv-bank-num{font-size:20px;font-weight:900;color:var(--br);letter-spacing:1px;margin-bottom:3px;}
 .pv-bank-info{font-size:12px;color:#666;}
-.pv-supplier{text-align:center;padding:8px;background:var(--om-cream);border-radius:8px;font-size:12px;color:var(--gray-500);font-weight:600;}
-.pv-supplier-body{border:1.5px solid var(--border);border-radius:8px;overflow:hidden;}
-.pv-supplier-body.hidden{display:none;}
+.pv-foot{text-align:center;font-size:11px;color:var(--g5);margin-top:8px;}
 
-/* ── 인쇄 ── */
-@media print{.modal{min-height:unset;}.parea{padding:10px;}}
+/* ── 임가공 전용 ── */
+.ig-item{background:var(--wh);border:1.5px solid var(--bd);border-radius:var(--r);margin-bottom:8px;overflow:hidden;}
+.ig-row{display:grid;grid-template-columns:2fr 1fr 1.3fr 28px;gap:6px;align-items:center;padding:10px 12px;}
+.ig-label{font-size:13px;font-weight:600;color:var(--g9);}
+.ig-inp{border:1px solid var(--bd);border-radius:7px;padding:7px 8px;font-size:13px;font-family:inherit;text-align:center;width:100%;outline:none;}
+.ig-inp:focus{border-color:var(--or);}
+.ig-sub{font-size:13px;font-weight:700;color:var(--br);text-align:right;}
+.ig-del{background:none;border:none;color:#CCA090;font-size:18px;cursor:pointer;padding:0;line-height:1;}
+.ig-cat{background:var(--cr-dk);padding:6px 12px;font-size:11px;font-weight:800;color:var(--br-mid);letter-spacing:.5px;border-bottom:1px solid var(--bd);}
+
+/* ── 공사견적 전용 ── */
+.cs-item{background:var(--wh);border:1.5px solid var(--bd);border-radius:var(--r);margin-bottom:8px;overflow:hidden;}
+.cs-row{display:grid;grid-template-columns:2.2fr 1fr 1fr 28px;gap:6px;align-items:center;padding:10px 12px;}
+.cs-unit{font-size:11px;color:var(--g5);font-weight:600;}
+
+/* ── 데이터 탭 ── */
+.stat-card{background:#fff;border-radius:12px;padding:13px 15px;margin-bottom:8px;border:1.5px solid var(--bd);box-shadow:var(--sh);}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:14px;}
+.sg-card{background:#fff;border-radius:10px;padding:13px;border:1.5px solid var(--bd);}
+.sg-lbl{font-size:11px;color:var(--g5);font-weight:700;margin-bottom:4px;}
+.sg-val{font-size:20px;font-weight:900;color:var(--br);}
+.bar-wrap{height:6px;background:#F0E8DC;border-radius:3px;margin-top:6px;}
+.bar-fill{height:100%;background:var(--or);border-radius:3px;transition:width .4s;}
+.type-badge{display:inline-block;font-size:10px;padding:2px 7px;border-radius:8px;font-weight:700;margin-right:4px;}
+.tb-film{background:#E8F0FE;color:#1A4FA0;}
+.tb-door{background:#FEE8E0;color:#C04010;}
+.tb-ig{background:#E8F5E9;color:#2E7D32;}
+.tb-cs{background:#FFF3E0;color:#E65100;}
+
+/* ── 거래처 드롭다운 ── */
+.cl-drop{display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:#fff;border:2px solid var(--br);border-radius:10px;box-shadow:var(--sh2);z-index:200;max-height:200px;overflow-y:auto;}
+.cl-item{padding:11px 14px;font-size:14px;font-weight:600;cursor:pointer;border-bottom:1px solid var(--bd);}
+.cl-item:hover{background:var(--cr);}
+.cl-wrap{position:relative;}
+.cl-disp{width:100%;padding:10px 36px 10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;background:#fff;cursor:pointer;color:var(--g5);position:relative;user-select:none;display:flex;align-items:center;justify-content:space-between;}
+.cl-disp.sel{color:var(--g9);}
 </style>
 </head>
 <body>
 
-<!-- 비밀번호 화면 -->
+<!-- 비밀번호 -->
 <div class="pw-screen" id="pw-screen">
   <div class="pw-box">
-    <div style="margin-bottom:14px">
-      <svg width="190" height="74" viewBox="0 0 190 74" xmlns="http://www.w3.org/2000/svg">
-        <g transform="translate(79,1)">
-          <path d="M4,32 L0,10 L11,21 L16,4 L21,21 L32,10 L28,32 Z" fill="#3D1F0A"/>
-          <rect x="2" y="31" width="28" height="7" rx="2" fill="#3D1F0A"/>
-          <ellipse cx="16" cy="36" rx="10" ry="3.5" fill="#E8630A" opacity="0.45"/>
-          <circle cx="0" cy="10" r="2.4" fill="#3D1F0A"/>
-          <circle cx="16" cy="4" r="2.4" fill="#3D1F0A"/>
-          <circle cx="32" cy="10" r="2.4" fill="#3D1F0A"/>
-        </g>
-        <text x="95" y="68" text-anchor="middle" font-family="Georgia,serif" font-size="26" font-weight="900" fill="#3D1F0A" letter-spacing="0.5">ocean-made</text>
-      </svg>
-    </div>
-    <div style="margin-bottom:14px">
-      <svg width="96" height="108" viewBox="0 0 96 108" xmlns="http://www.w3.org/2000/svg">
-        <rect x="33" y="94" width="11" height="10" rx="5" fill="#2A1005"/>
-        <rect x="52" y="94" width="11" height="10" rx="5" fill="#2A1005"/>
-        <ellipse cx="38" cy="105" rx="10" ry="4" fill="#1A0A00"/>
-        <ellipse cx="57" cy="105" rx="10" ry="4" fill="#1A0A00"/>
-        <rect x="26" y="62" width="44" height="35" rx="8" fill="#3D1F0A"/>
-        <rect x="42" y="62" width="12" height="18" rx="2" fill="#FAF5EE"/>
-        <polygon points="48,65 45,75 48,79 51,75" fill="#E8630A"/>
-        <path d="M42,62 L34,69 L42,69 Z" fill="#2A1005"/>
-        <path d="M54,62 L62,69 L54,69 Z" fill="#2A1005"/>
-        <rect x="12" y="64" width="15" height="25" rx="7" fill="#3D1F0A"/>
-        <rect x="69" y="64" width="15" height="25" rx="7" fill="#3D1F0A"/>
-        <ellipse cx="19" cy="92" rx="7" ry="6" fill="#C8941A"/>
-        <ellipse cx="77" cy="92" rx="7" ry="6" fill="#C8941A"/>
-        <rect x="73" y="53" width="16" height="22" rx="2" fill="#E8630A"/>
-        <rect x="74" y="54" width="14" height="20" rx="1" fill="#FAF5EE"/>
-        <line x1="77" y1="58" x2="86" y2="58" stroke="#3D1F0A" stroke-width="1"/>
-        <line x1="77" y1="62" x2="86" y2="62" stroke="#3D1F0A" stroke-width="1"/>
-        <line x1="77" y1="66" x2="86" y2="66" stroke="#3D1F0A" stroke-width="1"/>
-        <rect x="41" y="53" width="14" height="11" rx="4" fill="#C8941A"/>
-        <ellipse cx="48" cy="39" rx="22" ry="20" fill="#C8941A"/>
-        <ellipse cx="27" cy="39" rx="5" ry="6" fill="#B07A30"/>
-        <ellipse cx="69" cy="39" rx="5" ry="6" fill="#B07A30"/>
-        <ellipse cx="29" cy="35" rx="4" ry="3" fill="#EEE8DC" opacity="0.75"/>
-        <ellipse cx="67" cy="35" rx="4" ry="3" fill="#EEE8DC" opacity="0.75"/>
-        <rect x="31" y="34" width="14" height="10" rx="4" fill="none" stroke="#2A1005" stroke-width="2"/>
-        <rect x="51" y="34" width="14" height="10" rx="4" fill="none" stroke="#2A1005" stroke-width="2"/>
-        <line x1="45" y1="39" x2="51" y2="39" stroke="#2A1005" stroke-width="2"/>
-        <line x1="31" y1="39" x2="27" y2="38" stroke="#2A1005" stroke-width="2"/>
-        <line x1="65" y1="39" x2="69" y2="38" stroke="#2A1005" stroke-width="2"/>
-        <ellipse cx="38" cy="39" rx="3" ry="3" fill="white"/>
-        <circle cx="39" cy="39" r="2" fill="#2A1005"/>
-        <circle cx="40" cy="38" r="0.8" fill="white"/>
-        <ellipse cx="58" cy="39" rx="3" ry="3" fill="white"/>
-        <circle cx="59" cy="39" r="2" fill="#2A1005"/>
-        <circle cx="60" cy="38" r="0.8" fill="white"/>
-        <path d="M34 29 Q38 27 44 29" stroke="#3D1F0A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        <path d="M52 29 Q56 27 62 29" stroke="#3D1F0A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        <ellipse cx="48" cy="45" rx="3" ry="2" fill="#B07A30"/>
-        <path d="M42 48 Q45 47 48 48 Q51 47 54 48" stroke="#3D1F0A" stroke-width="1.5" fill="none"/>
-        <path d="M41 51 Q48 57 55 51" stroke="#3D1F0A" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <rect x="28" y="21" width="40" height="8" rx="3" fill="#3D1F0A"/>
-        <polygon points="30,21 48,10 66,21" fill="#3D1F0A"/>
-        <circle cx="48" cy="10" r="3.5" fill="#E8630A"/>
-        <line x1="48" y1="10" x2="64" y2="18" stroke="#E8630A" stroke-width="1.5"/>
-        <circle cx="65" cy="20" r="3" fill="#E8630A"/>
-        <path d="M27,28 Q24,35 26,42" stroke="#EEE8DC" stroke-width="3" fill="none" stroke-linecap="round"/>
-        <path d="M69,28 Q72,35 70,42" stroke="#EEE8DC" stroke-width="3" fill="none" stroke-linecap="round"/>
-      </svg>
-    </div>
+    <div style="font-size:28px;margin-bottom:6px">🤖</div>
     <div class="pw-title">오션 척척박사</div>
     <div class="pw-sub">비밀번호를 입력하세요</div>
-    <input class="pw-input" id="pw-input" type="password" maxlength="20" onkeydown="if(event.key==='Enter') checkPw()">
+    <input class="pw-input" id="pw-inp" type="password" maxlength="20" onkeydown="if(event.key==='Enter')checkPw()">
     <button class="pw-btn" onclick="checkPw()">확인</button>
-    <div class="pw-error" id="pw-error">비밀번호가 틀렸습니다</div>
+    <div class="pw-err" id="pw-err">비밀번호가 틀렸습니다</div>
   </div>
 </div>
 
-<header>
-  <h1 id="app-title" style="display:flex;align-items:center;gap:8px">
-    <svg width="22" height="22" viewBox="0 0 32 38" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0">
-      <path d="M3,32 L0,10 L9,20 L16,2 L23,20 L32,10 L29,32 Z" fill="#FAF5EE"/>
-      <rect x="1" y="31" width="30" height="7" rx="2" fill="#FAF5EE"/>
-      <ellipse cx="16" cy="35" rx="11" ry="3.5" fill="#E8630A" opacity="0.5"/>
-      <circle cx="0" cy="10" r="2.2" fill="#FAF5EE"/>
-      <circle cx="16" cy="2" r="2.2" fill="#FAF5EE"/>
-      <circle cx="32" cy="10" r="2.2" fill="#FAF5EE"/>
-    </svg>
-    <span style="font-family:var(--font-main);letter-spacing:.5px">ocean-made</span>
-  </h1>
-  <button onclick="openClientMgr()" style="background:rgba(250,245,238,0.15);border:1.5px solid rgba(250,245,238,0.35);color:var(--om-cream);padding:6px 12px;border-radius:7px;font-size:12px;font-family:inherit;cursor:pointer;white-space:nowrap">👥 거래처</button>
-</header>
+<!-- 앱 본체 -->
+<div id="app">
 
-<!-- 홈 화면 -->
-<div id="mode-screen" style="display:none;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 58px);padding:24px;gap:16px;max-width:400px;margin:0 auto">
-  <div style="text-align:center;margin-bottom:8px">
-    <svg width="160" height="64" viewBox="0 0 190 74" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:6px">
-      <g transform="translate(79,1)">
-        <path d="M4,32 L0,10 L11,21 L16,4 L21,21 L32,10 L28,32 Z" fill="#3D1F0A"/>
-        <rect x="2" y="31" width="28" height="7" rx="2" fill="#3D1F0A"/>
-        <ellipse cx="16" cy="36" rx="10" ry="3.5" fill="#E8630A" opacity="0.45"/>
-        <circle cx="0" cy="10" r="2.4" fill="#3D1F0A"/>
-        <circle cx="16" cy="4" r="2.4" fill="#3D1F0A"/>
-        <circle cx="32" cy="10" r="2.4" fill="#3D1F0A"/>
-      </g>
-      <text x="95" y="68" text-anchor="middle" font-family="Georgia,serif" font-size="26" font-weight="900" fill="#3D1F0A" letter-spacing="0.5">ocean-made</text>
-    </svg>
-    <div style="font-size:12px;color:var(--gray-500);margin-top:2px;font-family:var(--font-main);letter-spacing:1px">가구전문제조 오션메이드</div>
-    <div style="font-size:11px;color:var(--om-orange);margin-top:6px;font-weight:700;letter-spacing:.5px">🎓 척척박사 견적 시스템</div>
+<!-- ═══ 척척박사 탭 ═══ -->
+<div class="tp-chat" id="tp-chat">
+  <div class="th">
+    <div class="th-row">
+      <div class="th-av">🤖</div>
+      <div><div class="th-ttl">오션 척척박사 AI</div><div class="th-sub">거래처·단가·엣지·업무흐름</div></div>
+      <button class="th-btn" onclick="openClientMgr()">👥 거래처</button>
+    </div>
   </div>
-  <button onclick="setMode('film')" style="width:100%;padding:20px;background:white;border:2px solid var(--border);border-radius:16px;cursor:pointer;text-align:left;box-shadow:var(--shadow-sm)" onmouseover="this.style.borderColor='#E8340A'" onmouseout="this.style.borderColor='var(--border)'">
-    <div style="margin-bottom:6px">
-      <svg width="36" height="36" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
-        <rect x="4" y="10" width="28" height="16" rx="3" fill="#3B5FA0"/>
-        <rect x="6" y="12" width="24" height="12" rx="2" fill="#EAF1FA"/>
-        <rect x="8" y="13" width="4" height="10" rx="1" fill="#B8D4E8"/>
-        <rect x="13" y="13" width="4" height="10" rx="1" fill="#C8E6C8"/>
-        <rect x="18" y="13" width="4" height="10" rx="1" fill="#F5D5B0"/>
-        <rect x="23" y="13" width="4" height="10" rx="1" fill="#F5C5D0"/>
-        <circle cx="4" cy="18" r="4" fill="#4A72C4"/><circle cx="4" cy="18" r="2" fill="#1A2A4A"/>
-        <circle cx="32" cy="18" r="4" fill="#4A72C4"/><circle cx="32" cy="18" r="2" fill="#1A2A4A"/>
-      </svg>
-    </div>
-    <div style="font-size:16px;font-weight:700;color:var(--gray-900)">인테리어 필름 견적</div>
-    <div style="font-size:12px;color:var(--gray-500);margin-top:4px">예림 필름 단가표 기준 · 롤/절단 자동계산</div>
-  </button>
-  <button onclick="setMode('door')" style="width:100%;padding:20px;background:white;border:2px solid var(--border);border-radius:16px;cursor:pointer;text-align:left;box-shadow:var(--shadow-sm)" onmouseover="this.style.borderColor='#E8340A'" onmouseout="this.style.borderColor='var(--border)'">
-    <div style="margin-bottom:6px">
-      <svg width="36" height="36" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
-        <rect x="2" y="12" width="32" height="3" rx="1" fill="#3B5FA0"/>
-        <rect x="2" y="15" width="32" height="16" rx="2" fill="#4A72C4"/>
-        <rect x="6" y="17" width="10" height="9" rx="2" fill="#EAF1FA"/>
-        <rect x="18" y="17" width="10" height="9" rx="2" fill="#EAF1FA"/>
-        <circle cx="11" cy="22" r="1.5" fill="#3B5FA0"/><circle cx="23" cy="22" r="1.5" fill="#3B5FA0"/>
-        <rect x="15" y="8" width="2" height="7" rx="1" fill="#C0C0C0"/>
-        <rect x="12" y="8" width="8" height="2" rx="1" fill="#C0C0C0"/>
-        <circle cx="12" cy="9" r="1.5" fill="#999"/><circle cx="20" cy="9" r="1.5" fill="#999"/>
-        <rect x="4" y="31" width="12" height="4" rx="1" fill="#1A2A4A"/>
-        <rect x="20" y="31" width="12" height="4" rx="1" fill="#1A2A4A"/>
-        <circle cx="10" cy="33" r="1" fill="#EAF1FA"/><circle cx="26" cy="33" r="1" fill="#EAF1FA"/>
-        <rect x="2" y="2" width="32" height="9" rx="2" fill="#1A2A4A"/>
-        <rect x="4" y="3.5" width="12" height="6" rx="1" fill="#4A72C4"/>
-        <rect x="20" y="3.5" width="12" height="6" rx="1" fill="#4A72C4"/>
-        <circle cx="10" cy="6.5" r="1" fill="#EAF1FA"/><circle cx="26" cy="6.5" r="1" fill="#EAF1FA"/>
-      </svg>
-    </div>
-    <div style="font-size:16px;font-weight:700;color:var(--gray-900)">비규격 도어 발주 견적</div>
-    <div style="font-size:12px;color:var(--gray-500);margin-top:4px">SUPER 레이저도어 · 재단 최적화 자동계산</div>
-  </button>
-  <button onclick="showStats()" style="width:100%;padding:14px;background:rgba(255,255,255,0.7);border:2px solid var(--border);border-radius:12px;cursor:pointer;font-size:14px;font-weight:700;color:var(--gray-700);font-family:inherit">
-    📊 판매 통계
-  </button>
-</div>
-
-<!-- 거래처 관리 모달 -->
-<div class="ovl" id="client-ovl">
-  <div class="modal" style="max-height:80vh;margin:10vh auto auto;border-radius:16px;overflow:hidden;max-width:500px">
-    <div class="modal-bar">
-      <h3>👥 거래처 관리</h3>
-      <button class="close-btn" onclick="closeClientMgr()">×</button>
-    </div>
-    <div style="padding:0 16px 16px;overflow-y:auto;max-height:calc(80vh - 60px)">
-      <div style="display:flex;margin-bottom:14px;border-bottom:2px solid var(--border)">
-        <button id="tab-film" onclick="switchClientTab('film')" style="flex:1;padding:10px;border:none;border-bottom:3px solid var(--pk-red);margin-bottom:-2px;background:none;font-size:14px;font-weight:700;color:var(--pk-red);cursor:pointer;font-family:inherit">🎨 필름</button>
-        <button id="tab-door" onclick="switchClientTab('door')" style="flex:1;padding:10px;border:none;border-bottom:3px solid transparent;margin-bottom:-2px;background:none;font-size:14px;font-weight:600;color:var(--gray-500);cursor:pointer;font-family:inherit">🚪 도어</button>
-      </div>
-      <div style="display:flex;gap:8px;margin-bottom:14px">
-        <input id="new-client" type="text" placeholder="새 거래처명 입력" onkeydown="if(event.key==='Enter')saveClient(currentClientTab)" style="flex:1;padding:10px 14px;border:2px solid var(--border);border-radius:10px;font-size:15px;font-family:inherit">
-        <button onclick="saveClient(currentClientTab)" style="padding:0 18px;background:var(--pk-blue);color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;flex-shrink:0">추가</button>
-      </div>
-      <div id="client-chips"></div>
-    </div>
+  <div id="chat-msgs"></div>
+  <div class="chips-wrap">
+    <button class="qc" onclick="askBot('결제방식')">💳 결제방식</button>
+    <button class="qc" onclick="askBot('엣지코드표')">🎨 엣지코드</button>
+    <button class="qc" onclick="askBot('도어단가기준')">💰 도어단가</button>
+    <button class="qc" onclick="askBot('업무흐름')">🔄 업무흐름</button>
+    <button class="qc" onclick="askBot('서산거래처')">📋 서산거래처</button>
+    <button class="qc" onclick="askBot('보링기준')">🔧 보링</button>
+    <button class="qc" onclick="askBot('예림합판주문')">📦 합판주문</button>
+    <button class="qc" onclick="askBot('소수점견적규칙')">📊 소수점</button>
+    <button class="qc" onclick="askBot('임가공단가')">🔩 임가공</button>
+    <button class="qc" onclick="askBot('공사견적단가')">🏠 공사단가</button>
+    <button class="qc" onclick="askBot('도움말')">❓ 도움말</button>
+  </div>
+  <div class="chat-bar">
+    <input class="chat-inp" id="chat-inp" type="text" placeholder="무엇이든 물어보세요..." maxlength="300"
+           onkeydown="if(event.key==='Enter')sendChat()">
+    <button class="chat-send" onclick="sendChat()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+    </button>
   </div>
 </div>
 
-<!-- 통계 모달 -->
-<div class="ovl" id="stats-ovl">
-  <div class="modal">
-    <div class="modal-bar">
-      <button class="close-btn" onclick="closeStats()">‹ 뒤로</button>
-      <h3>📊 판매 통계</h3>
-      <button onclick="exportStats()" style="background:rgba(255,255,255,0.2);border:1.5px solid rgba(255,255,255,0.4);color:white;padding:6px 10px;border-radius:7px;font-size:12px;font-family:inherit;cursor:pointer">CSV</button>
-    </div>
-    <div id="stats-area" class="parea"></div>
-  </div>
-</div>
+
+<!-- ═══ 필름 탭 컨테이너 ═══ -->
+<div class="tp" id="tp-film" style="overflow-y:auto;">
 
 <!-- 필름 섹션 -->
-<div id="film-section" style="display:none">
+<div id="film-section">
   <div class="container">
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
-      <button onclick="goHome()" style="background:var(--blue-light);border:2px solid var(--border);border-radius:8px;color:var(--blue);font-size:13px;font-weight:700;padding:7px 14px;cursor:pointer">← 홈</button>
+      <button onclick="switchTab('chat')" style="background:var(--blue-light);border:2px solid var(--border);border-radius:8px;color:var(--blue);font-size:13px;font-weight:700;padding:7px 14px;cursor:pointer">← 홈</button>
       <span style="font-size:14px;font-weight:700;color:var(--gray-700)">인테리어 필름 견적</span>
     </div>
     <div class="card">
@@ -546,29 +298,315 @@ header h1{
     </div>
   </div>
 </div>
+</div><!-- /tp-film -->
+
+<!-- ═══ 도어 탭 컨테이너 ═══ -->
+<div class="tp" id="tp-door" style="overflow-y:auto;">
+
+<!-- 도어 발주 섹션 -->
+<div id="door-section" >
+  <div class="container">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+      <button onclick="switchTab('chat')" style="background:var(--blue-light);border:1.5px solid #B8CDE8;border-radius:8px;color:var(--blue);font-size:13px;font-weight:700;padding:7px 14px;cursor:pointer">← 홈</button>
+      <span style="font-size:14px;font-weight:700;color:var(--gray-700)">비규격 도어 발주 견적</span>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="icon">📋</div><h2>거래처 정보</h2></div>
+      <div class="card-body">
+        <div class="row2">
+          <div class="field">
+            <label>거래처명</label>
+            <div style="position:relative">
+              <div id="door-client-display" onclick="toggleClientDrop('door')"
+                style="width:100%;padding:11px 36px 11px 14px;border:2px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;background:white;cursor:pointer;color:var(--gray-500);position:relative;user-select:none">
+                <span id="door-client-display-text">-- 선택 --</span>
+                <span style="position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--gray-500);font-size:12px">▾</span>
+              </div>
+              <div id="door-client-drop" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:white;border:2px solid var(--pk-blue);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,0.15);z-index:200;max-height:200px;overflow-y:auto">
+                <div id="door-client-drop-list"></div>
+              </div>
+            </div>
+            <input type="hidden" id="door-client" value="">
+          </div>
+          <div class="field"><label>견적일</label><input id="door-date" type="date"></div>
+        </div>
+        <div class="field" style="margin-top:4px">
+          <label>적용 등급</label>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+            <label id="grade-btn-1" onclick="setDoorGrade(1)" style="display:flex;align-items:center;justify-content:center;padding:10px;border:2px solid var(--blue);border-radius:10px;background:var(--blue);color:white;cursor:pointer;font-weight:700;font-size:14px">1등급</label>
+            <label id="grade-btn-2" onclick="setDoorGrade(2)" style="display:flex;align-items:center;justify-content:center;padding:10px;border:2px solid var(--border);border-radius:10px;background:white;color:var(--gray-500);cursor:pointer;font-weight:600;font-size:14px">2등급</label>
+            <label id="grade-btn-3" onclick="setDoorGrade(3)" style="display:flex;align-items:center;justify-content:center;padding:10px;border:2px solid var(--border);border-radius:10px;background:white;color:var(--gray-500);cursor:pointer;font-weight:600;font-size:14px">3등급</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="icon">🚪</div><h2>도어 품목</h2></div>
+      <div class="card-body" style="padding:12px">
+        <div id="door-items-wrap"></div>
+        <button class="add-btn" onclick="addDoorGroup()" style="margin-top:8px">＋ 색상 추가</button>
+      </div>
+    </div>
+
+    <div class="total-bar">
+      <span class="lbl">총 합계</span>
+      <span class="amt" id="door-total">0 원</span>
+    </div>
+
+    <div class="actions">
+      <button class="btn-reset" onclick="resetDoorForm()">↺ 초기화</button>
+      <button class="btn-preview" onclick="calcDoorQuote()">🚪 견적서 보기 →</button>
+    </div>
+  </div>
+</div>
+
+<!-- 도어 견적서 미리보기 -->
+<div class="ovl" id="door-preview-ovl">
+  <div class="modal">
+    <div class="modal-bar">
+      <button class="close-btn" onclick="closeDoorPreview()" style="font-size:14px;font-weight:700;color:var(--blue);border-color:var(--blue-light);background:var(--blue-light)">‹ 뒤로</button>
+      <h3>도어 발주 견적서</h3>
+      <div style="width:60px"></div>
+    </div>
+    <div class="parea" id="door-preview-area"></div>
+    <div style="display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--border);background:white;position:sticky;bottom:0">
+      <button class="btn-print" style="flex:1" onclick="doDoorPrint()">🖨 인쇄/저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- 재단 배치도 모달 -->
+<div class="ovl" id="cut-layout-ovl">
+  <div class="modal">
+    <div class="modal-bar">
+      <button class="close-btn" onclick="closeCutLayout()" style="font-size:14px;font-weight:700;color:var(--blue);border-color:var(--blue-light);background:var(--blue-light)">‹ 뒤로</button>
+      <h3>📐 재단 배치도</h3>
+      <div style="width:60px"></div>
+    </div>
+    <div style="padding:16px;overflow-y:auto;max-height:calc(100vh - 60px)">
+      <div id="cut-legend" style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;padding:12px;background:var(--gray-50);border-radius:10px"></div>
+      <div id="cut-layout-container"></div>
+    </div>
+  </div>
+</div>
+</div><!-- /tp-door -->
+
+<!-- ═══ 임가공 견적 탭 ═══ -->
+<div class="tp" id="tp-ig">
+  <div class="th"><div class="th-row">
+    <div class="th-av">🔩</div>
+    <div><div class="th-ttl">임가공 견적</div><div class="th-sub">가공비·자재비 견적서</div></div>
+    <button class="th-btn" onclick="openClientMgr()">👥 거래처</button>
+  </div></div>
+  <div id="ig-form">
+    <div class="container">
+      <div class="card">
+        <div class="card-hd"><div class="ico">📋</div><h2>거래처 정보</h2></div>
+        <div class="card-bd">
+          <div class="row2">
+            <div class="field"><label>거래처명</label>
+              <div class="cl-wrap">
+                <div class="cl-disp" id="ig-cl-disp" onclick="toggleDrop('ig')"><span id="ig-cl-txt">-- 선택 --</span><span>▾</span></div>
+                <div class="cl-drop" id="ig-cl-drop"><div id="ig-cl-list"></div></div>
+              </div>
+              <input type="hidden" id="ig-client">
+            </div>
+            <div class="field"><label>견적일</label><input type="date" id="ig-date"></div>
+          </div>
+          <div class="field"><label>현장명 (선택)</label><input type="text" id="ig-site" placeholder="현장명"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-hd"><div class="ico">🔩</div><h2>임가공 품목</h2></div>
+        <div class="card-bd" style="padding:0">
+          <!-- 합판 자재 -->
+          <div class="ig-cat">📦 합판 자재</div>
+          <div id="ig-board"></div>
+          <!-- 서랍 / 철물 -->
+          <div class="ig-cat">🔧 서랍·철물</div>
+          <div id="ig-hw"></div>
+          <!-- 부자재 -->
+          <div class="ig-cat">🪛 부자재</div>
+          <div id="ig-sub"></div>
+          <!-- 기타 -->
+          <div class="ig-cat">📝 기타가공</div>
+          <div id="ig-etc"></div>
+          <div style="padding:10px 12px">
+            <button class="btn-add" onclick="addIgEtc()">＋ 기타 항목 추가</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="total-bar">
+        <span class="lbl">총 합계 (공급가)</span>
+        <span class="amt" id="ig-total">0 원</span>
+      </div>
+      <div class="actions">
+        <button class="btn-rst" onclick="resetIg()">↺ 초기화</button>
+        <button class="btn-pv" onclick="showIgPreview()">🔩 견적서 보기 →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 임가공 견적서 모달 -->
+<div class="ovl" id="ig-ovl">
+  <div class="modal">
+    <div class="modal-bar">
+      <button class="cls-btn" onclick="closeOvl('ig-ovl')">‹ 뒤로</button>
+      <h3>임가공 견적서</h3>
+      <div style="width:60px"></div>
+    </div>
+    <div class="parea" id="ig-parea"></div>
+    <div style="display:flex;gap:8px;padding:12px;border-top:1px solid var(--bd);background:#fff;position:sticky;bottom:0;">
+      <button class="btn-cf" onclick="confirmQuoteIg()">✅ 견적 확정</button>
+      <button class="btn-pr" onclick="printArea('ig-parea')">🖨 인쇄</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 공사견적 탭 ═══ -->
+<div class="tp" id="tp-cs">
+  <div class="th"><div class="th-row">
+    <div class="th-av">🏠</div>
+    <div><div class="th-ttl">공사 견적</div><div class="th-sub">주방·수납·붙박이 견적서</div></div>
+    <button class="th-btn" onclick="openClientMgr()">👥 거래처</button>
+  </div></div>
+  <div id="cs-form">
+    <div class="container">
+      <div class="card">
+        <div class="card-hd"><div class="ico">📋</div><h2>거래처 정보</h2></div>
+        <div class="card-bd">
+          <div class="row2">
+            <div class="field"><label>거래처명</label>
+              <div class="cl-wrap">
+                <div class="cl-disp" id="cs-cl-disp" onclick="toggleDrop('cs')"><span id="cs-cl-txt">-- 선택 --</span><span>▾</span></div>
+                <div class="cl-drop" id="cs-cl-drop"><div id="cs-cl-list"></div></div>
+              </div>
+              <input type="hidden" id="cs-client">
+            </div>
+            <div class="field"><label>견적일</label><input type="date" id="cs-date"></div>
+          </div>
+          <div class="field"><label>현장명</label><input type="text" id="cs-site" placeholder="예) 불당동 린스트라우스 101호"></div>
+          <div class="field"><label>특기사항</label><textarea id="cs-note" rows="2" placeholder="배송일정, 특이사항 등" style="resize:none;line-height:1.5;"></textarea></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-hd"><div class="ico">🏠</div><h2>공사 품목</h2></div>
+        <div class="card-bd" style="padding:0">
+          <!-- 주방 -->
+          <div class="ig-cat">🍳 주방 목대·상판</div>
+          <div id="cs-kitchen"></div>
+          <!-- 장류 -->
+          <div class="ig-cat">🗄 장 류</div>
+          <div id="cs-cabinet"></div>
+          <!-- 수납/붙박이 -->
+          <div class="ig-cat">🏪 수납·붙박이</div>
+          <div id="cs-storage"></div>
+          <!-- 커스텀 -->
+          <div class="ig-cat">📝 추가 항목</div>
+          <div id="cs-custom"></div>
+          <div style="padding:10px 12px">
+            <button class="btn-add" onclick="addCsCustom()">＋ 항목 추가</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="total-bar">
+        <span class="lbl">총 합계 (공급가)</span>
+        <span class="amt" id="cs-total">0 원</span>
+      </div>
+      <div class="actions">
+        <button class="btn-rst" onclick="resetCs()">↺ 초기화</button>
+        <button class="btn-pv" onclick="showCsPreview()">🏠 견적서 보기 →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 공사견적서 모달 -->
+<div class="ovl" id="cs-ovl">
+  <div class="modal">
+    <div class="modal-bar">
+      <button class="cls-btn" onclick="closeOvl('cs-ovl')">‹ 뒤로</button>
+      <h3>공사 견적서</h3>
+      <div style="width:60px"></div>
+    </div>
+    <div class="parea" id="cs-parea"></div>
+    <div style="display:flex;gap:8px;padding:12px;border-top:1px solid var(--bd);background:#fff;position:sticky;bottom:0;">
+      <button class="btn-cf" onclick="confirmQuoteCs()">✅ 견적 확정</button>
+      <button class="btn-pr" onclick="printArea('cs-parea')">🖨 인쇄</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 데이터 탭 ═══ -->
+<div class="tp" id="tp-data">
+  <div class="th"><div class="th-row">
+    <div class="th-av">📊</div>
+    <div><div class="th-ttl">데이터</div><div class="th-sub">매출·견적 통계</div></div>
+  </div></div>
+  <div class="container" id="data-inner" style="padding-top:14px;"></div>
+</div>
+
+<!-- ═══ 거래처 관리 모달 ═══ -->
+<div class="ovl" id="client-ovl">
+  <div class="modal" style="max-height:80vh;margin:10vh auto auto;border-radius:16px;overflow:hidden;max-width:500px;">
+    <div class="modal-bar">
+      <h3>👥 거래처 관리</h3>
+      <button class="cls-btn" onclick="closeOvl('client-ovl')">×</button>
+    </div>
+    <div style="padding:0 14px 14px;overflow-y:auto;max-height:calc(80vh - 54px);">
+      <div style="display:flex;margin-bottom:12px;border-bottom:2px solid var(--bd);">
+        <button id="ctab-film" onclick="switchClientTab('film')" style="flex:1;padding:9px;border:none;border-bottom:3px solid var(--or);margin-bottom:-2px;background:none;font-size:13px;font-weight:700;color:var(--or);cursor:pointer;font-family:inherit;">🎨 필름</button>
+        <button id="ctab-door" onclick="switchClientTab('door')" style="flex:1;padding:9px;border:none;border-bottom:3px solid transparent;margin-bottom:-2px;background:none;font-size:13px;font-weight:600;color:var(--g5);cursor:pointer;font-family:inherit;">🚪 도어</button>
+        <button id="ctab-ig" onclick="switchClientTab('ig')" style="flex:1;padding:9px;border:none;border-bottom:3px solid transparent;margin-bottom:-2px;background:none;font-size:13px;font-weight:600;color:var(--g5);cursor:pointer;font-family:inherit;">🔩 임가공</button>
+        <button id="ctab-cs" onclick="switchClientTab('cs')" style="flex:1;padding:9px;border:none;border-bottom:3px solid transparent;margin-bottom:-2px;background:none;font-size:13px;font-weight:600;color:var(--g5);cursor:pointer;font-family:inherit;">🏠 공사</button>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:12px;">
+        <input id="new-client" type="text" placeholder="새 거래처명" onkeydown="if(event.key==='Enter')saveClient(currentClientTab)" style="flex:1;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;outline:none;">
+        <button onclick="saveClient(currentClientTab)" style="padding:0 16px;background:var(--br);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer;">추가</button>
+      </div>
+      <div id="client-chips"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 바텀 네비 ═══ -->
+<nav id="bnav">
+  <button class="bn on" id="bn-chat" onclick="switchTab('chat')"><span class="bn-ico">💬</span>척척박사</button>
+  <button class="bn" id="bn-film" onclick="switchTab('film')"><span class="bn-ico">🎨</span>필름</button>
+  <button class="bn" id="bn-door" onclick="switchTab('door')"><span class="bn-ico">🚪</span>도어</button>
+  <button class="bn" id="bn-ig" onclick="switchTab('ig')"><span class="bn-ico">🔩</span>임가공</button>
+  <button class="bn" id="bn-cs" onclick="switchTab('cs')"><span class="bn-ico">🏠</span>공사</button>
+  <button class="bn" id="bn-data" onclick="switchTab('data')"><span class="bn-ico">📊</span>데이터</button>
+</nav>
+
+</div><!-- /app -->
+
+
+<!-- 필름 견적서 미리보기 -->
+<div class="ovl" id="preview-ovl">
+  <div class="modal">
+    <div class="modal-bar">
+      <button class="close-btn" onclick="document.getElementById('preview-ovl').classList.remove('show')">‹ 뒤로</button>
+      <h3>견적서 미리보기</h3>
+      <div style="width:60px"></div>
+    </div>
+    <div class="parea" id="parea"></div>
+    <div style="display:flex;gap:8px;padding:12px 16px;border-top:2px solid var(--border);background:white;position:sticky;bottom:0">
+      <button class="btn-confirm" onclick="confirmQuote()">✅ 견적 확정</button>
+      <button class="btn-print" onclick="doPrint()">🖨 인쇄/저장</button>
+    </div>
+  </div>
+</div>
+
 
 <script>
-// ===== 비밀번호 =====
-const PASSWORD = '8253';
-function checkPw(){
-  const val = document.getElementById('pw-input').value;
-  if(val === PASSWORD){
-    document.getElementById('pw-screen').classList.add('hidden');
-    document.getElementById('mode-screen').style.display = 'flex';
-    sessionStorage.setItem('auth','1');
-  } else {
-    const err = document.getElementById('pw-error');
-    err.classList.add('show');
-    document.getElementById('pw-input').value='';
-    setTimeout(()=>err.classList.remove('show'), 2000);
-  }
-}
-if(sessionStorage.getItem('auth')==='1'){
-  document.getElementById('pw-screen').classList.add('hidden');
-  document.getElementById('mode-screen').style.display='flex';
-}
-setTimeout(()=>{ const i=document.getElementById('pw-input'); if(i) i.focus(); }, 100);
-
 // ===== 제품 데이터 =====
 const ROLL_M = 25;
 
@@ -849,40 +887,7 @@ function showPreview(){
   document.getElementById('preview-ovl').scrollTop=0;
 }
 
-// ===== 거래처 =====
-let currentClientTab = 'film';
-function loadClients(type='film'){ try{ return JSON.parse(localStorage.getItem(`om_clients_${type}`)||'[]'); }catch(e){ return []; } }
-function saveClient(type='film'){
-  const val=document.getElementById('new-client').value.trim();
-  if(!val) return;
-  const clients=loadClients(type);
-  if(!clients.includes(val)){ clients.unshift(val); localStorage.setItem(`om_clients_${type}`,JSON.stringify(clients)); }
-  document.getElementById('new-client').value='';
-  refreshClientUI();
-}
-function deleteClient(name,type='film'){
-  const clients=loadClients(type).filter(c=>c!==name);
-  localStorage.setItem(`om_clients_${type}`,JSON.stringify(clients));
-  refreshClientUI();
-}
-function moveClient(name,type,dir){
-  const clients=loadClients(type);
-  const idx=clients.indexOf(name);
-  if(idx<0) return;
-  const newIdx=idx+dir;
-  if(newIdx<0||newIdx>=clients.length) return;
-  clients.splice(idx,1); clients.splice(newIdx,0,name);
-  localStorage.setItem(`om_clients_${type}`,JSON.stringify(clients));
-  refreshClientUI();
-}
-function switchClientTab(type){
-  currentClientTab=type;
-  const fb=document.getElementById('tab-film');
-  const db=document.getElementById('tab-door');
-  if(fb){ fb.style.borderBottomColor=type==='film'?'var(--pk-red)':'transparent'; fb.style.color=type==='film'?'var(--pk-red)':'var(--gray-500)'; fb.style.fontWeight=type==='film'?'700':'600'; }
-  if(db){ db.style.borderBottomColor=type==='door'?'var(--pk-red)':'transparent'; db.style.color=type==='door'?'var(--pk-red)':'var(--gray-500)'; db.style.fontWeight=type==='door'?'700':'600'; }
-  refreshClientUI();
-}
+// ===== 거래처 (film/door 전용 드롭다운) =====
 function toggleClientDrop(type){
   const drop = document.getElementById(type==='film'?'client-drop':'door-client-drop');
   if(!drop) return;
@@ -895,256 +900,36 @@ function toggleClientDrop(type){
   if(!isOpen) drop.style.display='block';
 }
 
-function selectClient(type, name){
-  const hiddenInput = document.getElementById(type==='film'?'client':'door-client');
-  const displayText = document.getElementById(type==='film'?'client-display-text':'door-client-display-text');
-  const display = document.getElementById(type==='film'?'client-display':'door-client-display');
-  const drop = document.getElementById(type==='film'?'client-drop':'door-client-drop');
-  if(hiddenInput) hiddenInput.value = name;
-  if(displayText){ displayText.textContent = name; displayText.style.color='var(--gray-900)'; }
-  if(display) display.style.borderColor = 'var(--pk-blue)';
-  if(drop) drop.style.display = 'none';
+function selectClientOld(type, name){
+  /* 기존 film/door 전용 - 새버전에서는 selectFilmDoorClient 사용 */
+  selectFilmDoorClient(type, name);
 }
 
-// 외부 클릭 시 드롭 닫기
-document.addEventListener('click', e=>{
-  if(!e.target.closest('[id$="-drop"]') && !e.target.closest('[id$="-display"]')){
-    ['client-drop','door-client-drop'].forEach(id=>{
-      const el=document.getElementById(id);
-      if(el) el.style.display='none';
-    });
-  }
-});
+/* 외부 클릭 처리는 새버전 통합 */
 
-function openClientMgr(){
-  const doorVisible=document.getElementById('door-section').style.display!=='none';
-  currentClientTab=doorVisible?'door':'film';
-  document.getElementById('client-ovl').classList.add('show');
-  switchClientTab(currentClientTab);
-  setTimeout(()=>document.getElementById('new-client').focus(),100);
-}
-function closeClientMgr(){ document.getElementById('client-ovl').classList.remove('show'); }
-function refreshClientUI(){
-  const clients=loadClients(currentClientTab);
-  const chips=document.getElementById('client-chips');
-  if(chips){
-    chips.innerHTML=clients.length===0
-      ?`<p style="font-size:13px;color:var(--gray-500);text-align:center;padding:20px 0">${currentClientTab==='film'?'필름':'도어'} 거래처가 없습니다</p>`
-      :clients.map((c,idx)=>`
-        <div style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--gray-50);border:2px solid var(--border);border-radius:10px;margin-bottom:6px">
-          <div style="display:flex;flex-direction:column;gap:2px">
-            <button onclick="moveClient('${c.replace(/'/g,"\\'")}','${currentClientTab}',-1)" ${idx===0?'disabled':''} style="background:none;border:1.5px solid var(--border);border-radius:4px;cursor:pointer;font-size:10px;padding:1px 5px;color:${idx===0?'#ccc':'var(--pk-blue)'};line-height:1.2">▲</button>
-            <button onclick="moveClient('${c.replace(/'/g,"\\'")}','${currentClientTab}',1)" ${idx===clients.length-1?'disabled':''} style="background:none;border:1.5px solid var(--border);border-radius:4px;cursor:pointer;font-size:10px;padding:1px 5px;color:${idx===clients.length-1?'#ccc':'var(--pk-blue)'};line-height:1.2">▼</button>
-          </div>
-          <span style="flex:1;font-size:15px;font-weight:600;color:var(--gray-900)">${c}</span>
-          <button onclick="deleteClient('${c.replace(/'/g,"\\'")}','${currentClientTab}')" style="background:none;border:1.5px solid #FFAAAA;border-radius:6px;color:var(--pk-red);cursor:pointer;font-size:12px;padding:3px 8px">삭제</button>
-        </div>`).join('');
-  }
 
-  // 필름 드롭다운 목록
-  const filmList = document.getElementById('client-drop-list');
-  if(filmList){
-    const filmClients = loadClients('film');
-    filmList.innerHTML = filmClients.length===0
-      ? `<div style="padding:12px;text-align:center;font-size:13px;color:var(--gray-500)">저장된 거래처가 없습니다</div>`
-      : filmClients.map(c=>`
-          <div onclick="selectClient('film','${c.replace(/'/g,"\\'")}');refreshClientUI()"
-            style="padding:12px 16px;font-size:14px;font-weight:600;cursor:pointer;border-bottom:1px solid var(--border);color:var(--gray-900)"
-            onmouseover="this.style.background='var(--blue-light)'" onmouseout="this.style.background='white'">${c}</div>`).join('');
-  }
-
-  // 도어 드롭다운 목록
-  const doorList = document.getElementById('door-client-drop-list');
-  if(doorList){
-    const doorClients = loadClients('door');
-    doorList.innerHTML = doorClients.length===0
-      ? `<div style="padding:12px;text-align:center;font-size:13px;color:var(--gray-500)">저장된 거래처가 없습니다</div>`
-      : doorClients.map(c=>`
-          <div onclick="selectClient('door','${c.replace(/'/g,"\\'")}');refreshClientUI()"
-            style="padding:12px 16px;font-size:14px;font-weight:600;cursor:pointer;border-bottom:1px solid var(--border);color:var(--gray-900)"
-            onmouseover="this.style.background='var(--blue-light)'" onmouseout="this.style.background='white'">${c}</div>`).join('');
-  }
-}
-
-addItem();
-refreshClientUI();
+/* deferred: 'addItem();\nif(typeof refreshFi' */
 // ===== 판매 데이터 =====
-function loadSales(){ try{ return JSON.parse(localStorage.getItem('om_sales')||'[]'); }catch(e){ return []; } }
-function saveSales(data){ localStorage.setItem('om_sales', JSON.stringify(data)); }
 
 function confirmQuote(){
   const client = document.getElementById('client').value || '(거래처명)';
   const rd = document.getElementById('rdate').value;
   if(items.length === 0){ alert('품목을 추가해주세요.'); return; }
-
-  const sales = loadSales();
-  const month = rd.slice(0, 7); // YYYY-MM
-  items.forEach(it => {
-    const {amt, rollM, cutM} = calc(it.qty, it.r, it.c);
-    sales.push({
-      date: rd, month, client,
-      product: it.modelName,
-      group: it.catKey,
-      qty: it.qty, amt, rollM, cutM
-    });
-  });
-  saveSales(sales);
-
-  // 확정 표시
+  let totalAmt = 0;
+  items.forEach(it => { const {amt} = calc(it.qty, it.r, it.c); totalAmt += amt; });
+  saveSale({ type:'필름', client, date:rd, site:document.getElementById('site')?.value||'',
+    total:totalAmt, month:rd.slice(0,7) });
   const btn = document.querySelector('.btn-confirm');
-  btn.textContent = '✅ 저장완료!';
-  btn.style.background = '#888';
-  btn.disabled = true;
-  setTimeout(() => {
-    btn.textContent = '✅ 견적 확정';
-    btn.style.background = '#1A7A4A';
-    btn.disabled = false;
-  }, 2000);
+  if(btn){ btn.textContent='✅ 저장완료!'; btn.style.background='#888'; btn.disabled=true;
+    setTimeout(()=>{ btn.textContent='✅ 견적 확정'; btn.style.background='#1A7A4A'; btn.disabled=false; },2000); }
 }
 
-function showStats(){
-  const sales = loadSales();
-  const area = document.getElementById('stats-area');
 
-  if(sales.length === 0){
-    area.innerHTML = '<div class="stats-empty">📭 아직 확정된 견적이 없어요<br><br>견적서 보기 → 견적 확정 버튼을 누르면<br>데이터가 쌓여요!</div>';
-    document.getElementById('stats-ovl').classList.add('show');
-    return;
-  }
 
-  // 집계
-  const totalAmt = sales.reduce((s,x)=>s+x.amt,0);
-  const totalQty = sales.reduce((s,x)=>s+x.qty,0);
 
-  // 제품별
-  const byProduct = {};
-  sales.forEach(x=>{
-    if(!byProduct[x.product]) byProduct[x.product]={qty:0,amt:0};
-    byProduct[x.product].qty += x.qty;
-    byProduct[x.product].amt += x.amt;
-  });
-  const topProducts = Object.entries(byProduct).sort((a,b)=>b[1].amt-a[1].amt).slice(0,10);
-  const maxAmt = topProducts[0]?.[1]?.amt || 1;
-
-  // 거래처별
-  const byClient = {};
-  sales.forEach(x=>{
-    if(!byClient[x.client]) byClient[x.client]={qty:0,amt:0,cnt:0};
-    byClient[x.client].qty += x.qty;
-    byClient[x.client].amt += x.amt;
-    byClient[x.client].cnt++;
-  });
-  const topClients = Object.entries(byClient).sort((a,b)=>b[1].amt-a[1].amt).slice(0,8);
-
-  // 월별
-  const byMonth = {};
-  sales.forEach(x=>{
-    if(!byMonth[x.month]) byMonth[x.month]={amt:0,qty:0};
-    byMonth[x.month].amt += x.amt;
-    byMonth[x.month].qty += x.qty;
-  });
-  const months = Object.entries(byMonth).sort((a,b)=>a[0].localeCompare(b[0])).slice(-6);
-  const maxMonthAmt = Math.max(...months.map(m=>m[1].amt)) || 1;
-
-  area.innerHTML = `
-    <div class="stat-summary">
-      <div class="summary-box"><div class="s-lbl">총 매출액</div><div class="s-val">${(totalAmt/10000).toFixed(0)}만원</div></div>
-      <div class="summary-box green"><div class="s-lbl">총 판매량</div><div class="s-val">${totalQty}m</div></div>
-    </div>
-
-    <div class="stats-section">
-      <h4>🏆 제품별 판매 순위</h4>
-      ${topProducts.map(([name,d],i)=>`
-        <div class="stat-card">
-          <div class="stat-row">
-            <span style="font-size:13px;font-weight:700;color:var(--gray-500);min-width:20px">${i+1}</span>
-            <span class="stat-name">${name}</span>
-            <span class="stat-qty">${d.qty}m</span>
-            <span class="stat-amt">${d.amt.toLocaleString()}원</span>
-          </div>
-          <div class="stat-bar-wrap"><div class="stat-bar" style="width:${Math.round(d.amt/maxAmt*100)}%"></div></div>
-        </div>
-      `).join('')}
-    </div>
-
-    <div class="stats-section">
-      <h4>🏢 거래처별 매출</h4>
-      <div class="stat-card">
-        ${topClients.map(([name,d])=>`
-          <div class="stat-client-row">
-            <span style="font-weight:600">${name}</span>
-            <span style="color:var(--gray-500);font-size:12px">${d.cnt}건 · ${d.qty}m</span>
-            <span style="font-weight:700;color:var(--blue)">${d.amt.toLocaleString()}원</span>
-          </div>
-        `).join('')}
-      </div>
-    </div>
-
-    <div class="stats-section">
-      <h4>📅 월별 매출</h4>
-      ${months.map(([month,d])=>`
-        <div class="stat-card">
-          <div class="stat-row">
-            <span class="stat-name">${month}</span>
-            <span class="stat-qty">${d.qty}m</span>
-            <span class="stat-amt">${d.amt.toLocaleString()}원</span>
-          </div>
-          <div class="stat-bar-wrap"><div class="stat-bar orange" style="width:${Math.round(d.amt/maxMonthAmt*100)}%"></div></div>
-        </div>
-      `).join('')}
-    </div>
-
-    <button class="reset-stats-btn" onclick="resetStats()">🗑 데이터 전체 삭제</button>
-  `;
-
-  document.getElementById('stats-ovl').classList.add('show');
-  document.getElementById('stats-ovl').scrollTop = 0;
-}
-
-function closeStats(){ document.getElementById('stats-ovl').classList.remove('show'); }
-
-function resetStats(){
-  if(!confirm('모든 판매 데이터를 삭제할까요?')) return;
-  localStorage.removeItem('om_sales');
-  closeStats();
-}
-
-function exportStats(){
-  const sales = loadSales();
-  if(sales.length === 0){ alert('데이터가 없어요.'); return; }
-  const header = '날짜,월,거래처,제품명,그룹,수량(m),금액,롤(m),절단(m)';
-  const rows = sales.map(x=>`${x.date},${x.month},${x.client},${x.product},${x.group},${x.qty},${x.amt},${x.rollM},${x.cutM}`);
-  const csv = '\uFEFF' + [header, ...rows].join('\n');
-  const blob = new Blob([csv], {type:'text/csv'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `오션메이드_판매데이터_${new Date().toISOString().slice(0,10)}.csv`;
-  a.click();
-}
-refreshClientUI();
-// 도어 날짜 초기화
-const dd = document.getElementById('door-date');
-if(dd) dd.value = today();
-// 도어 그룹 초기 렌더
-renderDoorGroups();
+/* deferred init */
 
 // ===== 모드 전환 =====
-function setMode(mode){
-  document.getElementById('mode-screen').style.display = 'none';
-  document.getElementById('film-section').style.display = mode==='film' ? 'block' : 'none';
-  document.getElementById('door-section').style.display = mode==='door' ? 'block' : 'none';
-  const titleEl = document.getElementById('app-title');
-  if(titleEl){
-    const label = mode==='film' ? '🎨 필름 견적' : '🚪 도어 발주';
-    titleEl.innerHTML = `<svg width="20" height="20" viewBox="0 0 32 38" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0"><path d="M3,32 L0,10 L9,20 L16,2 L23,20 L32,10 L29,32 Z" fill="#FAF5EE"/><rect x="1" y="31" width="30" height="7" rx="2" fill="#FAF5EE"/><ellipse cx="16" cy="35" rx="11" ry="3.5" fill="#E8630A" opacity="0.5"/><circle cx="0" cy="10" r="2.2" fill="#FAF5EE"/><circle cx="16" cy="2" r="2.2" fill="#FAF5EE"/><circle cx="32" cy="10" r="2.2" fill="#FAF5EE"/></svg><span style="font-family:var(--font-main);letter-spacing:.5px">${label}</span>`;
-  }  refreshClientUI();
-}
-function goHome(){
-  document.getElementById('mode-screen').style.display = 'flex';
-  document.getElementById('film-section').style.display = 'none';
-  document.getElementById('door-section').style.display = 'none';
-  document.getElementById('app-title').textContent = '🏠 오션메이드';
-}
 
 // ===== 도어 단가표 =====
 const DOOR_PRICES = [
@@ -1857,96 +1642,665 @@ function doDoorPrint(){
   </style></head><body>${content}<script>window.onload=()=>window.print()<\/script></body></html>`);
   win.document.close();
 }
-
 </script>
-<!-- 도어 발주 섹션 -->
-<div id="door-section" style="display:none">
-  <div class="container">
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
-      <button onclick="goHome()" style="background:var(--blue-light);border:1.5px solid #B8CDE8;border-radius:8px;color:var(--blue);font-size:13px;font-weight:700;padding:7px 14px;cursor:pointer">← 홈</button>
-      <span style="font-size:14px;font-weight:700;color:var(--gray-700)">비규격 도어 발주 견적</span>
-    </div>
+<script>
+/* ════════════════════════════════════════
+   오션메이드 척척박사 - 통합 앱 JS
+════════════════════════════════════════ */
 
-    <div class="card">
-      <div class="card-header"><div class="icon">📋</div><h2>거래처 정보</h2></div>
-      <div class="card-body">
-        <div class="row2">
-          <div class="field">
-            <label>거래처명</label>
-            <div style="position:relative">
-              <div id="door-client-display" onclick="toggleClientDrop('door')"
-                style="width:100%;padding:11px 36px 11px 14px;border:2px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;background:white;cursor:pointer;color:var(--gray-500);position:relative;user-select:none">
-                <span id="door-client-display-text">-- 선택 --</span>
-                <span style="position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--gray-500);font-size:12px">▾</span>
-              </div>
-              <div id="door-client-drop" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:white;border:2px solid var(--pk-blue);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,0.15);z-index:200;max-height:200px;overflow-y:auto">
-                <div id="door-client-drop-list"></div>
-              </div>
-            </div>
-            <input type="hidden" id="door-client" value="">
-          </div>
-          <div class="field"><label>견적일</label><input id="door-date" type="date"></div>
-        </div>
-        <div class="field" style="margin-top:4px">
-          <label>적용 등급</label>
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
-            <label id="grade-btn-1" onclick="setDoorGrade(1)" style="display:flex;align-items:center;justify-content:center;padding:10px;border:2px solid var(--blue);border-radius:10px;background:var(--blue);color:white;cursor:pointer;font-weight:700;font-size:14px">1등급</label>
-            <label id="grade-btn-2" onclick="setDoorGrade(2)" style="display:flex;align-items:center;justify-content:center;padding:10px;border:2px solid var(--border);border-radius:10px;background:white;color:var(--gray-500);cursor:pointer;font-weight:600;font-size:14px">2등급</label>
-            <label id="grade-btn-3" onclick="setDoorGrade(3)" style="display:flex;align-items:center;justify-content:center;padding:10px;border:2px solid var(--border);border-radius:10px;background:white;color:var(--gray-500);cursor:pointer;font-weight:600;font-size:14px">3등급</label>
-          </div>
-        </div>
+/* ── 비밀번호 ── */
+const PW = '8253';
+var _appReady = false;
+
+function checkPw(){
+  const v = document.getElementById('pw-inp').value;
+  if(v === PW){
+    if(_appReady) enterApp();
+    else window.addEventListener('appready', enterApp, {once:true});
+  } else {
+    const e = document.getElementById('pw-err');
+    e.classList.add('show');
+    document.getElementById('pw-inp').value='';
+    setTimeout(()=>e.classList.remove('show'),2000);
+  }
+}
+
+function enterApp(){
+  document.getElementById('pw-screen').classList.add('hidden');
+  document.getElementById('app').style.display='block';
+  sessionStorage.setItem('auth','1');
+  initAll();
+  switchTab('chat');
+}
+
+/* ── 앱 전체 초기화 ── */
+function initAll(){
+  const today = new Date().toISOString().slice(0,10);
+  ['rdate','door-date','ig-date','cs-date'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.value=today;
+  });
+  renderIgItems();
+  renderCsItems();
+  refreshAllDrops();
+  addItem();       // 필름 첫 품목
+  renderDoorGroups();
+  initChat();
+}
+
+/* ════════════ 탭 전환 ════════════ */
+const TABS = ['chat','film','door','ig','cs','data'];
+let filmMounted=false, doorMounted=false;
+
+function switchTab(name){
+  TABS.forEach(t=>{
+    const p=document.getElementById('tp-'+t);
+    if(!p) return;
+    if(t==='chat'){ p.style.display = t===name?'flex':'none'; }
+    else { p.style.display = t===name?'block':'none'; }
+    const b=document.getElementById('bn-'+t);
+    if(b){ b.className='bn'+(t===name?' on':''); }
+  });
+  if(name==='film' && !filmMounted){ mountFilm(); filmMounted=true; }
+  if(name==='door' && !doorMounted){ mountDoor(); doorMounted=true; }
+  if(name==='data') renderData();
+  if(name==='chat'){ const m=document.getElementById('chat-msgs'); if(m) setTimeout(()=>m.scrollTop=m.scrollHeight,50); }
+}
+
+function mountFilm(){
+  const tab=document.getElementById('tp-film');
+  const sec=document.getElementById('film-section');
+  if(sec && tab){ sec.style.display='block'; tab.appendChild(sec); }
+  const pov=document.getElementById('preview-ovl');
+  if(pov) document.body.appendChild(pov);
+}
+function mountDoor(){
+  const tab=document.getElementById('tp-door');
+  ['door-section','door-preview-ovl','cut-layout-ovl'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el){ el.style.display = id==='door-section'?'block':''; tab.appendChild(el); }
+  });
+}
+
+/* ════════════ 거래처 ════════════ */
+let currentClientTab='film';
+function loadClients(type){ try{ return JSON.parse(localStorage.getItem('om_cl_'+type)||'[]'); }catch(e){ return []; } }
+function saveClient(type){
+  const v=document.getElementById('new-client').value.trim(); if(!v) return;
+  const arr=loadClients(type); if(!arr.includes(v)){ arr.unshift(v); localStorage.setItem('om_cl_'+type,JSON.stringify(arr)); }
+  document.getElementById('new-client').value='';
+  refreshClientUI(); refreshAllDrops();
+}
+function deleteClient(name,type){
+  const arr=loadClients(type).filter(c=>c!==name);
+  localStorage.setItem('om_cl_'+type,JSON.stringify(arr));
+  refreshClientUI(); refreshAllDrops();
+}
+function switchClientTab(type){
+  currentClientTab=type;
+  ['film','door','ig','cs'].forEach(t=>{
+    const b=document.getElementById('ctab-'+t); if(!b) return;
+    b.style.borderBottomColor = t===type?'var(--or)':'transparent';
+    b.style.color = t===type?'var(--or)':'var(--g5)';
+    b.style.fontWeight = t===type?'700':'600';
+  });
+  refreshClientUI();
+}
+function openClientMgr(){ document.getElementById('client-ovl').classList.add('show'); refreshClientUI(); }
+function refreshClientUI(){
+  const arr=loadClients(currentClientTab);
+  const el=document.getElementById('client-chips');
+  if(!el) return;
+  el.innerHTML = arr.length===0
+    ? `<p style="font-size:13px;color:var(--g5);text-align:center;padding:16px">거래처가 없습니다</p>`
+    : arr.map((c,i)=>`
+      <div style="display:flex;align-items:center;gap:8px;padding:9px 12px;background:var(--g0);border:1.5px solid var(--bd);border-radius:9px;margin-bottom:6px;">
+        <span style="flex:1;font-size:14px;font-weight:600">${c}</span>
+        <button onclick="deleteClient('${c.replace(/'/g,"\\'")}','${currentClientTab}')" style="background:none;border:1px solid #FFBBAA;border-radius:5px;color:var(--or);cursor:pointer;font-size:12px;padding:2px 7px">삭제</button>
+      </div>`).join('');
+}
+function refreshAllDrops(){
+  ['film','door','ig','cs'].forEach(type=>{
+    const listId = type+'-cl-list';
+    // 필름/도어는 기존 방식 유지 (별도)
+    if(type==='ig'||type==='cs'){
+      const el=document.getElementById(listId); if(!el) return;
+      const arr=loadClients(type);
+      el.innerHTML=arr.length===0
+        ? `<div style="padding:12px;text-align:center;font-size:13px;color:var(--g5)">거래처 없음 (👥에서 추가)</div>`
+        : arr.map(c=>`<div class="cl-item" onclick="selectClient('${type}','${c.replace(/'/g,"\\'")}')">$${c}</div>`).join('').replace(/\$/g,'');
+    }
+  });
+  // 기존 film/door 드롭다운
+  refreshFilmDoorDrops();
+}
+function selectClient(type,name){
+  document.getElementById(type+'-client').value=name;
+  const disp=document.getElementById(type+'-cl-disp');
+  const txt=document.getElementById(type+'-cl-txt');
+  if(disp){ disp.classList.add('sel'); }
+  if(txt) txt.textContent=name;
+  document.getElementById(type+'-cl-drop').style.display='none';
+}
+function toggleDrop(type){
+  const drop=document.getElementById(type+'-cl-drop');
+  const all=document.querySelectorAll('.cl-drop');
+  all.forEach(d=>{ if(d!==drop) d.style.display='none'; });
+  drop.style.display = drop.style.display==='block'?'none':'block';
+}
+document.addEventListener('click', e=>{
+  if(!e.target.closest('.cl-wrap')) document.querySelectorAll('.cl-drop').forEach(d=>d.style.display='none');
+});
+
+/* ════════════ 저장/통계 ════════════ */
+function loadSales(){ try{ return JSON.parse(localStorage.getItem('om_sales')||'[]'); }catch(e){ return []; } }
+function saveSale(rec){ const s=loadSales(); s.unshift({...rec,id:Date.now()}); localStorage.setItem('om_sales',JSON.stringify(s.slice(0,500))); }
+
+/* ════════════ 임가공 견적 ════════════ */
+const IG_DATA = {
+  board:[
+    {label:'PB 15t', unit:'장', price:81000},
+    {label:'PB 18t', unit:'장', price:85000},
+    {label:'MD (일반)', unit:'장', price:100000},
+    {label:'MD (럭스)', unit:'장', price:120000},
+    {label:'MD (프리미엄)', unit:'장', price:140000},
+    {label:'MD 우라', unit:'장', price:80000},
+  ],
+  hw:[
+    {label:'서랍재 (볼레일)', unit:'개', price:10000},
+    {label:'서랍재 (언더레일/쿠커)', unit:'개', price:30000},
+    {label:'망장', unit:'개', price:70000},
+    {label:'경첩', unit:'개', price:900},
+    {label:'다릿발', unit:'개', price:400},
+    {label:'걸레캡', unit:'개', price:1000},
+  ],
+  sub:[
+    {label:'라벨러', unit:'개', price:2000},
+    {label:'쇼바', unit:'개', price:5000},
+    {label:'옷봉', unit:'개', price:15000},
+    {label:'F바/심플바/C채널', unit:'개', price:15000},
+    {label:'푸시', unit:'개', price:4000},
+    {label:'우산걸이', unit:'개', price:2000},
+  ],
+  etc:[] // 사용자 추가
+};
+let igCustom=[];
+
+function renderIgItems(){
+  ['board','hw','sub'].forEach(cat=>{
+    const el=document.getElementById('ig-'+cat); if(!el) return;
+    el.innerHTML=IG_DATA[cat].map((item,i)=>`
+      <div class="ig-item"><div class="ig-row">
+        <span class="ig-label">${item.label}</span>
+        <input class="ig-inp" type="number" id="ig-${cat}-${i}" value="" min="0" placeholder="0"
+               oninput="calcIgTotal()" style="text-align:center;">
+        <span class="ig-label" style="text-align:right;font-size:12px;color:var(--g5)">${item.price.toLocaleString()}/${item.unit}</span>
+        <span></span>
+      </div></div>`).join('');
+  });
+  renderIgEtc();
+  calcIgTotal();
+}
+
+let igEtcItems=[];
+function addIgEtc(){
+  igEtcItems.push({label:'',price:0,qty:0});
+  renderIgEtc();
+}
+function renderIgEtc(){
+  const el=document.getElementById('ig-etc'); if(!el) return;
+  el.innerHTML=igEtcItems.map((item,i)=>`
+    <div class="ig-item"><div class="ig-row" style="grid-template-columns:2fr 1fr 1.3fr 28px;">
+      <input class="ig-inp" type="text" value="${item.label}" placeholder="항목명"
+             onchange="igEtcItems[${i}].label=this.value;calcIgTotal()">
+      <input class="ig-inp" type="number" value="${item.qty||''}" placeholder="수량"
+             oninput="igEtcItems[${i}].qty=+this.value;calcIgTotal()">
+      <input class="ig-inp" type="number" value="${item.price||''}" placeholder="단가"
+             oninput="igEtcItems[${i}].price=+this.value;calcIgTotal()">
+      <button class="ig-del" onclick="igEtcItems.splice(${i},1);renderIgEtc();calcIgTotal()">×</button>
+    </div></div>`).join('');
+}
+
+function calcIgTotal(){
+  let tot=0;
+  ['board','hw','sub'].forEach(cat=>{
+    IG_DATA[cat].forEach((item,i)=>{
+      const el=document.getElementById(`ig-${cat}-${i}`);
+      const qty=parseFloat(el?.value)||0;
+      tot += qty*item.price;
+    });
+  });
+  igEtcItems.forEach(it=>{ tot += (it.qty||0)*(it.price||0); });
+  document.getElementById('ig-total').textContent=Math.round(tot).toLocaleString()+' 원';
+  return Math.round(tot);
+}
+
+function getIgRows(){
+  const rows=[];
+  ['board','hw','sub'].forEach(cat=>{
+    IG_DATA[cat].forEach((item,i)=>{
+      const qty=parseFloat(document.getElementById(`ig-${cat}-${i}`)?.value)||0;
+      if(qty>0) rows.push({label:item.label,qty,unit:item.unit,price:item.price,amt:Math.round(qty*item.price)});
+    });
+  });
+  igEtcItems.forEach(it=>{
+    if(it.label&&it.qty&&it.price) rows.push({label:it.label,qty:it.qty,unit:'개',price:it.price,amt:Math.round(it.qty*it.price)});
+  });
+  return rows;
+}
+
+function showIgPreview(){
+  const rows=getIgRows();
+  if(!rows.length){alert('품목을 입력해주세요');return;}
+  const client=document.getElementById('ig-client').value||'(거래처명)';
+  const date=document.getElementById('ig-date').value;
+  const site=document.getElementById('ig-site').value;
+  const total=rows.reduce((s,r)=>s+r.amt,0);
+  const vat=Math.round(total*0.1);
+  document.getElementById('ig-parea').innerHTML=`
+    <div class="pv-wrap">
+      <div class="pv-title">임 가 공 견 적 서</div>
+      <div class="pv-info">
+        <div class="pv-row"><span class="pv-k">거래처</span><span class="pv-v bold">${client}</span></div>
+        ${site?`<div class="pv-row"><span class="pv-k">현장명</span><span class="pv-v">${site}</span></div>`:''}
+        <div class="pv-row"><span class="pv-k">견적일</span><span class="pv-v">${date}</span></div>
+        <div class="pv-row"><span class="pv-k">공급자</span><span class="pv-v">㈜오션메이드</span></div>
       </div>
-    </div>
+      <div class="pv-tw"><table class="pv-tb">
+        <thead><tr><th>품명</th><th>수량</th><th>단가</th><th>공급가</th></tr></thead>
+        <tbody>${rows.map(r=>`<tr><td>${r.label}</td><td style="text-align:right">${r.qty}${r.unit}</td><td style="text-align:right">${r.price.toLocaleString()}</td><td style="text-align:right;font-weight:700">${r.amt.toLocaleString()}</td></tr>`).join('')}</tbody>
+        <tfoot><tr><td colspan="3">공 급 가</td><td>${total.toLocaleString()}</td></tr>
+               <tr style="background:var(--cr);"><td colspan="3" style="font-size:12px;color:var(--g5)">부 가 세 (10%)</td><td style="font-size:12px;color:var(--g5)">${vat.toLocaleString()}</td></tr>
+               <tr><td colspan="3">합 계</td><td>${(total+vat).toLocaleString()}</td></tr></tfoot>
+      </table></div>
+      <div class="pv-bank"><div class="pv-bank-n">⚠ 선 입 금 후 발 주</div>
+        <div class="pv-bank-b"><div class="pv-bank-num">332-135674-04-011</div>
+          <div class="pv-bank-info">기업은행 | 예금주: 주식회사 오션메이드</div></div></div>
+      <div class="pv-foot">㈜오션메이드 · 041-534-7475 · 아산시 신창면 환경공원로 213-9</div>
+    </div>`;
+  document.getElementById('ig-ovl').classList.add('show');
+}
 
-    <div class="card">
-      <div class="card-header"><div class="icon">🚪</div><h2>도어 품목</h2></div>
-      <div class="card-body" style="padding:12px">
-        <div id="door-items-wrap"></div>
-        <button class="add-btn" onclick="addDoorGroup()" style="margin-top:8px">＋ 색상 추가</button>
+function confirmQuoteIg(){
+  const rows=getIgRows(); if(!rows.length) return;
+  const total=rows.reduce((s,r)=>s+r.amt,0);
+  saveSale({type:'임가공',client:document.getElementById('ig-client').value||'미입력',
+    date:document.getElementById('ig-date').value, site:document.getElementById('ig-site').value,
+    total,month:new Date().toISOString().slice(0,7)});
+  alert('✅ 견적이 확정되었습니다!');
+  closeOvl('ig-ovl'); resetIg();
+}
+
+function resetIg(){ igEtcItems=[]; renderIgItems(); document.getElementById('ig-site').value=''; }
+
+/* ════════════ 공사견적 ════════════ */
+const CS_DATA = {
+  kitchen:[
+    {label:'상부장 목대', unit:'M', price:220000},
+    {label:'하부장 목대', unit:'M', price:280000},
+    {label:'인조대리석', unit:'M', price:200000},
+    {label:'인조대리석 광폭', unit:'M', price:340000},
+    {label:'냉장고장', unit:'M', price:300000},
+    {label:'키큰장', unit:'M', price:500000},
+    {label:'EP/오픈장 MD', unit:'장', price:150000},
+  ],
+  cabinet:[
+    {label:'붙박이장', unit:'자', price:140000},
+    {label:'신발장', unit:'자', price:140000},
+    {label:'전체오픈장', unit:'자', price:180000},
+    {label:'반통오픈장', unit:'자', price:90000},
+    {label:'롱수납장', unit:'자', price:140000},
+    {label:'반수납장', unit:'M', price:330000},
+    {label:'EP/오픈박스 MD', unit:'장', price:150000},
+  ],
+  storage:[]
+};
+let csCustomItems=[];
+
+function renderCsItems(){
+  ['kitchen','cabinet'].forEach(cat=>{
+    const el=document.getElementById('cs-'+cat); if(!el) return;
+    el.innerHTML=CS_DATA[cat].map((item,i)=>`
+      <div class="cs-item"><div class="cs-row">
+        <span class="ig-label">${item.label}</span>
+        <input class="ig-inp" type="number" id="cs-${cat}-${i}" value="" min="0" step="0.1" placeholder="0"
+               oninput="calcCsTotal()">
+        <div style="text-align:right"><span class="ig-sub" id="cs-sub-${cat}-${i}">0원</span><br><span class="cs-unit">${item.price.toLocaleString()}/${item.unit}</span></div>
+        <span></span>
+      </div></div>`).join('');
+  });
+  renderCsCustom();
+  calcCsTotal();
+}
+function addCsCustom(){
+  csCustomItems.push({label:'',qty:0,unit:'식',price:0});
+  renderCsCustom();
+}
+function renderCsCustom(){
+  const el=document.getElementById('cs-custom'); if(!el) return;
+  el.innerHTML=csCustomItems.map((item,i)=>`
+    <div class="cs-item"><div class="cs-row">
+      <input class="ig-inp" type="text" value="${item.label}" placeholder="항목명"
+             onchange="csCustomItems[${i}].label=this.value;calcCsTotal()">
+      <input class="ig-inp" type="number" value="${item.qty||''}" placeholder="수량"
+             oninput="csCustomItems[${i}].qty=+this.value;calcCsTotal()">
+      <input class="ig-inp" type="number" value="${item.price||''}" placeholder="단가"
+             oninput="csCustomItems[${i}].price=+this.value;calcCsTotal()">
+      <button class="ig-del" onclick="csCustomItems.splice(${i},1);renderCsCustom();calcCsTotal()">×</button>
+    </div></div>`).join('');
+}
+
+function calcCsTotal(){
+  let tot=0;
+  ['kitchen','cabinet'].forEach(cat=>{
+    CS_DATA[cat].forEach((item,i)=>{
+      const el=document.getElementById(`cs-${cat}-${i}`);
+      const qty=parseFloat(el?.value)||0;
+      const amt=Math.round(qty*item.price);
+      const sub=document.getElementById(`cs-sub-${cat}-${i}`);
+      if(sub) sub.textContent=amt.toLocaleString()+'원';
+      tot+=amt;
+    });
+  });
+  csCustomItems.forEach(it=>{ tot+=Math.round((it.qty||0)*(it.price||0)); });
+  document.getElementById('cs-total').textContent=tot.toLocaleString()+' 원';
+  return tot;
+}
+
+function getCsRows(){
+  const rows=[];
+  ['kitchen','cabinet'].forEach(cat=>{
+    CS_DATA[cat].forEach((item,i)=>{
+      const qty=parseFloat(document.getElementById(`cs-${cat}-${i}`)?.value)||0;
+      if(qty>0) rows.push({label:item.label,qty,unit:item.unit,price:item.price,amt:Math.round(qty*item.price)});
+    });
+  });
+  csCustomItems.forEach(it=>{
+    if(it.label&&it.qty&&it.price) rows.push({label:it.label,qty:it.qty,unit:'식',price:it.price,amt:Math.round(it.qty*it.price)});
+  });
+  return rows;
+}
+
+function showCsPreview(){
+  const rows=getCsRows();
+  if(!rows.length){alert('품목을 입력해주세요');return;}
+  const client=document.getElementById('cs-client').value||'(거래처명)';
+  const date=document.getElementById('cs-date').value;
+  const site=document.getElementById('cs-site').value;
+  const note=document.getElementById('cs-note').value;
+  const total=rows.reduce((s,r)=>s+r.amt,0);
+  const vat=Math.round(total*0.1);
+  document.getElementById('cs-parea').innerHTML=`
+    <div class="pv-wrap">
+      <div class="pv-title">공 사 견 적 서</div>
+      <div class="pv-info">
+        <div class="pv-row"><span class="pv-k">거래처</span><span class="pv-v bold">${client}</span></div>
+        ${site?`<div class="pv-row"><span class="pv-k">현장명</span><span class="pv-v">${site}</span></div>`:''}
+        <div class="pv-row"><span class="pv-k">견적일</span><span class="pv-v">${date}</span></div>
+        ${note?`<div class="pv-row"><span class="pv-k">특기사항</span><span class="pv-v" style="font-size:12px;line-height:1.5">${note}</span></div>`:''}
       </div>
+      <div class="pv-tw"><table class="pv-tb">
+        <thead><tr><th>품명</th><th>수량</th><th>단가</th><th>공급가</th></tr></thead>
+        <tbody>${rows.map(r=>`<tr><td>${r.label}</td><td style="text-align:right">${r.qty}${r.unit}</td><td style="text-align:right">${r.price.toLocaleString()}</td><td style="text-align:right;font-weight:700">${r.amt.toLocaleString()}</td></tr>`).join('')}</tbody>
+        <tfoot><tr><td colspan="3">공 급 가</td><td>${total.toLocaleString()}</td></tr>
+               <tr style="background:var(--cr);"><td colspan="3" style="font-size:12px;color:var(--g5)">부 가 세</td><td style="font-size:12px;color:var(--g5)">${vat.toLocaleString()}</td></tr>
+               <tr><td colspan="3">합 계 금 액</td><td>${(total+vat).toLocaleString()}</td></tr></tfoot>
+      </table></div>
+      <div class="pv-bank"><div class="pv-bank-n">⚠ 선 입 금 후 착 공</div>
+        <div class="pv-bank-b"><div class="pv-bank-num">332-135674-04-011</div>
+          <div class="pv-bank-info">기업은행 | 예금주: 주식회사 오션메이드</div></div></div>
+      <div class="pv-foot">㈜오션메이드 · 041-534-7475 · 아산시 신창면 환경공원로 213-9<br>※ 본 견적서는 발행일로부터 30일간 유효합니다</div>
+    </div>`;
+  document.getElementById('cs-ovl').classList.add('show');
+}
+
+function confirmQuoteCs(){
+  const rows=getCsRows(); if(!rows.length) return;
+  const total=rows.reduce((s,r)=>s+r.amt,0);
+  saveSale({type:'공사',client:document.getElementById('cs-client').value||'미입력',
+    date:document.getElementById('cs-date').value, site:document.getElementById('cs-site').value,
+    total,month:new Date().toISOString().slice(0,7)});
+  alert('✅ 견적이 확정되었습니다!');
+  closeOvl('cs-ovl'); resetCs();
+}
+
+function resetCs(){ csCustomItems=[]; renderCsItems(); document.getElementById('cs-site').value=''; document.getElementById('cs-note').value=''; }
+
+/* ════════════ 데이터 탭 ════════════ */
+function renderData(){
+  const sales=loadSales();
+  const el=document.getElementById('data-inner'); if(!el) return;
+
+  if(!sales.length){
+    el.innerHTML=`<div style="text-align:center;padding:60px 20px;color:var(--g5)"><div style="font-size:40px;margin-bottom:12px">📭</div><div style="font-size:15px;font-weight:700;margin-bottom:6px">아직 확정된 견적이 없어요</div><div style="font-size:13px">각 탭에서 견적서 확정 후 쌓입니다</div></div>`;
+    return;
+  }
+
+  const now=new Date();
+  const ym=now.toISOString().slice(0,7);
+  const thisMonth=sales.filter(s=>s.month===ym);
+
+  const totalAmt=sales.reduce((s,x)=>s+(x.total||0),0);
+  const monthAmt=thisMonth.reduce((s,x)=>s+(x.total||0),0);
+
+  // 타입별
+  const byType={};
+  sales.forEach(x=>{ byType[x.type]=(byType[x.type]||0)+(x.total||0); });
+  // 거래처별
+  const byClient={};
+  sales.forEach(x=>{ if(!byClient[x.client]) byClient[x.client]={amt:0,cnt:0}; byClient[x.client].amt+=(x.total||0); byClient[x.client].cnt++; });
+  const topC=Object.entries(byClient).sort((a,b)=>b[1].amt-a[1].amt).slice(0,6);
+  const maxC=topC[0]?.[1]?.amt||1;
+  // 월별
+  const byMonth={};
+  sales.forEach(x=>{ byMonth[x.month]=(byMonth[x.month]||0)+(x.total||0); });
+  const months=Object.entries(byMonth).sort((a,b)=>a[0].localeCompare(b[0])).slice(-6);
+  const maxM=Math.max(...months.map(m=>m[1]))||1;
+
+  const typeBadge={필름:'tb-film',도어:'tb-door',임가공:'tb-ig',공사:'tb-cs'};
+  const typeIcon={필름:'🎨',도어:'🚪',임가공:'🔩',공사:'🏠'};
+
+  el.innerHTML=`
+    <div class="stat-grid">
+      <div class="sg-card"><div class="sg-lbl">이번달 매출</div><div class="sg-val">${(monthAmt/10000).toFixed(0)}만</div></div>
+      <div class="sg-card"><div class="sg-lbl">누적 견적</div><div class="sg-val">${sales.length}건</div></div>
+      <div class="sg-card"><div class="sg-lbl">총 매출액</div><div class="sg-val">${(totalAmt/10000).toFixed(0)}만</div></div>
+      <div class="sg-card"><div class="sg-lbl">이번달 건수</div><div class="sg-val">${thisMonth.length}건</div></div>
     </div>
 
-    <div class="total-bar">
-      <span class="lbl">총 합계</span>
-      <span class="amt" id="door-total">0 원</span>
+    <div style="font-size:13px;font-weight:800;color:var(--g7);margin-bottom:8px">📊 견적 유형별</div>
+    <div class="stat-card" style="margin-bottom:14px;">
+      ${Object.entries(byType).map(([type,amt])=>`
+        <div style="display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid var(--bd);">
+          <span class="type-badge ${typeBadge[type]||'tb-film'}">${typeIcon[type]||'📄'} ${type}</span>
+          <div style="flex:1"><div class="bar-wrap"><div class="bar-fill" style="width:${Math.round(amt/totalAmt*100)}%"></div></div></div>
+          <span style="font-size:13px;font-weight:700;color:var(--br);white-space:nowrap">${(amt/10000).toFixed(0)}만원</span>
+        </div>`).join('')}
     </div>
 
-    <div class="actions">
-      <button class="btn-reset" onclick="resetDoorForm()">↺ 초기화</button>
-      <button class="btn-preview" onclick="calcDoorQuote()">🚪 견적서 보기 →</button>
-    </div>
-  </div>
-</div>
+    <div style="font-size:13px;font-weight:800;color:var(--g7);margin-bottom:8px">🏢 거래처별 TOP6</div>
+    ${topC.map(([name,d])=>`
+      <div class="stat-card" style="padding:10px 14px;margin-bottom:6px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+          <span style="font-size:13px;font-weight:700">${name}</span>
+          <span style="font-size:13px;font-weight:800;color:var(--br)">${d.amt.toLocaleString()}원</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:11px;color:var(--g5)">${d.cnt}건</span>
+          <div style="flex:1;margin:0 10px"><div class="bar-wrap"><div class="bar-fill" style="width:${Math.round(d.amt/maxC*100)}%"></div></div></div>
+        </div>
+      </div>`).join('')}
 
-<!-- 도어 견적서 미리보기 -->
-<div class="ovl" id="door-preview-ovl">
-  <div class="modal">
-    <div class="modal-bar">
-      <button class="close-btn" onclick="closeDoorPreview()" style="font-size:14px;font-weight:700;color:var(--blue);border-color:var(--blue-light);background:var(--blue-light)">‹ 뒤로</button>
-      <h3>도어 발주 견적서</h3>
-      <div style="width:60px"></div>
-    </div>
-    <div class="parea" id="door-preview-area"></div>
-    <div style="display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--border);background:white;position:sticky;bottom:0">
-      <button class="btn-print" style="flex:1" onclick="doDoorPrint()">🖨 인쇄/저장</button>
-    </div>
-  </div>
-</div>
+    <div style="font-size:13px;font-weight:800;color:var(--g7);margin:14px 0 8px">📅 월별 매출</div>
+    ${months.map(([month,amt])=>`
+      <div class="stat-card" style="padding:9px 14px;margin-bottom:6px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+          <span style="font-size:13px;font-weight:700">${month}</span>
+          <span style="font-size:13px;font-weight:800;color:var(--br)">${amt.toLocaleString()}원</span>
+        </div>
+        <div class="bar-wrap"><div class="bar-fill" style="width:${Math.round(amt/maxM*100)}%"></div></div>
+      </div>`).join('')}
 
-<!-- 재단 배치도 모달 -->
-<div class="ovl" id="cut-layout-ovl">
-  <div class="modal">
-    <div class="modal-bar">
-      <button class="close-btn" onclick="closeCutLayout()" style="font-size:14px;font-weight:700;color:var(--blue);border-color:var(--blue-light);background:var(--blue-light)">‹ 뒤로</button>
-      <h3>📐 재단 배치도</h3>
-      <div style="width:60px"></div>
+    <div style="font-size:13px;font-weight:800;color:var(--g7);margin:14px 0 8px">📋 최근 견적 내역</div>
+    ${sales.slice(0,15).map(s=>`
+      <div class="stat-card" style="padding:10px 14px;margin-bottom:6px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div><span class="type-badge ${typeBadge[s.type]||'tb-film'}">${typeIcon[s.type]||''} ${s.type}</span><span style="font-size:13px;font-weight:700">${s.client}</span></div>
+          <span style="font-size:14px;font-weight:800;color:var(--br)">${(s.total||0).toLocaleString()}원</span>
+        </div>
+        <div style="font-size:11px;color:var(--g5);margin-top:4px">${s.date}${s.site?' · '+s.site:''}</div>
+      </div>`).join('')}
+
+    <div style="display:flex;gap:8px;margin-top:8px;padding-bottom:14px;">
+      <button onclick="exportCsv()" style="flex:1;padding:12px;border:1.5px solid var(--bd);border-radius:9px;background:#fff;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;color:var(--g7)">📥 CSV 내보내기</button>
+      <button onclick="if(confirm('전체 데이터 삭제?')){localStorage.removeItem('om_sales');renderData();}" style="flex:1;padding:12px;border:1.5px solid #FFBBAA;border-radius:9px;background:#fff;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;color:var(--or)">🗑 초기화</button>
     </div>
-    <div style="padding:16px;overflow-y:auto;max-height:calc(100vh - 60px)">
-      <div id="cut-legend" style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;padding:12px;background:var(--gray-50);border-radius:10px"></div>
-      <div id="cut-layout-container"></div>
-    </div>
-  </div>
-</div>
+  `;
+}
+
+function exportCsv(){
+  const s=loadSales(); if(!s.length){alert('데이터 없음');return;}
+  const csv='유형,거래처,날짜,금액,현장\n'+s.map(x=>`${x.type},${x.client},${x.date},${x.total||0},${x.site||''}`).join('\n');
+  const a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);
+  a.download='오션메이드_견적데이터.csv'; a.click();
+}
+
+/* ════════════ 공통 유틸 ════════════ */
+function closeOvl(id){ document.getElementById(id)?.classList.remove('show'); }
+function printArea(id){
+  const html=document.getElementById(id)?.innerHTML||'';
+  const w=window.open('','_blank');
+  w.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>오션메이드 견적서</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>*{box-sizing:border-box;margin:0;padding:0;}body{font-family:'Noto Sans KR',sans-serif;padding:20px;max-width:480px;margin:0 auto;}
+  .pv-title{text-align:center;font-size:18px;font-weight:900;letter-spacing:5px;color:#3D1F0A;margin-bottom:10px;padding-bottom:8px;border-bottom:2px solid #E8630A;}
+  .pv-info{border:1px solid #DDD;border-radius:8px;overflow:hidden;margin-bottom:8px;}
+  .pv-row{display:flex;padding:7px 12px;border-bottom:1px solid #EEE;font-size:12px;}.pv-row:last-child{border-bottom:none;}
+  .pv-k{color:#888;font-size:10px;min-width:50px;font-weight:700;}.pv-v{flex:1;color:#111;}.pv-v.bold{font-size:14px;font-weight:900;color:#3D1F0A;}
+  .pv-tw{border:1px solid #DDD;border-radius:8px;overflow:hidden;margin-bottom:8px;}
+  .pv-tb{width:100%;border-collapse:collapse;font-size:12px;}.pv-tb thead tr{background:#3D1F0A;}.pv-tb th{padding:7px 5px;color:#FAF5EE;font-size:10px;}
+  .pv-tb th:first-child{text-align:left;padding-left:10px;}.pv-tb th:not(:first-child){text-align:right;padding-right:6px;}
+  .pv-tb td{padding:8px 5px;border-bottom:1px solid #F0E8DC;}.pv-tb td:first-child{text-align:left;padding-left:10px;font-weight:600;}.pv-tb td:not(:first-child){text-align:right;padding-right:6px;}
+  .pv-tb tfoot td{padding:9px 5px;background:#F0E6D6;border-top:2px solid #E8630A;font-weight:900;color:#3D1F0A;font-size:13px;}.pv-tb tfoot td:first-child{padding-left:10px;}.pv-tb tfoot td:last-child{text-align:right;padding-right:6px;font-size:15px;}
+  .pv-bank{border:2px solid #E8630A;border-radius:8px;overflow:hidden;margin-bottom:8px;}.pv-bank-n{background:#E8630A;color:#fff;text-align:center;padding:6px;font-size:12px;font-weight:800;letter-spacing:3px;}
+  .pv-bank-b{padding:8px 12px;background:#fff;}.pv-bank-num{font-size:18px;font-weight:900;color:#3D1F0A;letter-spacing:1px;}.pv-bank-info{font-size:11px;color:#666;}
+  .pv-foot{text-align:center;font-size:10px;color:#888;margin-top:6px;}
+  button{display:none!important}@media print{body{padding:10px}}</style>
+  </head><body>${html}<script>window.onload=()=>window.print()<\/script></body></html>`);
+  w.document.close();
+}
+function goHome(){ switchTab('chat'); }
+function setMode(m){ switchTab(m==='film'?'film':'door'); }
+
+/* ════════════ 척척박사 AI ════════════ */
+const KB={
+  staff:{'정근도':'대표(오션봇) · 생산지시/출고승인/입금확인','정해빈':'이사 · 영업/발주접수/현장관리/배송조율','김남현':'공장장 · 재단·생산관리/견적서작성/재고관리','이석원':'직원 · 엣지밴딩/보링/포장/출고','안현':'직원 · 보조작업'},
+  sinks:{'서산백조':'담당: 윤아윤덩아빠(사장) | 결제: 즉시선입금 | 특징: 입금귀신, 글로시계열선호, 발주→입금→확인 패턴','서산가야':'담당: 김동겸(사장) | 결제: 발주확정(후불) | 특징: 빠른배송요청, 남는자재엣지요청, 보링사이즈조율잦음, 본인집시공발주도함','서산새롬':'담당: 사장님 | 결제: 선입금 | 특징: 입금귀신, 우량, 1등급','서산다림':'담당: 사장님 | 결제: 발주확정 | 특징: 정기거래','이천씽크':'담당: 임사장님 | 결제: 발주확정 | 특징: 대량발주증가','미래씽크':'담당: 사장님 | 결제: 즉시입금 | 특징: 재단사진필수, 글로시샌드/매트샌드','우리씽크':'담당: 공장장님 | 결제: 발주확정 | 특징: 천안, 세이오크사용','상록수씽크':'담당: 오종교 | 결제: 발주확정 | 특징: 천안, 정해빈이사중계, 2026년1월시작','라온씽크':'담당: 최윤열 | 결제: 선입금 | 특징: 다양한색상, 소수점청구','하미주':'담당: 공장장 | 결제: 발주확정 | 특징: 당진'},
+  interior:{'윤퍼니':'담당: 이현지/임소연(발주),박상현(출고),윤furni(대표) | 결제: 발주후수금 | 특징: 최대거래처, 엑셀발주서+현장사진, 급발주잦음, 롤써라묶기출고 | 파일명: 오션 발주서 YYMMDD 현장주소.xlsx','디자인리그리다':'담당: 사장님 | 결제: 발주확정 | 특징: 고급현장, AS빈번','MK퍼니처':'담당: 사장 | 결제: 반드시선입금 | 특징: 카카오없음, 전화발주만','JJ':'담당: 사장님 | 결제: 발주확정 | 특징: 3등급단가'},
+  pricing:{'S등급(특판)':'89,000원/장 기준 (윤퍼니·이천·서산)','1등급':'93,000~98,000원/장','2등급':'88,000원/장','3등급':'83,000원 이하 (JJ)','글로시류':'92,000~98,000원','세라믹류':'105,000원','PP류(카타니아/네이처오크)':'122,000원','한솔피넛오크':'94,000원','한솔씨에라오크/콘크리트':'118,000원','ARC류':'117,000원'},
+  extras:{'식세기마이다':'5,000원/개','써라(서라운드)':'10,000원','조명타공':'5,000원/개','조립비':'20,000원/통','F바':'16,500원(부가세포함)'},
+  edge:{'WH002MT':'매트밀크화이트','WH007MT':'매트화이트','WH003HG':'글로시화이트','WH002HG':'글로시밀크화이트','GY002MT':'매트그레이','GY002HG':'글로시그레이','GY003MT':'매트다크그레이','GY005MT':'매트라이트그레이','GY007MT':'매트샌드그레이','GY008MT':'매트포그그레이','GY017MT':'듀이클라우드(구-재고불안)','GY022MT':'듀이클라우드(신)','CC001MT':'콘크리트그레이','ST009MT':'콘크리트화이트','BG005MT':'매트캐시미어','BG011MT':'매트스노우베이지','BG013MT':'아크퓨어코튼','BR001MT':'매트브라운','BL001MT':'코튼블루','GR001MT':'딥그린','GR002MT':'미스트그린','GR003MT':'스모키올리브','WD006MT':'던오크/피넛오크','WD007MT':'피넛오크','WD009MT':'카카오월넛','WD033MT':'LX리치오크','WD037MT':'소프트월넛','WD044MT':'카타니아오크','WD047MT':'카카오월넛(신)','WD049MT':'던오크(신)','ST004MT':'세라믹문그레이','ST005MT':'세라믹문움브라','ST008MT':'세라믹문퍼시픽'},
+  supply:{board:'예림키친 | 담당: 김아름·이정무·신숙영·하용이 | 주문: 카카오톡 "특판)색상명 OO장 엣지 O개 부탁드립니다" | ⚠️ 토요일서산배송없음 | 특판=장당1,000원할인(MD70장/PB80장)',edge:'레하우/지오시스템 | 담당: 문정우 | 결제: 당일/익일즉시입금 | 주의: 한번에모아서발주 | HG=글로시,MT=매트'},
+  boring:'일반도어: 위120/아래700 | 상부장: 100~120/100~120 | 소형(폭좁음): 80~100 | 1200mm이상: 3구보링가능 | 폭협소→120→100→80순협의',
+  flow:'① 발주서접수 → ② 견적서작성(김남현) → ③ 선입금확인(오션봇) → ④ 네스팅재단(2440→2420) → ⑤ 엣지밴딩 → ⑥ 보링 → ⑦ 품질검사 → ⑧ 포장 → ⑨ 출고',
+  decimal:'예림기본컬러(매트밀크/캐시미어/포그)만 소수점가능 | 글로시·특수합판=정장청구 | 잔바리재고활용시소수점가능',
+  ig_price:'PB15t:81,000 | PB18t:85,000 | MD일반:100,000 | MD럭스:120,000 | MD프리미엄:140,000 | MD우라:80,000 | 경첩:900 | 다릿발:400 | 서랍재(볼레일):10,000 | 서랍재(언더/쿠커):30,000 | 망장:70,000 | F바/심플바:15,000 | 쇼바:5,000 | 라벨러:2,000 | 걸레캡:1,000 | 추가가공비:100,000',
+  cs_price:'상부장목대:220,000/M | 하부장목대:280,000/M | 인조대리석:200,000/M | 인조대리석광폭:340,000/M | 냉장고장:300,000/M | 키큰장:500,000/M | EP오픈장:150,000/장 | 붙박이장:140,000/자 | 신발장:140,000/자 | 전체오픈장:180,000/자 | 반통오픈장:90,000/자 | 롱수납장:140,000/자 | 반수납장:330,000/M'
+};
+
+function getAnswer(q){
+  const lq=q.toLowerCase().replace(/\s/g,'');
+  if(lq.includes('임가공')&&(lq.includes('단가')||lq.includes('가격')||lq.includes('얼마'))){
+    return `🔩 <b>임가공 단가표</b><br><br>${KB.ig_price.split(' | ').map(s=>`• ${s}`).join('<br>')}`;
+  }
+  if(lq.includes('공사')&&(lq.includes('단가')||lq.includes('가격')||lq.includes('얼마'))){
+    return `🏠 <b>공사견적 단가표</b><br><br>${KB.cs_price.split(' | ').map(s=>`• ${s}`).join('<br>')}`;
+  }
+  if(lq.includes('직원')||lq.includes('구성원')){
+    return `👥 <b>오션메이드 구성원</b><br><br>`+Object.entries(KB.staff).map(([k,v])=>`• <b>${k}</b>: ${v}`).join('<br>');
+  }
+  for(const [code,name] of Object.entries(KB.edge)){
+    if(lq.includes(code.toLowerCase())||lq.includes(name.replace(/[()]/g,'').replace(/\s/g,'').toLowerCase().slice(0,5))){
+      return `🎨 <b>${code}</b> = <b>${name}</b><br>레하우/지오시스템(문정우) 주문 | HG=글로시, MT=매트`;
+    }
+  }
+  if(lq.includes('엣지')&&(lq.includes('코드')||lq.includes('표')||lq.includes('목록'))){
+    return `🎨 <b>레이저 엣지 코드표</b><br><br>`+Object.entries(KB.edge).map(([k,v])=>`<span class="ctag">${k}</span>${v}`).join('  ')+'<br><br>💡 HG=글로시 MT=매트 | 공급: 레하우(문정우)';
+  }
+  if(lq.includes('단가')||(lq.includes('얼마')&&lq.includes('도어'))){
+    const g=Object.entries(KB.pricing).map(([k,v])=>`• <b>${k}</b>: ${v}`).join('<br>');
+    const e=Object.entries(KB.extras).map(([k,v])=>`• ${k}: ${v}`).join('<br>');
+    return `💰 <b>도어 단가 기준</b><br><br>${g}<br><br>➕ <b>추가비용</b><br>${e}`;
+  }
+  if(lq.includes('흐름')||lq.includes('프로세스')||(lq.includes('발주')&&lq.includes('출고'))){
+    return `🔄 <b>발주→출고 업무흐름</b><br><br>${KB.flow.split(' → ').join('<br>→ ')}`;
+  }
+  if(lq.includes('소수점')||lq.includes('잔바리')){ return `📊 <b>소수점 견적 규칙</b><br><br>${KB.decimal.split(' | ').map(s=>`• ${s}`).join('<br>')}`; }
+  if(lq.includes('보링')){ return `🔧 <b>보링 기준</b><br><br>${KB.boring.split(' | ').map(s=>`• ${s}`).join('<br>')}`; }
+  if(lq.includes('예림')||(lq.includes('합판')&&lq.includes('주문'))){ return `📦 <b>예림키친 합판 주문</b><br><br>${KB.supply.board.split(' | ').map(s=>`• ${s}`).join('<br>')}`; }
+  if(lq.includes('레하우')||(lq.includes('엣지')&&lq.includes('주문'))){ return `📦 <b>레하우 엣지 주문</b><br><br>${KB.supply.edge.split(' | ').map(s=>`• ${s}`).join('<br>')}`; }
+  if(lq.includes('결제')||lq.includes('입금방식')){
+    return `💳 <b>결제방식</b><br><br><b>즉시선입금</b>: 서산백조, MK퍼니처, 서산새롬, 라온씽크<br><b>발주확정(후불)</b>: 서산가야, 상록수, 이천, 윤퍼니, JJ 등<br>→ "발주되었습니다 감사합니다"로 확정`;
+  }
+  if(lq.includes('서산')&&lq.includes('거래처')){
+    return `📋 <b>서산 거래처</b><br><br>• <b>서산백조</b>: 즉시선입금, 글로시선호<br>• <b>서산가야</b>: 김동겸, 빠른배송, 보링조율잦음<br>• <b>서산새롬</b>: 입금귀신, 우량<br>• <b>서산다림</b>: 정기거래<br><br>⚠️ <b>토요일 예림배송 없음!</b>`;
+  }
+  if(lq.includes('윤퍼니')){ const v=KB.interior['윤퍼니']; return `🏢 <b>윤퍼니</b><br><br>${v.split(' | ').map(s=>`• ${s}`).join('<br>')}`; }
+  const allC={...KB.sinks,...KB.interior};
+  for(const [key,val] of Object.entries(allC)){
+    if(lq.includes(key.replace(/\s/g,'').toLowerCase().slice(0,4))){
+      return `🏭 <b>${key}</b><br><br>${val.split(' | ').map(s=>`• ${s}`).join('<br>')}`;
+    }
+  }
+  if(lq.includes('도움말')||lq.includes('기능')){
+    return `📖 <b>척척박사 도움말</b><br><br><span class="ctag">결제방식</span><span class="ctag">엣지코드</span><span class="ctag">도어단가</span><span class="ctag">업무흐름</span><span class="ctag">보링기준</span><span class="ctag">합판주문</span><span class="ctag">소수점규칙</span><span class="ctag">임가공단가</span><span class="ctag">공사단가</span><br><br>예시: "서산가야 담당자", "GY008MT 무슨색", "PB15t 단가", "상부장 목대 단가"`;
+  }
+  return `🤔 좀 더 구체적으로 물어봐 주세요!<br><span class="ctag">도움말</span> 을 눌러보세요.`;
+}
+
+let chatInited=false;
+function initChat(){
+  if(chatInited) return; chatInited=true;
+  addBot(`안녕하세요! <b>오션 척척박사</b>입니다 🎓<br>거래처·단가·엣지·임가공·공사 견적 무엇이든 도와드려요!<br><br><span class="ctag">도움말</span> 을 탭해보세요.`);
+}
+function addBot(html){ const b=document.getElementById('chat-msgs'); if(!b) return; const d=document.createElement('div'); d.className='cbw'; d.innerHTML=`<div class="cav">🤖</div><div class="cbl bot-bl">${html}</div>`; b.appendChild(d); b.scrollTop=b.scrollHeight; }
+function addUsr(txt){ const b=document.getElementById('chat-msgs'); if(!b) return; const d=document.createElement('div'); d.className='cbw u'; d.innerHTML=`<div class="cav u">나</div><div class="cbl usr-bl">${txt}</div>`; b.appendChild(d); b.scrollTop=b.scrollHeight; }
+function showDots(){ const b=document.getElementById('chat-msgs'); if(!b) return; const d=document.createElement('div'); d.className='cbw'; d.id='tdot'; d.innerHTML=`<div class="cav">🤖</div><div class="cbl bot-bl"><div class="tdot"><span></span><span></span><span></span></div></div>`; b.appendChild(d); b.scrollTop=b.scrollHeight; }
+function sendChat(){ const i=document.getElementById('chat-inp'); const t=i.value.trim(); if(!t) return; addUsr(t); i.value=''; showDots(); setTimeout(()=>{ const d=document.getElementById('tdot'); if(d) d.remove(); addBot(getAnswer(t)); },400); }
+function askBot(q){ switchTab('chat'); setTimeout(()=>{ document.getElementById('chat-inp').value=q; sendChat(); },100); }
+
+/* film/door 거래처 드롭 호환 */
+function refreshFilmDoorDrops(){
+  ['film','door'].forEach(type=>{
+    const listId=type==='film'?'client-drop-list':'door-client-drop-list';
+    const el=document.getElementById(listId); if(!el) return;
+    const arr=loadClients(type);
+    el.innerHTML=arr.length===0?`<div style="padding:12px;text-align:center;font-size:13px;color:var(--g5)">거래처 없음</div>`
+      :arr.map(c=>`<div class="cl-item" onclick="selectFilmDoorClient('${type}','${c.replace(/'/g,"\\'")}')">$${c}</div>`).join('').replace(/\$/g,'');
+  });
+}
+function selectFilmDoorClient(type,name){
+  if(type==='film') selectFilmClient(name);
+  else selectDoorClient(name);
+}
+function selectFilmClient(name){
+  document.getElementById('client').value=name;
+  const t=document.getElementById('client-display-text'); if(t){ t.textContent=name; t.style.color='var(--g9)'; }
+  const drop=document.getElementById('client-drop'); if(drop) drop.style.display='none';
+}
+function selectDoorClient(name){
+  document.getElementById('door-client').value=name;
+  const t=document.getElementById('door-client-display-text'); if(t){ t.textContent=name; t.style.color='var(--g9)'; }
+  const drop=document.getElementById('door-client-drop'); if(drop) drop.style.display='none';
+}
+
+window.addEventListener('load',function(){
+  _appReady=true;
+  window.dispatchEvent(new Event('appready'));
+  if(sessionStorage.getItem('auth')==='1'){ enterApp(); }
+  else { setTimeout(()=>{ const i=document.getElementById('pw-inp'); if(i) i.focus(); },100); }
+});
+</script>
 
 </body>
 </html>
