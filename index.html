@@ -7,49 +7,26 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  /* ── 새 변수 ── */
   --br:#3D1F0A; --br-mid:#6B3A1F; --or:#E8630A; --cr:#FAF5EE; --cr-dk:#F0E6D6;
   --gd:#C8941A; --gn:#4A6741; --gn-l:#EAF0E8;
   --g9:#1A0F05; --g7:#3D1F0A; --g5:#7A5535; --g1:#F5EDE0; --g0:#FAF7F2;
   --bd:#DDD0BC; --wh:#FFFFFF;
   --sh:0 2px 8px rgba(61,31,10,.10); --sh2:0 4px 18px rgba(61,31,10,.15);
-  --fn:'Noto Sans KR',sans-serif;
-  --r:10px;
-
-  /* ── 기존 필름/도어 호환 변수 (alias) ── */
-  --om-orange:   #E8630A;
-  --om-brown:    #3D1F0A;
-  --om-brown-mid:#6B3A1F;
-  --om-cream:    #FAF5EE;
-  --om-cream-dk: #F0E6D6;
-  --om-gold:     #C8941A;
-  --pk-red:    #E8630A;
-  --pk-yellow: #C8941A;
-  --pk-blue:   #3D1F0A;
-  --blue:      #3D1F0A;
-  --blue-light:#FAF5EE;
-  --blue-mid:  #6B3A1F;
-  --orange:    #E8630A;
-  --orange-light:#FEF0E4;
-  --green:     #4A6741;
-  --green-light:#EAF0E8;
-  --yellow:    #C8941A;
-  --gray-900: #1A0F05;
-  --gray-700: #3D1F0A;
-  --gray-500: #7A5535;
-  --gray-100: #F5EDE0;
-  --gray-50:  #FAF7F2;
-  --white:    #FFFFFF;
-  --border:   #DDD0BC;
-  --radius:   10px;
-  --shadow-sm:0 2px 8px rgba(61,31,10,.10);
-  --shadow:   0 4px 18px rgba(61,31,10,.15);
-  --font-main: 'Noto Sans KR', sans-serif;
+  --fn:'Noto Sans KR',sans-serif; --r:10px;
+  --om-orange:#E8630A; --om-brown:#3D1F0A; --om-brown-mid:#6B3A1F;
+  --om-cream:#FAF5EE; --om-cream-dk:#F0E6D6; --om-gold:#C8941A;
+  --pk-red:#E8630A; --pk-blue:#3D1F0A;
+  --blue:#3D1F0A; --blue-light:#FAF5EE; --blue-mid:#6B3A1F;
+  --orange:#E8630A; --orange-light:#FEF0E4;
+  --green:#4A6741; --green-light:#EAF0E8;
+  --gray-900:#1A0F05; --gray-700:#3D1F0A; --gray-500:#7A5535;
+  --gray-100:#F5EDE0; --gray-50:#FAF7F2;
+  --white:#FFFFFF; --border:#DDD0BC; --radius:10px;
+  --shadow-sm:0 2px 8px rgba(61,31,10,.10); --shadow:0 4px 18px rgba(61,31,10,.15);
+  --font-main:'Noto Sans KR',sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh;max-width:540px;margin:0 auto;}
-
-/* ── 비밀번호 ── */
 .pw-screen{position:fixed;inset:0;z-index:9999;background:var(--br);display:flex;align-items:center;justify-content:center;}
 .pw-screen.hidden{display:none;}
 .pw-box{background:var(--cr);border-radius:20px;padding:36px 28px;width:300px;text-align:center;border:2px solid var(--or);box-shadow:0 24px 64px rgba(0,0,0,.5);}
@@ -60,49 +37,24 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
 .pw-btn{width:100%;margin-top:10px;padding:14px;background:var(--or);color:#fff;border:none;border-radius:10px;font-size:16px;font-weight:800;font-family:inherit;cursor:pointer;}
 .pw-err{color:var(--or);font-size:13px;font-weight:600;margin-top:8px;opacity:0;transition:opacity .2s;}
 .pw-err.show{opacity:1;}
-
-/* ── 앱쉘 ── */
 #app{display:none;position:relative;}
-
-/* ── 바텀탭 ── */
-#bnav{
-  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
-  width:100%;max-width:540px;background:var(--br);
-  display:flex;z-index:500;
-  box-shadow:0 -4px 20px rgba(61,31,10,.35);
-  border-top:2px solid var(--or);
-}
-.bn{
-  flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
-  padding:8px 2px 7px;border:none;background:none;cursor:pointer;
-  color:rgba(250,245,238,.45);font-size:9px;font-family:var(--fn);
-  font-weight:700;letter-spacing:.3px;transition:all .2s;
-  border-right:1px solid rgba(250,245,238,.08);position:relative;
-}
+#bnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:540px;background:var(--br);display:flex;z-index:500;box-shadow:0 -4px 20px rgba(61,31,10,.35);border-top:2px solid var(--or);}
+.bn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 2px 7px;border:none;background:none;cursor:pointer;color:rgba(250,245,238,.45);font-size:9px;font-family:var(--fn);font-weight:700;letter-spacing:.3px;transition:all .2s;border-right:1px solid rgba(250,245,238,.08);position:relative;}
 .bn:last-child{border-right:none;}
 .bn.on{color:#fff;}
-.bn.on::after{
-  content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
-  width:28px;height:3px;background:var(--or);border-radius:0 0 4px 4px;
-}
+.bn.on::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:28px;height:3px;background:var(--or);border-radius:0 0 4px 4px;}
 .bn-ico{font-size:20px;line-height:1.2;transition:transform .2s;}
 .bn.on .bn-ico{transform:translateY(-1px);}
-
-/* ── 탭 페이지 공통 ── */
 .tp{display:none;min-height:100vh;padding-bottom:60px;}
 .tp.on{display:block;}
 .tp-chat{display:none;flex-direction:column;height:100svh;}
 .tp-chat.on{display:flex;}
-
-/* ── 탭 헤더 ── */
 .th{background:var(--br);padding:13px 16px 11px;border-bottom:2px solid var(--or);position:sticky;top:0;z-index:100;}
 .th-row{display:flex;align-items:center;gap:10px;}
 .th-av{width:36px;height:36px;border-radius:50%;background:var(--or);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;box-shadow:0 2px 8px rgba(232,99,10,.4);}
 .th-ttl{font-size:15px;font-weight:800;color:var(--cr);font-family:var(--fn);}
 .th-sub{font-size:11px;color:rgba(250,245,238,.6);margin-top:1px;}
 .th-btn{margin-left:auto;background:rgba(250,245,238,.12);border:1.5px solid rgba(250,245,238,.25);color:var(--cr);padding:6px 11px;border-radius:8px;font-size:11px;font-family:inherit;cursor:pointer;font-weight:700;white-space:nowrap;}
-
-/* ── 채팅 ── */
 #chat-msgs{flex:1;overflow-y:auto;padding:14px 14px 8px;display:flex;flex-direction:column;gap:10px;background:#F5EDE4;-webkit-overflow-scrolling:touch;}
 .cbw{display:flex;gap:8px;max-width:90%;animation:fadeup .2s ease;}
 .cbw.u{align-self:flex-end;flex-direction:row-reverse;}
@@ -117,57 +69,55 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
 .tdot span{width:7px;height:7px;background:#C8A070;border-radius:50%;animation:tb 1.2s infinite;}
 .tdot span:nth-child(2){animation-delay:.2s;}.tdot span:nth-child(3){animation-delay:.4s;}
 @keyframes tb{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-7px)}}
-/* 칩 */
 .chips-wrap{padding:7px 12px 5px;display:flex;gap:6px;overflow-x:auto;background:#fff;border-top:1px solid var(--bd);flex-shrink:0;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
 .chips-wrap::-webkit-scrollbar{display:none;}
 .qc{font-size:11.5px;padding:5px 12px;border:1.5px solid #C8A070;border-radius:20px;background:#fff;color:var(--br-mid);cursor:pointer;white-space:nowrap;font-family:var(--fn);font-weight:700;flex-shrink:0;}
 .qc:active{background:var(--or);color:#fff;border-color:var(--or);}
-/* 입력바 */
 .chat-bar{padding:8px 12px;background:#fff;border-top:1px solid var(--bd);display:flex;gap:8px;flex-shrink:0;padding-bottom:calc(60px + 8px);}
 .chat-inp{flex:1;border:1.5px solid var(--bd);border-radius:22px;padding:10px 16px;font-size:14px;font-family:var(--fn);outline:none;background:var(--g0);}
 .chat-inp:focus{border-color:var(--or);}
 .chat-send{width:42px;height:42px;border-radius:50%;background:var(--or);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 8px rgba(232,99,10,.4);}
-
-/* ── 카드/폼 공통 ── */
 .container{max-width:540px;margin:0 auto;padding:14px 14px 0;}
 .card{background:var(--wh);border-radius:var(--r);margin-bottom:12px;border:1.5px solid var(--bd);box-shadow:var(--sh);overflow:hidden;}
 .card-hd{background:linear-gradient(to right,var(--cr-dk),#F5E8D5);border-bottom:1.5px solid var(--bd);padding:10px 16px;display:flex;align-items:center;gap:9px;}
 .card-hd .ico{width:26px;height:26px;background:var(--or);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;box-shadow:0 2px 6px rgba(232,99,10,.3);}
 .card-hd h2{font-size:13px;font-weight:700;color:var(--br);}
 .card-bd{padding:14px 16px;}
+.card-header{background:linear-gradient(to right,var(--om-cream-dk),#F5E8D5);border-bottom:1.5px solid var(--border);padding:11px 18px;display:flex;align-items:center;gap:10px;}
+.card-header .icon{width:28px;height:28px;background:var(--om-orange);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;}
+.card-header h2{font-size:13px;font-weight:700;color:var(--om-brown);}
+.card-body{padding:16px 18px;}
 .field{margin-bottom:11px;}
 .field:last-child{margin-bottom:0;}
 .field label{font-size:10px;color:var(--g5);font-weight:700;display:block;margin-bottom:4px;letter-spacing:.7px;text-transform:uppercase;}
 .field input,.field select,.field textarea{width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;background:#fff;color:var(--g9);-webkit-appearance:none;outline:none;}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--or);}
+.field input:focus,.field select:focus{border-color:var(--or);}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
-
-/* ── 총액바 ── */
 .total-bar{background:var(--or);border-radius:var(--r);padding:16px 20px;display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;box-shadow:0 4px 18px rgba(232,99,10,.3);border:1.5px solid var(--br);}
 .total-bar .lbl{font-size:13px;color:var(--cr);font-weight:600;opacity:.9;}
 .total-bar .amt{font-size:26px;font-weight:900;color:var(--cr);letter-spacing:-1px;}
-
-/* ── 버튼 ── */
 .actions{display:flex;gap:8px;margin-bottom:14px;}
 .btn-rst{padding:13px 18px;border:1.5px solid var(--bd);border-radius:var(--r);background:#fff;font-size:14px;font-family:inherit;color:var(--g7);cursor:pointer;font-weight:700;}
 .btn-pv{flex:1;padding:14px;background:var(--br);color:var(--cr);border:none;border-radius:var(--r);font-size:15px;font-weight:800;font-family:var(--fn);cursor:pointer;box-shadow:0 4px 14px rgba(61,31,10,.3);}
 .btn-pr{flex:1;padding:13px;background:var(--br);color:var(--cr);border:none;border-radius:var(--r);font-size:14px;font-weight:700;font-family:var(--fn);cursor:pointer;}
 .btn-cf{flex:1;padding:13px;background:var(--gn);color:#fff;border:none;border-radius:var(--r);font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;}
 .btn-add{width:100%;padding:13px;border:1.5px dashed #C8A070;border-radius:var(--r);background:rgba(250,245,238,.6);font-size:14px;font-family:var(--fn);color:var(--br);cursor:pointer;font-weight:700;}
-
-/* ── 오버레이/모달 ── */
+.btn-reset{padding:14px 20px;border:1.5px solid var(--border);border-radius:var(--radius);background:white;font-size:14px;font-family:inherit;color:var(--gray-700);cursor:pointer;font-weight:700;}
+.btn-preview{flex:1;padding:15px;background:var(--om-brown);color:var(--om-cream);border:none;border-radius:var(--radius);font-size:15px;font-weight:800;font-family:var(--font-main);cursor:pointer;box-shadow:0 4px 14px rgba(61,31,10,.3);}
+.btn-print{flex:1;padding:14px;background:var(--om-brown);color:var(--om-cream);border:none;border-radius:var(--radius);font-size:14px;font-weight:700;font-family:var(--fn);cursor:pointer;}
+.btn-confirm{flex:1;padding:14px;background:var(--green);color:white;border:none;border-radius:var(--radius);font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;}
+.add-btn{width:100%;padding:14px;border:1.5px dashed #C8A070;border-radius:var(--radius);background:rgba(250,245,238,.6);font-size:14px;font-family:var(--fn);color:var(--om-brown);cursor:pointer;font-weight:700;}
 .ovl{position:fixed;inset:0;z-index:300;background:rgba(61,31,10,.7);overflow-y:auto;display:none;}
 .ovl.show{display:block;}
 .modal{background:var(--cr);max-width:540px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;}
 .modal-bar{background:var(--br);padding:0 14px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;border-bottom:2px solid var(--or);}
 .modal-bar h3{font-size:15px;font-weight:800;color:var(--cr);font-family:var(--fn);}
 .cls-btn{height:34px;padding:0 12px;background:rgba(250,245,238,.15);border:1.5px solid rgba(250,245,238,.35);border-radius:7px;font-size:13px;color:var(--cr);font-weight:700;cursor:pointer;}
+.close-btn{height:36px;padding:0 12px;background:rgba(250,245,238,.15);border:1.5px solid rgba(250,245,238,.4);border-radius:7px;font-size:14px;color:var(--om-cream);font-weight:700;display:flex;align-items:center;cursor:pointer;white-space:nowrap;}
 .parea{flex:1;overflow-y:auto;padding:14px;}
-
-/* ── 견적서 공통 ── */
+/* 견적서 공통 */
 .pv-wrap{padding:4px 0 20px;}
-.pv-title{text-align:center;font-size:20px;font-weight:900;letter-spacing:6px;color:var(--br);margin-bottom:12px;padding-bottom:10px;border-bottom:2px solid var(--or);font-family:var(--fn);}
+.pv-title{text-align:center;font-size:20px;font-weight:900;letter-spacing:6px;color:var(--br);margin-bottom:12px;padding-bottom:10px;border-bottom:2px solid var(--or);}
 .pv-info{border:1.5px solid var(--bd);border-radius:10px;overflow:hidden;margin-bottom:10px;background:#fff;}
 .pv-row{display:flex;align-items:baseline;padding:8px 13px;border-bottom:1px solid #EEE8E0;font-size:13px;}
 .pv-row:last-child{border-bottom:none;}
@@ -193,85 +143,37 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
 .pv-bank-num{font-size:20px;font-weight:900;color:var(--br);letter-spacing:1px;margin-bottom:3px;}
 .pv-bank-info{font-size:12px;color:#666;}
 .pv-foot{text-align:center;font-size:11px;color:var(--g5);margin-top:8px;}
-
-/* ── 임가공 전용 ── */
-.ig-item{background:var(--wh);border:1.5px solid var(--bd);border-radius:var(--r);margin-bottom:8px;overflow:hidden;}
-.ig-row{display:grid;grid-template-columns:2fr 1fr 1.3fr 28px;gap:6px;align-items:center;padding:10px 12px;}
-.ig-label{font-size:13px;font-weight:600;color:var(--g9);}
-.ig-inp{border:1px solid var(--bd);border-radius:7px;padding:7px 8px;font-size:13px;font-family:inherit;text-align:center;width:100%;outline:none;}
-.ig-inp:focus{border-color:var(--or);}
-.ig-sub{font-size:13px;font-weight:700;color:var(--br);text-align:right;}
-.ig-del{background:none;border:none;color:#CCA090;font-size:18px;cursor:pointer;padding:0;line-height:1;}
-.ig-cat{background:var(--cr-dk);padding:6px 12px;font-size:11px;font-weight:800;color:var(--br-mid);letter-spacing:.5px;border-bottom:1px solid var(--bd);}
-
-/* ── 공사견적 전용 ── */
-.cs-item{background:var(--wh);border:1.5px solid var(--bd);border-radius:var(--r);margin-bottom:8px;overflow:hidden;}
-.cs-row{display:grid;grid-template-columns:2.2fr 1fr 1fr 28px;gap:6px;align-items:center;padding:10px 12px;}
-.cs-unit{font-size:11px;color:var(--g5);font-weight:600;}
-
-/* ── 데이터 탭 ── */
-.stat-card{background:#fff;border-radius:12px;padding:13px 15px;margin-bottom:8px;border:1.5px solid var(--bd);box-shadow:var(--sh);}
-.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:14px;}
-.sg-card{background:#fff;border-radius:10px;padding:13px;border:1.5px solid var(--bd);}
-.sg-lbl{font-size:11px;color:var(--g5);font-weight:700;margin-bottom:4px;}
-.sg-val{font-size:20px;font-weight:900;color:var(--br);}
-.bar-wrap{height:6px;background:#F0E8DC;border-radius:3px;margin-top:6px;}
-.bar-fill{height:100%;background:var(--or);border-radius:3px;transition:width .4s;}
-.type-badge{display:inline-block;font-size:10px;padding:2px 7px;border-radius:8px;font-weight:700;margin-right:4px;}
-.tb-film{background:#E8F0FE;color:#1A4FA0;}
-.tb-door{background:#FEE8E0;color:#C04010;}
-.tb-ig{background:#E8F5E9;color:#2E7D32;}
-.tb-cs{background:#FFF3E0;color:#E65100;}
-
-/* ── 거래처 드롭다운 ── */
-.cl-drop{display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:#fff;border:2px solid var(--br);border-radius:10px;box-shadow:var(--sh2);z-index:200;max-height:200px;overflow-y:auto;}
-.cl-item{padding:11px 14px;font-size:14px;font-weight:600;cursor:pointer;border-bottom:1px solid var(--bd);}
-.cl-item:hover{background:var(--cr);}
-.cl-wrap{position:relative;}
-.cl-disp{width:100%;padding:10px 36px 10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;background:#fff;cursor:pointer;color:var(--g5);position:relative;user-select:none;display:flex;align-items:center;justify-content:space-between;}
-.cl-disp.sel{color:var(--g9);}
-
-/* ══════════════════════════════════════
-   기존 필름/도어 전용 CSS (호환 레이어)
-══════════════════════════════════════ */
-.card{background:var(--white);border-radius:var(--radius);margin-bottom:14px;border:1.5px solid var(--border);box-shadow:var(--shadow-sm);overflow:hidden;}
-.card-header{background:linear-gradient(to right,var(--om-cream-dk),#F5E8D5);border-bottom:1.5px solid var(--border);padding:11px 18px;display:flex;align-items:center;gap:10px;}
-.card-header .icon{width:28px;height:28px;background:var(--om-orange);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 2px 6px rgba(232,99,10,.3);}
-.card-header h2{font-family:var(--font-main);font-size:13px;font-weight:700;color:var(--om-brown);letter-spacing:.3px;}
-.card-body{padding:16px 18px;}
-.field{margin-bottom:12px;}
-.field:last-child{margin-bottom:0;}
-.field label{font-size:10px;color:var(--gray-500);font-weight:700;display:block;margin-bottom:5px;letter-spacing:.8px;text-transform:uppercase;font-family:var(--font-main);}
-.field input,.field select{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;background:var(--white);color:var(--gray-900);-webkit-appearance:none;appearance:none;outline:none;}
-.field input:focus,.field select:focus{border-color:var(--om-orange);box-shadow:0 0 0 3px rgba(232,99,10,.12);}
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.total-bar{background:var(--om-orange);border-radius:var(--radius);padding:18px 22px;display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;box-shadow:0 4px 18px rgba(232,99,10,.35);border:1.5px solid var(--om-brown);}
-.total-bar .lbl{font-size:13px;opacity:.9;font-weight:600;color:var(--om-cream);font-family:var(--font-main);letter-spacing:.5px;}
-.total-bar .amt{font-size:28px;font-weight:900;color:var(--om-cream);font-family:var(--font-main);letter-spacing:-1px;}
-.actions{display:flex;gap:10px;}
-.btn-reset{padding:14px 20px;border:1.5px solid var(--border);border-radius:var(--radius);background:white;font-size:14px;font-family:inherit;color:var(--gray-700);cursor:pointer;font-weight:700;}
-.btn-preview{flex:1;padding:15px;background:var(--om-brown);color:var(--om-cream);border:none;border-radius:var(--radius);font-size:15px;font-weight:800;font-family:var(--font-main);cursor:pointer;letter-spacing:.5px;box-shadow:0 4px 14px rgba(61,31,10,.3);}
-.btn-print{flex:1;padding:14px;background:var(--om-brown);color:var(--om-cream);border:none;border-radius:var(--radius);font-size:14px;font-weight:700;font-family:var(--font-main);cursor:pointer;}
-.btn-confirm{flex:1;padding:14px;background:var(--green);color:white;border:none;border-radius:var(--radius);font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;}
-.add-btn{width:100%;padding:14px;border:1.5px dashed #C8A070;border-radius:var(--radius);background:rgba(250,245,238,.6);font-size:14px;font-family:var(--font-main);color:var(--om-brown);cursor:pointer;font-weight:700;letter-spacing:.3px;}
-.add-btn:active{background:var(--om-cream-dk);}
+/* 필름 전용 */
+.pv-table-wrap{border:1.5px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:12px;}
+.pv-table{width:100%;border-collapse:collapse;font-size:13px;}
+.pv-table thead tr{background:var(--om-brown);}
+.pv-table th{padding:9px 6px;color:var(--om-cream);font-size:11px;font-weight:700;}
+.pv-table th:first-child{text-align:left;padding-left:12px;}
+.pv-table th:nth-child(n+2){text-align:right;padding-right:8px;}
+.pv-table td{padding:10px 6px;border-bottom:1px solid #F0E8DC;color:#111;}
+.pv-table td:first-child{text-align:left;padding-left:12px;font-weight:700;}
+.pv-table td:nth-child(n+2){text-align:right;padding-right:8px;}
+.pv-table tbody tr:nth-child(even){background:var(--om-cream);}
+.sub-row td{font-size:12px!important;font-weight:400!important;color:#AAA!important;background:var(--om-cream)!important;}
+.pv-table tfoot td{padding:12px 6px;background:var(--om-cream-dk);border-top:2px solid var(--om-orange);font-weight:900;color:var(--om-brown);font-size:15px;}
+.pv-table tfoot td:first-child{padding-left:12px;}
+.pv-table tfoot td:last-child{text-align:right;padding-right:8px;font-size:18px;}
+.pv-supplier{text-align:center;padding:8px;background:var(--om-cream);border-radius:8px;font-size:12px;color:var(--gray-500);font-weight:600;}
 /* 필름 아이템 카드 */
 .item-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);margin-bottom:8px;overflow:hidden;box-shadow:var(--shadow-sm);}
 .item-row{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;}
-.item-num{width:24px;height:24px;flex-shrink:0;background:var(--om-orange);color:white;border-radius:50%;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(232,99,10,.3);}
+.item-num{width:24px;height:24px;flex-shrink:0;background:var(--om-orange);color:white;border-radius:50%;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;}
 .item-row-info{flex:1;min-width:0;}
 .item-row-name{font-size:13px;font-weight:700;color:var(--gray-900);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .item-row-sub{font-size:11px;color:var(--gray-500);margin-top:2px;}
 .item-row-amt{font-size:14px;font-weight:800;color:var(--om-brown);white-space:nowrap;flex-shrink:0;}
 .item-expand-btn{width:24px;height:24px;flex-shrink:0;background:var(--om-cream);border:1.5px solid var(--border);border-radius:5px;font-size:10px;color:var(--gray-500);display:flex;align-items:center;justify-content:center;cursor:pointer;}
-.del-btn{width:28px;height:28px;flex-shrink:0;background:none;border:1.5px solid #E8C0A0;border-radius:6px;font-size:15px;color:var(--om-orange);display:flex;align-items:center;justify-content:center;cursor:pointer;}
 .item-detail{border-top:1.5px solid var(--border);background:var(--om-cream);}
 .item-detail.hidden{display:none;}
 .item-body{padding:14px;display:flex;flex-direction:column;gap:11px;}
-/* 수량 스테퍼 */
 .qty-box{background:var(--om-cream);border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;}
 .qty-top{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
-.qty-label{font-size:12px;font-weight:700;color:var(--om-brown);font-family:var(--font-main);}
+.qty-label{font-size:12px;font-weight:700;color:var(--om-brown);}
 .qty-stepper{display:flex;align-items:center;margin-left:auto;border-radius:9px;overflow:hidden;border:1.5px solid var(--border);}
 .qty-btn{width:40px;height:40px;border:none;background:white;font-size:20px;color:var(--om-brown);font-weight:800;display:flex;align-items:center;justify-content:center;cursor:pointer;}
 .qty-btn:active{background:var(--om-cream-dk);}
@@ -280,10 +182,9 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
 .qty-shorts{display:flex;gap:5px;flex-wrap:wrap;}
 .qty-short{padding:6px 9px;font-size:12px;font-family:inherit;font-weight:700;border:1.5px solid var(--border);border-radius:7px;background:white;color:var(--om-brown);cursor:pointer;display:flex;flex-direction:column;align-items:center;line-height:1.2;min-width:38px;}
 .qty-short:active{background:var(--om-orange);color:white;border-color:var(--om-orange);}
-/* 셀렉트 그룹 */
 .sel-group{display:flex;flex-direction:column;gap:8px;}
 .sel-block{position:relative;}
-.sel-block label{font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;display:block;margin-bottom:5px;font-family:var(--font-main);}
+.sel-block label{font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;display:block;margin-bottom:5px;}
 .sel-block.cat label{color:var(--om-brown);}
 .sel-block.model label{color:var(--om-brown-mid);}
 .sel-block::after{content:'▾';position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:11px;pointer-events:none;margin-top:8px;}
@@ -292,7 +193,6 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
 .sel-block select{width:100%;padding:11px 36px 11px 14px;border-radius:8px;font-size:14px;font-family:inherit;-webkit-appearance:none;appearance:none;cursor:pointer;font-weight:600;outline:none;}
 .sel-block.cat select{border:1.5px solid #C8A070;background:linear-gradient(to bottom,#FAF0E4,#F5E6D2);color:var(--om-brown);}
 .sel-block.model select{border:1.5px solid #D4B090;background:linear-gradient(to bottom,#FBF5EC,#F5EDE0);color:var(--om-brown-mid);}
-/* breakdown */
 .breakdown{background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;}
 .bd-title{font-size:10px;font-weight:700;color:var(--gray-500);margin-bottom:8px;letter-spacing:.8px;text-transform:uppercase;}
 .bd-chips{display:flex;flex-direction:column;gap:7px;}
@@ -310,73 +210,31 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
 .bd-total{margin-top:10px;padding-top:10px;border-top:1.5px dashed var(--border);display:flex;justify-content:space-between;align-items:baseline;}
 .bd-total .lbl{font-size:12px;color:var(--gray-500);font-weight:600;}
 .bd-total .val{font-size:22px;font-weight:800;color:var(--gray-900);}
-.confirm-item-btn{width:100%;padding:13px;background:var(--om-brown);color:var(--om-cream);border:none;border-radius:9px;font-size:15px;font-weight:700;font-family:var(--font-main);cursor:pointer;letter-spacing:.5px;}
-/* 오버레이/모달 (기존 필름/도어용) */
-.ovl{position:fixed;inset:0;z-index:300;background:rgba(61,31,10,.7);overflow-y:auto;display:none;}
-.ovl.show{display:block;}
-.modal{background:var(--om-cream);max-width:540px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;}
-.modal-bar{background:var(--om-brown);padding:0 16px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;border-bottom:2px solid var(--om-orange);}
-.modal-bar h3{font-size:15px;font-weight:800;color:var(--om-cream);font-family:var(--font-main);letter-spacing:.5px;}
-.close-btn{height:36px;padding:0 12px;background:rgba(250,245,238,.15);border:1.5px solid rgba(250,245,238,.4);border-radius:7px;font-size:14px;color:var(--om-cream);font-weight:700;display:flex;align-items:center;cursor:pointer;white-space:nowrap;}
-.parea{flex:1;overflow-y:auto;padding:16px;}
-/* 견적서 (기존) */
-.pv-wrap{padding:6px 0 24px;}
-.pv-title{text-align:center;font-size:22px;font-weight:900;letter-spacing:8px;color:var(--om-brown);margin-bottom:14px;padding-bottom:12px;border-bottom:2px solid var(--om-orange);font-family:var(--font-main);}
-.pv-info{border:1.5px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:12px;background:white;}
-.pv-row{display:flex;align-items:baseline;padding:9px 14px;border-bottom:1px solid #EEE8E0;font-size:13px;}
-.pv-row:last-child{border-bottom:none;}
-.pv-k{color:var(--gray-500);font-size:10px;min-width:60px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;}
-.pv-v{color:#111;font-weight:500;flex:1;}
-.pv-v.bold{font-size:16px;font-weight:900;font-family:var(--font-main);color:var(--om-brown);}
-.pv-table-wrap{border:1.5px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:12px;}
-.pv-table{width:100%;border-collapse:collapse;font-size:13px;}
-.pv-table thead tr{background:var(--om-brown);}
-.pv-table th{padding:9px 6px;color:var(--om-cream);font-size:11px;font-weight:700;letter-spacing:.4px;}
-.pv-table th:first-child{text-align:left;padding-left:12px;}
-.pv-table th:nth-child(n+2){text-align:right;padding-right:8px;}
-.pv-table td{padding:10px 6px;border-bottom:1px solid #F0E8DC;color:#111;}
-.pv-table td:first-child{text-align:left;padding-left:12px;font-weight:700;}
-.pv-table td:nth-child(n+2){text-align:right;padding-right:8px;}
-.pv-table tbody tr:nth-child(even){background:var(--om-cream);}
-.sub-row td{font-size:12px!important;font-weight:400!important;color:#AAA!important;background:var(--om-cream)!important;}
-.pv-table tfoot td{padding:12px 6px;background:var(--om-cream-dk);border-top:2px solid var(--om-orange);font-weight:900;color:var(--om-brown);font-size:15px;font-family:var(--font-main);}
-.pv-table tfoot td:first-child{padding-left:12px;}
-.pv-table tfoot td:last-child{text-align:right;padding-right:8px;font-size:18px;}
-.pv-bank{border:2px solid var(--om-orange);border-radius:12px;overflow:hidden;margin-bottom:12px;}
-.pv-bank-notice{background:var(--om-orange);color:white;text-align:center;padding:9px;font-size:13px;font-weight:800;letter-spacing:4px;}
-.pv-bank-body{padding:12px 16px;background:white;}
-.pv-bank-num{font-size:22px;font-weight:900;color:var(--om-brown);letter-spacing:1px;margin-bottom:4px;}
-.pv-bank-info{font-size:12px;color:#666;}
-.pv-supplier{text-align:center;padding:8px;background:var(--om-cream);border-radius:8px;font-size:12px;color:var(--gray-500);font-weight:600;}
-/* 도어 전용 */
-.stat-summary{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;}
-.summary-box{background:var(--blue-light);border-radius:12px;padding:14px;text-align:center;}
-.summary-box.green{background:var(--green-light);}
-.s-lbl{font-size:12px;color:var(--gray-500);margin-bottom:6px;}
-.s-val{font-size:24px;font-weight:900;color:var(--om-brown);}
-.stats-section{margin-bottom:20px;}
-.stats-section h4{font-size:14px;font-weight:700;color:var(--gray-700);margin-bottom:10px;}
-.stat-card{background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:8px;}
-.stat-row{display:flex;align-items:center;gap:10px;margin-bottom:5px;}
-.stat-name{flex:1;font-size:13px;font-weight:600;color:var(--gray-900);}
-.stat-qty{font-size:12px;color:var(--gray-500);}
-.stat-amt{font-size:13px;font-weight:800;color:var(--om-brown);white-space:nowrap;}
-.stat-bar-wrap{height:5px;background:#F0E8DC;border-radius:3px;}
-.stat-bar{height:100%;background:var(--om-orange);border-radius:3px;}
-.stat-bar.orange{background:var(--om-orange);}
-.stat-client-row{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid #F0E8DC;font-size:13px;}
-.stat-client-row:last-child{border-bottom:none;}
-.stats-empty{text-align:center;padding:40px 20px;color:var(--gray-500);font-size:14px;line-height:1.8;}
-.reset-stats-btn{width:100%;padding:13px;border:1.5px solid #FFBBAA;border-radius:10px;background:white;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;color:var(--pk-red);margin-top:8px;}
-/* 도어 등급 버튼 */
-#grade-btn-1,#grade-btn-2,#grade-btn-3{display:flex;align-items:center;justify-content:center;padding:10px;border-radius:10px;cursor:pointer;font-weight:700;font-size:14px;transition:all .15s;}
-/* 컨테이너 */
-.container{max-width:540px;margin:0 auto;padding:16px 14px 100px;}
+.confirm-item-btn{width:100%;padding:13px;background:var(--om-brown);color:var(--om-cream);border:none;border-radius:9px;font-size:15px;font-weight:700;cursor:pointer;}
+/* 거래처 드롭다운 */
+.cl-drop{display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:#fff;border:2px solid var(--br);border-radius:10px;box-shadow:var(--sh2);z-index:200;max-height:200px;overflow-y:auto;}
+.cl-item{padding:11px 14px;font-size:14px;font-weight:600;cursor:pointer;border-bottom:1px solid var(--bd);}
+.cl-item:hover{background:var(--cr);}
+.cl-wrap{position:relative;}
+.cl-disp{width:100%;padding:10px 36px 10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;background:#fff;cursor:pointer;color:var(--g5);position:relative;user-select:none;display:flex;align-items:center;justify-content:space-between;}
+.cl-disp.sel{color:var(--g9);}
+/* 데이터 탭 */
+.stat-card{background:#fff;border-radius:12px;padding:13px 15px;margin-bottom:8px;border:1.5px solid var(--bd);box-shadow:var(--sh);}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:14px;}
+.sg-card{background:#fff;border-radius:10px;padding:13px;border:1.5px solid var(--bd);}
+.sg-lbl{font-size:11px;color:var(--g5);font-weight:700;margin-bottom:4px;}
+.sg-val{font-size:20px;font-weight:900;color:var(--br);}
+.bar-wrap{height:6px;background:#F0E8DC;border-radius:3px;margin-top:6px;}
+.bar-fill{height:100%;background:var(--or);border-radius:3px;transition:width .4s;}
+.type-badge{display:inline-block;font-size:10px;padding:2px 7px;border-radius:8px;font-weight:700;margin-right:4px;}
+.tb-film{background:#E8F0FE;color:#1A4FA0;}
+.tb-door{background:#FEE8E0;color:#C04010;}
+/* 도어 */
+#grade-btn-1,#grade-btn-2{display:flex;align-items:center;justify-content:center;padding:10px;border-radius:10px;cursor:pointer;font-weight:700;font-size:14px;transition:all .15s;}
 </style>
 </head>
 <body>
 
-<!-- 비밀번호 -->
 <div class="pw-screen" id="pw-screen">
   <div class="pw-box">
     <div style="font-size:28px;margin-bottom:6px">🤖</div>
@@ -388,10 +246,9 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
   </div>
 </div>
 
-<!-- 앱 본체 -->
 <div id="app">
 
-<!-- ═══ 척척박사 탭 ═══ -->
+<!-- 척척박사 탭 -->
 <div class="tp-chat" id="tp-chat">
   <div class="th">
     <div class="th-row">
@@ -410,8 +267,6 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
     <button class="qc" onclick="askBot('보링기준')">🔧 보링</button>
     <button class="qc" onclick="askBot('예림합판주문')">📦 합판주문</button>
     <button class="qc" onclick="askBot('소수점견적규칙')">📊 소수점</button>
-    <button class="qc" onclick="askBot('임가공단가')">🔩 임가공</button>
-    <button class="qc" onclick="askBot('공사견적단가')">🏠 공사단가</button>
     <button class="qc" onclick="askBot('도움말')">❓ 도움말</button>
   </div>
   <div class="chat-bar">
@@ -423,18 +278,14 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
   </div>
 </div>
 
-
-<!-- ═══ 필름 탭 컨테이너 ═══ -->
+<!-- 필름 탭 -->
 <div class="tp" id="tp-film" style="overflow-y:auto;">
-
-<!-- 필름 섹션 -->
 <div id="film-section">
-  <!-- 필름 탭 헤더 -->
   <div style="background:var(--om-brown);padding:13px 16px 11px;border-bottom:2px solid var(--om-orange);position:sticky;top:0;z-index:100;">
     <div style="display:flex;align-items:center;gap:10px;">
       <div style="width:36px;height:36px;border-radius:50%;background:var(--om-orange);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🎨</div>
       <div>
-        <div style="font-size:15px;font-weight:800;color:var(--om-cream);font-family:var(--font-main);">인테리어 필름 견적</div>
+        <div style="font-size:15px;font-weight:800;color:var(--om-cream);">인테리어 필름 견적</div>
         <div style="font-size:11px;color:rgba(250,245,238,.65);margin-top:1px;">예림 필름 단가표 기준 · 롤/절단 자동계산</div>
       </div>
       <button onclick="openClientMgr()" style="margin-left:auto;background:rgba(250,245,238,.12);border:1.5px solid rgba(250,245,238,.25);color:var(--om-cream);padding:6px 11px;border-radius:8px;font-size:11px;font-family:inherit;cursor:pointer;font-weight:700;">👥 거래처</button>
@@ -447,10 +298,9 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
         <div class="row2">
           <div class="field"><label>거래처명</label>
             <div style="position:relative">
-              <div id="client-display" onclick="toggleClientDrop('film')"
-                style="width:100%;padding:11px 36px 11px 14px;border:2px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;background:white;cursor:pointer;color:var(--gray-500);position:relative;user-select:none">
+              <div id="client-display" onclick="toggleClientDrop('film')" style="width:100%;padding:11px 36px 11px 14px;border:2px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;background:white;cursor:pointer;color:var(--gray-500);position:relative;user-select:none">
                 <span id="client-display-text">-- 선택 --</span>
-                <span style="position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--gray-500);font-size:12px">▾</span>
+                <span style="position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:12px">▾</span>
               </div>
               <div id="client-drop" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:white;border:2px solid var(--pk-blue);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,0.15);z-index:200;max-height:200px;overflow-y:auto">
                 <div id="client-drop-list"></div>
@@ -480,8 +330,7 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
     </div>
   </div>
 </div>
-
-<!-- 필름 견적서 미리보기 -->
+<!-- 필름 견적서 모달 -->
 <div class="ovl" id="preview-ovl">
   <div class="modal">
     <div class="modal-bar">
@@ -498,36 +347,29 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
 </div>
 </div><!-- /tp-film -->
 
-<!-- ═══ 도어 탭 컨테이너 ═══ -->
+<!-- 도어 탭 -->
 <div class="tp" id="tp-door" style="overflow-y:auto;">
-
-<!-- 도어 발주 섹션 -->
-<div id="door-section" >
-  <!-- 도어 탭 헤더 -->
+<div id="door-section">
   <div style="background:var(--om-brown);padding:13px 16px 11px;border-bottom:2px solid var(--om-orange);position:sticky;top:0;z-index:100;">
     <div style="display:flex;align-items:center;gap:10px;">
       <div style="width:36px;height:36px;border-radius:50%;background:var(--om-orange);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🚪</div>
       <div>
-        <div style="font-size:15px;font-weight:800;color:var(--om-cream);font-family:var(--font-main);">비규격 도어 발주 견적</div>
+        <div style="font-size:15px;font-weight:800;color:var(--om-cream);">비규격 도어 발주 견적</div>
         <div style="font-size:11px;color:rgba(250,245,238,.65);margin-top:1px;">SUPER 레이저도어 · 재단 최적화</div>
       </div>
       <button onclick="openClientMgr()" style="margin-left:auto;background:rgba(250,245,238,.12);border:1.5px solid rgba(250,245,238,.25);color:var(--om-cream);padding:6px 11px;border-radius:8px;font-size:11px;font-family:inherit;cursor:pointer;font-weight:700;">👥 거래처</button>
     </div>
   </div>
   <div class="container" style="padding-top:14px;">
-
-
     <div class="card">
       <div class="card-header"><div class="icon">📋</div><h2>거래처 정보</h2></div>
       <div class="card-body">
         <div class="row2">
-          <div class="field">
-            <label>거래처명</label>
+          <div class="field"><label>거래처명</label>
             <div style="position:relative">
-              <div id="door-client-display" onclick="toggleClientDrop('door')"
-                style="width:100%;padding:11px 36px 11px 14px;border:2px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;background:white;cursor:pointer;color:var(--gray-500);position:relative;user-select:none">
+              <div id="door-client-display" onclick="toggleClientDrop('door')" style="width:100%;padding:11px 36px 11px 14px;border:2px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;background:white;cursor:pointer;color:var(--gray-500);position:relative;user-select:none">
                 <span id="door-client-display-text">-- 선택 --</span>
-                <span style="position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--gray-500);font-size:12px">▾</span>
+                <span style="position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:12px">▾</span>
               </div>
               <div id="door-client-drop" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:white;border:2px solid var(--pk-blue);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,0.15);z-index:200;max-height:200px;overflow-y:auto">
                 <div id="door-client-drop-list"></div>
@@ -537,17 +379,16 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
           </div>
           <div class="field"><label>견적일</label><input id="door-date" type="date"></div>
         </div>
+        <!-- 등급 선택 (내부용 - 화면에만 표시, 견적서/캡처에 노출 안됨) -->
         <div class="field" style="margin-top:4px">
-          <label>적용 등급</label>
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
-            <label id="grade-btn-1" onclick="setDoorGrade(1)" style="display:flex;align-items:center;justify-content:center;padding:10px;border:2px solid var(--blue);border-radius:10px;background:var(--blue);color:white;cursor:pointer;font-weight:700;font-size:14px">1등급</label>
-            <label id="grade-btn-2" onclick="setDoorGrade(2)" style="display:flex;align-items:center;justify-content:center;padding:10px;border:2px solid var(--border);border-radius:10px;background:white;color:var(--gray-500);cursor:pointer;font-weight:600;font-size:14px">2등급</label>
-            <label id="grade-btn-3" onclick="setDoorGrade(3)" style="display:flex;align-items:center;justify-content:center;padding:10px;border:2px solid var(--border);border-radius:10px;background:white;color:var(--gray-500);cursor:pointer;font-weight:600;font-size:14px">3등급</label>
+          <label>적용 등급 <span style="font-size:9px;color:var(--g5);font-weight:400">(내부용)</span></label>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <label id="grade-btn-1" onclick="setDoorGrade(1)" style="border:2px solid var(--br);background:var(--br);color:white;">A등급</label>
+            <label id="grade-btn-2" onclick="setDoorGrade(2)" style="border:2px solid var(--bd);background:white;color:var(--g5);">B등급</label>
           </div>
         </div>
       </div>
     </div>
-
     <div class="card">
       <div class="card-header"><div class="icon">🚪</div><h2>도어 품목</h2></div>
       <div class="card-body" style="padding:12px">
@@ -555,39 +396,35 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
         <button class="add-btn" onclick="addDoorGroup()" style="margin-top:8px">＋ 색상 추가</button>
       </div>
     </div>
-
     <div class="total-bar">
       <span class="lbl">총 합계</span>
       <span class="amt" id="door-total">0 원</span>
     </div>
-
     <div class="actions">
-      <button class="btn-reset" onclick="resetDoorForm()">↺ 초기화</button>
-      <button class="btn-preview" onclick="calcDoorQuote()">🚪 견적서 보기 →</button>
+      <button class="btn-rst" onclick="resetDoorForm()">↺ 초기화</button>
+      <button class="btn-pv" onclick="calcDoorQuote()">🚪 견적서 보기 →</button>
     </div>
   </div>
 </div>
-
-<!-- 도어 견적서 미리보기 -->
+<!-- 도어 견적서 모달 -->
 <div class="ovl" id="door-preview-ovl">
   <div class="modal">
     <div class="modal-bar">
-      <button class="close-btn" onclick="closeDoorPreview()" style="font-size:14px;font-weight:700;color:var(--blue);border-color:var(--blue-light);background:var(--blue-light)">‹ 뒤로</button>
+      <button class="cls-btn" onclick="closeDoorPreview()">‹ 뒤로</button>
       <h3>도어 발주 견적서</h3>
       <div style="width:60px"></div>
     </div>
     <div class="parea" id="door-preview-area"></div>
-    <div style="display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--border);background:white;position:sticky;bottom:0">
-      <button class="btn-print" style="flex:1" onclick="doDoorPrint()">🖨 인쇄/저장</button>
+    <div style="display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--bd);background:white;position:sticky;bottom:0">
+      <button class="btn-pr" style="flex:1" onclick="doDoorPrint()">🖨 인쇄/저장</button>
     </div>
   </div>
 </div>
-
 <!-- 재단 배치도 모달 -->
 <div class="ovl" id="cut-layout-ovl">
   <div class="modal">
     <div class="modal-bar">
-      <button class="close-btn" onclick="closeCutLayout()" style="font-size:14px;font-weight:700;color:var(--blue);border-color:var(--blue-light);background:var(--blue-light)">‹ 뒤로</button>
+      <button class="cls-btn" onclick="closeCutLayout()">‹ 뒤로</button>
       <h3>📐 재단 배치도</h3>
       <div style="width:60px"></div>
     </div>
@@ -599,161 +436,29 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
 </div>
 </div><!-- /tp-door -->
 
-<!-- ═══ 임가공 견적 탭 ═══ -->
-<div class="tp" id="tp-ig">
+<!-- 단가표 탭 (내부용 - 캡처해도 등급표시 없음) -->
+<div class="tp" id="tp-price">
   <div class="th"><div class="th-row">
-    <div class="th-av">🔩</div>
-    <div><div class="th-ttl">임가공 견적</div><div class="th-sub">가공비·자재비 견적서</div></div>
-    <button class="th-btn" onclick="openClientMgr()">👥 거래처</button>
+    <div class="th-av">💰</div>
+    <div><div class="th-ttl">도어 단가표</div><div class="th-sub">SUPER 레이저도어 · 2025.06.15 기준</div></div>
   </div></div>
-  <div id="ig-form">
-    <div class="container">
-      <div class="card">
-        <div class="card-hd"><div class="ico">📋</div><h2>거래처 정보</h2></div>
-        <div class="card-bd">
-          <div class="row2">
-            <div class="field"><label>거래처명</label>
-              <div class="cl-wrap">
-                <div class="cl-disp" id="ig-cl-disp" onclick="toggleDrop('ig')"><span id="ig-cl-txt">-- 선택 --</span><span>▾</span></div>
-                <div class="cl-drop" id="ig-cl-drop"><div id="ig-cl-list"></div></div>
-              </div>
-              <input type="hidden" id="ig-client">
-            </div>
-            <div class="field"><label>견적일</label><input type="date" id="ig-date"></div>
-          </div>
-          <div class="field"><label>현장명 (선택)</label><input type="text" id="ig-site" placeholder="현장명"></div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-hd"><div class="ico">🔩</div><h2>임가공 품목</h2></div>
-        <div class="card-bd" style="padding:0">
-          <!-- 합판 자재 -->
-          <div class="ig-cat">📦 합판 자재</div>
-          <div id="ig-board"></div>
-          <!-- 서랍 / 철물 -->
-          <div class="ig-cat">🔧 서랍·철물</div>
-          <div id="ig-hw"></div>
-          <!-- 부자재 -->
-          <div class="ig-cat">🪛 부자재</div>
-          <div id="ig-sub"></div>
-          <!-- 기타 -->
-          <div class="ig-cat">📝 기타가공</div>
-          <div id="ig-etc"></div>
-          <div style="padding:10px 12px">
-            <button class="btn-add" onclick="addIgEtc()">＋ 기타 항목 추가</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="total-bar">
-        <span class="lbl">총 합계 (공급가)</span>
-        <span class="amt" id="ig-total">0 원</span>
-      </div>
-      <div class="actions">
-        <button class="btn-rst" onclick="resetIg()">↺ 초기화</button>
-        <button class="btn-pv" onclick="showIgPreview()">🔩 견적서 보기 →</button>
-      </div>
+  <div class="container" style="padding-top:14px;padding-bottom:80px;">
+    <!-- 등급 토글 (내부용 - 화면 상단, 캡처 시 잘리도록 작게) -->
+    <div style="display:flex;gap:6px;margin-bottom:12px;background:var(--cr-dk);border-radius:10px;padding:8px;">
+      <button id="pt-g1" onclick="setPriceTab(1)" style="flex:1;padding:8px;border-radius:8px;border:none;font-size:13px;font-weight:800;cursor:pointer;background:var(--br);color:white;font-family:inherit;">A등급</button>
+      <button id="pt-g2" onclick="setPriceTab(2)" style="flex:1;padding:8px;border-radius:8px;border:none;font-size:13px;font-weight:700;cursor:pointer;background:white;color:var(--g5);font-family:inherit;">B등급</button>
     </div>
+    <!-- 검색 -->
+    <div style="position:relative;margin-bottom:12px;">
+      <input type="text" id="price-search" placeholder="색상명 검색..." oninput="filterPriceTable()" style="width:100%;padding:10px 14px 10px 36px;border:1.5px solid var(--bd);border-radius:10px;font-size:14px;font-family:inherit;outline:none;">
+      <span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:14px;">🔍</span>
+    </div>
+    <!-- 단가표 본문 (캡처해도 등급 표시 없음) -->
+    <div id="price-table-content"></div>
   </div>
 </div>
 
-<!-- 임가공 견적서 모달 -->
-<div class="ovl" id="ig-ovl">
-  <div class="modal">
-    <div class="modal-bar">
-      <button class="cls-btn" onclick="closeOvl('ig-ovl')">‹ 뒤로</button>
-      <h3>임가공 견적서</h3>
-      <div style="width:60px"></div>
-    </div>
-    <div class="parea" id="ig-parea"></div>
-    <div style="display:flex;gap:8px;padding:12px;border-top:1px solid var(--bd);background:#fff;position:sticky;bottom:0;">
-      <button class="btn-cf" onclick="confirmQuoteIg()">✅ 견적 확정</button>
-      <button class="btn-pr" onclick="printArea('ig-parea')">🖨 인쇄</button>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ 공사견적 탭 ═══ -->
-<div class="tp" id="tp-cs">
-  <div class="th"><div class="th-row">
-    <div class="th-av">🏠</div>
-    <div><div class="th-ttl">공사 견적</div><div class="th-sub">주방·수납·붙박이 견적서</div></div>
-    <button class="th-btn" onclick="openClientMgr()">👥 거래처</button>
-  </div></div>
-  <div id="cs-form">
-    <div class="container">
-      <div class="card">
-        <div class="card-hd"><div class="ico">📋</div><h2>거래처 정보</h2></div>
-        <div class="card-bd">
-          <div class="row2">
-            <div class="field"><label>거래처명</label>
-              <div class="cl-wrap">
-                <div class="cl-disp" id="cs-cl-disp" onclick="toggleDrop('cs')"><span id="cs-cl-txt">-- 선택 --</span><span>▾</span></div>
-                <div class="cl-drop" id="cs-cl-drop"><div id="cs-cl-list"></div></div>
-              </div>
-              <input type="hidden" id="cs-client">
-            </div>
-            <div class="field"><label>견적일</label><input type="date" id="cs-date"></div>
-          </div>
-          <div class="field"><label>현장명</label><input type="text" id="cs-site" placeholder="예) 불당동 린스트라우스 101호"></div>
-          <div class="field"><label>특기사항</label><textarea id="cs-note" rows="2" placeholder="배송일정, 특이사항 등" style="resize:none;line-height:1.5;"></textarea></div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-hd"><div class="ico">🏠</div><h2>공사 품목</h2></div>
-        <div class="card-bd" style="padding:0">
-          <!-- 주방 -->
-          <div class="ig-cat" style="display:flex;justify-content:space-between;align-items:center;">
-            <span>🍳 주방 목대·상판</span>
-            <span style="font-size:10px;color:var(--g5);font-weight:600;background:rgba(250,245,238,.6);padding:2px 8px;border-radius:8px;">mm 단위 입력 (예: 2400)</span>
-          </div>
-          <div id="cs-kitchen"></div>
-          <!-- 장류 -->
-          <div class="ig-cat">🗄 장 류</div>
-          <div id="cs-cabinet"></div>
-          <!-- 수납/붙박이 -->
-          <div class="ig-cat">🏪 수납·붙박이</div>
-          <div id="cs-storage"></div>
-          <!-- 커스텀 -->
-          <div class="ig-cat">📝 추가 항목</div>
-          <div id="cs-custom"></div>
-          <div style="padding:10px 12px">
-            <button class="btn-add" onclick="addCsCustom()">＋ 항목 추가</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="total-bar">
-        <span class="lbl">총 합계 (공급가)</span>
-        <span class="amt" id="cs-total">0 원</span>
-      </div>
-      <div class="actions">
-        <button class="btn-rst" onclick="resetCs()">↺ 초기화</button>
-        <button class="btn-pv" onclick="showCsPreview()">🏠 견적서 보기 →</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- 공사견적서 모달 -->
-<div class="ovl" id="cs-ovl">
-  <div class="modal">
-    <div class="modal-bar">
-      <button class="cls-btn" onclick="closeOvl('cs-ovl')">‹ 뒤로</button>
-      <h3>공사 견적서</h3>
-      <div style="width:60px"></div>
-    </div>
-    <div class="parea" id="cs-parea"></div>
-    <div style="display:flex;gap:8px;padding:12px;border-top:1px solid var(--bd);background:#fff;position:sticky;bottom:0;">
-      <button class="btn-cf" onclick="confirmQuoteCs()">✅ 견적 확정</button>
-      <button class="btn-pr" onclick="printArea('cs-parea')">🖨 인쇄</button>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ 데이터 탭 ═══ -->
+<!-- 데이터 탭 -->
 <div class="tp" id="tp-data">
   <div class="th"><div class="th-row">
     <div class="th-av">📊</div>
@@ -762,7 +467,7 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
   <div class="container" id="data-inner" style="padding-top:14px;"></div>
 </div>
 
-<!-- ═══ 거래처 관리 모달 ═══ -->
+<!-- 거래처 관리 모달 -->
 <div class="ovl" id="client-ovl">
   <div class="modal" style="max-height:80vh;margin:10vh auto auto;border-radius:16px;overflow:hidden;max-width:500px;">
     <div class="modal-bar">
@@ -773,8 +478,6 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
       <div style="display:flex;margin-bottom:12px;border-bottom:2px solid var(--bd);">
         <button id="ctab-film" onclick="switchClientTab('film')" style="flex:1;padding:9px;border:none;border-bottom:3px solid var(--or);margin-bottom:-2px;background:none;font-size:13px;font-weight:700;color:var(--or);cursor:pointer;font-family:inherit;">🎨 필름</button>
         <button id="ctab-door" onclick="switchClientTab('door')" style="flex:1;padding:9px;border:none;border-bottom:3px solid transparent;margin-bottom:-2px;background:none;font-size:13px;font-weight:600;color:var(--g5);cursor:pointer;font-family:inherit;">🚪 도어</button>
-        <button id="ctab-ig" onclick="switchClientTab('ig')" style="flex:1;padding:9px;border:none;border-bottom:3px solid transparent;margin-bottom:-2px;background:none;font-size:13px;font-weight:600;color:var(--g5);cursor:pointer;font-family:inherit;">🔩 임가공</button>
-        <button id="ctab-cs" onclick="switchClientTab('cs')" style="flex:1;padding:9px;border:none;border-bottom:3px solid transparent;margin-bottom:-2px;background:none;font-size:13px;font-weight:600;color:var(--g5);cursor:pointer;font-family:inherit;">🏠 공사</button>
       </div>
       <div style="display:flex;gap:8px;margin-bottom:12px;">
         <input id="new-client" type="text" placeholder="새 거래처명" onkeydown="if(event.key==='Enter')saveClient(currentClientTab)" style="flex:1;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;outline:none;">
@@ -785,58 +488,30 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
   </div>
 </div>
 
-<!-- ═══ 바텀 네비 ═══ -->
+<!-- 바텀 네비 (4탭) -->
 <nav id="bnav">
   <button class="bn on" id="bn-chat" onclick="switchTab('chat')">
-    <span class="bn-ico">🤖</span>
-    <span>척척박사</span>
+    <span class="bn-ico">🤖</span><span>척척박사</span>
   </button>
   <button class="bn" id="bn-film" onclick="switchTab('film')">
-    <span class="bn-ico">🎨</span>
-    <span>필름</span>
+    <span class="bn-ico">🎨</span><span>필름</span>
   </button>
   <button class="bn" id="bn-door" onclick="switchTab('door')">
-    <span class="bn-ico">🚪</span>
-    <span>도어</span>
+    <span class="bn-ico">🚪</span><span>도어</span>
   </button>
-  <button class="bn" id="bn-ig" onclick="switchTab('ig')">
-    <span class="bn-ico">🔩</span>
-    <span>임가공</span>
-  </button>
-  <button class="bn" id="bn-cs" onclick="switchTab('cs')">
-    <span class="bn-ico">🏠</span>
-    <span>공사</span>
+  <button class="bn" id="bn-price" onclick="switchTab('price')">
+    <span class="bn-ico">💰</span><span>단가표</span>
   </button>
   <button class="bn" id="bn-data" onclick="switchTab('data')">
-    <span class="bn-ico">📊</span>
-    <span>데이터</span>
+    <span class="bn-ico">📊</span><span>데이터</span>
   </button>
 </nav>
 
 </div><!-- /app -->
 
-
-<!-- 필름 견적서 미리보기 -->
-<div class="ovl" id="preview-ovl">
-  <div class="modal">
-    <div class="modal-bar">
-      <button class="close-btn" onclick="document.getElementById('preview-ovl').classList.remove('show')">‹ 뒤로</button>
-      <h3>견적서 미리보기</h3>
-      <div style="width:60px"></div>
-    </div>
-    <div class="parea" id="parea"></div>
-    <div style="display:flex;gap:8px;padding:12px 16px;border-top:2px solid var(--border);background:white;position:sticky;bottom:0">
-      <button class="btn-confirm" onclick="confirmQuote()">✅ 견적 확정</button>
-      <button class="btn-print" onclick="doPrint()">🖨 인쇄/저장</button>
-    </div>
-  </div>
-</div>
-
-
 <script>
 // ===== 제품 데이터 =====
 const ROLL_M = 25;
-
 const MODEL_DB = {
   'HSM': {name:'슈퍼매트', roll:7600, cut:10400, models:['HSM01 매트화이트','HSM02 매트밀크화이트','HSM16 매트아이보리','HSM03 매트캐시미어','HSM21 매트샌드그레이','HSM04 매트브라운','HSM20 매트라이트그레이','HSM06 매트그레이','HSM07 매트다크그레이','HSM10 매트딥그린','HSM11 매트딥블루','HSM25 매트미스틱블루','HSM27 매트문빔그레이','HSM28 매트스노우베이지','HSM29 매트포그그레이','HSM30 매트듀이클라우드','HSM31 매트코타화이트','HSM34 매트스카이브리즈']},
   'HS':  {name:'솔리드', roll:5200, cut:8000, models:['HS001 순백','HS002 유백','HS004 크림화이트','HS005 밀크화이트','HS007 쿨그레이','HS009 라이트그레이','HS010 진그레이','HS013 차콜','HS014 어반그레이','HS015 올블랙','HS022 베이비핑크','HS027 소프트블루','HS028 윈디블루','HS029 어반블루','HS030 로열블루','HS031 헤일네이버','HS032 샌드베이지','HS034 어반카키','HS035 휴그린','HS037 딥오션','HS038 머드그레이','HS039 샌드베이지','HS040 옐로우','HS041 베이비그린','HS042 소프트민트','HS043 라벤더','HS044 퓨어레드']},
@@ -848,7 +523,7 @@ const MODEL_DB = {
   'HW':  {name:'우드(얇)', roll:5400, cut:8400, models:['HW1001 클리어오크','HW1002 심플그레인','HW1004 크림오크','HW1009 브러쉬오크소프트','HW1010 버치','HW1011 피치우드','HW1012 스칸디나비안우드','HW1013 스칸디나비안우드다크','HW1014 우드민트','HW1015 러스틱오크','HW1016 그레이우드','HW1017 다크우드','HW1018 소프트화이트우드','HW1019 노르딕우드','HW1020 웜우드베이지','HW1021 클라우드우드','HW1022 샌드스톤우드','HW1024 라이트오크','HW1025 아크릭오크','HW1026 새틴우드','HW1027 버치화이트','HW1028 버치그레이','HW1029 오크화이트','HW1030 오크그레이','HW1031 골든오크','HW1032 허니오크','HW1033 체스트넛오크','HW1034 코코아오크','HW1035 다크오크','HW1036 에보니우드','HW1037 화이트애쉬','HW1038 그레이애쉬','HW1039 다크애쉬','HW1040 라이트월넛','HW1041 미디엄월넛','HW1042 다크월넛','HW1043 노체','HW1044 빈티지오크','HW1045 웨더드우드','HW1046 드리프트우드']},
   'HWB': {name:'우드(굵)', roll:5800, cut:8900, models:['HWB1003 소프트워시오크','HWB1005 화인오크','HWB1007 브룩시더(세로)','HWB1008 브룩시더(가로)','HWB1011 락메이플','HWB1012 살구나무','HWB1013 웜그레이우드','HWB1014 그레이우드','HWB1015 쿨그레이우드','HWB1016 다크오크','HWB1017 허니오크','HWB1018 골든우드','HWB1019 새틴우드굵','HWB1020 크림오크굵','HWB1021 라이트오크굵','HWB1022 내추럴오크굵','HWB1023 다크월넛굵','HWB1024 체리우드굵','HWB1025 에스프레소우드','HWB1026 빈티지브라운','HWB1027 노르딕우드굵','HWB1028 스칸디나비안오크']},
   'HPW': {name:'키친우드', roll:5400, cut:8400, models:['HPW21 프렌치오크','HPW22 피넛오크','HPW23 카카오월넛','HPW24 던오크']},
-  'HN':  {name:'스톤', roll:5800, cut:8900, models:['HN2001 솔리드콘크리트그레이','HN2002 솔리드콘크리트다크','HN2003','HN2004','HN2005','HN2006','HN2007','HN2008','HN2009','HN2010','HN2011','HN2012','HN2013']},
+  'HN':  {name:'스톤', roll:5800, cut:8900, models:['HN2001','HN2002','HN2003','HN2004','HN2005','HN2006','HN2007','HN2008','HN2009','HN2010','HN2011','HN2012','HN2013']},
   'HM':  {name:'마블', roll:5800, cut:8900, models:['HM2101','HM2102','HM2103','HM2104']},
   'HT':  {name:'메탈', roll:6000, cut:9200, models:['HT2301 메탈그레이','HT2302 골드','HT2303','HT2304','HT2305','HT2306','HT2307','HT2308','HT2309']},
   'HF':  {name:'패브릭', roll:5800, cut:8900, models:['HF2201 코트니브라운','HF2202 코트니베이지','HF2205 패브릭베이지','HF2206 패브릭네이비','HF2207','HF2208','HF2209','HF2210']},
@@ -861,98 +536,186 @@ const MODEL_DB = {
 };
 const MODEL_KEYS = Object.keys(MODEL_DB);
 
-// ===== 필름 견적 로직 =====
-let items = [];
-let cnt = 0;
+// ===== 도어 단가표 (신규 2025.06.15~) =====
+const DOOR_PRICES = [
+  {name:'매트 화이트', type:'일반', g1:94000, g2:99000},
+  {name:'매트 밀크화이트', type:'일반', g1:94000, g2:99000},
+  {name:'매트 캐시미어', type:'일반', g1:94000, g2:99000},
+  {name:'매트 포그그레이', type:'일반', g1:94000, g2:99000},
+  {name:'매트화이트', type:'후면강화', g1:105000, g2:110000},
+  {name:'매트밀크화이트', type:'후면강화', g1:105000, g2:110000},
+  {name:'매트캐시미어', type:'후면강화', g1:107000, g2:112000},
+  {name:'매트포그그레이', type:'후면강화', g1:107000, g2:112000},
+  {name:'매트샌드그레이', type:'후면강화', g1:107000, g2:112000},
+  {name:'매트 스노우베이지', type:'후면강화', g1:107000, g2:112000},
+  {name:'매트 듀이클라우드', type:'후면강화', g1:107000, g2:112000},
+  {name:'매트 브라운', type:'후면강화', g1:107000, g2:112000},
+  {name:'매트 그레이', type:'후면강화', g1:107000, g2:112000},
+  {name:'매트 라이트그레이', type:'후면강화', g1:107000, g2:112000},
+  {name:'매트 다크그레이', type:'후면강화', g1:107000, g2:112000},
+  {name:'매트 아이보리', type:'후면강화', g1:107000, g2:112000},
+  {name:'매트 코타화이트', type:'후면강화', g1:107000, g2:112000},
+  {name:'매트 펄 화이트', type:'후면강화', g1:108000, g2:113000},
+  {name:'매트 카페브라운', type:'내지문', g1:104000, g2:109000},
+  {name:'매트 블랙', type:'내지문', g1:104000, g2:109000},
+  {name:'매트 딥그린', type:'내지문', g1:104000, g2:109000},
+  {name:'매트 딥블루', type:'내지문', g1:104000, g2:109000},
+  {name:'매트 인디고', type:'내지문', g1:104000, g2:109000},
+  {name:'매트 코튼블루', type:'내지문', g1:104000, g2:109000},
+  {name:'매트 미스트그린', type:'내지문', g1:104000, g2:109000},
+  {name:'매트 로지핑크', type:'내지문', g1:104000, g2:109000},
+  {name:'매트 스모키올리브', type:'내지문', g1:104000, g2:109000},
+  {name:'매트 허니드롭', type:'내지문', g1:104000, g2:109000},
+  {name:'매트 버터스카치', type:'내지문', g1:104000, g2:109000},
+  {name:'매트 스카이브리즈', type:'내지문', g1:104000, g2:109000},
+  {name:'매트 타우니레드', type:'내지문', g1:104000, g2:109000},
+  {name:'매트 펄 다크그레이', type:'내지문', g1:105000, g2:110000},
+  {name:'매트 펄 블랙', type:'내지문', g1:105000, g2:110000},
+  {name:'글로시 화이트', type:'일반', g1:104000, g2:109000},
+  {name:'글로시 밀크화이트', type:'일반', g1:104000, g2:109000},
+  {name:'글로시 캐시미어', type:'일반', g1:109000, g2:114000},
+  {name:'글로시 브라운', type:'일반', g1:109000, g2:114000},
+  {name:'글로시 그레이', type:'일반', g1:109000, g2:114000},
+  {name:'글로시 다크그레이', type:'일반', g1:109000, g2:114000},
+  {name:'글로시 딥블루', type:'일반', g1:109000, g2:114000},
+  {name:'글로시 코튼블루', type:'일반', g1:109000, g2:114000},
+  {name:'글로시 아이보리', type:'일반', g1:109000, g2:114000},
+  {name:'글로시 라이트그레이', type:'일반', g1:109000, g2:114000},
+  {name:'글로시 샌드그레이', type:'일반', g1:109000, g2:114000},
+  {name:'글로시 스모키올리브', type:'일반', g1:109000, g2:114000},
+  {name:'글로시 펄 다크그레이', type:'일반', g1:109000, g2:114000},
+  {name:'글로시 펄 블랙', type:'일반', g1:109000, g2:114000},
+  {name:'글로시 펄화이트', type:'일반', g1:106000, g2:111000},
+  {name:'슈가엘름', type:'일반', g1:105000, g2:110000},
+  {name:'프렌치오크', type:'일반', g1:105000, g2:110000},
+  {name:'피넛오크', type:'일반', g1:105000, g2:110000},
+  {name:'카카오월넛', type:'일반', g1:105000, g2:110000},
+  {name:'던오크', type:'일반', g1:105000, g2:110000},
+  {name:'레더모카', type:'일반', g1:105000, g2:110000},
+  {name:'레더크림', type:'일반', g1:105000, g2:110000},
+  {name:'콘크리트화이트', type:'일반', g1:107000, g2:112000},
+  {name:'콘크리트그레이', type:'일반', g1:107000, g2:112000},
+  {name:'세라믹 문 퍼시픽', type:'일반', g1:110000, g2:115000},
+  {name:'세라믹 문 그레이', type:'일반', g1:110000, g2:115000},
+  {name:'세라믹 문 움브라', type:'일반', g1:110000, g2:115000},
+  {name:'세라믹 문 브릭', type:'일반', g1:110000, g2:115000},
+  {name:'네이처 오크', type:'일반', g1:130000, g2:135000},
+  {name:'카타니아 오크', type:'일반', g1:130000, g2:135000},
+  {name:'그레이쉬 오크', type:'일반', g1:130000, g2:135000},
+  {name:'세이 오크', type:'일반', g1:133000, g2:138000},
+  {name:'세이 메이플', type:'일반', g1:133000, g2:138000},
+  {name:'아크 플랫화이트', type:'일반', g1:127000, g2:132000},
+  {name:'아크 퓨어코튼', type:'일반', g1:127000, g2:132000},
+  {name:'아크 샌드듄', type:'일반', g1:127000, g2:132000},
+  {name:'아크 얼그레이', type:'일반', g1:127000, g2:132000},
+  {name:'아크 런던그레이', type:'일반', g1:127000, g2:132000},
+  {name:'아크 플라워블루', type:'일반', g1:127000, g2:132000},
+  {name:'아크 미드나잇 블루', type:'일반', g1:127000, g2:132000},
+  {name:'아크 미드나잇그레이', type:'일반', g1:127000, g2:132000},
+  {name:'아크마멀레이드', type:'일반', g1:127000, g2:132000},
+  {name:'아크 포레스트그린', type:'일반', g1:127000, g2:132000},
+  {name:'크림화이트 HS004', type:'일반', g1:98000, g2:103000},
+  {name:'HS046', type:'일반', g1:98000, g2:103000},
+  {name:'HP521', type:'일반', g1:101000, g2:106000},
+  {name:'HP522', type:'일반', g1:101000, g2:106000},
+  {name:'HW1069', type:'일반', g1:101000, g2:106000},
+  {name:'HW1081', type:'일반', g1:101000, g2:106000},
+  {name:'오크마일드 HW1019', type:'일반', g1:101000, g2:106000},
+  {name:'오크딥 HW1064', type:'일반', g1:101000, g2:106000},
+  {name:'HW1077', type:'일반', g1:101000, g2:106000},
+  {name:'HW1065', type:'일반', g1:101000, g2:106000},
+  {name:'퓨어화이트(향균)/HC801', type:'일반', g1:101000, g2:106000},
+  {name:'페일그레이(향균)/HC802', type:'일반', g1:101000, g2:106000},
+  {name:'메탈바이브.실버', type:'일반', g1:125000, g2:130000},
+  {name:'메탈 바이브.브라운', type:'일반', g1:125000, g2:130000},
+  {name:'메탈 쉐도우 그라파이트', type:'일반', g1:125000, g2:130000},
+  {name:'메탈 쉐도우 코퍼브라운', type:'일반', g1:125000, g2:130000},
+  {name:'메탈 헤어라인', type:'일반', g1:121000, g2:126000},
+  {name:'웨이비 퓨어코튼', type:'일반', g1:121000, g2:126000},
+  {name:'웨이비 그레이', type:'일반', g1:121000, g2:126000},
+  {name:'사피아노 화이트', type:'일반', g1:117000, g2:122000},
+  {name:'사피아노 그레이', type:'일반', g1:117000, g2:122000},
+  {name:'사피아노 블루', type:'일반', g1:117000, g2:122000},
+  {name:'헤어라인 화이트', type:'일반', g1:117000, g2:122000},
+  {name:'헤어라인 그레이', type:'일반', g1:117000, g2:122000},
+  {name:'화이트유광', type:'일반', g1:93000, g2:98000},
+  {name:'소프트화이트', type:'일반', g1:93000, g2:98000},
+  {name:'코임브라', type:'일반', g1:100000, g2:105000},
+  {name:'윈체스터월넛', type:'일반', g1:100000, g2:105000},
+  {name:'스톤화이트', type:'일반', g1:100000, g2:105000},
+  {name:'스톤 그레이', type:'일반', g1:100000, g2:105000},
+  {name:'스톤 블랙', type:'일반', g1:100000, g2:105000},
+  {name:'소프트 월넛', type:'일반', g1:103000, g2:108000},
+  {name:'사하라누아르', type:'일반', g1:106000, g2:111000},
+  {name:'아라베스카토', type:'일반', g1:106000, g2:111000},
+  {name:'팔라디나', type:'일반', g1:106000, g2:111000},
+  {name:'부클레', type:'일반', g1:129000, g2:134000},
+  {name:'밤부', type:'일반', g1:129000, g2:134000},
+  {name:'몽블랑 체스넛', type:'일반', g1:106000, g2:111000},
+  {name:'웨이브화이트', type:'일반', g1:106000, g2:111000},
+  {name:'웨이브그레이', type:'일반', g1:106000, g2:111000},
+  {name:'리치 펄 라이트 그레이', type:'일반', g1:106000, g2:111000},
+  {name:'라이트 그레이', type:'일반', g1:106000, g2:111000},
+  {name:'리치 펄 화이트', type:'일반', g1:96000, g2:101000},
+  {name:'유로 화이트', type:'일반', g1:95000, g2:100000},
+  {name:'소프트화이트/방염', type:'일반', g1:106000, g2:111000},
+  {name:'윈체스터월넛/방염', type:'일반', g1:110000, g2:115000},
+];
 
+// ===== 원판/KERF =====
+const SHEET_W = 2440, SHEET_H = 1220, KERF = 6;
+
+// ===== 필름 견적 =====
+let items=[], cnt=0;
 function today(){ return new Date().toISOString().slice(0,10); }
-document.getElementById('rdate').value = today();
-
-function calc(qty, r, c){
-  if(qty<=0) return {amt:0,rollM:0,cutM:0};
-  const rollM = Math.floor(qty/ROLL_M)*ROLL_M;
-  const cutM  = qty % ROLL_M;
-  return { amt: rollM*r + cutM*c, rollM, cutM };
-}
+function calc(qty,r,c){ if(qty<=0) return {amt:0,rollM:0,cutM:0}; const rollM=Math.floor(qty/ROLL_M)*ROLL_M,cutM=qty%ROLL_M; return {amt:rollM*r+cutM*c,rollM,cutM}; }
 
 function addItem(){
-  const id=cnt++;
-  const firstKey=MODEL_KEYS[0];
-  const db=MODEL_DB[firstKey];
-  items.push({id, catKey:firstKey, modelName:db.models[0], qty:5, r:db.roll, c:db.cut, open:true});
+  const id=cnt++,k=MODEL_KEYS[0],db=MODEL_DB[k];
+  items.push({id,catKey:k,modelName:db.models[0],qty:5,r:db.roll,c:db.cut,open:true});
   renderAll();
 }
-
 function removeItem(id){ items=items.filter(x=>x.id!==id); renderAll(); }
 function get(id){ return items.find(x=>x.id===id); }
-
-function onCat(id, catKey){
-  const it=get(id);
-  it.catKey=catKey;
-  const db=MODEL_DB[catKey];
-  it.modelName=db.models[0];
-  it.r=db.roll;
-  it.c=db.cut;
-  // 카드 닫지 않고 소분류 셀렉트만 업데이트
+function onCat(id,catKey){
+  const it=get(id); it.catKey=catKey;
+  const db=MODEL_DB[catKey]; it.modelName=db.models[0]; it.r=db.roll; it.c=db.cut;
   const det=document.getElementById('det-'+id);
-  if(det && !det.classList.contains('hidden')){
-    // 소분류 셀렉트 내용 교체
-    const modelSel=det.querySelector('.model-sel');
-    if(modelSel){
-      modelSel.innerHTML=db.models.map(m=>`<option value="${m}"${m===it.modelName?' selected':''}>${m}</option>`).join('');
-      // 소분류로 자동 포커스
-      setTimeout(()=>modelSel.focus(), 30);
-    }
-    // 단가 박스 업데이트
-    const rollVal=det.querySelector('.roll-val');
-    const cutVal=det.querySelector('.cut-val');
-    if(rollVal) rollVal.textContent=it.r.toLocaleString();
-    if(cutVal) cutVal.textContent=it.c.toLocaleString();
+  if(det&&!det.classList.contains('hidden')){
+    const ms=det.querySelector('.model-sel');
+    if(ms){ ms.innerHTML=db.models.map(m=>`<option value="${m}"${m===it.modelName?' selected':''}>${m}</option>`).join(''); setTimeout(()=>ms.focus(),30); }
+    const rv=det.querySelector('.roll-val'),cv=det.querySelector('.cut-val');
+    if(rv) rv.textContent=it.r.toLocaleString();
+    if(cv) cv.textContent=it.c.toLocaleString();
   }
-  // 헤더(이름, 금액)만 업데이트
   updateItemHeader(id);
 }
-
-function onModel(id, modelName){
-  const it=get(id);
-  it.modelName=modelName;
-  updateItemHeader(id);
-  updateBreakdown(id);
-  // 수량 입력으로 자동 포커스
+function onModel(id,modelName){
+  const it=get(id); it.modelName=modelName; updateItemHeader(id); updateBreakdown(id);
   const det=document.getElementById('det-'+id);
-  if(det && !det.classList.contains('hidden')){
-    setTimeout(()=>{
-      const qtyInput=det.querySelector('.qty-input');
-      if(qtyInput){ qtyInput.focus(); qtyInput.select(); }
-    }, 30);
-  }
+  if(det&&!det.classList.contains('hidden')){ setTimeout(()=>{ const q=det.querySelector('.qty-input'); if(q){q.focus();q.select();} },30); }
 }
-
 function onQty(id,v){ const it=get(id); it.qty=+v||0; updateItemHeader(id); updateBreakdown(id); }
 function stepQty(id,d){ const it=get(id); it.qty=Math.max(0,it.qty+d); const inp=document.querySelector(`#det-${id} .qty-input`); if(inp) inp.value=it.qty; updateItemHeader(id); updateBreakdown(id); }
 function setQty(id,v){ const it=get(id); it.qty=v; const inp=document.querySelector(`#det-${id} .qty-input`); if(inp) inp.value=v; updateItemHeader(id); updateBreakdown(id); }
-
 function updateItemHeader(id){
   const it=get(id); if(!it) return;
   const db=MODEL_DB[it.catKey]; if(!db) return;
   const {amt}=calc(it.qty,it.r,it.c);
-  const nameEl=document.querySelector(`#det-${id}`)?.closest('.item-card')?.querySelector('.item-row-name');
-  const subEl=document.querySelector(`#det-${id}`)?.closest('.item-card')?.querySelector('.item-row-sub');
-  const amtEl=document.querySelector(`#det-${id}`)?.closest('.item-card')?.querySelector('.item-row-amt');
-  if(nameEl) nameEl.textContent=db.name;
-  if(subEl) subEl.textContent=`${it.modelName} · ${it.qty}m`;
-  if(amtEl){ amtEl.textContent=amt.toLocaleString()+'원'; amtEl.className='item-row-amt'+(amt===0?' zero':''); }
-  // 합계 업데이트
-  let total=0; items.forEach(x=>{const{amt}=calc(x.qty,x.r,x.c); total+=amt;});
+  const card=document.querySelector(`#det-${id}`)?.closest('.item-card');
+  if(!card) return;
+  const n=card.querySelector('.item-row-name'),s=card.querySelector('.item-row-sub'),a=card.querySelector('.item-row-amt');
+  if(n) n.textContent=db.name;
+  if(s) s.textContent=`${it.modelName} · ${it.qty}m`;
+  if(a){ a.textContent=amt.toLocaleString()+'원'; a.className='item-row-amt'+(amt===0?' zero':''); }
+  let total=0; items.forEach(x=>{ const{amt}=calc(x.qty,x.r,x.c); total+=amt; });
   document.getElementById('total-amt').textContent=total.toLocaleString()+' 원';
 }
-
 function updateBreakdown(id){
   const it=get(id); if(!it) return;
   const {rollM,cutM,amt}=calc(it.qty,it.r,it.c);
   const det=document.getElementById('det-'+id); if(!det) return;
-  const chipsEl=det.querySelector('.bd-chips');
-  const totalEl=det.querySelector('.bd-total .val');
+  const chipsEl=det.querySelector('.bd-chips'),totalEl=det.querySelector('.bd-total .val');
   if(chipsEl){
     let html='';
     if(rollM>0) html+=`<div class="bd-chip roll-chip"><div class="chip-left"><span class="chip-tag">롤</span><span class="chip-desc">${rollM}m × ${it.r.toLocaleString()}원</span></div><span class="chip-amt">${(rollM*it.r).toLocaleString()}원</span></div>`;
@@ -961,21 +724,16 @@ function updateBreakdown(id){
   }
   if(totalEl) totalEl.textContent=amt.toLocaleString()+'원';
 }
-
 function renderAll(){
-  const wrap=document.getElementById('items-wrap');
-  wrap.innerHTML=''; let total=0;
+  const wrap=document.getElementById('items-wrap'); wrap.innerHTML=''; let total=0;
   items.forEach((it,idx)=>{ const{amt}=calc(it.qty,it.r,it.c); total+=amt; wrap.appendChild(buildEl(it,idx+1)); });
   document.getElementById('total-amt').textContent=total.toLocaleString()+' 원';
 }
-
-function buildEl(it, num){
+function buildEl(it,num){
   const {amt,rollM,cutM}=calc(it.qty,it.r,it.c);
-  const db=MODEL_DB[it.catKey];
-  if(!db) return document.createElement('div');
-  const div=document.createElement('div');
-  div.className='item-card';
-  const isOpen = it.open !== false;
+  const db=MODEL_DB[it.catKey]; if(!db) return document.createElement('div');
+  const div=document.createElement('div'); div.className='item-card';
+  const isOpen=it.open!==false;
   div.innerHTML=`
     <div class="item-row" onclick="toggleDetail(${it.id})">
       <div class="item-num">${num}</div>
@@ -989,14 +747,12 @@ function buildEl(it, num){
     <div class="item-detail${isOpen?'':' hidden'}" id="det-${it.id}">
       <div class="item-body">
         <div class="sel-group">
-          <div class="sel-block cat">
-            <label>대분류</label>
+          <div class="sel-block cat"><label>대분류</label>
             <select onchange="onCat(${it.id},this.value)">
               ${MODEL_KEYS.map(k=>`<option value="${k}"${k===it.catKey?' selected':''}>${MODEL_DB[k].name}</option>`).join('')}
             </select>
           </div>
-          <div class="sel-block model">
-            <label>품명</label>
+          <div class="sel-block model"><label>품명</label>
             <select class="model-sel" onchange="onModel(${it.id},this.value)">
               ${db.models.map(m=>`<option value="${m}"${m===it.modelName?' selected':''}>${m}</option>`).join('')}
             </select>
@@ -1016,19 +772,18 @@ function buildEl(it, num){
             ${[[5,''],[10,''],[15,''],[20,''],[25,'1롤'],[30,''],[40,''],[50,'2롤'],[75,'3롤'],[100,'4롤']].map(([v,r])=>`
               <button class="qty-short" onclick="setQty(${it.id},${v})">
                 <span style="font-size:13px;font-weight:700">${v}m</span>
-                ${r?`<span style="font-size:10px;color:var(--om-orange);margin-left:2px;font-weight:600">${r}</span>`:''}
+                ${r?`<span style="font-size:10px;color:var(--om-orange);font-weight:600">${r}</span>`:''}
               </button>`).join('')}
           </div>
         </div>
-        <!-- 단가 (소형) -->
         <div style="display:flex;gap:8px">
           <div style="flex:1;background:var(--blue-light);border:1.5px solid #B8CDE8;border-radius:9px;padding:8px 10px;display:flex;justify-content:space-between;align-items:center">
             <span style="font-size:10px;font-weight:700;color:var(--blue)">롤 단가</span>
-            <span class="roll-val" style="font-size:13px;font-weight:800;color:var(--blue)">${it.r.toLocaleString()}<span style="font-size:10px;font-weight:500">원</span></span>
+            <span class="roll-val" style="font-size:13px;font-weight:800;color:var(--blue)">${it.r.toLocaleString()}<span style="font-size:10px">원</span></span>
           </div>
           <div style="flex:1;background:var(--orange-light);border:1.5px solid #E8C0B0;border-radius:9px;padding:8px 10px;display:flex;justify-content:space-between;align-items:center">
             <span style="font-size:10px;font-weight:700;color:var(--orange)">절단 단가</span>
-            <span class="cut-val" style="font-size:13px;font-weight:800;color:var(--orange)">${it.c.toLocaleString()}<span style="font-size:10px;font-weight:500">원</span></span>
+            <span class="cut-val" style="font-size:13px;font-weight:800;color:var(--orange)">${it.c.toLocaleString()}<span style="font-size:10px">원</span></span>
           </div>
         </div>
         <div class="breakdown">
@@ -1045,15 +800,11 @@ function buildEl(it, num){
     </div>`;
   return div;
 }
-
 function toggleDetail(id){
-  const it=get(id);
-  const det=document.getElementById('det-'+id);
-  const exp=document.getElementById('exp-'+id);
+  const it=get(id),det=document.getElementById('det-'+id),exp=document.getElementById('exp-'+id);
   const hidden=det.classList.contains('hidden');
-  det.classList.toggle('hidden');
-  exp.textContent=hidden?'▲':'▼';
-  if(it) it.open=hidden; // 열림 상태 저장
+  det.classList.toggle('hidden'); exp.textContent=hidden?'▲':'▼';
+  if(it) it.open=hidden;
 }
 function collapseItem(id){
   const it=get(id);
@@ -1061,24 +812,16 @@ function collapseItem(id){
   document.getElementById('exp-'+id).textContent='▼';
   if(it) it.open=false;
 }
-
-function resetForm(){
-  if(items.length>0&&!confirm('초기화할까요?')) return;
-  items=[]; cnt=0; renderAll();
-}
-
+function resetForm(){ if(items.length>0&&!confirm('초기화할까요?')) return; items=[]; cnt=0; renderAll(); }
 function showPreview(){
   if(items.length===0){ alert('품목을 추가해주세요.'); return; }
   const client=document.getElementById('client').value||'(거래처명)';
-  const site=document.getElementById('site').value;
-  const rd=document.getElementById('rdate').value;
-  let rows=''; let total=0;
+  const site=document.getElementById('site').value, rd=document.getElementById('rdate').value;
+  let rows='', total=0;
   items.forEach(it=>{
-    const db = MODEL_DB[it.catKey];
-    const {amt,rollM,cutM}=calc(it.qty,it.r,it.c);
-    total+=amt;
-    const displayName = db ? `${db.name} ${it.modelName}` : it.modelName;
-    rows+=`<tr><td>${displayName}</td><td style="text-align:right">${it.qty}m</td><td style="text-align:right">${amt.toLocaleString()}</td></tr>`;
+    const db=MODEL_DB[it.catKey], {amt,rollM,cutM}=calc(it.qty,it.r,it.c); total+=amt;
+    const dn=db?`${db.name} ${it.modelName}`:it.modelName;
+    rows+=`<tr><td>${dn}</td><td style="text-align:right">${it.qty}m</td><td style="text-align:right">${amt.toLocaleString()}</td></tr>`;
     if(rollM>0) rows+=`<tr class="sub-row"><td>&nbsp;&nbsp;└ 롤 ${rollM}m × ${it.r.toLocaleString()}</td><td></td><td style="text-align:right">${(rollM*it.r).toLocaleString()}</td></tr>`;
     if(cutM>0) rows+=`<tr class="sub-row"><td>&nbsp;&nbsp;└ 절단 ${cutM}m × ${it.c.toLocaleString()}</td><td></td><td style="text-align:right">${(cutM*it.c).toLocaleString()}</td></tr>`;
   });
@@ -1090,20 +833,14 @@ function showPreview(){
         ${site?`<div class="pv-row"><span class="pv-k">현장명</span><span class="pv-v">${site}</span></div>`:''}
         <div class="pv-row"><span class="pv-k">견적일</span><span class="pv-v">${rd}</span></div>
       </div>
-      <div class="pv-table-wrap">
-        <table class="pv-table">
-          <thead><tr><th>품목</th><th style="text-align:right">수량</th><th style="text-align:right">금액</th></tr></thead>
-          <tbody>${rows}</tbody>
-          <tfoot><tr><td colspan="2">합&nbsp;&nbsp;계</td><td>${total.toLocaleString()}</td></tr></tfoot>
-        </table>
-      </div>
-      <div class="pv-bank">
-        <div class="pv-bank-notice">⚠ &nbsp; 선 입 금 후 발 주</div>
-        <div class="pv-bank-body">
-          <div class="pv-bank-num">332-135674-04-011</div>
-          <div class="pv-bank-info">기업은행 &nbsp;|&nbsp; 예금주: 주식회사 오션메이드</div>
-        </div>
-      </div>
+      <div class="pv-table-wrap"><table class="pv-table">
+        <thead><tr><th>품목</th><th style="text-align:right">수량</th><th style="text-align:right">금액</th></tr></thead>
+        <tbody>${rows}</tbody>
+        <tfoot><tr><td colspan="2">합&nbsp;&nbsp;계</td><td>${total.toLocaleString()}</td></tr></tfoot>
+      </table></div>
+      <div class="pv-bank"><div class="pv-bank-notice">⚠ &nbsp; 선 입 금 후 발 주</div>
+        <div class="pv-bank-body"><div class="pv-bank-num">332-135674-04-011</div>
+          <div class="pv-bank-info">기업은행 &nbsp;|&nbsp; 예금주: 주식회사 오션메이드</div></div></div>
       <div class="pv-supplier">
         <div style="font-size:11px;color:#aaa;margin-bottom:4px">공급자 정보</div>
         <div style="font-weight:700;color:#555">㈜오션메이드 &nbsp;|&nbsp; 041-534-7475</div>
@@ -1111,699 +848,307 @@ function showPreview(){
       </div>
     </div>`;
   document.getElementById('preview-ovl').classList.add('show');
-  document.getElementById('preview-ovl').scrollTop=0;
 }
 
-// ===== 거래처 (film/door 전용 드롭다운) =====
-function toggleClientDrop(type){
-  const drop = document.getElementById(type==='film'?'client-drop':'door-client-drop');
-  if(!drop) return;
-  const isOpen = drop.style.display !== 'none';
-  // 모든 드롭 닫기
-  ['client-drop','door-client-drop'].forEach(id=>{
-    const el=document.getElementById(id);
-    if(el) el.style.display='none';
+// ===== 거래처 =====
+let currentClientTab='film';
+function loadClients(type){ try{ return JSON.parse(localStorage.getItem('om_cl_'+type)||'[]'); }catch(e){ return []; } }
+function saveClient(type){
+  const v=document.getElementById('new-client').value.trim(); if(!v) return;
+  const arr=loadClients(type); if(!arr.includes(v)){ arr.unshift(v); localStorage.setItem('om_cl_'+type,JSON.stringify(arr)); }
+  document.getElementById('new-client').value='';
+  refreshClientUI(); refreshFilmDoorDrops();
+}
+function deleteClient(name,type){
+  localStorage.setItem('om_cl_'+type,JSON.stringify(loadClients(type).filter(c=>c!==name)));
+  refreshClientUI(); refreshFilmDoorDrops();
+}
+function switchClientTab(type){
+  currentClientTab=type;
+  ['film','door'].forEach(t=>{
+    const b=document.getElementById('ctab-'+t); if(!b) return;
+    b.style.borderBottomColor=t===type?'var(--or)':'transparent';
+    b.style.color=t===type?'var(--or)':'var(--g5)';
+    b.style.fontWeight=t===type?'700':'600';
   });
+  refreshClientUI();
+}
+function openClientMgr(){ document.getElementById('client-ovl').classList.add('show'); refreshClientUI(); }
+function refreshClientUI(){
+  const arr=loadClients(currentClientTab);
+  const el=document.getElementById('client-chips'); if(!el) return;
+  el.innerHTML=arr.length===0?`<p style="font-size:13px;color:var(--g5);text-align:center;padding:16px">거래처가 없습니다</p>`
+    :arr.map((c,i)=>`
+      <div style="display:flex;align-items:center;gap:8px;padding:9px 12px;background:var(--g0);border:1.5px solid var(--bd);border-radius:9px;margin-bottom:6px;">
+        <div style="display:flex;flex-direction:column;gap:2px">
+          <button onclick="moveClient('${c.replace(/'/g,"\\'")}','${currentClientTab}',-1)" ${i===0?'disabled':''} style="background:none;border:1px solid var(--bd);border-radius:3px;cursor:pointer;font-size:10px;padding:1px 4px;color:${i===0?'#ccc':'var(--br)'}">▲</button>
+          <button onclick="moveClient('${c.replace(/'/g,"\\'")}','${currentClientTab}',1)" ${i===arr.length-1?'disabled':''} style="background:none;border:1px solid var(--bd);border-radius:3px;cursor:pointer;font-size:10px;padding:1px 4px;color:${i===arr.length-1?'#ccc':'var(--br)'}">▼</button>
+        </div>
+        <span style="flex:1;font-size:14px;font-weight:600">${c}</span>
+        <button onclick="deleteClient('${c.replace(/'/g,"\\'")}','${currentClientTab}')" style="background:none;border:1px solid #FFBBAA;border-radius:5px;color:var(--or);cursor:pointer;font-size:12px;padding:2px 7px">삭제</button>
+      </div>`).join('');
+}
+function moveClient(name,type,dir){
+  const arr=loadClients(type),idx=arr.indexOf(name),ni=idx+dir;
+  if(ni<0||ni>=arr.length) return;
+  arr.splice(idx,1); arr.splice(ni,0,name);
+  localStorage.setItem('om_cl_'+type,JSON.stringify(arr));
+  refreshClientUI(); refreshFilmDoorDrops();
+}
+function refreshFilmDoorDrops(){
+  ['film','door'].forEach(type=>{
+    const listId=type==='film'?'client-drop-list':'door-client-drop-list';
+    const el=document.getElementById(listId); if(!el) return;
+    const arr=loadClients(type);
+    el.innerHTML=arr.length===0?`<div style="padding:12px;text-align:center;font-size:13px;color:var(--g5)">거래처 없음</div>`
+      :arr.map(c=>`<div class="cl-item" onclick="selectFilmDoorClient('${type}','${c.replace(/'/g,"\\'")}')">$${c}</div>`).join('').replace(/\$/g,'');
+  });
+}
+function toggleClientDrop(type){
+  const drop=document.getElementById(type==='film'?'client-drop':'door-client-drop'); if(!drop) return;
+  const isOpen=drop.style.display!=='none';
+  ['client-drop','door-client-drop'].forEach(id=>{ const el=document.getElementById(id); if(el) el.style.display='none'; });
   if(!isOpen) drop.style.display='block';
 }
-
-function selectClientOld(type, name){
-  /* 기존 film/door 전용 - 새버전에서는 selectFilmDoorClient 사용 */
-  selectFilmDoorClient(type, name);
+function selectFilmDoorClient(type,name){
+  if(type==='film'){
+    document.getElementById('client').value=name;
+    const t=document.getElementById('client-display-text'); if(t){t.textContent=name;t.style.color='var(--g9)';}
+    const d=document.getElementById('client-drop'); if(d) d.style.display='none';
+  } else {
+    document.getElementById('door-client').value=name;
+    const t=document.getElementById('door-client-display-text'); if(t){t.textContent=name;t.style.color='var(--g9)';}
+    const d=document.getElementById('door-client-drop'); if(d) d.style.display='none';
+  }
 }
+document.addEventListener('click',e=>{
+  if(!e.target.closest('[id$="-drop"]')&&!e.target.closest('[id$="-display"]')){
+    ['client-drop','door-client-drop'].forEach(id=>{ const el=document.getElementById(id); if(el) el.style.display='none'; });
+  }
+});
 
-/* 외부 클릭 처리는 새버전 통합 */
-
-
-/* deferred: 'addItem();\nif(typeof refreshFi' */
 // ===== 판매 데이터 =====
-
+function loadSales(){ try{ return JSON.parse(localStorage.getItem('om_sales')||'[]'); }catch(e){ return []; } }
+function saveSale(rec){ const s=loadSales(); s.unshift({...rec,id:Date.now()}); localStorage.setItem('om_sales',JSON.stringify(s.slice(0,500))); }
 function confirmQuote(){
-  const client = document.getElementById('client').value || '(거래처명)';
-  const rd = document.getElementById('rdate').value;
-  if(items.length === 0){ alert('품목을 추가해주세요.'); return; }
-  let totalAmt = 0;
-  items.forEach(it => { const {amt} = calc(it.qty, it.r, it.c); totalAmt += amt; });
-  saveSale({ type:'필름', client, date:rd, site:document.getElementById('site')?.value||'',
-    total:totalAmt, month:rd.slice(0,7) });
-  const btn = document.querySelector('.btn-confirm');
-  if(btn){ btn.textContent='✅ 저장완료!'; btn.style.background='#888'; btn.disabled=true;
-    setTimeout(()=>{ btn.textContent='✅ 견적 확정'; btn.style.background='#1A7A4A'; btn.disabled=false; },2000); }
+  const client=document.getElementById('client').value||'(거래처명)', rd=document.getElementById('rdate').value;
+  if(items.length===0){alert('품목을 추가해주세요.');return;}
+  let total=0; items.forEach(it=>{const{amt}=calc(it.qty,it.r,it.c);total+=amt;});
+  saveSale({type:'필름',client,date:rd,site:document.getElementById('site')?.value||'',total,month:rd.slice(0,7)});
+  const btn=document.querySelector('.btn-confirm');
+  if(btn){btn.textContent='✅ 저장완료!';btn.style.background='#888';btn.disabled=true;setTimeout(()=>{btn.textContent='✅ 견적 확정';btn.style.background='var(--gn)';btn.disabled=false;},2000);}
 }
 
-
-
-
-/* deferred init */
-
-// ===== 모드 전환 =====
-
-// ===== 도어 단가표 =====
-const DOOR_PRICES = [
-  {name:'매트 화이트',      type:'일반',  g1:89000, g2:95000, g3:105000},
-  {name:'매트 밀크화이트',   type:'일반',  g1:89000, g2:95000, g3:105000},
-  {name:'매트 캐시미어',    type:'일반',  g1:89000, g2:95000, g3:105000},
-  {name:'매트 포그그레이',   type:'일반',  g1:89000, g2:95000, g3:105000},
-  {name:'매트 화이트',      type:'내지문', g1:97000, g2:103000, g3:113000},
-  {name:'매트 밀크화이트',   type:'내지문', g1:97000, g2:103000, g3:113000},
-  {name:'매트 캐시미어',    type:'내지문', g1:99000, g2:105000, g3:115000},
-  {name:'매트 포그그레이',   type:'내지문', g1:99000, g2:105000, g3:115000},
-  {name:'매트 카페브라운',   type:'내지문', g1:99000, g2:105000, g3:115000},
-  {name:'매트 그레이',      type:'내지문', g1:99000, g2:105000, g3:115000},
-  {name:'매트 다크그레이',   type:'내지문', g1:99000, g2:105000, g3:115000},
-  {name:'매트 블랙',        type:'내지문', g1:99000, g2:105000, g3:115000},
-  {name:'매트 딥그린',      type:'내지문', g1:99000, g2:105000, g3:115000},
-  {name:'매트 딥블루',      type:'내지문', g1:99000, g2:105000, g3:115000},
-  {name:'매트 인디고',      type:'내지문', g1:99000, g2:105000, g3:115000},
-  {name:'매트 코튼블루',    type:'내지문', g1:99000, g2:105000, g3:115000},
-  {name:'매트 미스트그린',   type:'내지문', g1:99000, g2:105000, g3:115000},
-  {name:'매트 아이보리',    type:'내지문', g1:99000, g2:105000, g3:115000},
-  {name:'매트 로지핑크',    type:'내지문', g1:99000, g2:105000, g3:115000},
-  {name:'매트 라이트그레이', type:'내지문', g1:99000, g2:105000, g3:115000},
-  {name:'매트 샌드그레이',   type:'내지문', g1:99000, g2:105000, g3:115000},
-  {name:'매트 스모키올리브', type:'내지문', g1:99000, g2:105000, g3:115000},
-  {name:'매트 스노우베이지', type:'내지문', g1:99000, g2:105000, g3:115000},
-  {name:'매트 듀이클라우드', type:'내지문', g1:99000, g2:105000, g3:115000},
-  {name:'매트 코타화이트',   type:'내지문', g1:99000, g2:105000, g3:115000},
-  {name:'매트 허니드롭',    type:'내지문', g1:99000, g2:105000, g3:115000},
-  {name:'매트 버터스카치',   type:'내지문', g1:99000, g2:105000, g3:115000},
-  {name:'매트 스카이브리즈', type:'내지문', g1:99000, g2:105000, g3:115000},
-  {name:'매트 타우니레드',   type:'내지문', g1:99000, g2:105000, g3:115000},
-  {name:'매트 펄 화이트',    type:'내지문', g1:100000, g2:106000, g3:116000},
-  {name:'매트 펄 다크그레이',type:'내지문', g1:100000, g2:106000, g3:116000},
-  {name:'매트 펄블랙',      type:'내지문', g1:100000, g2:106000, g3:116000},
-  {name:'글로시 화이트',     type:'일반',  g1:99000, g2:105000, g3:115000},
-  {name:'글로시 밀크화이트', type:'일반',  g1:99000, g2:105000, g3:115000},
-  {name:'글로시 캐시미어',   type:'일반',  g1:104000, g2:110000, g3:120000},
-  {name:'글로시 브라운',     type:'일반',  g1:104000, g2:110000, g3:120000},
-  {name:'글로시 그레이',     type:'일반',  g1:104000, g2:110000, g3:120000},
-  {name:'글로시 다크그레이', type:'일반',  g1:104000, g2:110000, g3:120000},
-  {name:'글로시 딥블루',     type:'일반',  g1:104000, g2:110000, g3:120000},
-  {name:'글로시 코튼블루',   type:'일반',  g1:104000, g2:110000, g3:120000},
-  {name:'글로시 아이보리',   type:'일반',  g1:104000, g2:110000, g3:120000},
-  {name:'글로시 라이트그레이',type:'일반', g1:104000, g2:110000, g3:120000},
-  {name:'글로시 샌드그레이', type:'일반',  g1:104000, g2:110000, g3:120000},
-  {name:'글로시 스모키올리브',type:'일반', g1:104000, g2:110000, g3:120000},
-  {name:'글로시 펄 다크그레이',type:'일반',g1:104000, g2:110000, g3:120000},
-  {name:'글로시 펄 블랙',    type:'일반',  g1:104000, g2:110000, g3:120000},
-  {name:'글로시 펄화이트',   type:'일반',  g1:101000, g2:107000, g3:117000},
-  {name:'슈가엘름',         type:'일반',  g1:100000, g2:106000, g3:116000},
-  {name:'프렌치오크',        type:'일반',  g1:100000, g2:106000, g3:116000},
-  {name:'피넛오크',         type:'일반',  g1:100000, g2:106000, g3:116000},
-  {name:'카카오월넛',        type:'일반',  g1:100000, g2:106000, g3:116000},
-  {name:'던오크',           type:'일반',  g1:100000, g2:106000, g3:116000},
-  {name:'레더모카',         type:'일반',  g1:100000, g2:106000, g3:116000},
-  {name:'레더크림',         type:'일반',  g1:100000, g2:106000, g3:116000},
-  {name:'콘크리트화이트',    type:'일반',  g1:102000, g2:108000, g3:118000},
-  {name:'콘크리트그레이',    type:'일반',  g1:102000, g2:108000, g3:118000},
-  {name:'세라믹 문 퍼시픽',  type:'일반',  g1:105000, g2:111000, g3:121000},
-  {name:'세라믹 문 그레이',  type:'일반',  g1:105000, g2:111000, g3:121000},
-  {name:'세라믹 문 움브라',  type:'일반',  g1:105000, g2:111000, g3:121000},
-  {name:'세라믹 문 브릭',    type:'일반',  g1:105000, g2:111000, g3:121000},
-  {name:'네이처 오크 (PP)',  type:'일반',  g1:122000, g2:128000, g3:138000},
-  {name:'카타니아 오크 (PP)',type:'일반',  g1:122000, g2:128000, g3:138000},
-  {name:'그레이쉬 오크 (PP)',type:'일반',  g1:122000, g2:128000, g3:138000},
-  {name:'세이 오크 (PP)',    type:'일반',  g1:122000, g2:128000, g3:138000},
-  {name:'세이 메이플 (PP)',  type:'일반',  g1:122000, g2:128000, g3:138000},
-  {name:'아크 플랫화이트',   type:'일반',  g1:117000, g2:123000, g3:133000},
-  {name:'아크 퓨어코튼',     type:'일반',  g1:117000, g2:123000, g3:133000},
-  {name:'아크 샌드듄',       type:'일반',  g1:117000, g2:123000, g3:133000},
-  {name:'아크 얼그레이',     type:'일반',  g1:117000, g2:123000, g3:133000},
-  {name:'아크 런던그레이',   type:'일반',  g1:117000, g2:123000, g3:133000},
-  {name:'아크 플라워블루',   type:'일반',  g1:117000, g2:123000, g3:133000},
-  {name:'아크 미드나잇 블루',type:'일반',  g1:117000, g2:123000, g3:133000},
-  {name:'아크 미드나잇그레이',type:'일반', g1:117000, g2:123000, g3:133000},
-  {name:'아크마멀레이드',     type:'일반',  g1:117000, g2:123000, g3:133000},
-  {name:'아크 포레스트그린', type:'일반',  g1:117000, g2:123000, g3:133000},
-  {name:'크림화이트 HS004',  type:'일반',  g1:92000, g2:98000, g3:108000},
-  {name:'HS046',            type:'일반',  g1:92000, g2:98000, g3:108000},
-  {name:'HP521',            type:'일반',  g1:95000, g2:101000, g3:111000},
-  {name:'HP522',            type:'일반',  g1:95000, g2:101000, g3:111000},
-  {name:'오크마일드 HW1019', type:'일반',  g1:95000, g2:101000, g3:111000},
-  {name:'오크딥 HW1064',    type:'일반',  g1:95000, g2:101000, g3:111000},
-  {name:'HW1077',           type:'일반',  g1:95000, g2:101000, g3:111000},
-  {name:'HW1065',           type:'일반',  g1:95000, g2:101000, g3:111000},
-  {name:'퓨어화이트(향균)',  type:'일반',  g1:95000, g2:101000, g3:111000},
-  {name:'페일그레이(향균)',  type:'일반',  g1:95000, g2:101000, g3:111000},
-  {name:'메탈바이브 실버',   type:'일반',  g1:120000, g2:126000, g3:136000},
-  {name:'메탈 바이브 브라운',type:'일반',  g1:120000, g2:126000, g3:136000},
-  {name:'메탈 쉐도우 그라파이트',type:'일반',g1:120000,g2:126000,g3:136000},
-  {name:'메탈 쉐도우 코퍼브라운',type:'일반',g1:120000,g2:126000,g3:136000},
-  {name:'메탈 헤어라인',     type:'일반',  g1:120000, g2:126000, g3:136000},
-  {name:'웨이비 퓨어코튼',   type:'일반',  g1:116000, g2:122000, g3:132000},
-  {name:'웨이비 그레이',     type:'일반',  g1:116000, g2:122000, g3:132000},
-  {name:'사피아노 화이트',   type:'일반',  g1:112000, g2:118000, g3:128000},
-  {name:'사피아노 그레이',   type:'일반',  g1:112000, g2:118000, g3:128000},
-  {name:'사피아노 블루',     type:'일반',  g1:112000, g2:118000, g3:128000},
-  {name:'헤어라인 화이트',   type:'일반',  g1:112000, g2:118000, g3:128000},
-  {name:'헤어라인 그레이',   type:'일반',  g1:112000, g2:118000, g3:128000},
-  {name:'화이트유광',        type:'일반',  g1:89000, g2:95000, g3:105000},
-  {name:'소프트화이트',      type:'일반',  g1:89000, g2:95000, g3:105000},
-  {name:'코임브라',         type:'일반',  g1:96000, g2:102000, g3:112000},
-  {name:'윈체스터월넛',      type:'일반',  g1:96000, g2:102000, g3:112000},
-  {name:'스톤화이트',        type:'일반',  g1:96000, g2:102000, g3:112000},
-  {name:'스톤 그레이',       type:'일반',  g1:96000, g2:102000, g3:112000},
-  {name:'스톤 블랙',        type:'일반',  g1:96000, g2:102000, g3:112000},
-  {name:'소프트 월넛',       type:'일반',  g1:100000, g2:106000, g3:116000},
-  {name:'사하라누아르',      type:'일반',  g1:102000, g2:108000, g3:118000},
-  {name:'아라베스카토',      type:'일반',  g1:102000, g2:108000, g3:118000},
-  {name:'팔라디나',         type:'일반',  g1:102000, g2:108000, g3:118000},
-  {name:'부클레',           type:'일반',  g1:124000, g2:130000, g3:140000},
-  {name:'밤부',            type:'일반',  g1:124000, g2:130000, g3:140000},
-  {name:'몽블랑 체스넛',     type:'일반',  g1:102000, g2:108000, g3:118000},
-  {name:'웨이브화이트',      type:'일반',  g1:105000, g2:111000, g3:121000},
-  {name:'웨이브그레이',      type:'일반',  g1:105000, g2:111000, g3:121000},
-  {name:'리치 펄 라이트그레이',type:'일반',g1:105000, g2:111000, g3:121000},
-  {name:'라이트 그레이',     type:'일반',  g1:105000, g2:111000, g3:121000},
-  {name:'리치 펄 화이트',    type:'일반',  g1:95000, g2:101000, g3:111000},
-  {name:'유로 화이트',       type:'일반',  g1:94000, g2:100000, g3:110000},
-  {name:'소프트화이트/방염',  type:'일반',  g1:100000, g2:106000, g3:116000},
-  {name:'윈체스터월넛/방염',  type:'일반',  g1:104000, g2:110000, g3:120000},
-];
-
-// 원판 사이즈 (SketchCut 기준 1220×2440)
-const SHEET_W = 2440; // 세로(길이) — 절대 보존
-const SHEET_H = 1220; // 가로(폭) — 컬럼 배치 방향
-const KERF = 6;       // 칼날 두께 6mm
-
-// 등급 계산: 원판 기준
-function getDoorGrade(w, h) {
-  const maxSide = Math.max(w, h);
-  if (maxSide <= 2100) return 1;
-  if (maxSide <= 2300) return 2;
-  return 3;
-}
-
-
-// ===== 가로 절단 알고리즘 (By Length - 수평 절단) =====
-// ===== MAXRECTS 재단 배치도 =====
-// 소요량: 컬럼 방식(길로틴 원칙), 배치도: MAXRECTS(정확한 시각화)
-
-function normalizePiece(w, h) {
-  return { rowL: Math.max(w,h), rowH: Math.min(w,h) };
-}
-
-function buildColumns(pieces) {
-  const sorted = [...pieces].sort((a,b) => b.rowL - a.rowL || b.rowH - a.rowH);
-  const columns = [];
-  for(const p of sorted) {
-    let bestCol = null, bestWaste = Infinity;
-    for(const col of columns) {
-      if(p.rowH <= col.colW && col.usedY + p.rowL <= 2440) {
-        const waste = col.colW - p.rowH;
-        if(waste < bestWaste) { bestWaste = waste; bestCol = col; }
-      }
-    }
-    if(bestCol) { bestCol.items.push(p); bestCol.usedY += p.rowL + KERF; }
-    else columns.push({ colW: p.rowH, usedY: p.rowL + KERF, items: [p] });
-  }
-  return columns;
-}
-
-function maxRectsPack(pieces) {
-  const sheets = [];
-
-  function splitFree(free, px, py, pw, ph) {
-    const result = [];
-    for(const f of free) {
-      const ox = px < f.x+f.w && px+pw > f.x && py < f.y+f.h && py+ph > f.y;
-      if(!ox) { result.push(f); continue; }
-      if(f.x < px)           result.push({x:f.x,      y:f.y, w:px-f.x,              h:f.h});
-      if(f.x+f.w > px+pw+KERF) result.push({x:px+pw+KERF, y:f.y, w:f.x+f.w-(px+pw+KERF), h:f.h});
-      if(f.y < py)           result.push({x:f.x, y:f.y,      w:f.w, h:py-f.y});
-      if(f.y+f.h > py+ph+KERF) result.push({x:f.x, y:py+ph+KERF, w:f.w, h:f.y+f.h-(py+ph+KERF)});
-    }
-    return result.filter((a,i) => a.w>0 && a.h>0 && !result.some((b,j) =>
-      i!==j && b.x<=a.x && b.y<=a.y && b.x+b.w>=a.x+a.w && b.y+b.h>=a.y+a.h
-    ));
-  }
-
-  const pcs = [...pieces].sort((a,b) => b.rowL*b.rowH - a.rowL*a.rowH);
-
-  for(const p of pcs) {
-    let bestScore=Infinity, bestSh=null, bestF=null, bestW=p.rowH, bestH=p.rowL;
-    for(const sh of sheets) {
-      for(const f of sh.free) {
-        if(p.rowH<=f.w && p.rowL<=f.h) {
-          const sc=Math.min(f.w-p.rowH, f.h-p.rowL);
-          if(sc<bestScore){bestScore=sc;bestSh=sh;bestF=f;bestW=p.rowH;bestH=p.rowL;}
-        }
-        if(p.rowL<=f.w && p.rowH<=f.h) {
-          const sc=Math.min(f.w-p.rowL, f.h-p.rowH);
-          if(sc<bestScore){bestScore=sc;bestSh=sh;bestF=f;bestW=p.rowL;bestH=p.rowH;}
-        }
-      }
-    }
-    if(bestSh && bestF) {
-      bestSh.pieces.push({x:bestF.x,y:bestF.y,w:bestW,h:bestH,origW:p.origW,origH:p.origH,name:p.name});
-      bestSh.free = splitFree(bestSh.free, bestF.x, bestF.y, bestW, bestH);
-    } else {
-      const sh = {pieces:[],free:[{x:0,y:0,w:1220,h:2440}]};
-      sheets.push(sh);
-      sh.pieces.push({x:0,y:0,w:p.rowH,h:p.rowL,origW:p.origW,origH:p.origH,name:p.name});
-      sh.free = splitFree(sh.free, 0, 0, p.rowH, p.rowL);
-    }
-  }
-  return sheets;
-}
-
-function optimizeCuts(doors) {
-  const pieces = [];
-  doors.forEach(d => {
-    for(let i=0;i<d.qty;i++) {
-      const {rowL,rowH} = normalizePiece(d.w,d.h);
-      pieces.push({rowL,rowH,origW:d.w,origH:d.h,name:d.name});
-    }
-  });
-
-  const sheets = maxRectsPack(pieces);
-
-  // 효율 내림차순 정렬
-  sheets.sort((a,b) => b.pieces.reduce((s,p)=>s+p.w*p.h,0) - a.pieces.reduce((s,p)=>s+p.w*p.h,0));
-
-  // usedX 계산 (소요량용)
-  sheets.forEach(sh => {
-    sh.usedX = sh.pieces.length>0 ? Math.max(...sh.pieces.map(p=>p.x+p.w)) : 0;
-  });
-
-  return sheets;
-}
-
-function calcSheetDecimal(pieces) {
-  if(!pieces || pieces.length === 0) return 0;
-
-  const pcs = pieces.map(p => ({
-    rowL: Math.max(p.w, p.h),
-    rowH: Math.min(p.w, p.h)
-  }));
-
-  // buildColumns와 동일한 로직
-  const sorted = [...pcs].sort((a,b) => b.rowL - a.rowL || b.rowH - a.rowH);
-  const columns = [];
-  for(const p of sorted) {
-    let placed = false;
-    for(const col of columns) {
-      if(p.rowH <= col.colW && col.usedY + p.rowL <= 2440) {
-        col.usedY += p.rowL + KERF;
-        placed = true;
-        break;
-      }
-    }
-    if(!placed) columns.push({ colW: p.rowH, usedY: p.rowL + KERF });
-  }
-
-  // BFD로 원판에 컬럼 배치
-  const colsSorted = [...columns].sort((a,b) => b.colW - a.colW);
-  const sheets = [];
-  for(const col of colsSorted) {
-    let bestSh = null, bestWaste = Infinity;
-    for(const sh of sheets) {
-      const addX = sh.usedX > 0 ? KERF : 0;
-      const remaining = 1220 - sh.usedX - addX - col.colW;
-      if(remaining >= 0 && remaining < bestWaste) {
-        bestWaste = remaining; bestSh = sh;
-      }
-    }
-    if(bestSh) {
-      bestSh.usedX = bestSh.usedX + (bestSh.usedX > 0 ? KERF : 0) + col.colW;
-    } else {
-      sheets.push({ usedX: col.colW });
-    }
-  }
-
-
-  if(sheets.length === 0) return 0;
-  // 원판을 usedX 내림차순 정렬 → 마지막 원판이 가장 작은 usedX
-  sheets.sort((a,b) => b.usedX - a.usedX);
-  const fullSheets = sheets.length - 1;
-  const lastUsedX = sheets[sheets.length - 1].usedX;
-  return fullSheets + Math.ceil(lastUsedX / 100) / 10;
-}
-
-
-
-
-// ===== 도어 색상 그룹 구조 =====
-// doorGroups: [{key, open, items:[{id,w,h,qty}]}]
-let doorGroups = [];
-let doorCnt = 0;
-let doorGrade = 1;
-
+// ===== 도어 =====
+let doorGroups=[], doorCnt=0, doorGrade=1;
 function setDoorGrade(g){
-  doorGrade = g;
-  [1,2,3].forEach(n => {
-    const btn = document.getElementById(`grade-btn-${n}`);
-    if(!btn) return;
-    if(n===g){ btn.style.background='var(--blue)'; btn.style.borderColor='var(--blue)'; btn.style.color='white'; }
-    else { btn.style.background='white'; btn.style.borderColor='var(--border)'; btn.style.color='var(--gray-500)'; }
+  doorGrade=g;
+  [1,2].forEach(n=>{
+    const b=document.getElementById(`grade-btn-${n}`); if(!b) return;
+    if(n===g){b.style.background='var(--br)';b.style.borderColor='var(--br)';b.style.color='white';b.style.fontWeight='800';}
+    else{b.style.background='white';b.style.borderColor='var(--bd)';b.style.color='var(--g5)';b.style.fontWeight='700';}
   });
   renderDoorGroups();
 }
-
 function getUnitPrice(key){
-  const [name, type] = key.split('|');
-  const price = DOOR_PRICES.find(p=>p.name===name && p.type===type)
-             || DOOR_PRICES.find(p=>p.name===name);
-  return price ? price[`g${doorGrade}`] : 0;
+  const[name,type]=key.split('|');
+  const p=DOOR_PRICES.find(p=>p.name===name&&p.type===type)||DOOR_PRICES.find(p=>p.name===name);
+  return p?p[`g${doorGrade}`]:0;
 }
-
-function addDoorGroup() {
-  const key = DOOR_PRICES[0].name + '|' + DOOR_PRICES[0].type;
-  doorGroups.push({ key, open: true, items: [{ id: doorCnt++, w: 900, h: 2100, qty: 1 }] });
+function addDoorGroup(){
+  const key=DOOR_PRICES[0].name+'|'+DOOR_PRICES[0].type;
+  doorGroups.push({key,open:true,items:[{id:doorCnt++,w:900,h:2100,qty:1}]});
   renderDoorGroups();
 }
-
-function removeDoorGroup(gi) {
-  doorGroups.splice(gi, 1);
-  renderDoorGroups();
-  updateDoorTotals();
+function removeDoorGroup(gi){ doorGroups.splice(gi,1); renderDoorGroups(); updateDoorTotals(); }
+function toggleDoorGroup(gi){ doorGroups[gi].open=!doorGroups[gi].open; renderDoorGroups(); }
+function updateDoorGroup(gi,field,val){ if(field==='key') doorGroups[gi].key=val; renderDoorGroups(); updateDoorTotals(); }
+function addDoorRow(gi){
+  doorGroups[gi].items.push({id:doorCnt++,w:0,h:0,qty:1}); renderDoorGroups();
+  setTimeout(()=>{ const rows=document.querySelectorAll(`.drow-w-${gi}`); if(rows.length){const last=rows[rows.length-1];last.focus();last.select();} },30);
 }
-
-function toggleDoorGroup(gi) {
-  doorGroups[gi].open = !doorGroups[gi].open;
-  renderDoorGroups();
+function removeDoorRow(gi,id){
+  doorGroups[gi].items=doorGroups[gi].items.filter(x=>x.id!==id);
+  if(doorGroups[gi].items.length===0) doorGroups.splice(gi,1);
+  renderDoorGroups(); updateDoorTotals();
 }
-
-function updateDoorGroup(gi, field, val) {
-  if(field === 'key') doorGroups[gi].key = val;
-  renderDoorGroups();
-  updateDoorTotals();
+function updateDoorRow(gi,id,field,val){
+  const item=doorGroups[gi].items.find(x=>x.id===id); if(item) item[field]=parseInt(val)||0; updateDoorTotals();
 }
-
-function addDoorRow(gi) {
-  doorGroups[gi].items.push({ id: doorCnt++, w: 0, h: 0, qty: 1 });
-  renderDoorGroups();
-  setTimeout(() => {
-    const rows = document.querySelectorAll(`.drow-w-${gi}`);
-    if(rows.length) {
-      const last = rows[rows.length - 1];
-      last.focus();
-      last.select();
-    }
-  }, 30);
+function getFlatDoorItems(){ const flat=[]; doorGroups.forEach(g=>g.items.forEach(it=>flat.push({id:it.id,key:g.key,w:it.w,h:it.h,qty:it.qty}))); return flat; }
+function resetDoorForm(){ if(doorGroups.length>0&&!confirm('초기화할까요?')) return; doorGroups=[]; doorCnt=0; renderDoorGroups(); }
+function updateDoorTotals(){
+  const flat=getFlatDoorItems(),groups={};
+  flat.forEach(it=>{ if(!groups[it.key]) groups[it.key]=[]; for(let i=0;i<it.qty;i++) groups[it.key].push({w:it.w,h:it.h}); });
+  let total=0;
+  Object.entries(groups).forEach(([key,pieces])=>{ if(!pieces.length) return; total+=Math.round(calcSheetDecimal(pieces)*getUnitPrice(key)); });
+  const el=document.getElementById('door-total'); if(el) el.textContent=total.toLocaleString()+' 원';
 }
-
-function removeDoorRow(gi, id) {
-  doorGroups[gi].items = doorGroups[gi].items.filter(x => x.id !== id);
-  if(doorGroups[gi].items.length === 0) doorGroups.splice(gi, 1);
-  renderDoorGroups();
-  updateDoorTotals();
-}
-
-function updateDoorRow(gi, id, field, val) {
-  const item = doorGroups[gi].items.find(x => x.id === id);
-  if(item) item[field] = parseInt(val) || 0;
-  updateDoorTotals();
-}
-
-// doorItems 호환 (calcColorGroups, calcDoorQuote 에서 사용)
-function getFlatDoorItems() {
-  const flat = [];
-  doorGroups.forEach(g => {
-    g.items.forEach(it => {
-      flat.push({ id: it.id, key: g.key, w: it.w, h: it.h, qty: it.qty });
-    });
-  });
-  return flat;
-}
-
-function renderDoorGroups() {
-  const wrap = document.getElementById('door-items-wrap');
-  if(!wrap) return;
-
-  if(doorGroups.length === 0) {
-    wrap.innerHTML = '<div style="text-align:center;padding:16px;color:var(--gray-500);font-size:13px">+ 색상 추가를 눌러 시작하세요</div>';
-    updateDoorTotals();
-    return;
-  }
-
-  wrap.innerHTML = doorGroups.map((g, gi) => {
-    const [colorName, colorType] = g.key.split('|');
-    const piecesInGroup = g.items.reduce((s,it)=>s+it.qty, 0);
-
-    // 그룹 소계 계산
-    const pieces = [];
-    g.items.forEach(it => { for(let i=0;i<it.qty;i++) pieces.push({w:it.w, h:it.h}); });
-    const sheets = pieces.length > 0 ? calcSheetDecimal(pieces) : 0;
-    const unit = getUnitPrice(g.key);
-    const groupAmt = Math.round(sheets * unit);
-
-    const rows = g.open ? `
+function renderDoorGroups(){
+  const wrap=document.getElementById('door-items-wrap'); if(!wrap) return;
+  if(!doorGroups.length){ wrap.innerHTML='<div style="text-align:center;padding:16px;color:var(--gray-500);font-size:13px">+ 색상 추가를 눌러 시작하세요</div>'; updateDoorTotals(); return; }
+  wrap.innerHTML=doorGroups.map((g,gi)=>{
+    const[colorName,colorType]=g.key.split('|');
+    const piecesInGroup=g.items.reduce((s,it)=>s+it.qty,0);
+    const pieces=[]; g.items.forEach(it=>{for(let i=0;i<it.qty;i++) pieces.push({w:it.w,h:it.h});});
+    const sheets=pieces.length>0?calcSheetDecimal(pieces):0,unit=getUnitPrice(g.key),groupAmt=Math.round(sheets*unit);
+    const rows=g.open?`
       <div style="padding:10px 12px;background:#FAFAF8;border-top:1px solid var(--border)">
         <div style="margin-bottom:8px">
           <label style="font-size:10px;color:var(--gray-500);font-weight:700;text-transform:uppercase;display:block;margin-bottom:4px">색상 선택</label>
-          <select onchange="updateDoorGroup(${gi},'key',this.value)"
-            style="width:100%;padding:8px 12px;border:1.5px solid #A8C4E8;border-radius:9px;font-size:14px;font-family:inherit;background:#EAF1FA;color:var(--blue);font-weight:700">
+          <select onchange="updateDoorGroup(${gi},'key',this.value)" style="width:100%;padding:8px 12px;border:1.5px solid #A8C4E8;border-radius:9px;font-size:14px;font-family:inherit;background:#EAF1FA;color:var(--blue);font-weight:700">
             ${DOOR_PRICES.map(p=>`<option value="${p.name}|${p.type}"${(p.name+'|'+p.type)===g.key?' selected':''}>${p.name} (${p.type})</option>`).join('')}
           </select>
         </div>
         <table style="width:100%;border-collapse:collapse;font-size:13px">
-          <thead>
-            <tr style="background:#1A4F8A;color:white">
-              <th style="padding:7px 6px;text-align:center;width:24px;font-size:11px">#</th>
-              <th style="padding:7px 6px;text-align:center;font-size:11px">폭(mm)</th>
-              <th style="padding:7px 6px;text-align:center;font-size:11px">높이(mm)</th>
-              <th style="padding:7px 6px;text-align:center;width:50px;font-size:11px">수량</th>
-              <th style="padding:7px 4px;width:26px"></th>
-            </tr>
-          </thead>
+          <thead><tr style="background:#1A4F8A;color:white">
+            <th style="padding:7px 6px;text-align:center;width:24px;font-size:11px">#</th>
+            <th style="padding:7px 6px;text-align:center;font-size:11px">폭(mm)</th>
+            <th style="padding:7px 6px;text-align:center;font-size:11px">높이(mm)</th>
+            <th style="padding:7px 6px;text-align:center;width:50px;font-size:11px">수량</th>
+            <th style="padding:7px 4px;width:26px"></th>
+          </tr></thead>
           <tbody>
-            ${g.items.map((it, ri) => `
+            ${g.items.map((it,ri)=>`
               <tr style="border-bottom:1px solid var(--border);${ri%2===0?'background:white':'background:#FAFAF8'}">
                 <td style="padding:5px 4px;text-align:center;color:var(--gray-500);font-size:11px">${ri+1}</td>
-                <td style="padding:4px 3px">
-                  <input type="number" value="${it.w||''}" placeholder="폭"
-                    class="drow-w-${gi}"
-                    tabindex="${gi*100 + ri*3 + 1}"
-                    onchange="updateDoorRow(${gi},${it.id},'w',this.value)"
-                    style="width:100%;padding:6px 4px;border:1px solid var(--border);border-radius:7px;font-size:13px;font-weight:700;text-align:center;font-family:inherit">
-                </td>
-                <td style="padding:4px 3px">
-                  <input type="number" value="${it.h||''}" placeholder="높이"
-                    tabindex="${gi*100 + ri*3 + 2}"
-                    onchange="updateDoorRow(${gi},${it.id},'h',this.value)"
-                    style="width:100%;padding:6px 4px;border:1px solid var(--border);border-radius:7px;font-size:13px;font-weight:700;text-align:center;font-family:inherit">
-                </td>
-                <td style="padding:4px 3px">
-                  <input type="number" value="${it.qty}" min="1"
-                    tabindex="${gi*100 + ri*3 + 3}"
-                    onchange="updateDoorRow(${gi},${it.id},'qty',this.value)"
-                    onkeydown="if(event.key==='Tab'&&!event.shiftKey&&${ri===g.items.length-1}){event.preventDefault();addDoorRow(${gi});}"
-                    style="width:100%;padding:6px 4px;border:1px solid var(--border);border-radius:7px;font-size:13px;font-weight:700;text-align:center;font-family:inherit">
-                </td>
-                <td style="padding:4px 4px;text-align:center">
-                  <button onclick="removeDoorRow(${gi},${it.id})"
-                    tabindex="-1"
-                    style="background:none;border:1px solid #DDBBBB;border-radius:5px;color:#CC6666;cursor:pointer;font-size:12px;padding:2px 6px;line-height:1">×</button>
-                </td>
+                <td style="padding:4px 3px"><input type="number" value="${it.w||''}" placeholder="폭" class="drow-w-${gi}" tabindex="${gi*100+ri*3+1}" onchange="updateDoorRow(${gi},${it.id},'w',this.value)" style="width:100%;padding:6px 4px;border:1px solid var(--border);border-radius:7px;font-size:13px;font-weight:700;text-align:center;font-family:inherit"></td>
+                <td style="padding:4px 3px"><input type="number" value="${it.h||''}" placeholder="높이" tabindex="${gi*100+ri*3+2}" onchange="updateDoorRow(${gi},${it.id},'h',this.value)" style="width:100%;padding:6px 4px;border:1px solid var(--border);border-radius:7px;font-size:13px;font-weight:700;text-align:center;font-family:inherit"></td>
+                <td style="padding:4px 3px"><input type="number" value="${it.qty}" min="1" tabindex="${gi*100+ri*3+3}" onchange="updateDoorRow(${gi},${it.id},'qty',this.value)" onkeydown="if(event.key==='Tab'&&!event.shiftKey&&${ri===g.items.length-1}){event.preventDefault();addDoorRow(${gi});}" style="width:100%;padding:6px 4px;border:1px solid var(--border);border-radius:7px;font-size:13px;font-weight:700;text-align:center;font-family:inherit"></td>
+                <td style="padding:4px 4px;text-align:center"><button onclick="removeDoorRow(${gi},${it.id})" tabindex="-1" style="background:none;border:1px solid #DDBBBB;border-radius:5px;color:#CC6666;cursor:pointer;font-size:12px;padding:2px 6px;line-height:1">×</button></td>
               </tr>`).join('')}
           </tbody>
         </table>
-        <button onclick="addDoorRow(${gi})"
-          style="width:100%;margin-top:8px;padding:8px;border:1.5px dashed #B8CDE8;border-radius:8px;background:none;color:var(--blue);font-size:13px;font-weight:600;cursor:pointer">
-          + 행 추가
-        </button>
-      </div>` : '';
-
+        <button onclick="addDoorRow(${gi})" style="width:100%;margin-top:8px;padding:8px;border:1.5px dashed #B8CDE8;border-radius:8px;background:none;color:var(--blue);font-size:13px;font-weight:600;cursor:pointer">+ 행 추가</button>
+      </div>`:''
+    ;
     return `<div style="border:1.5px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden">
-      <div onclick="toggleDoorGroup(${gi})"
-        style="background:linear-gradient(135deg,#1A4F8A,#2563a8);padding:11px 14px;display:flex;align-items:center;gap:10px;cursor:pointer">
+      <div onclick="toggleDoorGroup(${gi})" style="background:linear-gradient(135deg,#1A4F8A,#2563a8);padding:11px 14px;display:flex;align-items:center;gap:10px;cursor:pointer">
         <div style="width:22px;height:22px;background:rgba(255,255,255,0.2);border:1.5px solid rgba(255,255,255,0.35);border-radius:50%;color:white;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center">${gi+1}</div>
         <div style="flex:1">
           <div style="font-size:14px;font-weight:700;color:white">${colorName} <span style="font-size:11px;opacity:0.75">(${colorType})</span></div>
           <div style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:2px">${piecesInGroup}개 부재 · ${sheets}장 · ${groupAmt.toLocaleString()}원</div>
         </div>
         <div style="display:flex;align-items:center;gap:8px">
-          <button onclick="event.stopPropagation();removeDoorGroup(${gi})"
-            style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:6px;color:white;cursor:pointer;font-size:12px;padding:3px 8px">삭제</button>
-          <span style="color:white;font-size:14px">${g.open ? '▲' : '▼'}</span>
+          <button onclick="event.stopPropagation();removeDoorGroup(${gi})" style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:6px;color:white;cursor:pointer;font-size:12px;padding:3px 8px">삭제</button>
+          <span style="color:white;font-size:14px">${g.open?'▲':'▼'}</span>
         </div>
       </div>
       ${rows}
     </div>`;
   }).join('');
-
   updateDoorTotals();
 }
 
-// 기존 doorItems 참조 함수들을 doorGroups 기반으로 교체
-const _origUpdateDoorTotals = updateDoorTotals;
-function updateDoorTotals() {
-  const flat = getFlatDoorItems();
-  const groups = {};
-  flat.forEach(it => {
-    if(!groups[it.key]) groups[it.key] = [];
-    for(let i=0; i<it.qty; i++) groups[it.key].push({w:it.w, h:it.h});
-  });
-  let total = 0;
-  Object.entries(groups).forEach(([key, pieces]) => {
-    if(pieces.length === 0) return;
-    const sd = calcSheetDecimal(pieces);
-    const unit = getUnitPrice(key);
-    total += Math.round(sd * unit);
-  });
-  const el = document.getElementById('door-total');
-  if(el) el.textContent = total.toLocaleString() + ' 원';
+// ===== 재단 알고리즘 =====
+function normalizePiece(w,h){ return {rowL:Math.max(w,h),rowH:Math.min(w,h)}; }
+function buildColumns(pieces){
+  const sorted=[...pieces].sort((a,b)=>b.rowL-a.rowL||b.rowH-a.rowH),columns=[];
+  for(const p of sorted){
+    let bestCol=null,bestWaste=Infinity;
+    for(const col of columns){ if(p.rowH<=col.colW&&col.usedY+p.rowL<=2440){const w=col.colW-p.rowH;if(w<bestWaste){bestWaste=w;bestCol=col;}} }
+    if(bestCol){bestCol.items.push(p);bestCol.usedY+=p.rowL+KERF;}
+    else columns.push({colW:p.rowH,usedY:p.rowL+KERF,items:[p]});
+  }
+  return columns;
+}
+function maxRectsPack(pieces){
+  const sheets=[];
+  function splitFree(free,px,py,pw,ph){
+    const result=[];
+    for(const f of free){
+      const ox=px<f.x+f.w&&px+pw>f.x&&py<f.y+f.h&&py+ph>f.y;
+      if(!ox){result.push(f);continue;}
+      if(f.x<px) result.push({x:f.x,y:f.y,w:px-f.x,h:f.h});
+      if(f.x+f.w>px+pw+KERF) result.push({x:px+pw+KERF,y:f.y,w:f.x+f.w-(px+pw+KERF),h:f.h});
+      if(f.y<py) result.push({x:f.x,y:f.y,w:f.w,h:py-f.y});
+      if(f.y+f.h>py+ph+KERF) result.push({x:f.x,y:py+ph+KERF,w:f.w,h:f.y+f.h-(py+ph+KERF)});
+    }
+    return result.filter((a,i)=>a.w>0&&a.h>0&&!result.some((b,j)=>i!==j&&b.x<=a.x&&b.y<=a.y&&b.x+b.w>=a.x+a.w&&b.y+b.h>=a.y+a.h));
+  }
+  const pcs=[...pieces].sort((a,b)=>b.rowL*b.rowH-a.rowL*a.rowH);
+  for(const p of pcs){
+    let bestScore=Infinity,bestSh=null,bestF=null,bestW=p.rowH,bestH=p.rowL;
+    for(const sh of sheets){
+      for(const f of sh.free){
+        if(p.rowH<=f.w&&p.rowL<=f.h){const sc=Math.min(f.w-p.rowH,f.h-p.rowL);if(sc<bestScore){bestScore=sc;bestSh=sh;bestF=f;bestW=p.rowH;bestH=p.rowL;}}
+        if(p.rowL<=f.w&&p.rowH<=f.h){const sc=Math.min(f.w-p.rowL,f.h-p.rowH);if(sc<bestScore){bestScore=sc;bestSh=sh;bestF=f;bestW=p.rowL;bestH=p.rowH;}}
+      }
+    }
+    if(bestSh&&bestF){
+      bestSh.pieces.push({x:bestF.x,y:bestF.y,w:bestW,h:bestH,origW:p.origW,origH:p.origH,name:p.name});
+      bestSh.free=splitFree(bestSh.free,bestF.x,bestF.y,bestW,bestH);
+    } else {
+      const sh={pieces:[],free:[{x:0,y:0,w:1220,h:2440}]}; sheets.push(sh);
+      sh.pieces.push({x:0,y:0,w:p.rowH,h:p.rowL,origW:p.origW,origH:p.origH,name:p.name});
+      sh.free=splitFree(sh.free,0,0,p.rowH,p.rowL);
+    }
+  }
+  return sheets;
+}
+function optimizeCuts(doors){
+  const pieces=[];
+  doors.forEach(d=>{ for(let i=0;i<d.qty;i++){const{rowL,rowH}=normalizePiece(d.w,d.h);pieces.push({rowL,rowH,origW:d.w,origH:d.h,name:d.name});} });
+  const sheets=maxRectsPack(pieces);
+  sheets.sort((a,b)=>b.pieces.reduce((s,p)=>s+p.w*p.h,0)-a.pieces.reduce((s,p)=>s+p.w*p.h,0));
+  sheets.forEach(sh=>{sh.usedX=sh.pieces.length>0?Math.max(...sh.pieces.map(p=>p.x+p.w)):0;});
+  return sheets;
+}
+function calcSheetDecimal(pieces){
+  if(!pieces||!pieces.length) return 0;
+  const pcs=pieces.map(p=>({rowL:Math.max(p.w,p.h),rowH:Math.min(p.w,p.h)}));
+  const sorted=[...pcs].sort((a,b)=>b.rowL-a.rowL||b.rowH-a.rowH),columns=[];
+  for(const p of sorted){
+    let placed=false;
+    for(const col of columns){if(p.rowH<=col.colW&&col.usedY+p.rowL<=2440){col.usedY+=p.rowL+KERF;placed=true;break;}}
+    if(!placed) columns.push({colW:p.rowH,usedY:p.rowL+KERF});
+  }
+  const colsSorted=[...columns].sort((a,b)=>b.colW-a.colW),sheets=[];
+  for(const col of colsSorted){
+    let bestSh=null,bestWaste=Infinity;
+    for(const sh of sheets){const addX=sh.usedX>0?KERF:0,rem=1220-sh.usedX-addX-col.colW;if(rem>=0&&rem<bestWaste){bestWaste=rem;bestSh=sh;}}
+    if(bestSh) bestSh.usedX=bestSh.usedX+(bestSh.usedX>0?KERF:0)+col.colW;
+    else sheets.push({usedX:col.colW});
+  }
+  if(!sheets.length) return 0;
+  sheets.sort((a,b)=>b.usedX-a.usedX);
+  return(sheets.length-1)+Math.ceil(sheets[sheets.length-1].usedX/100)/10;
 }
 
-// 초기화 시 doorGroups도 리셋
-function resetDoorForm(){
-  if(doorGroups.length>0&&!confirm('초기화할까요?')) return;
-  doorGroups=[]; doorCnt=0; renderDoorGroups();
-}
-
-
-// ===== 재단 시각화 (가로 절단) =====
-let lastSheets = [];
-
-function drawCutLayout(sheets) {
-  const ovl = document.getElementById('cut-layout-ovl');
-  const container = document.getElementById('cut-layout-container');
-  if(!ovl || !container) return;
-
-  const COLORS = ['#B8D4E8','#F5D5B0','#C8E6C8','#F5C5D0','#D8D0F0','#F0E8C0','#C8E0E8','#E8D0C8','#D0E8D0','#E8E0D0'];
-  const keyColorMap = {};
-  let colorIdx = 0;
-  getFlatDoorItems().forEach(it => {
-    if(!keyColorMap[it.key]) keyColorMap[it.key] = COLORS[colorIdx++ % COLORS.length];
+// ===== 도어 견적서 =====
+let lastSheets=[];
+function calcDoorQuote(){
+  const flat=getFlatDoorItems();
+  if(!flat.length){alert('색상과 사이즈를 추가해주세요');return;}
+  const client=document.getElementById('door-client').value||'(거래처명)';
+  const date=document.getElementById('door-date').value;
+  const colorGroups={};
+  flat.forEach(it=>{
+    if(!colorGroups[it.key]) colorGroups[it.key]=[];
+    for(let i=0;i<it.qty;i++) colorGroups[it.key].push({w:it.w,h:it.h,name:it.key});
   });
-
-  // SVG: x방향=폭(1220), y방향=길이(2440) → 세로로 세운 원판
-  const SVG_W = 160;                              // 1220mm → 160px
-  const SVG_H = Math.round(SVG_W * 2440 / 1220); // 160 * 2 = 320px
-  const scaleX = SVG_W / 1220;  // 1220 → 160px
-  const scaleY = SVG_H / 2440;  // 2440 → 320px
-
-  container.innerHTML = sheets.map((sheet, si) => {
-    const usedArea = sheet.pieces.reduce((s,p) => s + p.w * p.h, 0);
-    const eff = Math.round(usedArea / (1220 * 2440) * 100);
-
-    // 절단선: y방향 가로 구분선 (각 컷 경계)
-    const cutYSet = new Set();
-    sheet.pieces.forEach(p => { if(p.y > 0) cutYSet.add(p.y); });
-    const cutLines = [...cutYSet].map(y => {
-      const sy = y * scaleY;
-      return `<line x1="0" y1="${sy}" x2="${SVG_W}" y2="${sy}" stroke="#666" stroke-width="0.8" stroke-dasharray="2,2"/>`;
-    }).join('');
-
-    const rects = sheet.pieces.map(p => {
-      const color = keyColorMap[p.name] || '#DDD';
-      const px = p.x * scaleX;
-      const py = p.y * scaleY;
-      const pw = p.w * scaleX;
-      const ph = p.h * scaleY;
-      const label = `${p.origW}×${p.origH}`;
-      const fs = Math.min(pw, ph) > 14 ? 7 : 5;
-      return `
-        <rect x="${px}" y="${py}" width="${pw}" height="${ph}"
-          fill="${color}" stroke="#444" stroke-width="0.8" rx="1"/>
-        <text x="${px+pw/2}" y="${py+ph/2}" text-anchor="middle" dominant-baseline="middle"
-          font-size="${fs}" fill="#222" font-family="sans-serif" font-weight="600">${label}</text>`;
-    }).join('');
-
-    // 사용폭(x방향 최대값) 기준으로 사용/낭비 계산
-    const maxX = sheet.pieces.reduce((m,p) => Math.max(m, p.x + p.w), 0);
-    const usedXpx = maxX * scaleX;
-    const wasteW = 1220 - maxX;  // x방향 미사용 폭
-
-    return `<div style="margin-bottom:24px;display:inline-block;margin-right:16px;vertical-align:top">
-      <div style="font-size:12px;font-weight:700;color:var(--blue);margin-bottom:3px">
-        원판 ${si+1}번 · 효율 ${eff}%
-      </div>
-      <div style="font-size:10px;color:var(--gray-500);margin-bottom:5px">
-        사용 ${maxX}mm / 낭비 ${wasteW}mm
-      </div>
-      <div style="display:flex;align-items:flex-start;gap:4px">
-        <svg width="${SVG_W}" height="${SVG_H}"
-          style="border:1.5px solid #999;border-radius:4px;background:#F5F5F0;flex-shrink:0">
-          ${rects}
-          ${cutLines}
-          ${wasteW > 0 ? `
-            <rect x="${usedXpx}" y="0" width="${SVG_W - usedXpx}" height="${SVG_H}"
-              fill="#E0E0D8" opacity="0.55"/>
-            <line x1="${usedXpx}" y1="0" x2="${usedXpx}" y2="${SVG_H}"
-              stroke="#CC3333" stroke-width="1.5" stroke-dasharray="4,3"/>` : ''}
-          <rect x="0" y="0" width="${SVG_W}" height="${SVG_H}"
-            fill="none" stroke="#888" stroke-width="1.5"/>
-          <text x="2" y="${SVG_H - 3}" font-size="6" fill="#bbb" font-family="sans-serif">←1220→</text>
-        </svg>
-        <div style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:9px;color:#aaa;align-self:center;white-space:nowrap">
-          2440mm
-        </div>
-      </div>
-    </div>`;
-  }).join('');
-
-  // 가로 스크롤 가능한 래퍼로 감싸기
-  container.innerHTML = `<div style="overflow-x:auto;white-space:nowrap;padding-bottom:8px">${container.innerHTML}</div>`;
-
-  const legend = Object.entries(keyColorMap).map(([key, color]) => {
-    const [name, type] = key.split('|');
-    return `<div style="display:flex;align-items:center;gap:6px;margin-bottom:5px">
-      <div style="width:14px;height:14px;background:${color};border:1px solid #888;border-radius:2px;flex-shrink:0"></div>
-      <span style="font-size:12px;color:var(--gray-700)">${name} <span style="color:#aaa;font-size:11px">(${type})</span></span>
-    </div>`;
-  }).join('');
-
-  document.getElementById('cut-legend').innerHTML = legend;
-  ovl.classList.add('show');
-}
-
-
-function calcDoorQuote() {
-  const flat = getFlatDoorItems();
-  if(flat.length===0){ alert('색상과 사이즈를 추가해주세요'); return; }
-  const client = document.getElementById('door-client').value || '(거래처명)';
-  const date = document.getElementById('door-date').value;
-
-  // 색상별 그룹화
-  const colorGroups = {};
-  flat.forEach(it => {
-    if(!colorGroups[it.key]) colorGroups[it.key] = [];
-    for(let i=0; i<it.qty; i++) colorGroups[it.key].push({w:it.w, h:it.h, name:it.key});
+  lastSheets=optimizeCuts(Object.entries(colorGroups).flatMap(([key,pieces])=>{
+    const unique={};
+    pieces.forEach(p=>{const k=`${p.w}_${p.h}`;unique[k]=(unique[k]||0)+1;});
+    return Object.entries(unique).map(([k,qty])=>{const[w,h]=k.split('_');return{w:+w,h:+h,qty,name:key};});
+  }));
+  let rows='',total=0,totalSheetDecimal=0;
+  const colorSummary=Object.entries(colorGroups).map(([key,pieces])=>{
+    const sheetDecimal=calcSheetDecimal(pieces),unit=getUnitPrice(key),amt=Math.round(sheetDecimal*unit);
+    totalSheetDecimal+=sheetDecimal; total+=amt;
+    const[colorName,colorType]=key.split('|');
+    return{key,colorName,colorType,pieces,sheetDecimal,unit,amt};
   });
-
-  // 배치도용 최적화
-  lastSheets = optimizeCuts(
-    Object.entries(colorGroups).flatMap(([key, pieces]) => {
-      const unique = {};
-      pieces.forEach(p => { const k=`${p.w}_${p.h}`; unique[k]=(unique[k]||0)+1; });
-      return Object.entries(unique).map(([k,qty])=>{ const [w,h]=k.split('_'); return {w:+w,h:+h,qty,name:key}; });
-    })
-  );
-
-  // 색상별 소요 원판 계산 (세로 스트립 방식)
-  let rows = '';
-  let total = 0;
-  let totalSheetDecimal = 0;
-
-  const colorSummary = Object.entries(colorGroups).map(([key, pieces]) => {
-    const sheetDecimal = calcSheetDecimal(pieces);
-    const unit = getUnitPrice(key);
-    const amt = Math.round(sheetDecimal * unit);
-    totalSheetDecimal += sheetDecimal;
-    total += amt;
-    const [colorName, colorType] = key.split('|');
-    return {key, colorName, colorType, pieces, sheetDecimal, unit, amt};
-  });
-
-  colorSummary.forEach(({colorName, colorType, pieces, sheetDecimal, unit, amt}) => {
-    rows += `<tr>
+  colorSummary.forEach(({colorName,colorType,pieces,sheetDecimal,unit,amt})=>{
+    rows+=`<tr>
       <td>${colorName}<br><span style="font-size:11px;color:#888">${colorType}</span></td>
-      <td style="text-align:center">${pieces.length}개 부재</td>
+      <td style="text-align:center">${pieces.length}개</td>
       <td style="text-align:center">${sheetDecimal}장</td>
       <td style="text-align:right">${unit.toLocaleString()}</td>
       <td style="text-align:right;font-weight:700">${amt.toLocaleString()}</td>
     </tr>`;
   });
-
-  const totalSheetCount = lastSheets.length;
-  // 소요량: totalSheetDecimal을 그대로 사용 (이미 올림 적용됨)
-  const totalDecimalRounded = Math.round(totalSheetDecimal * 10) / 10;
-  const totalPieceArea = flat.reduce((s,it)=>s+it.w*it.h*it.qty,0);
-  const efficiency = totalSheetCount > 0 ? Math.round(totalPieceArea / (totalSheetCount * SHEET_H * SHEET_W) * 100) : 0;
-
-  document.getElementById('door-preview-area').innerHTML = `
+  document.getElementById('door-preview-area').innerHTML=`
     <div class="pv-wrap">
       <div class="pv-title">도 &nbsp; 어 &nbsp; 발 &nbsp; 주</div>
       <div class="pv-info">
@@ -1811,531 +1156,134 @@ function calcDoorQuote() {
         <div class="pv-row"><span class="pv-k">견적일</span><span class="pv-v">${date}</span></div>
         <div class="pv-row"><span class="pv-k">원판규격</span><span class="pv-v">2440×1220mm · SUPER 레이저도어</span></div>
       </div>
-
-      <button onclick="drawCutLayout(lastSheets)"
-        style="width:100%;padding:13px;background:linear-gradient(135deg,#1A4F8A,#2563a8);color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between">
+      <button onclick="drawCutLayout(lastSheets)" style="width:100%;padding:13px;background:linear-gradient(135deg,#1A4F8A,#2563a8);color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between">
         <span>📐 재단 배치도 보기</span>
         <span style="font-size:18px;background:rgba(255,255,255,0.2);border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center">▶</span>
       </button>
-
-      <div class="pv-table-wrap">
-        <table class="pv-table">
-          <thead><tr><th>색상명</th><th>부재수</th><th>원판(장)</th><th>단가/장</th><th>금액</th></tr></thead>
-          <tbody>${rows}</tbody>
-          <tfoot><tr><td colspan="4">합 &nbsp; 계</td><td>${total.toLocaleString()}</td></tr></tfoot>
-        </table>
-      </div>
-
-      <div class="pv-bank">
-        <div class="pv-bank-notice">⚠ &nbsp; 선 입 금 후 발 주</div>
-        <div class="pv-bank-body">
-          <div class="pv-bank-num">332-135674-04-011</div>
-          <div class="pv-bank-info">기업은행 &nbsp;|&nbsp; 예금주: 주식회사 오션메이드</div>
-        </div>
-      </div>
+      <div class="pv-table-wrap"><table class="pv-table">
+        <thead><tr><th>색상명</th><th>부재수</th><th>원판(장)</th><th>단가/장</th><th>금액</th></tr></thead>
+        <tbody>${rows}</tbody>
+        <tfoot><tr><td colspan="4">합 &nbsp; 계</td><td>${total.toLocaleString()}</td></tr></tfoot>
+      </table></div>
+      <div class="pv-bank"><div class="pv-bank-notice">⚠ &nbsp; 선 입 금 후 발 주</div>
+        <div class="pv-bank-body"><div class="pv-bank-num">332-135674-04-011</div>
+          <div class="pv-bank-info">기업은행 &nbsp;|&nbsp; 예금주: 주식회사 오션메이드</div></div></div>
       <div style="font-size:10px;color:#aaa;text-align:center;padding:6px 0">※ 입금확인 후 제작 · SUPER 레이저도어 제로조인트 기준</div>
     </div>`;
   document.getElementById('door-preview-ovl').classList.add('show');
-  document.getElementById('door-preview-ovl').scrollTop = 0;
 }
-
 function closeDoorPreview(){ document.getElementById('door-preview-ovl').classList.remove('show'); }
 function closeCutLayout(){ document.getElementById('cut-layout-ovl').classList.remove('show'); }
-
+function drawCutLayout(sheets){
+  const ovl=document.getElementById('cut-layout-ovl'),container=document.getElementById('cut-layout-container');
+  if(!ovl||!container) return;
+  const COLORS=['#B8D4E8','#F5D5B0','#C8E6C8','#F5C5D0','#D8D0F0','#F0E8C0','#C8E0E8','#E8D0C8'];
+  const keyColorMap={}; let colorIdx=0;
+  getFlatDoorItems().forEach(it=>{if(!keyColorMap[it.key]) keyColorMap[it.key]=COLORS[colorIdx++%COLORS.length];});
+  const SVG_W=160,SVG_H=320,scaleX=SVG_W/1220,scaleY=SVG_H/2440;
+  container.innerHTML=sheets.map((sheet,si)=>{
+    const usedArea=sheet.pieces.reduce((s,p)=>s+p.w*p.h,0),eff=Math.round(usedArea/(1220*2440)*100);
+    const cutYSet=new Set(); sheet.pieces.forEach(p=>{if(p.y>0) cutYSet.add(p.y);});
+    const cutLines=[...cutYSet].map(y=>`<line x1="0" y1="${y*scaleY}" x2="${SVG_W}" y2="${y*scaleY}" stroke="#666" stroke-width="0.8" stroke-dasharray="2,2"/>`).join('');
+    const rects=sheet.pieces.map(p=>{
+      const color=keyColorMap[p.name]||'#DDD';
+      const px=p.x*scaleX,py=p.y*scaleY,pw=p.w*scaleX,ph=p.h*scaleY;
+      const fs=Math.min(pw,ph)>14?7:5;
+      return `<rect x="${px}" y="${py}" width="${pw}" height="${ph}" fill="${color}" stroke="#444" stroke-width="0.8" rx="1"/>
+        <text x="${px+pw/2}" y="${py+ph/2}" text-anchor="middle" dominant-baseline="middle" font-size="${fs}" fill="#222" font-family="sans-serif">${p.origW}×${p.origH}</text>`;
+    }).join('');
+    const maxX=sheet.pieces.reduce((m,p)=>Math.max(m,p.x+p.w),0),usedXpx=maxX*scaleX,wasteW=1220-maxX;
+    return `<div style="margin-bottom:24px;display:inline-block;margin-right:16px;vertical-align:top">
+      <div style="font-size:12px;font-weight:700;color:var(--blue);margin-bottom:3px">원판${si+1}번 · 효율${eff}%</div>
+      <div style="font-size:10px;color:var(--gray-500);margin-bottom:5px">사용${maxX}mm / 낭비${wasteW}mm</div>
+      <div style="display:flex;align-items:flex-start;gap:4px">
+        <svg width="${SVG_W}" height="${SVG_H}" style="border:1.5px solid #999;border-radius:4px;background:#F5F5F0;">
+          ${rects}${cutLines}
+          ${wasteW>0?`<rect x="${usedXpx}" y="0" width="${SVG_W-usedXpx}" height="${SVG_H}" fill="#E0E0D8" opacity="0.55"/>
+            <line x1="${usedXpx}" y1="0" x2="${usedXpx}" y2="${SVG_H}" stroke="#CC3333" stroke-width="1.5" stroke-dasharray="4,3"/>`:''}
+          <rect x="0" y="0" width="${SVG_W}" height="${SVG_H}" fill="none" stroke="#888" stroke-width="1.5"/>
+          <text x="2" y="${SVG_H-3}" font-size="6" fill="#bbb" font-family="sans-serif">←1220→</text>
+        </svg>
+        <div style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:9px;color:#aaa;align-self:center">2440mm</div>
+      </div>
+    </div>`;
+  }).join('');
+  container.innerHTML=`<div style="overflow-x:auto;white-space:nowrap;padding-bottom:8px">${container.innerHTML}</div>`;
+  const legend=Object.entries(keyColorMap).map(([key,color])=>{
+    const[name,type]=key.split('|');
+    return `<div style="display:flex;align-items:center;gap:6px;margin-bottom:5px">
+      <div style="width:14px;height:14px;background:${color};border:1px solid #888;border-radius:2px;flex-shrink:0"></div>
+      <span style="font-size:12px;color:var(--gray-700)">${name} <span style="color:#aaa;font-size:11px">(${type})</span></span>
+    </div>`;
+  }).join('');
+  document.getElementById('cut-legend').innerHTML=legend;
+  ovl.classList.add('show');
+}
 function doDoorPrint(){
-  const content = document.getElementById('door-preview-area').innerHTML;
-  const win = window.open('','_blank','width=420,height=900');
-  win.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>도어 발주 견적서</title>
+  const content=document.getElementById('door-preview-area').innerHTML;
+  const win=window.open('','_blank','width=420,height=900');
+  win.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>도어 발주 견적서</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
-  <style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Noto Sans KR','Malgun Gothic',sans-serif;background:white;max-width:480px;margin:0 auto}
-  .pv-wrap{padding:18px 14px 24px}.pv-title{text-align:center;font-size:20px;font-weight:800;letter-spacing:6px;color:#1A4F8A;margin-bottom:12px;padding-bottom:10px;border-bottom:3px solid #1A4F8A}
-  .pv-info{border:1.5px solid #DDD;border-radius:8px;overflow:hidden;margin-bottom:10px}
-  .pv-row{display:flex;align-items:baseline;padding:8px 12px;border-bottom:1px solid #EEE;font-size:13px}.pv-row:last-child{border-bottom:none}
-  .pv-k{color:#999;font-size:11px;min-width:56px}.pv-v{color:#111;font-weight:500;flex:1}.pv-v.bold{font-size:15px;font-weight:800}
-  .pv-table-wrap{border:1.5px solid #DDD;border-radius:8px;overflow:hidden;margin-bottom:10px}
-  .pv-table{width:100%;border-collapse:collapse;font-size:12px}.pv-table thead tr{background:#1A4F8A}
-  .pv-table th{padding:8px 6px;color:white;font-size:11px;font-weight:700}
-  .pv-table th:first-child{text-align:left;padding-left:12px}.pv-table th:nth-child(2){text-align:center}.pv-table th:nth-child(3){text-align:center}.pv-table th:nth-child(4){text-align:right}.pv-table th:last-child{text-align:right;padding-right:10px}
-  .pv-table td{padding:9px 6px;border-bottom:1px solid #F0EDE8;color:#111}
-  .pv-table td:first-child{text-align:left;padding-left:12px;font-weight:700}.pv-table td:nth-child(2){text-align:center;color:#555}.pv-table td:nth-child(3){text-align:center;color:#555}.pv-table td:nth-child(4){text-align:right;color:#555}.pv-table td:last-child{text-align:right;padding-right:10px;font-weight:700}
-  .pv-table tbody tr:nth-child(even){background:#FAFAF8}
-  .pv-table tfoot td{padding:10px 6px;background:#F0EDE8;border-top:2px solid #1A4F8A;font-weight:800;color:#1A4F8A;font-size:14px}
-  .pv-table tfoot td:first-child{padding-left:12px}.pv-table tfoot td:last-child{text-align:right;padding-right:10px;font-size:16px}
-  .pv-bank{border:2px solid #1A4F8A;border-radius:10px;overflow:hidden;margin-bottom:10px}
-  .pv-bank-notice{background:#C05010;color:white;text-align:center;padding:8px;font-size:13px;font-weight:800;letter-spacing:3px}
-  .pv-bank-body{padding:10px 14px}.pv-bank-num{font-size:20px;font-weight:800;color:#1A4F8A;letter-spacing:1px;margin-bottom:3px}.pv-bank-info{font-size:12px;color:#555}
-  button{display:none!important}
-  @media print{body{padding:0}}
-  </style></head><body>${content}<script>window.onload=()=>window.print()<\/script></body></html>`);
+  <style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Noto Sans KR',sans-serif;background:white;max-width:480px;margin:0 auto}.pv-wrap{padding:18px 14px 24px}.pv-title{text-align:center;font-size:20px;font-weight:800;letter-spacing:6px;color:#1A4F8A;margin-bottom:12px;padding-bottom:10px;border-bottom:3px solid #1A4F8A}.pv-info{border:1.5px solid #DDD;border-radius:8px;overflow:hidden;margin-bottom:10px}.pv-row{display:flex;padding:8px 12px;border-bottom:1px solid #EEE;font-size:13px}.pv-row:last-child{border-bottom:none}.pv-k{color:#999;font-size:11px;min-width:56px}.pv-v{flex:1}.pv-v.bold{font-size:15px;font-weight:800}.pv-table-wrap{border:1.5px solid #DDD;border-radius:8px;overflow:hidden;margin-bottom:10px}.pv-table{width:100%;border-collapse:collapse;font-size:12px}.pv-table thead tr{background:#1A4F8A}.pv-table th{padding:8px 6px;color:white;font-size:11px}.pv-table th:first-child{text-align:left;padding-left:12px}.pv-table th:not(:first-child){text-align:right;padding-right:8px}.pv-table td{padding:9px 6px;border-bottom:1px solid #EEE}.pv-table td:first-child{text-align:left;padding-left:12px}.pv-table td:not(:first-child){text-align:right;padding-right:8px}.pv-table tfoot td{padding:10px 6px;background:#F0EDE8;border-top:2px solid #1A4F8A;font-weight:800}.pv-bank{border:2px solid #E8630A;border-radius:10px;overflow:hidden;margin-bottom:10px}.pv-bank-notice{background:#E8630A;color:white;text-align:center;padding:8px;font-size:13px;font-weight:800;letter-spacing:3px}.pv-bank-body{padding:10px 14px}.pv-bank-num{font-size:20px;font-weight:800;color:#1A4F8A;letter-spacing:1px}.pv-bank-info{font-size:12px;color:#555}button{display:none!important}@media print{body{padding:0}}</style>
+  </head><body>${content}<script>window.onload=()=>window.print()<\/script></body></html>`);
   win.document.close();
 }
-</script>
-<script>
-/* ════════════════════════════════════════
-   오션메이드 척척박사 - 통합 앱 JS
-════════════════════════════════════════ */
 
-/* ── 비밀번호 ── */
-const PW = '8253';
-var _appReady = false;
-
-function checkPw(){
-  const v = document.getElementById('pw-inp').value;
-  if(v === PW){
-    if(_appReady) enterApp();
-    else window.addEventListener('appready', enterApp, {once:true});
-  } else {
-    const e = document.getElementById('pw-err');
-    e.classList.add('show');
-    document.getElementById('pw-inp').value='';
-    setTimeout(()=>e.classList.remove('show'),2000);
-  }
+// ===== 단가표 탭 =====
+let priceTabGrade=1;
+function setPriceTab(g){
+  priceTabGrade=g;
+  document.getElementById('pt-g1').style.cssText=g===1?'flex:1;padding:8px;border-radius:8px;border:none;font-size:13px;font-weight:800;cursor:pointer;background:var(--br);color:white;font-family:inherit;':'flex:1;padding:8px;border-radius:8px;border:none;font-size:13px;font-weight:700;cursor:pointer;background:white;color:var(--g5);font-family:inherit;';
+  document.getElementById('pt-g2').style.cssText=g===2?'flex:1;padding:8px;border-radius:8px;border:none;font-size:13px;font-weight:800;cursor:pointer;background:var(--br);color:white;font-family:inherit;':'flex:1;padding:8px;border-radius:8px;border:none;font-size:13px;font-weight:700;cursor:pointer;background:white;color:var(--g5);font-family:inherit;';
+  renderPriceTable();
 }
-
-function enterApp(){
-  document.getElementById('pw-screen').classList.add('hidden');
-  document.getElementById('app').style.display='block';
-  sessionStorage.setItem('auth','1');
-  initAll();
-  switchTab('chat');
-}
-
-/* ── 앱 전체 초기화 ── */
-function initAll(){
-  const today = new Date().toISOString().slice(0,10);
-  ['rdate','door-date','ig-date','cs-date'].forEach(id=>{
-    const el=document.getElementById(id); if(el) el.value=today;
+function filterPriceTable(){ renderPriceTable(); }
+function renderPriceTable(){
+  const el=document.getElementById('price-table-content'); if(!el) return;
+  const q=(document.getElementById('price-search')?.value||'').toLowerCase();
+  const gradeKey=`g${priceTabGrade}`;
+  // 타입별 그룹화
+  const groups={};
+  DOOR_PRICES.forEach(p=>{
+    if(q&&!p.name.toLowerCase().includes(q)) return;
+    const key=p.type;
+    if(!groups[key]) groups[key]=[];
+    groups[key].push(p);
   });
-  renderIgItems();
-  renderCsItems();
-  refreshAllDrops();
-  addItem();       // 필름 첫 품목
-  renderDoorGroups();
-  initChat();
+  if(!Object.keys(groups).length){ el.innerHTML='<div style="text-align:center;padding:24px;color:var(--g5)">검색 결과가 없습니다</div>'; return; }
+  const typeLabel={'일반':'일반도어','후면강화':'후면강화','내지문':'내지문(컬러)','방염':'방염처리'};
+  el.innerHTML=Object.entries(groups).map(([type,items])=>`
+    <div style="margin-bottom:16px">
+      <div style="font-size:11px;font-weight:800;color:var(--or);letter-spacing:.5px;text-transform:uppercase;padding:5px 2px;border-bottom:2px solid var(--or);margin-bottom:6px">${typeLabel[type]||type}</div>
+      <table style="width:100%;border-collapse:collapse;font-size:13px">
+        <thead><tr style="background:var(--br)">
+          <th style="text-align:left;padding:7px 10px;color:var(--cr);font-size:11px;font-weight:700">색상명</th>
+          <th style="text-align:right;padding:7px 10px;color:var(--cr);font-size:11px;font-weight:700">단가</th>
+        </tr></thead>
+        <tbody>
+          ${items.map((p,i)=>`
+            <tr style="background:${i%2===0?'white':'var(--cr)'}">
+              <td style="padding:8px 10px;color:var(--g9);font-weight:500">${p.name}</td>
+              <td style="padding:8px 10px;text-align:right;font-weight:800;color:var(--br);font-size:14px">${p[gradeKey].toLocaleString()}<span style="font-size:11px;font-weight:400;color:var(--g5)">원</span></td>
+            </tr>`).join('')}
+        </tbody>
+      </table>
+    </div>`).join('');
 }
 
-/* ════════════ 탭 전환 ════════════ */
-const TABS = ['chat','film','door','ig','cs','data'];
-let filmMounted=false, doorMounted=false;
-
-function switchTab(name){
-  TABS.forEach(t=>{
-    const p=document.getElementById('tp-'+t);
-    if(!p) return;
-    if(t==='chat'){ p.style.display = t===name?'flex':'none'; }
-    else { p.style.display = t===name?'block':'none'; }
-    const b=document.getElementById('bn-'+t);
-    if(b){ b.className='bn'+(t===name?' on':''); }
-  });
-  if(name==='film' && !filmMounted){ mountFilm(); filmMounted=true; }
-  if(name==='door' && !doorMounted){ mountDoor(); doorMounted=true; }
-  if(name==='data') renderData();
-  if(name==='chat'){ const m=document.getElementById('chat-msgs'); if(m) setTimeout(()=>m.scrollTop=m.scrollHeight,50); }
-}
-
-function mountFilm(){
-  const tab=document.getElementById('tp-film');
-  const sec=document.getElementById('film-section');
-  if(sec && tab){ sec.style.display='block'; tab.appendChild(sec); }
-  const pov=document.getElementById('preview-ovl');
-  if(pov) document.body.appendChild(pov);
-}
-function mountDoor(){
-  const tab=document.getElementById('tp-door');
-  ['door-section','door-preview-ovl','cut-layout-ovl'].forEach(id=>{
-    const el=document.getElementById(id);
-    if(el){ el.style.display = id==='door-section'?'block':''; tab.appendChild(el); }
-  });
-}
-
-/* ════════════ 거래처 ════════════ */
-let currentClientTab='film';
-function loadClients(type){ try{ return JSON.parse(localStorage.getItem('om_cl_'+type)||'[]'); }catch(e){ return []; } }
-function saveClient(type){
-  const v=document.getElementById('new-client').value.trim(); if(!v) return;
-  const arr=loadClients(type); if(!arr.includes(v)){ arr.unshift(v); localStorage.setItem('om_cl_'+type,JSON.stringify(arr)); }
-  document.getElementById('new-client').value='';
-  refreshClientUI(); refreshAllDrops();
-}
-function deleteClient(name,type){
-  const arr=loadClients(type).filter(c=>c!==name);
-  localStorage.setItem('om_cl_'+type,JSON.stringify(arr));
-  refreshClientUI(); refreshAllDrops();
-}
-function switchClientTab(type){
-  currentClientTab=type;
-  ['film','door','ig','cs'].forEach(t=>{
-    const b=document.getElementById('ctab-'+t); if(!b) return;
-    b.style.borderBottomColor = t===type?'var(--or)':'transparent';
-    b.style.color = t===type?'var(--or)':'var(--g5)';
-    b.style.fontWeight = t===type?'700':'600';
-  });
-  refreshClientUI();
-}
-function openClientMgr(){ document.getElementById('client-ovl').classList.add('show'); refreshClientUI(); }
-function refreshClientUI(){
-  const arr=loadClients(currentClientTab);
-  const el=document.getElementById('client-chips');
-  if(!el) return;
-  el.innerHTML = arr.length===0
-    ? `<p style="font-size:13px;color:var(--g5);text-align:center;padding:16px">거래처가 없습니다</p>`
-    : arr.map((c,i)=>`
-      <div style="display:flex;align-items:center;gap:8px;padding:9px 12px;background:var(--g0);border:1.5px solid var(--bd);border-radius:9px;margin-bottom:6px;">
-        <span style="flex:1;font-size:14px;font-weight:600">${c}</span>
-        <button onclick="deleteClient('${c.replace(/'/g,"\\'")}','${currentClientTab}')" style="background:none;border:1px solid #FFBBAA;border-radius:5px;color:var(--or);cursor:pointer;font-size:12px;padding:2px 7px">삭제</button>
-      </div>`).join('');
-}
-function refreshAllDrops(){
-  ['film','door','ig','cs'].forEach(type=>{
-    const listId = type+'-cl-list';
-    // 필름/도어는 기존 방식 유지 (별도)
-    if(type==='ig'||type==='cs'){
-      const el=document.getElementById(listId); if(!el) return;
-      const arr=loadClients(type);
-      el.innerHTML=arr.length===0
-        ? `<div style="padding:12px;text-align:center;font-size:13px;color:var(--g5)">거래처 없음 (👥에서 추가)</div>`
-        : arr.map(c=>`<div class="cl-item" onclick="selectClient('${type}','${c.replace(/'/g,"\\'")}')">$${c}</div>`).join('').replace(/\$/g,'');
-    }
-  });
-  // 기존 film/door 드롭다운
-  refreshFilmDoorDrops();
-}
-function selectClient(type,name){
-  document.getElementById(type+'-client').value=name;
-  const disp=document.getElementById(type+'-cl-disp');
-  const txt=document.getElementById(type+'-cl-txt');
-  if(disp){ disp.classList.add('sel'); }
-  if(txt) txt.textContent=name;
-  document.getElementById(type+'-cl-drop').style.display='none';
-}
-function toggleDrop(type){
-  const drop=document.getElementById(type+'-cl-drop');
-  const all=document.querySelectorAll('.cl-drop');
-  all.forEach(d=>{ if(d!==drop) d.style.display='none'; });
-  drop.style.display = drop.style.display==='block'?'none':'block';
-}
-document.addEventListener('click', e=>{
-  if(!e.target.closest('.cl-wrap')) document.querySelectorAll('.cl-drop').forEach(d=>d.style.display='none');
-});
-
-/* ════════════ 저장/통계 ════════════ */
-function loadSales(){ try{ return JSON.parse(localStorage.getItem('om_sales')||'[]'); }catch(e){ return []; } }
-function saveSale(rec){ const s=loadSales(); s.unshift({...rec,id:Date.now()}); localStorage.setItem('om_sales',JSON.stringify(s.slice(0,500))); }
-
-/* ════════════ 임가공 견적 ════════════ */
-const IG_DATA = {
-  board:[
-    {label:'PB 15t', unit:'장', price:81000},
-    {label:'PB 18t', unit:'장', price:85000},
-    {label:'MD (일반)', unit:'장', price:100000},
-    {label:'MD (럭스)', unit:'장', price:120000},
-    {label:'MD (프리미엄)', unit:'장', price:140000},
-    {label:'MD 우라', unit:'장', price:80000},
-  ],
-  hw:[
-    {label:'서랍재 (볼레일)', unit:'개', price:10000},
-    {label:'서랍재 (언더레일/쿠커)', unit:'개', price:30000},
-    {label:'망장', unit:'개', price:70000},
-    {label:'경첩', unit:'개', price:900},
-    {label:'다릿발', unit:'개', price:400},
-    {label:'걸레캡', unit:'개', price:1000},
-  ],
-  sub:[
-    {label:'라벨러', unit:'개', price:2000},
-    {label:'쇼바', unit:'개', price:5000},
-    {label:'옷봉', unit:'개', price:15000},
-    {label:'F바/심플바/C채널', unit:'개', price:15000},
-    {label:'푸시', unit:'개', price:4000},
-    {label:'우산걸이', unit:'개', price:2000},
-  ],
-  etc:[] // 사용자 추가
-};
-let igCustom=[];
-
-function renderIgItems(){
-  ['board','hw','sub'].forEach(cat=>{
-    const el=document.getElementById('ig-'+cat); if(!el) return;
-    el.innerHTML=IG_DATA[cat].map((item,i)=>`
-      <div class="ig-item"><div class="ig-row">
-        <span class="ig-label">${item.label}</span>
-        <input class="ig-inp" type="number" id="ig-${cat}-${i}" value="" min="0" placeholder="0"
-               oninput="calcIgTotal()" style="text-align:center;">
-        <span class="ig-label" style="text-align:right;font-size:12px;color:var(--g5)">${item.price.toLocaleString()}/${item.unit}</span>
-        <span></span>
-      </div></div>`).join('');
-  });
-  renderIgEtc();
-  calcIgTotal();
-}
-
-let igEtcItems=[];
-function addIgEtc(){
-  igEtcItems.push({label:'',price:0,qty:0});
-  renderIgEtc();
-}
-function renderIgEtc(){
-  const el=document.getElementById('ig-etc'); if(!el) return;
-  el.innerHTML=igEtcItems.map((item,i)=>`
-    <div class="ig-item"><div class="ig-row" style="grid-template-columns:2fr 1fr 1.3fr 28px;">
-      <input class="ig-inp" type="text" value="${item.label}" placeholder="항목명"
-             onchange="igEtcItems[${i}].label=this.value;calcIgTotal()">
-      <input class="ig-inp" type="number" value="${item.qty||''}" placeholder="수량"
-             oninput="igEtcItems[${i}].qty=+this.value;calcIgTotal()">
-      <input class="ig-inp" type="number" value="${item.price||''}" placeholder="단가"
-             oninput="igEtcItems[${i}].price=+this.value;calcIgTotal()">
-      <button class="ig-del" onclick="igEtcItems.splice(${i},1);renderIgEtc();calcIgTotal()">×</button>
-    </div></div>`).join('');
-}
-
-function calcIgTotal(){
-  let tot=0;
-  ['board','hw','sub'].forEach(cat=>{
-    IG_DATA[cat].forEach((item,i)=>{
-      const el=document.getElementById(`ig-${cat}-${i}`);
-      const qty=parseFloat(el?.value)||0;
-      tot += qty*item.price;
-    });
-  });
-  igEtcItems.forEach(it=>{ tot += (it.qty||0)*(it.price||0); });
-  document.getElementById('ig-total').textContent=Math.round(tot).toLocaleString()+' 원';
-  return Math.round(tot);
-}
-
-function getIgRows(){
-  const rows=[];
-  ['board','hw','sub'].forEach(cat=>{
-    IG_DATA[cat].forEach((item,i)=>{
-      const qty=parseFloat(document.getElementById(`ig-${cat}-${i}`)?.value)||0;
-      if(qty>0) rows.push({label:item.label,qty,unit:item.unit,price:item.price,amt:Math.round(qty*item.price)});
-    });
-  });
-  igEtcItems.forEach(it=>{
-    if(it.label&&it.qty&&it.price) rows.push({label:it.label,qty:it.qty,unit:'개',price:it.price,amt:Math.round(it.qty*it.price)});
-  });
-  return rows;
-}
-
-function showIgPreview(){
-  const rows=getIgRows();
-  if(!rows.length){alert('품목을 입력해주세요');return;}
-  const client=document.getElementById('ig-client').value||'(거래처명)';
-  const date=document.getElementById('ig-date').value;
-  const site=document.getElementById('ig-site').value;
-  const total=rows.reduce((s,r)=>s+r.amt,0);
-  const vat=Math.round(total*0.1);
-  document.getElementById('ig-parea').innerHTML=`
-    <div class="pv-wrap">
-      <div class="pv-title">임 가 공 견 적 서</div>
-      <div class="pv-info">
-        <div class="pv-row"><span class="pv-k">거래처</span><span class="pv-v bold">${client}</span></div>
-        ${site?`<div class="pv-row"><span class="pv-k">현장명</span><span class="pv-v">${site}</span></div>`:''}
-        <div class="pv-row"><span class="pv-k">견적일</span><span class="pv-v">${date}</span></div>
-        <div class="pv-row"><span class="pv-k">공급자</span><span class="pv-v">㈜오션메이드</span></div>
-      </div>
-      <div class="pv-tw"><table class="pv-tb">
-        <thead><tr><th>품명</th><th>수량</th><th>단가</th><th>공급가</th></tr></thead>
-        <tbody>${rows.map(r=>`<tr><td>${r.label}</td><td style="text-align:right">${r.dispQty||r.qty+r.unit}</td><td style="text-align:right">${r.price.toLocaleString()}/${r.unit}</td><td style="text-align:right;font-weight:700">${r.amt.toLocaleString()}</td></tr>`).join('')}</tbody>
-        <tfoot><tr><td colspan="3">공 급 가</td><td>${total.toLocaleString()}</td></tr>
-               <tr style="background:var(--cr);"><td colspan="3" style="font-size:12px;color:var(--g5)">부 가 세 (10%)</td><td style="font-size:12px;color:var(--g5)">${vat.toLocaleString()}</td></tr>
-               <tr><td colspan="3">합 계</td><td>${(total+vat).toLocaleString()}</td></tr></tfoot>
-      </table></div>
-      <div class="pv-bank"><div class="pv-bank-n">⚠ 선 입 금 후 발 주</div>
-        <div class="pv-bank-b"><div class="pv-bank-num">332-135674-04-011</div>
-          <div class="pv-bank-info">기업은행 | 예금주: 주식회사 오션메이드</div></div></div>
-      <div class="pv-foot">㈜오션메이드 · 041-534-7475 · 아산시 신창면 환경공원로 213-9</div>
-    </div>`;
-  document.getElementById('ig-ovl').classList.add('show');
-}
-
-function confirmQuoteIg(){
-  const rows=getIgRows(); if(!rows.length) return;
-  const total=rows.reduce((s,r)=>s+r.amt,0);
-  saveSale({type:'임가공',client:document.getElementById('ig-client').value||'미입력',
-    date:document.getElementById('ig-date').value, site:document.getElementById('ig-site').value,
-    total,month:new Date().toISOString().slice(0,7)});
-  alert('✅ 견적이 확정되었습니다!');
-  closeOvl('ig-ovl'); resetIg();
-}
-
-function resetIg(){ igEtcItems=[]; renderIgItems(); document.getElementById('ig-site').value=''; }
-
-/* ════════════ 공사견적 ════════════ */
-const CS_DATA = {
-  kitchen:[
-    {label:'상부장 목대', unit:'mm', price:220000, isMm:true},
-    {label:'하부장 목대', unit:'mm', price:280000, isMm:true},
-    {label:'인조대리석', unit:'mm', price:200000, isMm:true},
-    {label:'인조대리석 광폭', unit:'mm', price:340000, isMm:true},
-    {label:'냉장고장', unit:'mm', price:300000, isMm:true},
-    {label:'키큰장', unit:'mm', price:500000, isMm:true},
-    {label:'EP/오픈장 MD', unit:'장', price:150000, isMm:false},
-  ],
-  cabinet:[
-    {label:'붙박이장', unit:'자', price:140000, isMm:false},
-    {label:'신발장', unit:'자', price:140000, isMm:false},
-    {label:'전체오픈장', unit:'자', price:180000, isMm:false},
-    {label:'반통오픈장', unit:'자', price:90000, isMm:false},
-    {label:'롱수납장', unit:'자', price:140000, isMm:false},
-    {label:'반수납장', unit:'mm', price:330000, isMm:true},
-    {label:'EP/오픈박스 MD', unit:'장', price:150000, isMm:false},
-  ],
-  storage:[]
-};
-let csCustomItems=[];
-
-function renderCsItems(){
-  ['kitchen','cabinet'].forEach(cat=>{
-    const el=document.getElementById('cs-'+cat); if(!el) return;
-    el.innerHTML=CS_DATA[cat].map((item,i)=>`
-      <div class="cs-item"><div class="cs-row">
-        <span class="ig-label">${item.label}</span>
-        <input class="ig-inp" type="number" id="cs-${cat}-${i}" value="" min="0"
-               step="${item.isMm?100:1}" placeholder="${item.isMm?'예)2400':'0'}"
-               oninput="calcCsTotal()">
-        <div style="text-align:right">
-          <span class="ig-sub" id="cs-sub-${cat}-${i}">0원</span><br>
-          <span class="cs-unit">${item.isMm?(item.price/1000).toLocaleString()+'/mm':item.price.toLocaleString()+'/'+item.unit}</span>
-        </div>
-        <span></span>
-      </div></div>`).join('');
-  });
-  renderCsCustom();
-  calcCsTotal();
-}
-function addCsCustom(){
-  csCustomItems.push({label:'',qty:0,unit:'식',price:0});
-  renderCsCustom();
-}
-function renderCsCustom(){
-  const el=document.getElementById('cs-custom'); if(!el) return;
-  el.innerHTML=csCustomItems.map((item,i)=>`
-    <div class="cs-item"><div class="cs-row">
-      <input class="ig-inp" type="text" value="${item.label}" placeholder="항목명"
-             onchange="csCustomItems[${i}].label=this.value;calcCsTotal()">
-      <input class="ig-inp" type="number" value="${item.qty||''}" placeholder="수량"
-             oninput="csCustomItems[${i}].qty=+this.value;calcCsTotal()">
-      <input class="ig-inp" type="number" value="${item.price||''}" placeholder="단가"
-             oninput="csCustomItems[${i}].price=+this.value;calcCsTotal()">
-      <button class="ig-del" onclick="csCustomItems.splice(${i},1);renderCsCustom();calcCsTotal()">×</button>
-    </div></div>`).join('');
-}
-
-function calcCsTotal(){
-  let tot=0;
-  ['kitchen','cabinet'].forEach(cat=>{
-    CS_DATA[cat].forEach((item,i)=>{
-      const el=document.getElementById(`cs-${cat}-${i}`);
-      const raw=parseFloat(el?.value)||0;
-      const qty = item.isMm ? raw/1000 : raw; // mm입력이면 M으로 변환
-      const amt=Math.round(qty*item.price);
-      const sub=document.getElementById(`cs-sub-${cat}-${i}`);
-      if(sub) sub.textContent=amt.toLocaleString()+'원';
-      tot+=amt;
-    });
-  });
-  csCustomItems.forEach(it=>{ tot+=Math.round((it.qty||0)*(it.price||0)); });
-  document.getElementById('cs-total').textContent=tot.toLocaleString()+' 원';
-  return tot;
-}
-
-function getCsRows(){
-  const rows=[];
-  ['kitchen','cabinet'].forEach(cat=>{
-    CS_DATA[cat].forEach((item,i)=>{
-      const raw=parseFloat(document.getElementById(`cs-${cat}-${i}`)?.value)||0;
-      if(raw>0){
-        const qty = item.isMm ? raw/1000 : raw;
-        const dispQty = item.isMm ? raw+'mm' : raw+item.unit;
-        const dispUnit = item.isMm ? 'M' : item.unit;
-        rows.push({label:item.label, qty, dispQty, unit:dispUnit, price:item.price, amt:Math.round(qty*item.price)});
-      }
-    });
-  });
-  csCustomItems.forEach(it=>{
-    if(it.label&&it.qty&&it.price) rows.push({label:it.label,qty:it.qty,unit:'식',price:it.price,amt:Math.round(it.qty*it.price)});
-  });
-  return rows;
-}
-
-function showCsPreview(){
-  const rows=getCsRows();
-  if(!rows.length){alert('품목을 입력해주세요');return;}
-  const client=document.getElementById('cs-client').value||'(거래처명)';
-  const date=document.getElementById('cs-date').value;
-  const site=document.getElementById('cs-site').value;
-  const note=document.getElementById('cs-note').value;
-  const total=rows.reduce((s,r)=>s+r.amt,0);
-  const vat=Math.round(total*0.1);
-  document.getElementById('cs-parea').innerHTML=`
-    <div class="pv-wrap">
-      <div class="pv-title">공 사 견 적 서</div>
-      <div class="pv-info">
-        <div class="pv-row"><span class="pv-k">거래처</span><span class="pv-v bold">${client}</span></div>
-        ${site?`<div class="pv-row"><span class="pv-k">현장명</span><span class="pv-v">${site}</span></div>`:''}
-        <div class="pv-row"><span class="pv-k">견적일</span><span class="pv-v">${date}</span></div>
-        ${note?`<div class="pv-row"><span class="pv-k">특기사항</span><span class="pv-v" style="font-size:12px;line-height:1.5">${note}</span></div>`:''}
-      </div>
-      <div class="pv-tw"><table class="pv-tb">
-        <thead><tr><th>품명</th><th>수량</th><th>단가</th><th>공급가</th></tr></thead>
-        <tbody>${rows.map(r=>`<tr><td>${r.label}</td><td style="text-align:right">${r.dispQty||r.qty+r.unit}</td><td style="text-align:right">${r.price.toLocaleString()}/${r.unit}</td><td style="text-align:right;font-weight:700">${r.amt.toLocaleString()}</td></tr>`).join('')}</tbody>
-        <tfoot><tr><td colspan="3">공 급 가</td><td>${total.toLocaleString()}</td></tr>
-               <tr style="background:var(--cr);"><td colspan="3" style="font-size:12px;color:var(--g5)">부 가 세</td><td style="font-size:12px;color:var(--g5)">${vat.toLocaleString()}</td></tr>
-               <tr><td colspan="3">합 계 금 액</td><td>${(total+vat).toLocaleString()}</td></tr></tfoot>
-      </table></div>
-      <div class="pv-bank"><div class="pv-bank-n">⚠ 선 입 금 후 착 공</div>
-        <div class="pv-bank-b"><div class="pv-bank-num">332-135674-04-011</div>
-          <div class="pv-bank-info">기업은행 | 예금주: 주식회사 오션메이드</div></div></div>
-      <div class="pv-foot">㈜오션메이드 · 041-534-7475 · 아산시 신창면 환경공원로 213-9<br>※ 본 견적서는 발행일로부터 30일간 유효합니다</div>
-    </div>`;
-  document.getElementById('cs-ovl').classList.add('show');
-}
-
-function confirmQuoteCs(){
-  const rows=getCsRows(); if(!rows.length) return;
-  const total=rows.reduce((s,r)=>s+r.amt,0);
-  saveSale({type:'공사',client:document.getElementById('cs-client').value||'미입력',
-    date:document.getElementById('cs-date').value, site:document.getElementById('cs-site').value,
-    total,month:new Date().toISOString().slice(0,7)});
-  alert('✅ 견적이 확정되었습니다!');
-  closeOvl('cs-ovl'); resetCs();
-}
-
-function resetCs(){ csCustomItems=[]; renderCsItems(); document.getElementById('cs-site').value=''; document.getElementById('cs-note').value=''; }
-
-/* ════════════ 데이터 탭 ════════════ */
+// ===== 데이터 탭 =====
 function renderData(){
-  const sales=loadSales();
-  const el=document.getElementById('data-inner'); if(!el) return;
-
-  if(!sales.length){
-    el.innerHTML=`<div style="text-align:center;padding:60px 20px;color:var(--g5)"><div style="font-size:40px;margin-bottom:12px">📭</div><div style="font-size:15px;font-weight:700;margin-bottom:6px">아직 확정된 견적이 없어요</div><div style="font-size:13px">각 탭에서 견적서 확정 후 쌓입니다</div></div>`;
-    return;
-  }
-
-  const now=new Date();
-  const ym=now.toISOString().slice(0,7);
+  const sales=loadSales(),el=document.getElementById('data-inner'); if(!el) return;
+  if(!sales.length){ el.innerHTML=`<div style="text-align:center;padding:60px 20px;color:var(--g5)"><div style="font-size:40px;margin-bottom:12px">📭</div><div style="font-size:15px;font-weight:700;margin-bottom:6px">아직 확정된 견적이 없어요</div></div>`; return; }
+  const now=new Date(),ym=now.toISOString().slice(0,7);
   const thisMonth=sales.filter(s=>s.month===ym);
-
-  const totalAmt=sales.reduce((s,x)=>s+(x.total||0),0);
-  const monthAmt=thisMonth.reduce((s,x)=>s+(x.total||0),0);
-
-  // 타입별
-  const byType={};
-  sales.forEach(x=>{ byType[x.type]=(byType[x.type]||0)+(x.total||0); });
-  // 거래처별
-  const byClient={};
-  sales.forEach(x=>{ if(!byClient[x.client]) byClient[x.client]={amt:0,cnt:0}; byClient[x.client].amt+=(x.total||0); byClient[x.client].cnt++; });
-  const topC=Object.entries(byClient).sort((a,b)=>b[1].amt-a[1].amt).slice(0,6);
-  const maxC=topC[0]?.[1]?.amt||1;
-  // 월별
-  const byMonth={};
-  sales.forEach(x=>{ byMonth[x.month]=(byMonth[x.month]||0)+(x.total||0); });
-  const months=Object.entries(byMonth).sort((a,b)=>a[0].localeCompare(b[0])).slice(-6);
-  const maxM=Math.max(...months.map(m=>m[1]))||1;
-
-  const typeBadge={필름:'tb-film',도어:'tb-door',임가공:'tb-ig',공사:'tb-cs'};
-  const typeIcon={필름:'🎨',도어:'🚪',임가공:'🔩',공사:'🏠'};
-
+  const totalAmt=sales.reduce((s,x)=>s+(x.total||0),0),monthAmt=thisMonth.reduce((s,x)=>s+(x.total||0),0);
+  const byType={};sales.forEach(x=>{byType[x.type]=(byType[x.type]||0)+(x.total||0);});
+  const byClient={};sales.forEach(x=>{if(!byClient[x.client]) byClient[x.client]={amt:0,cnt:0};byClient[x.client].amt+=(x.total||0);byClient[x.client].cnt++;});
+  const topC=Object.entries(byClient).sort((a,b)=>b[1].amt-a[1].amt).slice(0,6),maxC=topC[0]?.[1]?.amt||1;
+  const byMonth={};sales.forEach(x=>{byMonth[x.month]=(byMonth[x.month]||0)+(x.total||0);});
+  const months=Object.entries(byMonth).sort((a,b)=>a[0].localeCompare(b[0])).slice(-6),maxM=Math.max(...months.map(m=>m[1]))||1;
+  const typeBadge={필름:'tb-film',도어:'tb-door'},typeIcon={필름:'🎨',도어:'🚪'};
   el.innerHTML=`
     <div class="stat-grid">
       <div class="sg-card"><div class="sg-lbl">이번달 매출</div><div class="sg-val">${(monthAmt/10000).toFixed(0)}만</div></div>
@@ -2343,7 +1291,6 @@ function renderData(){
       <div class="sg-card"><div class="sg-lbl">총 매출액</div><div class="sg-val">${(totalAmt/10000).toFixed(0)}만</div></div>
       <div class="sg-card"><div class="sg-lbl">이번달 건수</div><div class="sg-val">${thisMonth.length}건</div></div>
     </div>
-
     <div style="font-size:13px;font-weight:800;color:var(--g7);margin-bottom:8px">📊 견적 유형별</div>
     <div class="stat-card" style="margin-bottom:14px;">
       ${Object.entries(byType).map(([type,amt])=>`
@@ -2353,7 +1300,6 @@ function renderData(){
           <span style="font-size:13px;font-weight:700;color:var(--br);white-space:nowrap">${(amt/10000).toFixed(0)}만원</span>
         </div>`).join('')}
     </div>
-
     <div style="font-size:13px;font-weight:800;color:var(--g7);margin-bottom:8px">🏢 거래처별 TOP6</div>
     ${topC.map(([name,d])=>`
       <div class="stat-card" style="padding:10px 14px;margin-bottom:6px;">
@@ -2361,23 +1307,21 @@ function renderData(){
           <span style="font-size:13px;font-weight:700">${name}</span>
           <span style="font-size:13px;font-weight:800;color:var(--br)">${d.amt.toLocaleString()}원</span>
         </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div style="display:flex;align-items:center;">
           <span style="font-size:11px;color:var(--g5)">${d.cnt}건</span>
           <div style="flex:1;margin:0 10px"><div class="bar-wrap"><div class="bar-fill" style="width:${Math.round(d.amt/maxC*100)}%"></div></div></div>
         </div>
       </div>`).join('')}
-
     <div style="font-size:13px;font-weight:800;color:var(--g7);margin:14px 0 8px">📅 월별 매출</div>
     ${months.map(([month,amt])=>`
       <div class="stat-card" style="padding:9px 14px;margin-bottom:6px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
+        <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
           <span style="font-size:13px;font-weight:700">${month}</span>
           <span style="font-size:13px;font-weight:800;color:var(--br)">${amt.toLocaleString()}원</span>
         </div>
         <div class="bar-wrap"><div class="bar-fill" style="width:${Math.round(amt/maxM*100)}%"></div></div>
       </div>`).join('')}
-
-    <div style="font-size:13px;font-weight:800;color:var(--g7);margin:14px 0 8px">📋 최근 견적 내역</div>
+    <div style="font-size:13px;font-weight:800;color:var(--g7);margin:14px 0 8px">📋 최근 내역</div>
     ${sales.slice(0,15).map(s=>`
       <div class="stat-card" style="padding:10px 14px;margin-bottom:6px;">
         <div style="display:flex;justify-content:space-between;align-items:center;">
@@ -2386,14 +1330,11 @@ function renderData(){
         </div>
         <div style="font-size:11px;color:var(--g5);margin-top:4px">${s.date}${s.site?' · '+s.site:''}</div>
       </div>`).join('')}
-
     <div style="display:flex;gap:8px;margin-top:8px;padding-bottom:14px;">
-      <button onclick="exportCsv()" style="flex:1;padding:12px;border:1.5px solid var(--bd);border-radius:9px;background:#fff;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;color:var(--g7)">📥 CSV 내보내기</button>
-      <button onclick="if(confirm('전체 데이터 삭제?')){localStorage.removeItem('om_sales');renderData();}" style="flex:1;padding:12px;border:1.5px solid #FFBBAA;border-radius:9px;background:#fff;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;color:var(--or)">🗑 초기화</button>
-    </div>
-  `;
+      <button onclick="exportCsv()" style="flex:1;padding:12px;border:1.5px solid var(--bd);border-radius:9px;background:#fff;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;color:var(--g7)">📥 CSV</button>
+      <button onclick="if(confirm('전체 삭제?')){localStorage.removeItem('om_sales');renderData();}" style="flex:1;padding:12px;border:1.5px solid #FFBBAA;border-radius:9px;background:#fff;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;color:var(--or)">🗑 초기화</button>
+    </div>`;
 }
-
 function exportCsv(){
   const s=loadSales(); if(!s.length){alert('데이터 없음');return;}
   const csv='유형,거래처,날짜,금액,현장\n'+s.map(x=>`${x.type},${x.client},${x.date},${x.total||0},${x.site||''}`).join('\n');
@@ -2402,55 +1343,35 @@ function exportCsv(){
   a.download='오션메이드_견적데이터.csv'; a.click();
 }
 
-/* ════════════ 공통 유틸 ════════════ */
-function closeOvl(id){ document.getElementById(id)?.classList.remove('show'); }
-function printArea(id){
-  const html=document.getElementById(id)?.innerHTML||'';
-  const w=window.open('','_blank');
-  w.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>오션메이드 견적서</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
-  <style>*{box-sizing:border-box;margin:0;padding:0;}body{font-family:'Noto Sans KR',sans-serif;padding:20px;max-width:480px;margin:0 auto;}
-  .pv-title{text-align:center;font-size:18px;font-weight:900;letter-spacing:5px;color:#3D1F0A;margin-bottom:10px;padding-bottom:8px;border-bottom:2px solid #E8630A;}
-  .pv-info{border:1px solid #DDD;border-radius:8px;overflow:hidden;margin-bottom:8px;}
-  .pv-row{display:flex;padding:7px 12px;border-bottom:1px solid #EEE;font-size:12px;}.pv-row:last-child{border-bottom:none;}
-  .pv-k{color:#888;font-size:10px;min-width:50px;font-weight:700;}.pv-v{flex:1;color:#111;}.pv-v.bold{font-size:14px;font-weight:900;color:#3D1F0A;}
-  .pv-tw{border:1px solid #DDD;border-radius:8px;overflow:hidden;margin-bottom:8px;}
-  .pv-tb{width:100%;border-collapse:collapse;font-size:12px;}.pv-tb thead tr{background:#3D1F0A;}.pv-tb th{padding:7px 5px;color:#FAF5EE;font-size:10px;}
-  .pv-tb th:first-child{text-align:left;padding-left:10px;}.pv-tb th:not(:first-child){text-align:right;padding-right:6px;}
-  .pv-tb td{padding:8px 5px;border-bottom:1px solid #F0E8DC;}.pv-tb td:first-child{text-align:left;padding-left:10px;font-weight:600;}.pv-tb td:not(:first-child){text-align:right;padding-right:6px;}
-  .pv-tb tfoot td{padding:9px 5px;background:#F0E6D6;border-top:2px solid #E8630A;font-weight:900;color:#3D1F0A;font-size:13px;}.pv-tb tfoot td:first-child{padding-left:10px;}.pv-tb tfoot td:last-child{text-align:right;padding-right:6px;font-size:15px;}
-  .pv-bank{border:2px solid #E8630A;border-radius:8px;overflow:hidden;margin-bottom:8px;}.pv-bank-n{background:#E8630A;color:#fff;text-align:center;padding:6px;font-size:12px;font-weight:800;letter-spacing:3px;}
-  .pv-bank-b{padding:8px 12px;background:#fff;}.pv-bank-num{font-size:18px;font-weight:900;color:#3D1F0A;letter-spacing:1px;}.pv-bank-info{font-size:11px;color:#666;}
-  .pv-foot{text-align:center;font-size:10px;color:#888;margin-top:6px;}
-  button{display:none!important}@media print{body{padding:10px}}</style>
-  </head><body>${html}<script>window.onload=()=>window.print()<\/script></body></html>`);
-  w.document.close();
+// ===== 탭 전환 =====
+const TABS=['chat','film','door','price','data'];
+function switchTab(name){
+  TABS.forEach(t=>{
+    const p=document.getElementById('tp-'+t); if(!p) return;
+    if(t==='chat') p.style.display=t===name?'flex':'none';
+    else p.style.display=t===name?'block':'none';
+    const b=document.getElementById('bn-'+t);
+    if(b) b.className='bn'+(t===name?' on':'');
+  });
+  if(name==='data') renderData();
+  if(name==='price') renderPriceTable();
+  if(name==='chat'){ const m=document.getElementById('chat-msgs'); if(m) setTimeout(()=>m.scrollTop=m.scrollHeight,50); }
 }
-function goHome(){ switchTab('chat'); }
-function setMode(m){ switchTab(m==='film'?'film':'door'); }
 
-/* ════════════ 척척박사 AI ════════════ */
-const KB={
-  staff:{'정근도':'대표(오션봇) · 생산지시/출고승인/입금확인','정해빈':'이사 · 영업/발주접수/현장관리/배송조율','김남현':'공장장 · 재단·생산관리/견적서작성/재고관리','이석원':'직원 · 엣지밴딩/보링/포장/출고','안현':'직원 · 보조작업'},
-  sinks:{'서산백조':'담당: 윤아윤덩아빠(사장) | 결제: 즉시선입금 | 특징: 입금귀신, 글로시계열선호, 발주→입금→확인 패턴','서산가야':'담당: 김동겸(사장) | 결제: 발주확정(후불) | 특징: 빠른배송요청, 남는자재엣지요청, 보링사이즈조율잦음, 본인집시공발주도함','서산새롬':'담당: 사장님 | 결제: 선입금 | 특징: 입금귀신, 우량, 1등급','서산다림':'담당: 사장님 | 결제: 발주확정 | 특징: 정기거래','이천씽크':'담당: 임사장님 | 결제: 발주확정 | 특징: 대량발주증가','미래씽크':'담당: 사장님 | 결제: 즉시입금 | 특징: 재단사진필수, 글로시샌드/매트샌드','우리씽크':'담당: 공장장님 | 결제: 발주확정 | 특징: 천안, 세이오크사용','상록수씽크':'담당: 오종교 | 결제: 발주확정 | 특징: 천안, 정해빈이사중계, 2026년1월시작','라온씽크':'담당: 최윤열 | 결제: 선입금 | 특징: 다양한색상, 소수점청구','하미주':'담당: 공장장 | 결제: 발주확정 | 특징: 당진'},
-  interior:{'윤퍼니':'담당: 이현지/임소연(발주),박상현(출고),윤furni(대표) | 결제: 발주후수금 | 특징: 최대거래처, 엑셀발주서+현장사진, 급발주잦음, 롤써라묶기출고 | 파일명: 오션 발주서 YYMMDD 현장주소.xlsx','디자인리그리다':'담당: 사장님 | 결제: 발주확정 | 특징: 고급현장, AS빈번','MK퍼니처':'담당: 사장 | 결제: 반드시선입금 | 특징: 카카오없음, 전화발주만','JJ':'담당: 사장님 | 결제: 발주확정 | 특징: 3등급단가'},
-  pricing:{'S등급(특판)':'89,000원/장 기준 (윤퍼니·이천·서산)','1등급':'93,000~98,000원/장','2등급':'88,000원/장','3등급':'83,000원 이하 (JJ)','글로시류':'92,000~98,000원','세라믹류':'105,000원','PP류(카타니아/네이처오크)':'122,000원','한솔피넛오크':'94,000원','한솔씨에라오크/콘크리트':'118,000원','ARC류':'117,000원'},
-  extras:{'식세기마이다':'5,000원/개','써라(서라운드)':'10,000원','조명타공':'5,000원/개','조립비':'20,000원/통','F바':'16,500원(부가세포함)'},
-  edge:{'WH002MT':'매트밀크화이트','WH007MT':'매트화이트','WH003HG':'글로시화이트','WH002HG':'글로시밀크화이트','GY002MT':'매트그레이','GY002HG':'글로시그레이','GY003MT':'매트다크그레이','GY005MT':'매트라이트그레이','GY007MT':'매트샌드그레이','GY008MT':'매트포그그레이','GY017MT':'듀이클라우드(구-재고불안)','GY022MT':'듀이클라우드(신)','CC001MT':'콘크리트그레이','ST009MT':'콘크리트화이트','BG005MT':'매트캐시미어','BG011MT':'매트스노우베이지','BG013MT':'아크퓨어코튼','BR001MT':'매트브라운','BL001MT':'코튼블루','GR001MT':'딥그린','GR002MT':'미스트그린','GR003MT':'스모키올리브','WD006MT':'던오크/피넛오크','WD007MT':'피넛오크','WD009MT':'카카오월넛','WD033MT':'LX리치오크','WD037MT':'소프트월넛','WD044MT':'카타니아오크','WD047MT':'카카오월넛(신)','WD049MT':'던오크(신)','ST004MT':'세라믹문그레이','ST005MT':'세라믹문움브라','ST008MT':'세라믹문퍼시픽'},
-  supply:{board:'예림키친 | 담당: 김아름·이정무·신숙영·하용이 | 주문: 카카오톡 "특판)색상명 OO장 엣지 O개 부탁드립니다" | ⚠️ 토요일서산배송없음 | 특판=장당1,000원할인(MD70장/PB80장)',edge:'레하우/지오시스템 | 담당: 문정우 | 결제: 당일/익일즉시입금 | 주의: 한번에모아서발주 | HG=글로시,MT=매트'},
-  boring:'일반도어: 위120/아래700 | 상부장: 100~120/100~120 | 소형(폭좁음): 80~100 | 1200mm이상: 3구보링가능 | 폭협소→120→100→80순협의',
-  flow:'① 발주서접수 → ② 견적서작성(김남현) → ③ 선입금확인(오션봇) → ④ 네스팅재단(2440→2420) → ⑤ 엣지밴딩 → ⑥ 보링 → ⑦ 품질검사 → ⑧ 포장 → ⑨ 출고',
-  decimal:'예림기본컬러(매트밀크/캐시미어/포그)만 소수점가능 | 글로시·특수합판=정장청구 | 잔바리재고활용시소수점가능',
-  ig_price:'PB15t:81,000 | PB18t:85,000 | MD일반:100,000 | MD럭스:120,000 | MD프리미엄:140,000 | MD우라:80,000 | 경첩:900 | 다릿발:400 | 서랍재(볼레일):10,000 | 서랍재(언더/쿠커):30,000 | 망장:70,000 | F바/심플바:15,000 | 쇼바:5,000 | 라벨러:2,000 | 걸레캡:1,000 | 추가가공비:100,000',
-  cs_price:'상부장목대:220,000/M | 하부장목대:280,000/M | 인조대리석:200,000/M | 인조대리석광폭:340,000/M | 냉장고장:300,000/M | 키큰장:500,000/M | EP오픈장:150,000/장 | 붙박이장:140,000/자 | 신발장:140,000/자 | 전체오픈장:180,000/자 | 반통오픈장:90,000/자 | 롱수납장:140,000/자 | 반수납장:330,000/M'
-};
+// ===== 공통 유틸 =====
+function closeOvl(id){ document.getElementById(id)?.classList.remove('show'); }
+function doPrint(){
+  const content=document.getElementById('parea')?.innerHTML||'';
+  const win=window.open('','_blank','width=420,height=900');
+  win.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>필름 견적서</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>*{box-sizing:border-box;margin:0;padding:0;}body{font-family:'Noto Sans KR',sans-serif;padding:20px;max-width:480px;margin:0 auto;}.pv-wrap{padding:6px 0 24px;}.pv-title{text-align:center;font-size:18px;font-weight:900;letter-spacing:5px;color:#3D1F0A;margin-bottom:10px;padding-bottom:8px;border-bottom:2px solid #E8630A;}.pv-info{border:1px solid #DDD;border-radius:8px;overflow:hidden;margin-bottom:8px;}.pv-row{display:flex;padding:7px 12px;border-bottom:1px solid #EEE;font-size:12px;}.pv-row:last-child{border-bottom:none;}.pv-k{color:#888;font-size:10px;min-width:50px;font-weight:700;}.pv-v{flex:1;color:#111;}.pv-v.bold{font-size:14px;font-weight:900;color:#3D1F0A;}.pv-table-wrap{border:1px solid #DDD;border-radius:8px;overflow:hidden;margin-bottom:8px;}.pv-table{width:100%;border-collapse:collapse;font-size:12px;}.pv-table thead tr{background:#3D1F0A;}.pv-table th{padding:7px 5px;color:#FAF5EE;font-size:10px;}.pv-table th:first-child{text-align:left;padding-left:10px;}.pv-table th:not(:first-child){text-align:right;padding-right:6px;}.pv-table td{padding:8px 5px;border-bottom:1px solid #F0E8DC;}.pv-table td:first-child{text-align:left;padding-left:10px;font-weight:600;}.pv-table td:not(:first-child){text-align:right;padding-right:6px;}.pv-table tfoot td{padding:9px 5px;background:#F0E6D6;border-top:2px solid #E8630A;font-weight:900;color:#3D1F0A;}.pv-table tfoot td:first-child{padding-left:10px;}.pv-table tfoot td:last-child{text-align:right;padding-right:6px;}.sub-row td{font-size:11px!important;color:#AAA!important;background:#FAF5EE!important;}.pv-bank{border:2px solid #E8630A;border-radius:8px;overflow:hidden;margin-bottom:8px;}.pv-bank-notice{background:#E8630A;color:#fff;text-align:center;padding:6px;font-size:12px;font-weight:800;letter-spacing:3px;}.pv-bank-body{padding:8px 12px;}.pv-bank-num{font-size:18px;font-weight:900;color:#3D1F0A;}.pv-bank-info{font-size:11px;color:#666;}.pv-supplier{text-align:center;font-size:10px;color:#888;margin-top:6px;}button{display:none!important}@media print{body{padding:10px}}</style>
+  </head><body>${content}<script>window.onload=()=>window.print()<\/script></body></html>`);
+  win.document.close();
+}
 
-/* ══════════════════════════════════════
-   진짜 AI 채팅 - Anthropic API 연동
-══════════════════════════════════════ */
-
-// 회사 지식베이스 (시스템 프롬프트에 삽입)
-const SYSTEM_PROMPT = `당신은 주식회사 오션메이드의 전담 AI 비서 "척척박사"입니다.
+// ===== 척척박사 AI =====
+const SYSTEM_PROMPT=`당신은 주식회사 오션메이드의 전담 AI 비서 "척척박사"입니다.
 직원들이 업무 중 질문하면 친절하고 정확하게 답변하세요.
 답변은 간결하게, 필요시 불릿포인트로 정리해주세요.
 HTML 태그 사용 가능: <b>, <br>, <span class="ctag">태그명</span>
@@ -2467,202 +1388,124 @@ HTML 태그 사용 가능: <b>, <br>, <span class="ctag">태그명</span>
 - 김남현(공장장): 재단·생산관리·견적서작성·재고관리
 - 이석원(직원): 엣지밴딩·보링·포장·출고 / 안현(직원): 보조작업
 
-【도어 단가 기준】
-- S등급(특판): 89,000원/장 기준 (윤퍼니·이천·서산거래처)
-- 1등급: 93,000~98,000원/장 / 2등급: 88,000원/장 / 3등급: 83,000원 이하(JJ)
-- 글로시류: 92,000~98,000원 / 세라믹류: 105,000원
-- 한솔피넛오크: 94,000원 / 한솔씨에라오크·콘크리트: 118,000원
-- PP류(카타니아·네이처오크): 122,000원 / ARC류: 117,000원
-- 추가비용: 식세기마이다 5,000 / 써라(서라운드) 10,000 / 조명타공 5,000/개 / 조립비 20,000/통 / F바 16,500(부가세포함)
+【도어 단가 기준 (2025.06.15~)】
+- 매트 일반: 94,000원/장
+- 매트 후면강화: 105,000~108,000원/장
+- 매트 내지문(컬러): 104,000~105,000원/장
+- 글로시: 104,000~109,000원/장
+- 우드/키친(슈가엘름·피넛오크 등): 105,000원/장
+- 세라믹 문: 110,000원/장
+- PP 프레스티지(네이처·카타니아 등): 130,000~133,000원/장
+- 아크릴 프레스티지: 127,000원/장
+- 메탈 계열: 117,000~125,000원/장
+- 방염: 106,000~110,000원/장
 
 【거래처 정보】
-싱크대공장: 서산백조(즉시선입금,글로시선호), 서산가야(김동겸,빠른배송,보링조율잦음), 서산새롬(선입금,우량,1등급), 서산다림(정기), 이천씽크(임사장,대량발주증가), 미래씽크(재단사진필수), 우리씽크(천안), 상록수씽크(오종교,천안,정해빈중계,2026년1월시작), 라온씽크(최윤열,선입금), 하미주(당진)
-인테리어: 윤퍼니(최대거래처,이현지/임소연발주,박상현출고,급발주잦음,롤써라묶기출고,발주파일명:오션 발주서 YYMMDD 현장주소.xlsx), 디자인리그리다(고급현장,AS빈번), MK퍼니처(카카오없음,반드시선입금,전화발주), JJ(3등급단가)
+싱크대공장: 서산백조(즉시선입금,글로시선호), 서산가야(김동겸,빠른배송,보링조율잦음), 서산새롬(선입금,우량), 서산다림(정기), 이천씽크(임사장,대량발주증가), 미래씽크(재단사진필수), 우리씽크(천안), 상록수씽크(오종교,천안,정해빈중계,2026년1월시작), 라온씽크(최윤열,선입금), 하미주(당진)
+인테리어: 윤퍼니(최대거래처,이현지/임소연발주,박상현출고,급발주잦음,롤써라묶기출고,발주파일명:오션 발주서 YYMMDD 현장주소.xlsx), 디자인리그리다(고급현장,AS빈번), MK퍼니처(카카오없음,반드시선입금,전화발주), JJ
 
-【레이저 엣지 코드표】(공급: 레하우/지오시스템, 담당: 문정우, 결제: 당일/익일즉시입금, 주의: 한번에모아서발주)
+【레이저 엣지 코드표】
 WH002MT=매트밀크화이트, WH007MT=매트화이트, WH003HG=글로시화이트, WH002HG=글로시밀크화이트
 GY002MT=매트그레이, GY002HG=글로시그레이, GY003MT=매트다크그레이, GY005MT=매트라이트그레이
-GY007MT=매트샌드그레이, GY008MT=매트포그그레이, GY017MT=듀이클라우드(구-재고불안), GY022MT=듀이클라우드(신)
+GY007MT=매트샌드그레이, GY008MT=매트포그그레이, GY022MT=듀이클라우드
 CC001MT=콘크리트그레이, ST009MT=콘크리트화이트, BG005MT=매트캐시미어, BG011MT=매트스노우베이지
-BG013MT=아크퓨어코튼, BR001MT=매트브라운, BL001MT=코튼블루, GR001MT=딥그린, GR002MT=미스트그린
-WD006MT=던오크/피넛오크, WD007MT=피넛오크, WD009MT=카카오월넛, WD033MT=LX리치오크
-WD044MT=카타니아오크, WD047MT=카카오월넛(신), WD049MT=던오크(신)
+BG013MT=아크퓨어코튼, BR001MT=매트브라운, BL001MT=코튼블루, GR001MT=딥그린
+WD006MT=던오크/피넛오크, WD044MT=카타니아오크, WD047MT=카카오월넛(신), WD049MT=던오크(신)
 ST004MT=세라믹문그레이, ST005MT=세라믹문움브라, ST008MT=세라믹문퍼시픽
-HG=글로시, MT=매트
+공급: 레하우/지오시스템 | 담당: 문정우 | 결제: 당일/익일즉시입금 | 한번에모아서발주
 
 【합판 공급: 예림키친】
 담당: 김아름·이정무·신숙영·하용이
-주문형식: 카카오톡 "특판)색상명 OO장 엣지 O개 부탁드립니다"
-⚠️ 토요일 서산배송 없음! 특판=장당1,000원할인(MD70장/PB80장 밴딩단위)
-급할때 "첫집으로 배송" 요청가능
+주문: "특판)색상명 OO장 엣지 O개 부탁드립니다"
+⚠️ 토요일 서산배송 없음! 특판=장당1,000원할인
 
 【생산 프로세스】
-① 발주서접수 → ② 견적서작성(김남현) → ③ 선입금확인(오션봇) → ④ 네스팅라우터재단(2440→2420실출고) → ⑤ 엣지밴딩(PUR/EVA) → ⑥ 보링 → ⑦ 품질검사·사이즈체크 → ⑧ 포장(밴딩기) → ⑨ 출고(용달/직접수령)
+① 발주서접수 → ② 견적서작성 → ③ 선입금확인 → ④ 네스팅재단(2440→2420실출고) → ⑤ 엣지밴딩 → ⑥ 보링 → ⑦ 품질검사 → ⑧ 포장 → ⑨ 출고
 
 【보링 기준】
-- 일반도어: 위120/아래700 (기본)
-- 상부장: 100~120/100~120 / 소형(폭좁음): 80~100으로조율
-- 1200mm이상: 3구보링(센터보링)가능
-- 폭협소시 120→100→80 순으로협의
+일반도어: 위120/아래700 | 상부장: 100~120/100~120 | 소형: 80~100 | 1200mm이상: 3구보링가능
 
 【소수점 견적 규칙】
-- 예림기본컬러(매트밀크·캐시미어·포그 등)만 소수점청구가능
-- 글로시류·특수합판=정장청구 / 잔바리(짜투리)재고 활용시 소수점가능
-- 라우터=CNC보다 약15%더소요
+예림기본컬러(매트밀크·캐시미어·포그)만 소수점가능 / 글로시·특수=정장청구
 
-【임가공 단가】
-PB15t: 81,000/장 / PB18t: 85,000/장
-MD일반: 100,000/장 / MD럭스: 120,000/장 / MD프리미엄: 140,000/장 / MD우라: 80,000/장
-서랍재(볼레일): 10,000/개 / 서랍재(언더레일·쿠커레일): 30,000/개 / 망장: 70,000/개
-경첩: 900/개 / 다릿발: 400/개 / 걸레캡: 1,000/개 / 라벨러: 2,000/개
-쇼바: 5,000/개 / 옷봉: 15,000/개 / F바·심플바·C채널: 15,000/개 / 푸시: 4,000/개
-추가가공비: 100,000/건
+일반적인 대화도 자연스럽게 답변하세요.
+앱 기능: 척척박사(AI)·필름견적·도어견적·단가표·데이터 탭이 있습니다.`;
 
-【공사견적 단가】
-상부장목대: 220,000/M / 하부장목대: 280,000/M
-인조대리석: 200,000/M / 인조대리석광폭: 340,000/M
-냉장고장: 300,000/M / 키큰장: 500,000/M / EP·오픈장MD: 150,000/장
-붙박이장: 140,000/자 / 신발장: 140,000/자 / 전체오픈장: 180,000/자
-반통오픈장: 90,000/자 / 롱수납장: 140,000/자 / 반수납장: 330,000/M
-
-【결제방식】
-즉시선입금: 서산백조("입금했습니다" 즉시확인), MK퍼니처(카카오없음·전화발주), 서산새롬, 라온씽크
-발주확정(후불추정): 서산가야·상록수·이천·윤퍼니·JJ 등 → "발주되었습니다 감사합니다"로 확정
-
-일반적인 대화(인사, 날씨 등)도 자연스럽게 답변하세요.
-앱 기능 안내: 이 앱에는 척척박사(AI상담)·필름견적·도어견적·임가공견적·공사견적·데이터(통계) 탭이 있습니다.`;
-
-
-/* ── 채팅 UI 헬퍼 함수 ── */
-let chatInited = false;
-let chatHistory = [];
-
+let chatInited=false,chatHistory=[];
 function initChat(){
-  if(chatInited) return; chatInited = true;
-  chatHistory = [];
-  addBot(`안녕하세요! <b>오션 척척박사</b>입니다 🤖<br><br>거래처·단가·엣지·임가공·공사 등 업무 전반을 도와드려요.<br>자유롭게 말씀해 주세요!<br><br><b>예시:</b><br>• "가구 공사 견적 내고 싶은데요"<br>• "서산가야 결제방식이 어떻게 돼요?"<br>• "GY008MT 무슨 색이에요?"<br>• "보링을 120으로 하면 너무 좁을 것 같은데"`);
+  if(chatInited) return; chatInited=true; chatHistory=[];
+  addBot(`안녕하세요! <b>오션 척척박사</b>입니다 🤖<br><br>거래처·단가·엣지 등 업무 전반을 도와드려요.<br>자유롭게 말씀해 주세요!`);
 }
-
 function addBot(html){
-  const b = document.getElementById('chat-msgs'); if(!b) return;
-  const d = document.createElement('div');
-  d.className = 'cbw';
-  d.innerHTML = `<div class="cav">🤖</div><div class="cbl bot-bl">${html}</div>`;
-  b.appendChild(d); b.scrollTop = b.scrollHeight;
+  const b=document.getElementById('chat-msgs'); if(!b) return;
+  const d=document.createElement('div'); d.className='cbw';
+  d.innerHTML=`<div class="cav">🤖</div><div class="cbl bot-bl">${html}</div>`;
+  b.appendChild(d); b.scrollTop=b.scrollHeight;
 }
-
 function addUsr(txt){
-  const b = document.getElementById('chat-msgs'); if(!b) return;
-  const d = document.createElement('div');
-  d.className = 'cbw u';
-  d.innerHTML = `<div class="cav u">나</div><div class="cbl usr-bl">${txt}</div>`;
-  b.appendChild(d); b.scrollTop = b.scrollHeight;
+  const b=document.getElementById('chat-msgs'); if(!b) return;
+  const d=document.createElement('div'); d.className='cbw u';
+  d.innerHTML=`<div class="cav u">나</div><div class="cbl usr-bl">${txt}</div>`;
+  b.appendChild(d); b.scrollTop=b.scrollHeight;
 }
-
 function showDots(){
-  const b = document.getElementById('chat-msgs'); if(!b) return;
-  const d = document.createElement('div');
-  d.className = 'cbw'; d.id = 'tdot';
-  d.innerHTML = `<div class="cav">🤖</div><div class="cbl bot-bl"><div class="tdot"><span></span><span></span><span></span></div></div>`;
-  b.appendChild(d); b.scrollTop = b.scrollHeight;
+  const b=document.getElementById('chat-msgs'); if(!b) return;
+  const d=document.createElement('div'); d.className='cbw'; d.id='tdot';
+  d.innerHTML=`<div class="cav">🤖</div><div class="cbl bot-bl"><div class="tdot"><span></span><span></span><span></span></div></div>`;
+  b.appendChild(d); b.scrollTop=b.scrollHeight;
 }
-
-async function sendToAI(userMsg) {
-  chatHistory.push({ role: 'user', content: userMsg });
-
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        system: SYSTEM_PROMPT,
-        messages: chatHistory.slice(-10) // 최근 10개 메시지만 유지
-      })
+async function sendToAI(userMsg){
+  chatHistory.push({role:'user',content:userMsg});
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:SYSTEM_PROMPT,messages:chatHistory.slice(-10)})
     });
-
-    if (!res.ok) {
-      const err = await res.json();
-      throw new Error(err.error?.message || `API 오류 ${res.status}`);
-    }
-
-    const data = await res.json();
-    const reply = data.content?.[0]?.text || '답변을 가져오지 못했습니다.';
-    chatHistory.push({ role: 'assistant', content: reply });
+    if(!res.ok){const err=await res.json();throw new Error(err.error?.message||`API 오류 ${res.status}`);}
+    const data=await res.json();
+    const reply=data.content?.[0]?.text||'답변을 가져오지 못했습니다.';
+    chatHistory.push({role:'assistant',content:reply});
     return reply;
+  }catch(e){ chatHistory.pop(); throw e; }
+}
+async function sendChat(){
+  const i=document.getElementById('chat-inp'),t=i.value.trim(); if(!t) return;
+  addUsr(t); i.value=''; i.disabled=true; document.querySelector('.chat-send').disabled=true; showDots();
+  try{
+    const reply=await sendToAI(t);
+    const d=document.getElementById('tdot'); if(d) d.remove();
+    addBot(reply.replace(/\n/g,'<br>'));
+  }catch(e){
+    const d=document.getElementById('tdot'); if(d) d.remove();
+    addBot(`⚠️ 연결 오류<br><small style="color:#999">${e.message}</small>`);
+  }finally{ i.disabled=false; document.querySelector('.chat-send').disabled=false; i.focus(); }
+}
+function askBot(q){ switchTab('chat'); setTimeout(()=>{document.getElementById('chat-inp').value=q;sendChat();},150); }
 
-  } catch(e) {
-    chatHistory.pop(); // 실패시 히스토리에서 제거
-    console.error('AI 오류:', e);
-    throw e;
-  }
+// ===== 앱 초기화 =====
+const PW='8253';
+var _appReady=false;
+function checkPw(){
+  const v=document.getElementById('pw-inp').value;
+  if(v===PW){if(_appReady) enterApp();else window.addEventListener('appready',enterApp,{once:true});}
+  else{const e=document.getElementById('pw-err');e.classList.add('show');document.getElementById('pw-inp').value='';setTimeout(()=>e.classList.remove('show'),2000);}
 }
-
-async function sendChat() {
-  const i = document.getElementById('chat-inp');
-  const t = i.value.trim();
-  if(!t) return;
-  addUsr(t);
-  i.value = '';
-  i.disabled = true;
-  document.querySelector('.chat-send').disabled = true;
-  showDots();
-
-  try {
-    const reply = await sendToAI(t);
-    const d = document.getElementById('tdot'); if(d) d.remove();
-    addBot(reply.replace(/\n/g, '<br>'));
-  } catch(e) {
-    const d = document.getElementById('tdot'); if(d) d.remove();
-    addBot(`⚠️ 연결 오류가 발생했습니다.<br><small style="color:#999">${e.message}</small>`);
-  } finally {
-    i.disabled = false;
-    document.querySelector('.chat-send').disabled = false;
-    i.focus();
-  }
+function enterApp(){
+  document.getElementById('pw-screen').classList.add('hidden');
+  document.getElementById('app').style.display='block';
+  sessionStorage.setItem('auth','1');
+  initAll(); switchTab('chat');
 }
-
-function askBot(q) {
-  switchTab('chat');
-  setTimeout(() => {
-    document.getElementById('chat-inp').value = q;
-    sendChat();
-  }, 150);
+function initAll(){
+  const t=new Date().toISOString().slice(0,10);
+  ['rdate','door-date'].forEach(id=>{const el=document.getElementById(id);if(el) el.value=t;});
+  refreshFilmDoorDrops(); addItem(); renderDoorGroups(); initChat();
 }
-
-/* film/door 거래처 드롭 호환 */
-function refreshFilmDoorDrops(){
-  ['film','door'].forEach(type=>{
-    const listId=type==='film'?'client-drop-list':'door-client-drop-list';
-    const el=document.getElementById(listId); if(!el) return;
-    const arr=loadClients(type);
-    el.innerHTML=arr.length===0?`<div style="padding:12px;text-align:center;font-size:13px;color:var(--g5)">거래처 없음</div>`
-      :arr.map(c=>`<div class="cl-item" onclick="selectFilmDoorClient('${type}','${c.replace(/'/g,"\\'")}')">$${c}</div>`).join('').replace(/\$/g,'');
-  });
-}
-function selectFilmDoorClient(type,name){
-  if(type==='film') selectFilmClient(name);
-  else selectDoorClient(name);
-}
-function selectFilmClient(name){
-  document.getElementById('client').value=name;
-  const t=document.getElementById('client-display-text'); if(t){ t.textContent=name; t.style.color='var(--g9)'; }
-  const drop=document.getElementById('client-drop'); if(drop) drop.style.display='none';
-}
-function selectDoorClient(name){
-  document.getElementById('door-client').value=name;
-  const t=document.getElementById('door-client-display-text'); if(t){ t.textContent=name; t.style.color='var(--g9)'; }
-  const drop=document.getElementById('door-client-drop'); if(drop) drop.style.display='none';
-}
-
 window.addEventListener('load',function(){
-  _appReady=true;
-  window.dispatchEvent(new Event('appready'));
-  if(sessionStorage.getItem('auth')==='1'){ enterApp(); }
-  else { setTimeout(()=>{ const i=document.getElementById('pw-inp'); if(i) i.focus(); },100); }
+  _appReady=true; window.dispatchEvent(new Event('appready'));
+  if(sessionStorage.getItem('auth')==='1') enterApp();
+  else setTimeout(()=>{const i=document.getElementById('pw-inp');if(i) i.focus();},100);
 });
 </script>
-
 </body>
 </html>
