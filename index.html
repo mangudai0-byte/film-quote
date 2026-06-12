@@ -7,22 +7,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{
-  --br:#6B3A1F; --br-mid:#8B5A35; --or:#E8630A; --cr:#FAF5EE; --cr-dk:#F0E6D6;
-  --gd:#C8941A; --gn:#4A6741; --gn-l:#EAF0E8;
-  --g9:#2D1A0A; --g7:#6B3A1F; --g5:#8B6045; --g1:#F5EDE0; --g0:#FAF7F2;
-  --bd:#DDD0BC; --wh:#FFFFFF;
-  --sh:0 2px 8px rgba(107,58,31,.10); --sh2:0 4px 18px rgba(107,58,31,.15);
-  --fn:'Noto Sans KR',sans-serif; --r:10px;
-  --om-orange:#E8630A; --om-brown:#6B3A1F; --om-brown-mid:#8B5A35;
-  --om-cream:#FAF5EE; --om-cream-dk:#F0E6D6; --om-gold:#C8941A;
-  --pk-red:#E8630A; --pk-blue:#6B3A1F;
-  --blue:#6B3A1F; --blue-light:#FAF5EE; --blue-mid:#8B5A35;
-  --orange:#E8630A; --orange-light:#FEF0E4;
-  --green:#4A6741; --green-light:#EAF0E8;
-  --gray-900:#2D1A0A; --gray-700:#6B3A1F; --gray-500:#8B6045;
-  --gray-100:#F5EDE0; --gray-50:#FAF7F2;
-  --white:#FFFFFF; --border:#DDD0BC; --radius:10px;
-  --shadow-sm:0 2px 8px rgba(107,58,31,.10); --shadow:0 4px 18px rgba(107,58,31,.15);
+  --br:#6B3A1F;--br-mid:#8B5A35;--or:#E8630A;--cr:#FAF5EE;--cr-dk:#F0E6D6;
+  --gd:#C8941A;--gn:#4A6741;--g9:#2D1A0A;--g7:#6B3A1F;--g5:#8B6045;
+  --g1:#F5EDE0;--g0:#FAF7F2;--bd:#DDD0BC;--wh:#FFFFFF;
+  --sh:0 2px 8px rgba(107,58,31,.10);--sh2:0 4px 18px rgba(107,58,31,.15);
+  --fn:'Noto Sans KR',sans-serif;--r:10px;
+  --om-orange:#E8630A;--om-brown:#6B3A1F;--om-brown-mid:#8B5A35;
+  --om-cream:#FAF5EE;--om-cream-dk:#F0E6D6;--om-gold:#C8941A;
+  --pk-red:#E8630A;--pk-blue:#6B3A1F;
+  --blue:#6B3A1F;--blue-light:#FAF5EE;--blue-mid:#8B5A35;
+  --orange:#E8630A;--orange-light:#FEF0E4;
+  --green:#4A6741;--green-light:#EAF0E8;
+  --gray-900:#2D1A0A;--gray-700:#6B3A1F;--gray-500:#8B6045;
+  --gray-100:#F5EDE0;--gray-50:#FAF7F2;
+  --white:#FFFFFF;--border:#DDD0BC;--radius:10px;
+  --shadow-sm:0 2px 8px rgba(107,58,31,.10);--shadow:0 4px 18px rgba(107,58,31,.15);
   --font-main:'Noto Sans KR',sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
@@ -44,7 +43,6 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
 .bn.on{color:#fff;}
 .bn.on::after{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:28px;height:3px;background:var(--or);border-radius:0 0 4px 4px;}
 .tp{display:none;min-height:100vh;padding-bottom:60px;overflow-y:auto;}
-.tp.on{display:block;}
 .tp-chat{display:none;flex-direction:column;height:100svh;}
 .tp-chat.on{display:flex;}
 .th{background:var(--br);padding:13px 16px 11px;border-bottom:2px solid var(--or);position:sticky;top:0;z-index:100;}
@@ -62,7 +60,6 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
 .cbl{padding:10px 13px;border-radius:18px;font-size:13.5px;line-height:1.65;font-family:var(--fn);max-width:100%;}
 .bot-bl{background:#fff;border-radius:4px 18px 18px 18px;color:var(--g9);box-shadow:0 1px 4px rgba(61,31,10,.1);border:1px solid rgba(221,208,188,.5);}
 .usr-bl{background:var(--br);color:var(--cr);border-radius:18px 4px 18px 18px;}
-.ctag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:10px;background:#FEF0E4;color:var(--or);margin:2px 2px 2px 0;font-weight:700;}
 .tdot{display:flex;gap:4px;align-items:center;padding:3px 0;}
 .tdot span{width:7px;height:7px;background:#C8A070;border-radius:50%;animation:tb 1.2s infinite;}
 .tdot span:nth-child(2){animation-delay:.2s;}.tdot span:nth-child(3){animation-delay:.4s;}
@@ -77,18 +74,13 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
 .chat-send{width:42px;height:42px;border-radius:50%;background:var(--or);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 8px rgba(232,99,10,.4);}
 .container{max-width:540px;margin:0 auto;padding:14px 14px 0;}
 .card{background:var(--wh);border-radius:var(--r);margin-bottom:12px;border:1.5px solid var(--bd);box-shadow:var(--sh);overflow:hidden;}
-.card-hd{background:linear-gradient(to right,var(--cr-dk),#F5E8D5);border-bottom:1.5px solid var(--bd);padding:10px 16px;display:flex;align-items:center;gap:9px;}
-.card-hd .ico{width:26px;height:26px;background:var(--or);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;box-shadow:0 2px 6px rgba(232,99,10,.3);}
-.card-hd h2{font-size:13px;font-weight:700;color:var(--br);}
-.card-bd{padding:14px 16px;}
 .card-header{background:linear-gradient(to right,var(--om-cream-dk),#F5E8D5);border-bottom:1.5px solid var(--border);padding:11px 18px;display:flex;align-items:center;gap:10px;}
 .card-header .icon{width:28px;height:28px;background:var(--om-orange);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;}
 .card-header h2{font-size:13px;font-weight:700;color:var(--om-brown);}
 .card-body{padding:16px 18px;}
-.field{margin-bottom:11px;}
-.field:last-child{margin-bottom:0;}
+.field{margin-bottom:11px;}.field:last-child{margin-bottom:0;}
 .field label{font-size:10px;color:var(--g5);font-weight:700;display:block;margin-bottom:4px;letter-spacing:.7px;text-transform:uppercase;}
-.field input,.field select,.field textarea{width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;background:#fff;color:var(--g9);-webkit-appearance:none;outline:none;}
+.field input,.field select{width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;background:#fff;color:var(--g9);-webkit-appearance:none;outline:none;}
 .field input:focus,.field select:focus{border-color:var(--or);}
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .total-bar{background:var(--or);border-radius:var(--r);padding:16px 20px;display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;box-shadow:0 4px 18px rgba(232,99,10,.3);border:1.5px solid var(--br);}
@@ -98,9 +90,6 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
 .btn-rst{padding:13px 18px;border:1.5px solid var(--bd);border-radius:var(--r);background:#fff;font-size:14px;font-family:inherit;color:var(--g7);cursor:pointer;font-weight:700;}
 .btn-pv{flex:1;padding:14px;background:var(--br);color:var(--cr);border:none;border-radius:var(--r);font-size:15px;font-weight:800;font-family:var(--fn);cursor:pointer;box-shadow:0 4px 14px rgba(61,31,10,.3);}
 .btn-pr{flex:1;padding:13px;background:var(--br);color:var(--cr);border:none;border-radius:var(--r);font-size:14px;font-weight:700;font-family:var(--fn);cursor:pointer;}
-.btn-cf{flex:1;padding:13px;background:var(--gn);color:#fff;border:none;border-radius:var(--r);font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;}
-.btn-add{width:100%;padding:13px;border:1.5px dashed #C8A070;border-radius:var(--r);background:rgba(250,245,238,.6);font-size:14px;font-family:var(--fn);color:var(--br);cursor:pointer;font-weight:700;}
-.btn-reset{padding:14px 20px;border:1.5px solid var(--border);border-radius:var(--radius);background:white;font-size:14px;font-family:inherit;color:var(--gray-700);cursor:pointer;font-weight:700;}
 .btn-preview{flex:1;padding:15px;background:var(--om-brown);color:var(--om-cream);border:none;border-radius:var(--radius);font-size:15px;font-weight:800;font-family:var(--font-main);cursor:pointer;box-shadow:0 4px 14px rgba(61,31,10,.3);}
 .btn-print{flex:1;padding:14px;background:var(--om-brown);color:var(--om-cream);border:none;border-radius:var(--radius);font-size:14px;font-weight:700;font-family:var(--fn);cursor:pointer;}
 .btn-confirm{flex:1;padding:14px;background:var(--green);color:white;border:none;border-radius:var(--radius);font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;}
@@ -113,7 +102,6 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
 .cls-btn{height:34px;padding:0 12px;background:rgba(250,245,238,.15);border:1.5px solid rgba(250,245,238,.35);border-radius:7px;font-size:13px;color:var(--cr);font-weight:700;cursor:pointer;}
 .close-btn{height:36px;padding:0 12px;background:rgba(250,245,238,.15);border:1.5px solid rgba(250,245,238,.4);border-radius:7px;font-size:14px;color:var(--om-cream);font-weight:700;display:flex;align-items:center;cursor:pointer;white-space:nowrap;}
 .parea{flex:1;overflow-y:auto;padding:14px;}
-/* 견적서 공통 */
 .pv-wrap{padding:4px 0 20px;}
 .pv-title{text-align:center;font-size:20px;font-weight:900;letter-spacing:6px;color:var(--br);margin-bottom:12px;padding-bottom:10px;border-bottom:2px solid var(--or);}
 .pv-info{border:1.5px solid var(--bd);border-radius:10px;overflow:hidden;margin-bottom:10px;background:#fff;}
@@ -122,28 +110,11 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
 .pv-k{color:var(--g5);font-size:10px;min-width:56px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;}
 .pv-v{color:#111;font-weight:500;flex:1;}
 .pv-v.bold{font-size:15px;font-weight:900;color:var(--br);}
-.pv-tw{border:1.5px solid var(--bd);border-radius:10px;overflow:hidden;margin-bottom:10px;}
-.pv-tb{width:100%;border-collapse:collapse;font-size:12px;}
-.pv-tb thead tr{background:var(--br);}
-.pv-tb th{padding:8px 6px;color:var(--cr);font-size:11px;font-weight:700;}
-.pv-tb th:first-child{text-align:left;padding-left:12px;}
-.pv-tb th:not(:first-child){text-align:right;padding-right:8px;}
-.pv-tb td{padding:9px 6px;border-bottom:1px solid #F0E8DC;color:#111;}
-.pv-tb td:first-child{text-align:left;padding-left:12px;font-weight:600;}
-.pv-tb td:not(:first-child){text-align:right;padding-right:8px;}
-.pv-tb tbody tr:nth-child(even){background:var(--cr);}
-.pv-tb tfoot td{padding:11px 6px;background:var(--cr-dk);border-top:2px solid var(--or);font-weight:900;color:var(--br);font-size:14px;}
-.pv-tb tfoot td:first-child{padding-left:12px;}
-.pv-tb tfoot td:last-child{text-align:right;padding-right:8px;font-size:16px;}
 .pv-bank{border:2px solid var(--or);border-radius:10px;overflow:hidden;margin-bottom:10px;}
-.pv-bank-n{background:var(--or);color:#fff;text-align:center;padding:9px;font-size:13px;font-weight:800;letter-spacing:4px;}
 .pv-bank-notice{background:var(--or);color:#fff;text-align:center;padding:9px;font-size:13px;font-weight:800;letter-spacing:4px;}
-.pv-bank-b{padding:12px 16px;background:#fff;}
 .pv-bank-body{padding:12px 16px;background:#fff;}
 .pv-bank-num{font-size:22px;font-weight:900;color:#E8630A;letter-spacing:1px;margin-bottom:3px;}
 .pv-bank-info{font-size:12px;color:#666;}
-.pv-foot{text-align:center;font-size:11px;color:var(--g5);margin-top:8px;}
-/* 필름 전용 */
 .pv-table-wrap{border:1.5px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:12px;}
 .pv-table{width:100%;border-collapse:collapse;font-size:13px;}
 .pv-table thead tr{background:var(--om-brown);}
@@ -159,7 +130,6 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
 .pv-table tfoot td:first-child{padding-left:12px;}
 .pv-table tfoot td:last-child{text-align:right;padding-right:8px;font-size:18px;}
 .pv-supplier{text-align:center;padding:8px;background:var(--om-cream);border-radius:8px;font-size:12px;color:var(--gray-500);font-weight:600;}
-/* 필름 아이템 카드 */
 .item-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);margin-bottom:8px;overflow:hidden;box-shadow:var(--shadow-sm);}
 .item-row{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;}
 .item-num{width:24px;height:24px;flex-shrink:0;background:var(--om-orange);color:white;border-radius:50%;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;}
@@ -211,14 +181,8 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
 .bd-total .lbl{font-size:12px;color:var(--gray-500);font-weight:600;}
 .bd-total .val{font-size:22px;font-weight:800;color:var(--gray-900);}
 .confirm-item-btn{width:100%;padding:13px;background:var(--om-brown);color:var(--om-cream);border:none;border-radius:9px;font-size:15px;font-weight:700;cursor:pointer;}
-/* 거래처 드롭다운 */
-.cl-drop{display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:#fff;border:2px solid var(--br);border-radius:10px;box-shadow:var(--sh2);z-index:200;max-height:200px;overflow-y:auto;}
 .cl-item{padding:11px 14px;font-size:14px;font-weight:600;cursor:pointer;border-bottom:1px solid var(--bd);}
 .cl-item:hover{background:var(--cr);}
-.cl-wrap{position:relative;}
-.cl-disp{width:100%;padding:10px 36px 10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;background:#fff;cursor:pointer;color:var(--g5);position:relative;user-select:none;display:flex;align-items:center;justify-content:space-between;}
-.cl-disp.sel{color:var(--g9);}
-/* 데이터 탭 */
 .stat-card{background:#fff;border-radius:12px;padding:13px 15px;margin-bottom:8px;border:1.5px solid var(--bd);box-shadow:var(--sh);}
 .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:14px;}
 .sg-card{background:#fff;border-radius:10px;padding:13px;border:1.5px solid var(--bd);}
@@ -229,7 +193,6 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
 .type-badge{display:inline-block;font-size:10px;padding:2px 7px;border-radius:8px;font-weight:700;margin-right:4px;}
 .tb-film{background:#E8F0FE;color:#1A4FA0;}
 .tb-door{background:#FEE8E0;color:#C04010;}
-/* 도어 */
 #grade-btn-1,#grade-btn-2{display:flex;align-items:center;justify-content:center;padding:10px;border-radius:10px;cursor:pointer;font-weight:700;font-size:14px;transition:all .15s;}
 </style>
 </head>
@@ -320,17 +283,13 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
         <button class="add-btn" onclick="addItem()">＋ 품목 추가</button>
       </div>
     </div>
-    <div class="total-bar">
-      <span class="lbl">총 합계</span>
-      <span class="amt" id="total-amt">0 원</span>
-    </div>
+    <div class="total-bar"><span class="lbl">총 합계</span><span class="amt" id="total-amt">0 원</span></div>
     <div class="actions">
-      <button class="btn-reset" onclick="resetForm()">↺ 초기화</button>
+      <button class="btn-rst" onclick="resetForm()">↺ 초기화</button>
       <button class="btn-preview" onclick="showPreview()">🎨 견적서 보기 →</button>
     </div>
   </div>
 </div>
-<!-- 필름 견적서 모달 -->
 <div class="ovl" id="preview-ovl">
   <div class="modal">
     <div class="modal-bar">
@@ -345,7 +304,7 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
     </div>
   </div>
 </div>
-</div><!-- /tp-film -->
+</div>
 
 <!-- 도어 탭 -->
 <div class="tp" id="tp-door">
@@ -379,7 +338,6 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
           </div>
           <div class="field"><label>견적일</label><input id="door-date" type="date"></div>
         </div>
-        <!-- 등급 선택 (내부용 - 화면에만 표시, 견적서/캡처에 노출 안됨) -->
         <div class="field" style="margin-top:4px">
           <label>적용 등급 <span style="font-size:9px;color:var(--g5);font-weight:400">(내부용)</span></label>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
@@ -396,17 +354,13 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
         <button class="add-btn" onclick="addDoorGroup()" style="margin-top:8px">＋ 색상 추가</button>
       </div>
     </div>
-    <div class="total-bar">
-      <span class="lbl">총 합계</span>
-      <span class="amt" id="door-total">0 원</span>
-    </div>
+    <div class="total-bar"><span class="lbl">총 합계</span><span class="amt" id="door-total">0 원</span></div>
     <div class="actions">
       <button class="btn-rst" onclick="resetDoorForm()">↺ 초기화</button>
       <button class="btn-pv" onclick="calcDoorQuote()">🚪 견적서 보기 →</button>
     </div>
   </div>
 </div>
-<!-- 도어 견적서 모달 -->
 <div class="ovl" id="door-preview-ovl">
   <div class="modal">
     <div class="modal-bar">
@@ -420,7 +374,6 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
     </div>
   </div>
 </div>
-<!-- 재단 배치도 모달 -->
 <div class="ovl" id="cut-layout-ovl">
   <div class="modal">
     <div class="modal-bar">
@@ -434,7 +387,7 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
     </div>
   </div>
 </div>
-</div><!-- /tp-door -->
+</div>
 
 <!-- 필름 단가표 탭 -->
 <div class="tp" id="tp-film-price">
@@ -443,16 +396,11 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
     <div><div class="th-ttl">필름 단가표</div><div class="th-sub">예림 인테리어필름 · 2026.06 기준</div></div>
   </div></div>
   <div class="container" style="padding-top:14px;padding-bottom:80px;">
-    <!-- 공유용 버튼 -->
-    <button onclick="showFilmShareView()" style="width:100%;padding:12px;margin-bottom:12px;background:linear-gradient(135deg,var(--or),#C85000);border:none;border-radius:10px;color:white;font-size:14px;font-weight:800;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 3px 12px rgba(232,99,10,.35);">
-      📤 공유용 단가표 보기
-    </button>
-    <!-- 검색 -->
+    <button onclick="showFilmShareView()" style="width:100%;padding:12px;margin-bottom:12px;background:linear-gradient(135deg,var(--or),#C85000);border:none;border-radius:10px;color:white;font-size:14px;font-weight:800;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 3px 12px rgba(232,99,10,.35);">📤 공유용 단가표 보기</button>
     <div style="position:relative;margin-bottom:12px;">
       <input type="text" id="fp-search" placeholder="색상명·품번 검색..." oninput="renderFilmPriceTable()" style="width:100%;padding:10px 14px 10px 36px;border:1.5px solid var(--bd);border-radius:10px;font-size:14px;font-family:inherit;outline:none;background:white;">
       <span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:14px;">🔍</span>
     </div>
-    <!-- 모두 펼치기/접기 -->
     <div style="display:flex;gap:8px;margin-bottom:12px;">
       <button onclick="toggleAllFilmSections(true)" style="flex:1;padding:8px;border:1.5px solid var(--bd);border-radius:8px;background:white;font-size:12px;font-weight:700;font-family:inherit;cursor:pointer;color:var(--br)">▼ 모두 펼치기</button>
       <button onclick="toggleAllFilmSections(false)" style="flex:1;padding:8px;border:1.5px solid var(--bd);border-radius:8px;background:white;font-size:12px;font-weight:700;font-family:inherit;cursor:pointer;color:var(--g5)">▲ 모두 접기</button>
@@ -461,7 +409,6 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
   </div>
 </div>
 
-<!-- 필름 공유용 단가표 오버레이 -->
 <div class="ovl" id="film-share-ovl">
   <div class="modal">
     <div class="modal-bar">
@@ -480,26 +427,19 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
     <div><div class="th-ttl">도어 단가표</div><div class="th-sub">SUPER 레이저도어 · 2025.06.15 기준</div></div>
   </div></div>
   <div class="container" style="padding-top:14px;padding-bottom:80px;">
-    <!-- 등급 토글 (내부용) -->
     <div style="display:flex;gap:6px;margin-bottom:12px;background:var(--cr-dk);border-radius:10px;padding:8px;">
       <button id="pt-g1" onclick="setPriceTab(1)" style="flex:1;padding:8px;border-radius:8px;border:none;font-size:13px;font-weight:800;cursor:pointer;background:var(--br);color:white;font-family:inherit;">A등급</button>
       <button id="pt-g2" onclick="setPriceTab(2)" style="flex:1;padding:8px;border-radius:8px;border:none;font-size:13px;font-weight:700;cursor:pointer;background:white;color:var(--g5);font-family:inherit;">B등급</button>
     </div>
-    <!-- 공유용 버튼 -->
-    <button onclick="showShareView()" style="width:100%;padding:12px;margin-bottom:12px;background:linear-gradient(135deg,var(--or),#C85000);border:none;border-radius:10px;color:white;font-size:14px;font-weight:800;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 3px 12px rgba(232,99,10,.35);">
-      📤 공유용 단가표 보기
-    </button>
-    <!-- 검색 -->
+    <button onclick="showShareView()" style="width:100%;padding:12px;margin-bottom:12px;background:linear-gradient(135deg,var(--or),#C85000);border:none;border-radius:10px;color:white;font-size:14px;font-weight:800;font-family:inherit;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 3px 12px rgba(232,99,10,.35);">📤 공유용 단가표 보기</button>
     <div style="position:relative;margin-bottom:12px;">
       <input type="text" id="price-search" placeholder="색상명 검색..." oninput="filterPriceTable()" style="width:100%;padding:10px 14px 10px 36px;border:1.5px solid var(--bd);border-radius:10px;font-size:14px;font-family:inherit;outline:none;">
       <span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:14px;">🔍</span>
     </div>
-    <!-- 단가표 본문 -->
     <div id="price-table-content"></div>
   </div>
 </div>
 
-<!-- 공유용 단가표 오버레이 (등급 완전 숨김) -->
 <div class="ovl" id="share-ovl">
   <div class="modal">
     <div class="modal-bar">
@@ -541,7 +481,6 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
   </div>
 </div>
 
-<!-- 바텀 네비 (4탭) -->
 <nav id="bnav">
   <button class="bn on" id="bn-chat" onclick="switchTab('chat')">척척박사<br>AI</button>
   <button class="bn" id="bn-film" onclick="switchTab('film')">필름<br>견적서</button>
@@ -551,450 +490,428 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
   <button class="bn" id="bn-data" onclick="switchTab('data')">데이터</button>
 </nav>
 
-</div><!-- /app -->
-
+</div>
 <script>
-
 // ===== 제품 데이터 =====
-const ROLL_M = 25;
-const MODEL_DB = {
-  'HSM': {name:'슈퍼매트', roll:8700, cut:11900, models:['HSM01 매트화이트','HSM02 매트밀크화이트','HSM03 매트캐시미어','HSM04 매트브라운','HSM06 매트그레이','HSM07 매트다크그레이','HSM10 매트딥그린','HSM11 매트딥블루','HSM16 매트아이보리','HSM20 매트라이트그레이','HSM21 매트샌드그레이','HSM27 매트문빔그레이','HSM28 매트스노우베이지','HSM29 매트포그그레이','HSM30 매트듀이클라우드','HSM31 매트코타화이트','HSM32 매트허니드롭','HSM33 매트버터스카치','HSM34 매트스카이브리즈','HSM35 매트타우니레드']},
-  'HPA': {name:'슈퍼매트(프레스티지)', roll:8700, cut:13500, models:['HPA03 아크샌드듄','HPA04 아크얼그레이','HPA05 아크런던그레이','HPA06 아크플라워블루','HPA11 아크페블그레이']},
-  'HA': {name:'슈퍼매트(HA)', roll:8700, cut:13500, models:['HA911 매트소프트그레이']},
-  'HS': {name:'솔리드', roll:5900, cut:9100, models:['HS001 순백','HS002 유백','HS004 크림화이트','HS005 밀크화이트','HS007 쿨그레이','HS008 모카그레이','HS009 라이트그레이','HS010 진그레이','HS013 차콜','HS014 어반그레이','HS015 올블랙','HS017 샌드크래커','HS018 애프리콧','HS022 베이비핑크','HS023 뮤트핑크','HS024 드라이로즈','HS026 다크플럼','HS027 소프트블루','HS028 윈디블루','HS029 어반블루','HS030 로열블루','HS031 헤일네이버','HS032 샌드베이지','HS033 제이드그린','HS034 어반카키','HS035 휴그린','HS036 모스그린','HS037 딥오션','HS038 머드그레이','HS039 샌드','HS040 옐로우','HS041 베이비그린','HS042 소프트민트','HS043 라벤더','HS044 퓨어레드','HS045 쥬시옐로우','HS046 페일화이트','HS048 올리브그레이','HS049 오렌지퍼시먼','HS050 바나나크림','HS051 스모키코코아','HS052 위스퍼화이트','HS053 코지화이트']},
-  'HE': {name:'텍스처', roll:5900, cut:9100, models:['HE401 화이트펄','HE403 소프트화이트','HE404 스킨','HE405 민트그레이','HE406 브라운']},
-  'HE407': {name:'펄(HE407)', roll:8700, cut:13500, models:['HE407 러스터화이트']},
-  'HP_low': {name:'페인티드우드(저가)', roll:5900, cut:9100, models:['HP505 청백페인트','HP506 화이트페인트','HP507 베이지페인트','HP508 웜그레이페인트','HP513 브라운페인트','HP514 딥그레이페인트','HP516 미드그레이페인트','HP517 매트블랙페인트']},
-  'HP_high': {name:'페인트(고가)', roll:6100, cut:9400, models:['HP501 바닐라페인트','HP518 화이트헤링본','HP519 토피넛헤링본','HP520 미드블루헤링본','HP521 쁘레회벽화이트','HP522 쁘레회벽웜그레이','HP523 쁘레회벽쿨그레이','HP524 쁘레회벽코지브라운','HP525 쁘레회벽로지','HP526 쁘레회벽크림콘','HP527 쁘레회벽민트','HP530 쁘레회벽스노우','HP540 쁘레회벽크램','HP601 프리모듀화이트','HP602 프리모베일화이트','HP603 아트페어화이트','HP604 로하스클레이화이트']},
-  'HW': {name:'우드', roll:5900, cut:9100, models:['HW1001 클리어오크','HW1002 심플그레인','HW1004 크림오크','HW1009 브러쉬오크소프트','HW1010 버치','HW1016 프렌치오크','HW1019 오크마일드','HW1020 브러쉬오크마일드','HW1021 리얼오크','HW1023 콰트로러스크(세로)','HW1024 로열워시오크','HW1025 빈티지오크','HW1028 클래식오크','HW1031 화이트오크','HW1033 그레이오크','HW1035 워시애쉬','HW1036 콰트로브룩클린(세로)','HW1038 중체리','HW1039 연체리','HW1040 콰트로시에나(세로)','HW1041 메이플','HW1044 레드티크','HW1045 레드오크','HW1046 홍송','HW1047 콰트로엄버(세로)','HW1049 월넛','HW1050 크린웬지','HW1055 로열아카시아','HW1056 로열월넛','HW1058 티크','HW1059 아카시아','HW1060 연월넛','HW1065 브릭월넛','HW1066 딥브라운월넛','HW1067 로즈탄오크','HW1068 새들탄오크','HW1069 프리스틴오크','HW1070 아콘오크','HW1071 더스트애쉬','HW1072 헤이즐애쉬','HW1073 브랜디오크','HW1077 카멜사펠레','HW1078 브라운사펠레','HW1079 세피아사펠레','HW1083 리브베이지','HW1084 리브브라운']},
-  'HWB': {name:'우드(굵)', roll:6100, cut:9400, models:['HWB1003 소프트워시오크','HWB1005 화인오크','HWB1007 브룩시더(세로)','HWB1011 락메이플','HWB1012 쉬머오크','HWB1013 샤인오크','HWB1014 브룩시더베이지(세로)','HWB1017 마일드워시오크','HWB1018 쏘마크오크','HWB1022 스트라이프우드','HWB1027 크림월넛','HWB1029 퓨어오크','HWB1030 펄오크','HWB1034 베이지오크','HWB1042 내츄럴브라운','HWB1052 애쉬브라운','HWB1061 디어애쉬','HWB1062 워시그레이','HWB1063 애쉬라이트브라운','HWB1064 오크딥','HWB1076 워시베이지','HWB1080 미스티엘름','HWB1081 샌드엘름','HWB1082 토프엘름']},
-  'HPW': {name:'키친우드', roll:6100, cut:9400, models:['HPW21 프렌치오크','HPW22 피넛오크','HPW23 카카오월넛','HPW24 던오크']},
-  'GW': {name:'그란데우드', roll:8700, cut:13500, models:['GW001 그란데체스넛샌드','GW002 그란데체스넛토프','GW003 그란데체스넛마롱','GW004 그란데체스넛바크','GW005 그란데오크카멜','GW006 그란데오크넛티']},
-  'RW': {name:'레노우드', roll:8700, cut:13500, models:['RW5001 레노라벨로월넛','RW5002 레노샌드오크','RW5003 레노오가닉오크','RW5004 레노라티버치','RW5005 레노팔라우티크']},
-  'HN': {name:'스톤', roll:5900, cut:9100, models:['HN2001 솔리드콘크리트그레이','HN2002 솔리드콘크리트다크','HN2003 솔리드스톤그레이','HN2004 솔리드스톤브라운','HN2009 유로스톤화이트','HN2010 유로스톤포그화이트','HN2011 유로스톤모데나크림','HN2012 유로스톤샌드','HN2013 유로스톤멜린지']},
-  'HM': {name:'마블', roll:6300, cut:9700, models:['HM2101 화이트비앙코','HM2102','HM2103','HM2104']},
-  'HF': {name:'패브릭', roll:6300, cut:9700, models:['HF2201 코트니브라운','HF2202 코트니베이지','HF2205 패브릭베이지','HF2206 패브릭네이비','HF2207 위브그레이','HF2208 위브브라운','HF2209 수틸화이트','HF2210 수틸그레이','HF2211 린넨크레마','HF2212 린넨오트밀','HF2213 트윌웜그레이','HF2214 트윌웜브라운']},
-  'HCP': {name:'세라믹', roll:6100, cut:9400, models:['HCP01 세라믹문퍼시픽','HCP02 세라믹문그레이','HCP03 세라믹문움브라','HCP04 세라믹문브릭']},
-  'HLC': {name:'콘크리트', roll:6100, cut:9400, models:['HLC010 콘크리트화이트','HLC011 콘크리트그레이']},
-  'HT': {name:'메탈', roll:7100, cut:10900, models:['HT2301 메탈그레이','HT2302 골드']},
-  'PM': {name:'메탈헤어라인', roll:7100, cut:10900, models:['PM01 메탈실버헤어라인']},
-  'HPM': {name:'메탈쉐도우', roll:7100, cut:10900, models:['HPM62 메탈쉐도우그라파이트','HPM63 메탈쉐도우코퍼브라운']},
-  'HC': {name:'솔리드항균', roll:6200, cut:9600, models:['HC801 퓨어화이트','HC802 페일그레이','HO803 모노그레이','HO804 클래식블루']},
-  'HL': {name:'우드항균', roll:6400, cut:9900, models:['HL1851 라이트애쉬','HL1852 스킨오크']},
-  'HR': {name:'리얼우드', roll:12000, cut:18600, models:['HR3002 트라이베카','HR3004 팜비치애쉬','HR3007 로베레켄들','HR3008 윌리스플럼']},
-  'HU': {name:'리얼터치우드', roll:15300, cut:23700, models:['HU3301 로베레UK','HU3302 로베레아즈데코','HU3303 노체비스코토','HU3304 로베레카카오']},
-  'HI': {name:'PP SOLID', roll:14200, cut:22000, models:['HI4001 스카이오크화이트','HI4002 스카이오크그레이']},
-  'HO': {name:'PP WOOD', roll:14200, cut:22000, models:['HO4301 카타니아오크','HO4302 네이처오크','HO4303 그레이쉬오크','HO4304 세이오크','HO4305 세이메이플']},
+const ROLL_M=25;
+const MODEL_DB={
+  'HSM':{name:'슈퍼매트',roll:8700,cut:11900,models:['HSM01 매트화이트','HSM02 매트밀크화이트','HSM03 매트캐시미어','HSM04 매트브라운','HSM06 매트그레이','HSM07 매트다크그레이','HSM10 매트딥그린','HSM11 매트딥블루','HSM16 매트아이보리','HSM20 매트라이트그레이','HSM21 매트샌드그레이','HSM27 매트문빔그레이','HSM28 매트스노우베이지','HSM29 매트포그그레이','HSM30 매트듀이클라우드','HSM31 매트코타화이트','HSM32 매트허니드롭','HSM33 매트버터스카치','HSM34 매트스카이브리즈','HSM35 매트타우니레드']},
+  'HPA':{name:'슈퍼매트(프레스티지)',roll:8700,cut:13500,models:['HPA03 아크샌드듄','HPA04 아크얼그레이','HPA05 아크런던그레이','HPA06 아크플라워블루','HPA11 아크페블그레이']},
+  'HA':{name:'슈퍼매트(HA)',roll:8700,cut:13500,models:['HA911 매트소프트그레이']},
+  'HS':{name:'솔리드',roll:5900,cut:9100,models:['HS001 순백','HS002 유백','HS004 크림화이트','HS005 밀크화이트','HS007 쿨그레이','HS008 모카그레이','HS009 라이트그레이','HS010 진그레이','HS013 차콜','HS014 어반그레이','HS015 올블랙','HS017 샌드크래커','HS018 애프리콧','HS022 베이비핑크','HS023 뮤트핑크','HS024 드라이로즈','HS026 다크플럼','HS027 소프트블루','HS028 윈디블루','HS029 어반블루','HS030 로열블루','HS031 헤일네이버','HS032 샌드베이지','HS033 제이드그린','HS034 어반카키','HS035 휴그린','HS036 모스그린','HS037 딥오션','HS038 머드그레이','HS039 샌드','HS040 옐로우','HS041 베이비그린','HS042 소프트민트','HS043 라벤더','HS044 퓨어레드','HS045 쥬시옐로우','HS046 페일화이트','HS048 올리브그레이','HS049 오렌지퍼시먼','HS050 바나나크림','HS051 스모키코코아','HS052 위스퍼화이트','HS053 코지화이트']},
+  'HE':{name:'텍스처',roll:5900,cut:9100,models:['HE401 화이트펄','HE403 소프트화이트','HE404 스킨','HE405 민트그레이','HE406 브라운']},
+  'HE407':{name:'펄(HE407)',roll:8700,cut:13500,models:['HE407 러스터화이트']},
+  'HP_low':{name:'페인티드우드(저가)',roll:5900,cut:9100,models:['HP505 청백페인트','HP506 화이트페인트','HP507 베이지페인트','HP508 웜그레이페인트','HP513 브라운페인트','HP514 딥그레이페인트','HP516 미드그레이페인트','HP517 매트블랙페인트']},
+  'HP_high':{name:'페인트(고가)',roll:6100,cut:9400,models:['HP501 바닐라페인트','HP518 화이트헤링본','HP519 토피넛헤링본','HP520 미드블루헤링본','HP521 쁘레회벽화이트','HP522 쁘레회벽웜그레이','HP523 쁘레회벽쿨그레이','HP524 쁘레회벽코지브라운','HP525 쁘레회벽로지','HP526 쁘레회벽크림콘','HP527 쁘레회벽민트','HP530 쁘레회벽스노우','HP540 쁘레회벽크램','HP601 프리모듀화이트','HP602 프리모베일화이트','HP603 아트페어화이트','HP604 로하스클레이화이트']},
+  'HW':{name:'우드',roll:5900,cut:9100,models:['HW1001 클리어오크','HW1002 심플그레인','HW1004 크림오크','HW1009 브러쉬오크소프트','HW1010 버치','HW1016 프렌치오크','HW1019 오크마일드','HW1020 브러쉬오크마일드','HW1021 리얼오크','HW1023 콰트로러스크(세로)','HW1024 로열워시오크','HW1025 빈티지오크','HW1028 클래식오크','HW1031 화이트오크','HW1033 그레이오크','HW1035 워시애쉬','HW1036 콰트로브룩클린(세로)','HW1038 중체리','HW1039 연체리','HW1040 콰트로시에나(세로)','HW1041 메이플','HW1044 레드티크','HW1045 레드오크','HW1046 홍송','HW1047 콰트로엄버(세로)','HW1049 월넛','HW1050 크린웬지','HW1055 로열아카시아','HW1056 로열월넛','HW1058 티크','HW1059 아카시아','HW1060 연월넛','HW1065 브릭월넛','HW1066 딥브라운월넛','HW1067 로즈탄오크','HW1068 새들탄오크','HW1069 프리스틴오크','HW1070 아콘오크','HW1071 더스트애쉬','HW1072 헤이즐애쉬','HW1073 브랜디오크','HW1077 카멜사펠레','HW1078 브라운사펠레','HW1079 세피아사펠레','HW1083 리브베이지','HW1084 리브브라운']},
+  'HWB':{name:'우드(굵)',roll:6100,cut:9400,models:['HWB1003 소프트워시오크','HWB1005 화인오크','HWB1007 브룩시더(세로)','HWB1011 락메이플','HWB1012 쉬머오크','HWB1013 샤인오크','HWB1014 브룩시더베이지(세로)','HWB1017 마일드워시오크','HWB1018 쏘마크오크','HWB1022 스트라이프우드','HWB1027 크림월넛','HWB1029 퓨어오크','HWB1030 펄오크','HWB1034 베이지오크','HWB1042 내츄럴브라운','HWB1052 애쉬브라운','HWB1061 디어애쉬','HWB1062 워시그레이','HWB1063 애쉬라이트브라운','HWB1064 오크딥','HWB1076 워시베이지','HWB1080 미스티엘름','HWB1081 샌드엘름','HWB1082 토프엘름']},
+  'HPW':{name:'키친우드',roll:6100,cut:9400,models:['HPW21 프렌치오크','HPW22 피넛오크','HPW23 카카오월넛','HPW24 던오크']},
+  'GW':{name:'그란데우드',roll:8700,cut:13500,models:['GW001 그란데체스넛샌드','GW002 그란데체스넛토프','GW003 그란데체스넛마롱','GW004 그란데체스넛바크','GW005 그란데오크카멜','GW006 그란데오크넛티']},
+  'RW':{name:'레노우드',roll:8700,cut:13500,models:['RW5001 레노라벨로월넛','RW5002 레노샌드오크','RW5003 레노오가닉오크','RW5004 레노라티버치','RW5005 레노팔라우티크']},
+  'HN':{name:'스톤',roll:5900,cut:9100,models:['HN2001 솔리드콘크리트그레이','HN2002 솔리드콘크리트다크','HN2003 솔리드스톤그레이','HN2004 솔리드스톤브라운','HN2009 유로스톤화이트','HN2010 유로스톤포그화이트','HN2011 유로스톤모데나크림','HN2012 유로스톤샌드','HN2013 유로스톤멜린지']},
+  'HM':{name:'마블',roll:6300,cut:9700,models:['HM2101 화이트비앙코','HM2102','HM2103','HM2104']},
+  'HF':{name:'패브릭',roll:6300,cut:9700,models:['HF2201 코트니브라운','HF2202 코트니베이지','HF2205 패브릭베이지','HF2206 패브릭네이비','HF2207 위브그레이','HF2208 위브브라운','HF2209 수틸화이트','HF2210 수틸그레이','HF2211 린넨크레마','HF2212 린넨오트밀','HF2213 트윌웜그레이','HF2214 트윌웜브라운']},
+  'HCP':{name:'세라믹',roll:6100,cut:9400,models:['HCP01 세라믹문퍼시픽','HCP02 세라믹문그레이','HCP03 세라믹문움브라','HCP04 세라믹문브릭']},
+  'HLC':{name:'콘크리트',roll:6100,cut:9400,models:['HLC010 콘크리트화이트','HLC011 콘크리트그레이']},
+  'HT':{name:'메탈',roll:7100,cut:10900,models:['HT2301 메탈그레이','HT2302 골드']},
+  'PM':{name:'메탈헤어라인',roll:7100,cut:10900,models:['PM01 메탈실버헤어라인']},
+  'HPM':{name:'메탈쉐도우',roll:7100,cut:10900,models:['HPM62 메탈쉐도우그라파이트','HPM63 메탈쉐도우코퍼브라운']},
+  'HC':{name:'솔리드항균',roll:6200,cut:9600,models:['HC801 퓨어화이트','HC802 페일그레이','HO803 모노그레이','HO804 클래식블루']},
+  'HL':{name:'우드항균',roll:6400,cut:9900,models:['HL1851 라이트애쉬','HL1852 스킨오크']},
+  'HR':{name:'리얼우드',roll:12000,cut:18600,models:['HR3002 트라이베카','HR3004 팜비치애쉬','HR3007 로베레켄들','HR3008 윌리스플럼']},
+  'HU':{name:'리얼터치우드',roll:15300,cut:23700,models:['HU3301 로베레UK','HU3302 로베레아즈데코','HU3303 노체비스코토','HU3304 로베레카카오']},
+  'HI':{name:'PP SOLID',roll:14200,cut:22000,models:['HI4001 스카이오크화이트','HI4002 스카이오크그레이']},
+  'HO':{name:'PP WOOD',roll:14200,cut:22000,models:['HO4301 카타니아오크','HO4302 네이처오크','HO4303 그레이쉬오크','HO4304 세이오크','HO4305 세이메이플']},
 };
-const MODEL_KEYS = Object.keys(MODEL_DB);
+const MODEL_KEYS=Object.keys(MODEL_DB);
 
-// ===== 도어 단가표 (신규 2025.06.15~) =====
-const DOOR_PRICES = [
-  {name:'매트화이트 (후면강화)', type:'PET', cat:'매트', g1:105000, g2:110000},
-  {name:'매트밀크화이트 (후면강화)', type:'PET', cat:'매트', g1:105000, g2:110000},
-  {name:'매트캐시미어 (후면강화)', type:'PET', cat:'매트', g1:107000, g2:112000},
-  {name:'매트포그그레이 (후면강화)', type:'PET', cat:'매트', g1:107000, g2:112000},
-  {name:'매트샌드그레이 (후면강화)', type:'PET', cat:'매트', g1:107000, g2:112000},
-  {name:'매트 스노우베이지 (후면강화)', type:'PET', cat:'매트', g1:107000, g2:112000},
-  {name:'매트 듀이클라우드 (후면강화)', type:'PET', cat:'매트', g1:107000, g2:112000},
-  {name:'매트 브라운 (후면강화)', type:'PET', cat:'매트', g1:107000, g2:112000},
-  {name:'매트 그레이 (후면강화)', type:'PET', cat:'매트', g1:107000, g2:112000},
-  {name:'매트 라이트그레이 (후면강화)', type:'PET', cat:'매트', g1:107000, g2:112000},
-  {name:'매트 다크그레이 (후면강화)', type:'PET', cat:'매트', g1:107000, g2:112000},
-  {name:'매트 아이보리 (후면강화)', type:'PET', cat:'매트', g1:107000, g2:112000},
-  {name:'매트 코타화이트 (후면강화)', type:'PET', cat:'매트', g1:107000, g2:112000},
-  {name:'매트 펄 화이트 (후면강화)', type:'PET', cat:'매트', g1:108000, g2:113000},
-  {name:'매트 카페브라운 (후면강화)', type:'PET', cat:'매트', g1:104000, g2:109000},
-  {name:'매트 블랙', type:'PET', cat:'매트', g1:104000, g2:109000},
-  {name:'매트 딥그린', type:'PET', cat:'매트', g1:104000, g2:109000},
-  {name:'매트 딥블루', type:'PET', cat:'매트', g1:104000, g2:109000},
-  {name:'매트 인디고', type:'PET', cat:'매트', g1:104000, g2:109000},
-  {name:'매트 코튼블루', type:'PET', cat:'매트', g1:104000, g2:109000},
-  {name:'매트 미스트그린', type:'PET', cat:'매트', g1:104000, g2:109000},
-  {name:'매트 로지핑크', type:'PET', cat:'매트', g1:104000, g2:109000},
-  {name:'매트 스모키올리브', type:'PET', cat:'매트', g1:104000, g2:109000},
-  {name:'매트 허니드롭', type:'PET', cat:'매트', g1:104000, g2:109000},
-  {name:'매트 버터스카치', type:'PET', cat:'매트', g1:104000, g2:109000},
-  {name:'매트 스카이브리즈', type:'PET', cat:'매트', g1:104000, g2:109000},
-  {name:'매트 타우니레드', type:'PET', cat:'매트', g1:104000, g2:109000},
-  {name:'매트 펄 다크그레이', type:'PET', cat:'매트', g1:105000, g2:110000},
-  {name:'매트 펄 블랙', type:'PET', cat:'매트', g1:105000, g2:110000},
-  {name:'글로시 화이트', type:'PET', cat:'글로시', g1:104000, g2:109000},
-  {name:'글로시 밀크화이트', type:'PET', cat:'글로시', g1:104000, g2:109000},
-  {name:'글로시 캐시미어', type:'PET', cat:'글로시', g1:109000, g2:114000},
-  {name:'글로시 브라운', type:'PET', cat:'글로시', g1:109000, g2:114000},
-  {name:'글로시 그레이', type:'PET', cat:'글로시', g1:109000, g2:114000},
-  {name:'글로시 다크그레이', type:'PET', cat:'글로시', g1:109000, g2:114000},
-  {name:'글로시 딥블루', type:'PET', cat:'글로시', g1:109000, g2:114000},
-  {name:'글로시 코튼블루', type:'PET', cat:'글로시', g1:109000, g2:114000},
-  {name:'글로시 아이보리', type:'PET', cat:'글로시', g1:109000, g2:114000},
-  {name:'글로시 라이트그레이', type:'PET', cat:'글로시', g1:109000, g2:114000},
-  {name:'글로시 샌드그레이', type:'PET', cat:'글로시', g1:109000, g2:114000},
-  {name:'글로시 스모키올리브', type:'PET', cat:'글로시', g1:109000, g2:114000},
-  {name:'글로시 펄 다크그레이', type:'PET', cat:'글로시', g1:109000, g2:114000},
-  {name:'글로시 펄 블랙', type:'PET', cat:'글로시', g1:109000, g2:114000},
-  {name:'글로시 펄화이트', type:'PET', cat:'글로시', g1:106000, g2:111000},
-  {name:'슈가엘름', type:'PP', cat:'PP', g1:105000, g2:110000},
-  {name:'프렌치오크', type:'PP', cat:'PP', g1:105000, g2:110000},
-  {name:'피넛오크', type:'PP', cat:'PP', g1:105000, g2:110000},
-  {name:'카카오월넛', type:'PP', cat:'PP', g1:105000, g2:110000},
-  {name:'던오크', type:'PP', cat:'PP', g1:105000, g2:110000},
-  {name:'레더모카', type:'PP', cat:'PP', g1:105000, g2:110000},
-  {name:'레더크림', type:'PP', cat:'PP', g1:105000, g2:110000},
-  {name:'콘크리트화이트', type:'PP', cat:'PP', g1:107000, g2:112000},
-  {name:'콘크리트그레이', type:'PP', cat:'PP', g1:107000, g2:112000},
-  {name:'세라믹 문 퍼시픽', type:'PP', cat:'PP', g1:110000, g2:115000},
-  {name:'세라믹 문 그레이', type:'PP', cat:'PP', g1:110000, g2:115000},
-  {name:'세라믹 문 움브라', type:'PP', cat:'PP', g1:110000, g2:115000},
-  {name:'세라믹 문 브릭', type:'PP', cat:'PP', g1:110000, g2:115000},
-  {name:'네이처 오크', type:'PP', cat:'프레스티지 PP', g1:130000, g2:135000},
-  {name:'카타니아 오크', type:'PP', cat:'프레스티지 PP', g1:130000, g2:135000},
-  {name:'그레이쉬 오크', type:'PP', cat:'프레스티지 PP', g1:130000, g2:135000},
-  {name:'세이 오크', type:'PP', cat:'프레스티지 PP', g1:133000, g2:138000},
-  {name:'세이 메이플', type:'PP', cat:'프레스티지 PP', g1:133000, g2:138000},
-  {name:'아크 플랫화이트', type:'아크릴', cat:'프레스티지 아크릴', g1:127000, g2:132000},
-  {name:'아크 퓨어코튼', type:'아크릴', cat:'프레스티지 아크릴', g1:127000, g2:132000},
-  {name:'아크 샌드듄', type:'아크릴', cat:'프레스티지 아크릴', g1:127000, g2:132000},
-  {name:'아크 얼그레이', type:'아크릴', cat:'프레스티지 아크릴', g1:127000, g2:132000},
-  {name:'아크 런던그레이', type:'아크릴', cat:'프레스티지 아크릴', g1:127000, g2:132000},
-  {name:'아크 플라워블루', type:'아크릴', cat:'프레스티지 아크릴', g1:127000, g2:132000},
-  {name:'아크 미드나잇 블루', type:'아크릴', cat:'프레스티지 아크릴', g1:127000, g2:132000},
-  {name:'아크 미드나잇그레이', type:'아크릴', cat:'프레스티지 아크릴', g1:127000, g2:132000},
-  {name:'아크마멀레이드', type:'아크릴', cat:'프레스티지 아크릴', g1:127000, g2:132000},
-  {name:'아크 포레스트그린', type:'아크릴', cat:'프레스티지 아크릴', g1:127000, g2:132000},
-  {name:'크림화이트 HS004', type:'PVC', cat:'PVC (데코보드)', g1:98000, g2:103000},
-  {name:'HS046', type:'PVC', cat:'PVC (데코보드)', g1:98000, g2:103000},
-  {name:'HP521', type:'PVC', cat:'PVC (데코보드)', g1:101000, g2:106000},
-  {name:'HP522', type:'PVC', cat:'PVC (데코보드)', g1:101000, g2:106000},
-  {name:'HW1069', type:'PVC', cat:'PVC (데코보드)', g1:101000, g2:106000},
-  {name:'HW1081', type:'PVC', cat:'PVC (데코보드)', g1:101000, g2:106000},
-  {name:'오크마일드 HW1019', type:'PVC', cat:'PVC (데코보드)', g1:101000, g2:106000},
-  {name:'오크딥  HW1064', type:'PVC', cat:'PVC (데코보드)', g1:101000, g2:106000},
-  {name:'HW1077', type:'PVC', cat:'PVC (데코보드)', g1:101000, g2:106000},
-  {name:'HW1065', type:'PVC', cat:'PVC (데코보드)', g1:101000, g2:106000},
-  {name:'퓨어화이트(향균)/HC801', type:'PVC', cat:'PVC (데코보드)', g1:101000, g2:106000},
-  {name:'페일그레이(향균)/HC802', type:'PVC', cat:'PVC (데코보드)', g1:101000, g2:106000},
-  {name:'메탈바이브.실버', type:'PET', cat:'PET', g1:125000, g2:130000},
-  {name:'메탈 바이브.브라운', type:'PET', cat:'PET', g1:125000, g2:130000},
-  {name:'메탈 쉐도우 그라파이트', type:'PET', cat:'PET', g1:125000, g2:130000},
-  {name:'메탈 쉐도우 코퍼브라운', type:'PET', cat:'PET', g1:125000, g2:130000},
-  {name:'메탈 헤어라인', type:'PET', cat:'PET', g1:121000, g2:126000},
-  {name:'웨이비 퓨어코튼', type:'PET', cat:'PET', g1:121000, g2:126000},
-  {name:'웨이비 그레이', type:'PET', cat:'PET', g1:121000, g2:126000},
-  {name:'사피아노 화이트', type:'PET', cat:'PET', g1:117000, g2:122000},
-  {name:'사피아노 그레이', type:'PET', cat:'PET', g1:117000, g2:122000},
-  {name:'사피아노 블루', type:'PET', cat:'PET', g1:117000, g2:122000},
-  {name:'헤어라인 화이트', type:'PET', cat:'PET', g1:117000, g2:122000},
-  {name:'헤어라인 그레이', type:'PET', cat:'PET', g1:117000, g2:122000},
-  {name:'화이트유광', type:'LPM', cat:'MFB', g1:93000, g2:98000},
-  {name:'소프트화이트', type:'LPM', cat:'MFB', g1:93000, g2:98000},
-  {name:'코임브라', type:'LPM', cat:'MFB', g1:100000, g2:105000},
-  {name:'윈체스터월넛', type:'LPM', cat:'MFB', g1:100000, g2:105000},
-  {name:'스톤화이트', type:'LPM', cat:'MFB', g1:100000, g2:105000},
-  {name:'스톤 그레이', type:'LPM', cat:'MFB', g1:100000, g2:105000},
-  {name:'스톤 블랙', type:'LPM', cat:'MFB', g1:100000, g2:105000},
-  {name:'소프트 월넛', type:'LPM', cat:'MFB', g1:103000, g2:108000},
-  {name:'사하라누아르', type:'LPM', cat:'MFB', g1:106000, g2:111000},
-  {name:'아라베스카토', type:'LPM', cat:'MFB', g1:106000, g2:111000},
-  {name:'팔라디나', type:'LPM', cat:'MFB', g1:106000, g2:111000},
-  {name:'부클레', type:'LPM', cat:'MFB', g1:129000, g2:134000},
-  {name:'밤부', type:'LPM', cat:'MFB', g1:129000, g2:134000},
-  {name:'몽블랑 체스넛', type:'LPM', cat:'MFB', g1:106000, g2:111000},
-  {name:'웨이브화이트', type:'UV', cat:'UV', g1:106000, g2:111000},
-  {name:'웨이브그레이', type:'UV', cat:'UV', g1:106000, g2:111000},
-  {name:'리치 펄 라이트 그레이', type:'UV', cat:'UV', g1:106000, g2:111000},
-  {name:'라이트 그레이', type:'UV', cat:'UV', g1:106000, g2:111000},
-  {name:'리치 펄 화이트', type:'UV', cat:'UV', g1:96000, g2:101000},
-  {name:'유로 화이트', type:'UV', cat:'UV', g1:95000, g2:100000},
-  {name:'소프트화이트/방염', type:'LPM', cat:'방염보드(MFB/MFC)', g1:106000, g2:111000},
-  {name:'윈체스터월넛/방염', type:'LPM', cat:'방염보드(MFB/MFC)', g1:110000, g2:115000},
-  {name:'소프트화이트/방염', type:'LPM', cat:'방염보드(MFB/MFC)', g1:99000, g2:104000},
-  {name:'윈체스터월넛/방염', type:'LPM', cat:'방염보드(MFB/MFC)', g1:103000, g2:108000},
+const DOOR_PRICES=[
+  {name:'매트화이트 (후면강화)',type:'PET',cat:'매트',g1:105000,g2:110000},
+  {name:'매트밀크화이트 (후면강화)',type:'PET',cat:'매트',g1:105000,g2:110000},
+  {name:'매트캐시미어 (후면강화)',type:'PET',cat:'매트',g1:107000,g2:112000},
+  {name:'매트포그그레이 (후면강화)',type:'PET',cat:'매트',g1:107000,g2:112000},
+  {name:'매트샌드그레이 (후면강화)',type:'PET',cat:'매트',g1:107000,g2:112000},
+  {name:'매트 스노우베이지 (후면강화)',type:'PET',cat:'매트',g1:107000,g2:112000},
+  {name:'매트 듀이클라우드 (후면강화)',type:'PET',cat:'매트',g1:107000,g2:112000},
+  {name:'매트 브라운 (후면강화)',type:'PET',cat:'매트',g1:107000,g2:112000},
+  {name:'매트 그레이 (후면강화)',type:'PET',cat:'매트',g1:107000,g2:112000},
+  {name:'매트 라이트그레이 (후면강화)',type:'PET',cat:'매트',g1:107000,g2:112000},
+  {name:'매트 다크그레이 (후면강화)',type:'PET',cat:'매트',g1:107000,g2:112000},
+  {name:'매트 아이보리 (후면강화)',type:'PET',cat:'매트',g1:107000,g2:112000},
+  {name:'매트 코타화이트 (후면강화)',type:'PET',cat:'매트',g1:107000,g2:112000},
+  {name:'매트 펄 화이트 (후면강화)',type:'PET',cat:'매트',g1:108000,g2:113000},
+  {name:'매트 카페브라운 (후면강화)',type:'PET',cat:'매트',g1:104000,g2:109000},
+  {name:'매트 블랙',type:'PET',cat:'매트',g1:104000,g2:109000},
+  {name:'매트 딥그린',type:'PET',cat:'매트',g1:104000,g2:109000},
+  {name:'매트 딥블루',type:'PET',cat:'매트',g1:104000,g2:109000},
+  {name:'매트 인디고',type:'PET',cat:'매트',g1:104000,g2:109000},
+  {name:'매트 코튼블루',type:'PET',cat:'매트',g1:104000,g2:109000},
+  {name:'매트 미스트그린',type:'PET',cat:'매트',g1:104000,g2:109000},
+  {name:'매트 로지핑크',type:'PET',cat:'매트',g1:104000,g2:109000},
+  {name:'매트 스모키올리브',type:'PET',cat:'매트',g1:104000,g2:109000},
+  {name:'매트 허니드롭',type:'PET',cat:'매트',g1:104000,g2:109000},
+  {name:'매트 버터스카치',type:'PET',cat:'매트',g1:104000,g2:109000},
+  {name:'매트 스카이브리즈',type:'PET',cat:'매트',g1:104000,g2:109000},
+  {name:'매트 타우니레드',type:'PET',cat:'매트',g1:104000,g2:109000},
+  {name:'매트 펄 다크그레이',type:'PET',cat:'매트',g1:105000,g2:110000},
+  {name:'매트 펄 블랙',type:'PET',cat:'매트',g1:105000,g2:110000},
+  {name:'글로시 화이트',type:'PET',cat:'글로시',g1:104000,g2:109000},
+  {name:'글로시 밀크화이트',type:'PET',cat:'글로시',g1:104000,g2:109000},
+  {name:'글로시 캐시미어',type:'PET',cat:'글로시',g1:109000,g2:114000},
+  {name:'글로시 브라운',type:'PET',cat:'글로시',g1:109000,g2:114000},
+  {name:'글로시 그레이',type:'PET',cat:'글로시',g1:109000,g2:114000},
+  {name:'글로시 다크그레이',type:'PET',cat:'글로시',g1:109000,g2:114000},
+  {name:'글로시 딥블루',type:'PET',cat:'글로시',g1:109000,g2:114000},
+  {name:'글로시 코튼블루',type:'PET',cat:'글로시',g1:109000,g2:114000},
+  {name:'글로시 아이보리',type:'PET',cat:'글로시',g1:109000,g2:114000},
+  {name:'글로시 라이트그레이',type:'PET',cat:'글로시',g1:109000,g2:114000},
+  {name:'글로시 샌드그레이',type:'PET',cat:'글로시',g1:109000,g2:114000},
+  {name:'글로시 스모키올리브',type:'PET',cat:'글로시',g1:109000,g2:114000},
+  {name:'글로시 펄 다크그레이',type:'PET',cat:'글로시',g1:109000,g2:114000},
+  {name:'글로시 펄 블랙',type:'PET',cat:'글로시',g1:109000,g2:114000},
+  {name:'글로시 펄화이트',type:'PET',cat:'글로시',g1:106000,g2:111000},
+  {name:'슈가엘름',type:'PP',cat:'PP',g1:105000,g2:110000},
+  {name:'프렌치오크',type:'PP',cat:'PP',g1:105000,g2:110000},
+  {name:'피넛오크',type:'PP',cat:'PP',g1:105000,g2:110000},
+  {name:'카카오월넛',type:'PP',cat:'PP',g1:105000,g2:110000},
+  {name:'던오크',type:'PP',cat:'PP',g1:105000,g2:110000},
+  {name:'레더모카',type:'PP',cat:'PP',g1:105000,g2:110000},
+  {name:'레더크림',type:'PP',cat:'PP',g1:105000,g2:110000},
+  {name:'콘크리트화이트',type:'PP',cat:'PP',g1:107000,g2:112000},
+  {name:'콘크리트그레이',type:'PP',cat:'PP',g1:107000,g2:112000},
+  {name:'세라믹 문 퍼시픽',type:'PP',cat:'PP',g1:110000,g2:115000},
+  {name:'세라믹 문 그레이',type:'PP',cat:'PP',g1:110000,g2:115000},
+  {name:'세라믹 문 움브라',type:'PP',cat:'PP',g1:110000,g2:115000},
+  {name:'세라믹 문 브릭',type:'PP',cat:'PP',g1:110000,g2:115000},
+  {name:'네이처 오크',type:'PP',cat:'프레스티지 PP',g1:130000,g2:135000},
+  {name:'카타니아 오크',type:'PP',cat:'프레스티지 PP',g1:130000,g2:135000},
+  {name:'그레이쉬 오크',type:'PP',cat:'프레스티지 PP',g1:130000,g2:135000},
+  {name:'세이 오크',type:'PP',cat:'프레스티지 PP',g1:133000,g2:138000},
+  {name:'세이 메이플',type:'PP',cat:'프레스티지 PP',g1:133000,g2:138000},
+  {name:'아크 플랫화이트',type:'아크릴',cat:'프레스티지 아크릴',g1:127000,g2:132000},
+  {name:'아크 퓨어코튼',type:'아크릴',cat:'프레스티지 아크릴',g1:127000,g2:132000},
+  {name:'아크 샌드듄',type:'아크릴',cat:'프레스티지 아크릴',g1:127000,g2:132000},
+  {name:'아크 얼그레이',type:'아크릴',cat:'프레스티지 아크릴',g1:127000,g2:132000},
+  {name:'아크 런던그레이',type:'아크릴',cat:'프레스티지 아크릴',g1:127000,g2:132000},
+  {name:'아크 플라워블루',type:'아크릴',cat:'프레스티지 아크릴',g1:127000,g2:132000},
+  {name:'아크 미드나잇 블루',type:'아크릴',cat:'프레스티지 아크릴',g1:127000,g2:132000},
+  {name:'아크 미드나잇그레이',type:'아크릴',cat:'프레스티지 아크릴',g1:127000,g2:132000},
+  {name:'아크마멀레이드',type:'아크릴',cat:'프레스티지 아크릴',g1:127000,g2:132000},
+  {name:'아크 포레스트그린',type:'아크릴',cat:'프레스티지 아크릴',g1:127000,g2:132000},
+  {name:'크림화이트 HS004',type:'PVC',cat:'PVC (데코보드)',g1:98000,g2:103000},
+  {name:'HS046',type:'PVC',cat:'PVC (데코보드)',g1:98000,g2:103000},
+  {name:'HP521',type:'PVC',cat:'PVC (데코보드)',g1:101000,g2:106000},
+  {name:'HP522',type:'PVC',cat:'PVC (데코보드)',g1:101000,g2:106000},
+  {name:'HW1069',type:'PVC',cat:'PVC (데코보드)',g1:101000,g2:106000},
+  {name:'HW1081',type:'PVC',cat:'PVC (데코보드)',g1:101000,g2:106000},
+  {name:'오크마일드 HW1019',type:'PVC',cat:'PVC (데코보드)',g1:101000,g2:106000},
+  {name:'오크딥  HW1064',type:'PVC',cat:'PVC (데코보드)',g1:101000,g2:106000},
+  {name:'HW1077',type:'PVC',cat:'PVC (데코보드)',g1:101000,g2:106000},
+  {name:'HW1065',type:'PVC',cat:'PVC (데코보드)',g1:101000,g2:106000},
+  {name:'퓨어화이트(향균)/HC801',type:'PVC',cat:'PVC (데코보드)',g1:101000,g2:106000},
+  {name:'페일그레이(향균)/HC802',type:'PVC',cat:'PVC (데코보드)',g1:101000,g2:106000},
+  {name:'메탈바이브.실버',type:'PET',cat:'PET',g1:125000,g2:130000},
+  {name:'메탈 바이브.브라운',type:'PET',cat:'PET',g1:125000,g2:130000},
+  {name:'메탈 쉐도우 그라파이트',type:'PET',cat:'PET',g1:125000,g2:130000},
+  {name:'메탈 쉐도우 코퍼브라운',type:'PET',cat:'PET',g1:125000,g2:130000},
+  {name:'메탈 헤어라인',type:'PET',cat:'PET',g1:121000,g2:126000},
+  {name:'웨이비 퓨어코튼',type:'PET',cat:'PET',g1:121000,g2:126000},
+  {name:'웨이비 그레이',type:'PET',cat:'PET',g1:121000,g2:126000},
+  {name:'사피아노 화이트',type:'PET',cat:'PET',g1:117000,g2:122000},
+  {name:'사피아노 그레이',type:'PET',cat:'PET',g1:117000,g2:122000},
+  {name:'사피아노 블루',type:'PET',cat:'PET',g1:117000,g2:122000},
+  {name:'헤어라인 화이트',type:'PET',cat:'PET',g1:117000,g2:122000},
+  {name:'헤어라인 그레이',type:'PET',cat:'PET',g1:117000,g2:122000},
+  {name:'화이트유광',type:'LPM',cat:'MFB',g1:93000,g2:98000},
+  {name:'소프트화이트',type:'LPM',cat:'MFB',g1:93000,g2:98000},
+  {name:'코임브라',type:'LPM',cat:'MFB',g1:100000,g2:105000},
+  {name:'윈체스터월넛',type:'LPM',cat:'MFB',g1:100000,g2:105000},
+  {name:'스톤화이트',type:'LPM',cat:'MFB',g1:100000,g2:105000},
+  {name:'스톤 그레이',type:'LPM',cat:'MFB',g1:100000,g2:105000},
+  {name:'스톤 블랙',type:'LPM',cat:'MFB',g1:100000,g2:105000},
+  {name:'소프트 월넛',type:'LPM',cat:'MFB',g1:103000,g2:108000},
+  {name:'사하라누아르',type:'LPM',cat:'MFB',g1:106000,g2:111000},
+  {name:'아라베스카토',type:'LPM',cat:'MFB',g1:106000,g2:111000},
+  {name:'팔라디나',type:'LPM',cat:'MFB',g1:106000,g2:111000},
+  {name:'부클레',type:'LPM',cat:'MFB',g1:129000,g2:134000},
+  {name:'밤부',type:'LPM',cat:'MFB',g1:129000,g2:134000},
+  {name:'몽블랑 체스넛',type:'LPM',cat:'MFB',g1:106000,g2:111000},
+  {name:'웨이브화이트',type:'UV',cat:'UV',g1:106000,g2:111000},
+  {name:'웨이브그레이',type:'UV',cat:'UV',g1:106000,g2:111000},
+  {name:'리치 펄 라이트 그레이',type:'UV',cat:'UV',g1:106000,g2:111000},
+  {name:'라이트 그레이',type:'UV',cat:'UV',g1:106000,g2:111000},
+  {name:'리치 펄 화이트',type:'UV',cat:'UV',g1:96000,g2:101000},
+  {name:'유로 화이트',type:'UV',cat:'UV',g1:95000,g2:100000},
+  {name:'소프트화이트/방염',type:'LPM',cat:'방염보드(MFB/MFC)',g1:106000,g2:111000},
+  {name:'윈체스터월넛/방염',type:'LPM',cat:'방염보드(MFB/MFC)',g1:110000,g2:115000},
+  {name:'소프트화이트/방염 MFC',type:'LPM',cat:'방염보드(MFB/MFC)',g1:99000,g2:104000},
+  {name:'윈체스터월넛/방염 MFC',type:'LPM',cat:'방염보드(MFB/MFC)',g1:103000,g2:108000},
 ];
-
-// ===== 원판/KERF =====
-const SHEET_W = 2440, SHEET_H = 1220, KERF = 6;
+const SHEET_W=2440,SHEET_H=1220,KERF=6;
 
 // ===== 필름 견적 =====
-let items=[], cnt=0;
-function today(){ return new Date().toISOString().slice(0,10); }
-function calc(qty,r,c){ if(qty<=0) return {amt:0,rollM:0,cutM:0}; const rollM=Math.floor(qty/ROLL_M)*ROLL_M,cutM=qty%ROLL_M; return {amt:rollM*r+cutM*c,rollM,cutM}; }
-
-function addItem(){
-  const id=cnt++,k=MODEL_KEYS[0],db=MODEL_DB[k];
-  items.push({id,catKey:k,modelName:db.models[0],qty:5,r:db.roll,c:db.cut,open:true});
-  renderAll();
-}
-function removeItem(id){ items=items.filter(x=>x.id!==id); renderAll(); }
-function get(id){ return items.find(x=>x.id===id); }
+let items=[],cnt=0;
+function today(){return new Date().toISOString().slice(0,10);}
+function calc(qty,r,c){if(qty<=0)return{amt:0,rollM:0,cutM:0};const rollM=Math.floor(qty/ROLL_M)*ROLL_M,cutM=qty%ROLL_M;return{amt:rollM*r+cutM*c,rollM,cutM};}
+function addItem(){const id=cnt++,k=MODEL_KEYS[0],db=MODEL_DB[k];items.push({id,catKey:k,modelName:db.models[0],qty:5,r:db.roll,c:db.cut,open:true});renderAll();}
+function removeItem(id){items=items.filter(x=>x.id!==id);renderAll();}
+function get(id){return items.find(x=>x.id===id);}
 function onCat(id,catKey){
-  const it=get(id); it.catKey=catKey;
-  const db=MODEL_DB[catKey]; it.modelName=db.models[0]; it.r=db.roll; it.c=db.cut;
+  const it=get(id);it.catKey=catKey;
+  const db=MODEL_DB[catKey];it.modelName=db.models[0];it.r=db.roll;it.c=db.cut;
   const det=document.getElementById('det-'+id);
   if(det&&!det.classList.contains('hidden')){
     const ms=det.querySelector('.model-sel');
-    if(ms){ ms.innerHTML=db.models.map(m=>`<option value="${m}"${m===it.modelName?' selected':''}>${m}\x3c/option>`).join(''); setTimeout(()=>ms.focus(),30); }
+    if(ms){ms.innerHTML=db.models.map(m=>`<option value="${m}"${m===it.modelName?' selected':''}>${m}</option>`).join('');setTimeout(()=>ms.focus(),30);}
     const rv=det.querySelector('.roll-val'),cv=det.querySelector('.cut-val');
-    if(rv) rv.textContent=it.r.toLocaleString();
-    if(cv) cv.textContent=it.c.toLocaleString();
+    if(rv)rv.textContent=it.r.toLocaleString();
+    if(cv)cv.textContent=it.c.toLocaleString();
   }
   updateItemHeader(id);
 }
 function onModel(id,modelName){
-  const it=get(id); it.modelName=modelName; updateItemHeader(id); updateBreakdown(id);
+  const it=get(id);it.modelName=modelName;updateItemHeader(id);updateBreakdown(id);
   const det=document.getElementById('det-'+id);
-  if(det&&!det.classList.contains('hidden')){ setTimeout(()=>{ const q=det.querySelector('.qty-input'); if(q){q.focus();q.select();} },30); }
+  if(det&&!det.classList.contains('hidden')){setTimeout(()=>{const q=det.querySelector('.qty-input');if(q){q.focus();q.select();}},30);}
 }
-function onQty(id,v){ const it=get(id); it.qty=+v||0; updateItemHeader(id); updateBreakdown(id); }
-function stepQty(id,d){ const it=get(id); it.qty=Math.max(0,it.qty+d); const inp=document.querySelector(`#det-${id} .qty-input`); if(inp) inp.value=it.qty; updateItemHeader(id); updateBreakdown(id); }
-function setQty(id,v){ const it=get(id); it.qty=v; const inp=document.querySelector(`#det-${id} .qty-input`); if(inp) inp.value=v; updateItemHeader(id); updateBreakdown(id); }
+function onQty(id,v){const it=get(id);it.qty=+v||0;updateItemHeader(id);updateBreakdown(id);}
+function stepQty(id,d){const it=get(id);it.qty=Math.max(0,it.qty+d);const inp=document.querySelector(`#det-${id} .qty-input`);if(inp)inp.value=it.qty;updateItemHeader(id);updateBreakdown(id);}
+function setQty(id,v){const it=get(id);it.qty=v;const inp=document.querySelector(`#det-${id} .qty-input`);if(inp)inp.value=v;updateItemHeader(id);updateBreakdown(id);}
 function updateItemHeader(id){
-  const it=get(id); if(!it) return;
-  const db=MODEL_DB[it.catKey]; if(!db) return;
-  const {amt}=calc(it.qty,it.r,it.c);
-  const card=document.querySelector(`#det-${id}`)?.closest('.item-card');
-  if(!card) return;
+  const it=get(id);if(!it)return;
+  const db=MODEL_DB[it.catKey];if(!db)return;
+  const{amt}=calc(it.qty,it.r,it.c);
+  const card=document.querySelector(`#det-${id}`)?.closest('.item-card');if(!card)return;
   const n=card.querySelector('.item-row-name'),s=card.querySelector('.item-row-sub'),a=card.querySelector('.item-row-amt');
-  if(n) n.textContent=db.name;
-  if(s) s.textContent=`${it.modelName} · ${it.qty}m`;
-  if(a){ a.textContent=amt.toLocaleString()+'원'; a.className='item-row-amt'+(amt===0?' zero':''); }
-  let total=0; items.forEach(x=>{ const{amt}=calc(x.qty,x.r,x.c); total+=amt; });
+  if(n)n.textContent=db.name;
+  if(s)s.textContent=`${it.modelName} · ${it.qty}m`;
+  if(a){a.textContent=amt.toLocaleString()+'원';a.className='item-row-amt'+(amt===0?' zero':'');}
+  let total=0;items.forEach(x=>{const{amt}=calc(x.qty,x.r,x.c);total+=amt;});
   document.getElementById('total-amt').textContent=total.toLocaleString()+' 원';
 }
 function updateBreakdown(id){
-  const it=get(id); if(!it) return;
-  const {rollM,cutM,amt}=calc(it.qty,it.r,it.c);
-  const det=document.getElementById('det-'+id); if(!det) return;
+  const it=get(id);if(!it)return;
+  const{rollM,cutM,amt}=calc(it.qty,it.r,it.c);
+  const det=document.getElementById('det-'+id);if(!det)return;
   const chipsEl=det.querySelector('.bd-chips'),totalEl=det.querySelector('.bd-total .val');
   if(chipsEl){
     let html='';
-    if(rollM>0) html+=`<div class="bd-chip roll-chip"><div class="chip-left"><span class="chip-tag">롤\x3c/span><span class="chip-desc">${rollM}m × ${it.r.toLocaleString()}원\x3c/span>\x3c/div><span class="chip-amt">${(rollM*it.r).toLocaleString()}원\x3c/span>\x3c/div>`;
-    if(cutM>0) html+=`<div class="bd-chip cut-chip"><div class="chip-left"><span class="chip-tag">절단\x3c/span><span class="chip-desc">${cutM}m × ${it.c.toLocaleString()}원\x3c/span>\x3c/div><span class="chip-amt">${(cutM*it.c).toLocaleString()}원\x3c/span>\x3c/div>`;
+    if(rollM>0)html+=`<div class="bd-chip roll-chip"><div class="chip-left"><span class="chip-tag">롤</span><span class="chip-desc">${rollM}m × ${it.r.toLocaleString()}원</span></div><span class="chip-amt">${(rollM*it.r).toLocaleString()}원</span></div>`;
+    if(cutM>0)html+=`<div class="bd-chip cut-chip"><div class="chip-left"><span class="chip-tag">절단</span><span class="chip-desc">${cutM}m × ${it.c.toLocaleString()}원</span></div><span class="chip-amt">${(cutM*it.c).toLocaleString()}원</span></div>`;
     chipsEl.innerHTML=html;
   }
-  if(totalEl) totalEl.textContent=amt.toLocaleString()+'원';
+  if(totalEl)totalEl.textContent=amt.toLocaleString()+'원';
 }
 function renderAll(){
-  const wrap=document.getElementById('items-wrap'); wrap.innerHTML=''; let total=0;
-  items.forEach((it,idx)=>{ const{amt}=calc(it.qty,it.r,it.c); total+=amt; wrap.appendChild(buildEl(it,idx+1)); });
+  const wrap=document.getElementById('items-wrap');wrap.innerHTML='';let total=0;
+  items.forEach((it,idx)=>{const{amt}=calc(it.qty,it.r,it.c);total+=amt;wrap.appendChild(buildEl(it,idx+1));});
   document.getElementById('total-amt').textContent=total.toLocaleString()+' 원';
 }
 function buildEl(it,num){
-  const {amt,rollM,cutM}=calc(it.qty,it.r,it.c);
-  const db=MODEL_DB[it.catKey]; if(!db) return document.createElement('div');
-  const div=document.createElement('div'); div.className='item-card';
+  const{amt,rollM,cutM}=calc(it.qty,it.r,it.c);
+  const db=MODEL_DB[it.catKey];if(!db)return document.createElement('div');
+  const div=document.createElement('div');div.className='item-card';
   const isOpen=it.open!==false;
   div.innerHTML=`
     <div class="item-row" onclick="toggleDetail(${it.id})">
-      <div class="item-num">${num}\x3c/div>
-      <div class="item-row-info">
-        <div class="item-row-name">${db.name}\x3c/div>
-        <div class="item-row-sub">${it.modelName} · ${it.qty}m\x3c/div>
-      \x3c/div>
-      <div class="item-row-amt${amt===0?' zero':''}">${amt.toLocaleString()}원\x3c/div>
-      <div class="item-expand-btn" id="exp-${it.id}">${isOpen?'▲':'▼'}\x3c/div>
-    \x3c/div>
+      <div class="item-num">${num}</div>
+      <div class="item-row-info"><div class="item-row-name">${db.name}</div><div class="item-row-sub">${it.modelName} · ${it.qty}m</div></div>
+      <div class="item-row-amt${amt===0?' zero':''}">${amt.toLocaleString()}원</div>
+      <div class="item-expand-btn" id="exp-${it.id}">${isOpen?'▲':'▼'}</div>
+    </div>
     <div class="item-detail${isOpen?'':' hidden'}" id="det-${it.id}">
       <div class="item-body">
         <div class="sel-group">
-          <div class="sel-block cat"><label>대분류\x3c/label>
-            <select onchange="onCat(${it.id},this.value)">
-              ${MODEL_KEYS.map(k=>`<option value="${k}"${k===it.catKey?' selected':''}>${MODEL_DB[k].name}</option>`).join('')}
-            \x3c/select>
-          \x3c/div>
-          <div class="sel-block model"><label>품명\x3c/label>
-            <select class="model-sel" onchange="onModel(${it.id},this.value)">
-              ${db.models.map(m=>`<option value="${m}"${m===it.modelName?' selected':''}>${m}</option>`).join('')}
-            \x3c/select>
-          \x3c/div>
-        \x3c/div>
+          <div class="sel-block cat"><label>대분류</label>
+            <select onchange="onCat(${it.id},this.value)">${MODEL_KEYS.map(k=>`<option value="${k}"${k===it.catKey?' selected':''}>${MODEL_DB[k].name}</option>`).join('')}</select>
+          </div>
+          <div class="sel-block model"><label>품명</label>
+            <select class="model-sel" onchange="onModel(${it.id},this.value)">${db.models.map(m=>`<option value="${m}"${m===it.modelName?' selected':''}>${m}</option>`).join('')}</select>
+          </div>
+        </div>
         <div class="qty-box">
           <div class="qty-top">
-            <span class="qty-label">수량\x3c/span>
+            <span class="qty-label">수량</span>
             <div class="qty-stepper">
-              <button class="qty-btn" onclick="stepQty(${it.id},-1)">−\x3c/button>
+              <button class="qty-btn" onclick="stepQty(${it.id},-1)">−</button>
               <input class="qty-input" type="number" value="${it.qty}" min="0" onchange="onQty(${it.id},this.value)" onblur="onQty(${it.id},this.value)">
-              <button class="qty-btn" onclick="stepQty(${it.id},1)">＋\x3c/button>
-            \x3c/div>
-            <span class="qty-unit">m\x3c/span>
-          \x3c/div>
+              <button class="qty-btn" onclick="stepQty(${it.id},1)">＋</button>
+            </div>
+            <span class="qty-unit">m</span>
+          </div>
           <div class="qty-shorts">
-            ${[[5,''],[10,''],[15,''],[20,''],[25,'1롤'],[30,''],[40,''],[50,'2롤'],[75,'3롤'],[100,'4롤']].map(([v,r])=>`
-              <button class="qty-short" onclick="setQty(${it.id},${v})">
-                <span style="font-size:13px;font-weight:700">${v}m</span>
-                ${r?`<span style="font-size:10px;color:var(--om-orange);font-weight:600">${r}\x3c/span>`:''}
-              </button>`).join('')}
-          \x3c/div>
-        \x3c/div>
+            ${[[5,''],[10,''],[15,''],[20,''],[25,'1롤'],[30,''],[40,''],[50,'2롤'],[75,'3롤'],[100,'4롤']].map(([v,r])=>`<button class="qty-short" onclick="setQty(${it.id},${v})"><span style="font-size:13px;font-weight:700">${v}m</span>${r?`<span style="font-size:10px;color:var(--om-orange);font-weight:600">${r}</span>`:''}</button>`).join('')}
+          </div>
+        </div>
         <div style="display:flex;gap:8px">
           <div style="flex:1;background:var(--blue-light);border:1.5px solid #B8CDE8;border-radius:9px;padding:8px 10px;display:flex;justify-content:space-between;align-items:center">
-            <span style="font-size:10px;font-weight:700;color:var(--blue)">롤 단가\x3c/span>
-            <span class="roll-val" style="font-size:13px;font-weight:800;color:var(--blue)">${it.r.toLocaleString()}<span style="font-size:10px">원\x3c/span>\x3c/span>
-          \x3c/div>
+            <span style="font-size:10px;font-weight:700;color:var(--blue)">롤 단가</span>
+            <span class="roll-val" style="font-size:13px;font-weight:800;color:var(--blue)">${it.r.toLocaleString()}<span style="font-size:10px">원</span></span>
+          </div>
           <div style="flex:1;background:var(--orange-light);border:1.5px solid #E8C0B0;border-radius:9px;padding:8px 10px;display:flex;justify-content:space-between;align-items:center">
-            <span style="font-size:10px;font-weight:700;color:var(--orange)">절단 단가\x3c/span>
-            <span class="cut-val" style="font-size:13px;font-weight:800;color:var(--orange)">${it.c.toLocaleString()}<span style="font-size:10px">원\x3c/span>\x3c/span>
-          \x3c/div>
-        \x3c/div>
+            <span style="font-size:10px;font-weight:700;color:var(--orange)">절단 단가</span>
+            <span class="cut-val" style="font-size:13px;font-weight:800;color:var(--orange)">${it.c.toLocaleString()}<span style="font-size:10px">원</span></span>
+          </div>
+        </div>
         <div class="breakdown">
-          <div class="bd-title">계산 내역\x3c/div>
+          <div class="bd-title">계산 내역</div>
           <div class="bd-chips">
             ${rollM>0?`<div class="bd-chip roll-chip"><div class="chip-left"><span class="chip-tag">롤</span><span class="chip-desc">${rollM}m × ${it.r.toLocaleString()}원</span></div><span class="chip-amt">${(rollM*it.r).toLocaleString()}원</span></div>`:''}
             ${cutM>0?`<div class="bd-chip cut-chip"><div class="chip-left"><span class="chip-tag">절단</span><span class="chip-desc">${cutM}m × ${it.c.toLocaleString()}원</span></div><span class="chip-amt">${(cutM*it.c).toLocaleString()}원</span></div>`:''}
-          \x3c/div>
-          <div class="bd-total"><span class="lbl">소계\x3c/span><span class="val">${amt.toLocaleString()}원\x3c/span>\x3c/div>
-        \x3c/div>
-        <button class="confirm-item-btn" onclick="collapseItem(${it.id})">✅ 확정\x3c/button>
-        <button style="width:100%;padding:11px;border:2px solid #FFAAAA;border-radius:10px;background:none;color:var(--pk-red);font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;margin-top:6px" onclick="removeItem(${it.id})">🗑 삭제\x3c/button>
-      \x3c/div>
-    \x3c/div>`;
+          </div>
+          <div class="bd-total"><span class="lbl">소계</span><span class="val">${amt.toLocaleString()}원</span></div>
+        </div>
+        <button class="confirm-item-btn" onclick="collapseItem(${it.id})">✅ 확정</button>
+        <button style="width:100%;padding:11px;border:2px solid #FFAAAA;border-radius:10px;background:none;color:var(--pk-red);font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;margin-top:6px" onclick="removeItem(${it.id})">🗑 삭제</button>
+      </div>
+    </div>`;
   return div;
 }
 function toggleDetail(id){
   const it=get(id),det=document.getElementById('det-'+id),exp=document.getElementById('exp-'+id);
   const hidden=det.classList.contains('hidden');
-  det.classList.toggle('hidden'); exp.textContent=hidden?'▲':'▼';
-  if(it) it.open=hidden;
+  det.classList.toggle('hidden');exp.textContent=hidden?'▲':'▼';
+  if(it)it.open=hidden;
 }
 function collapseItem(id){
   const it=get(id);
   document.getElementById('det-'+id).classList.add('hidden');
   document.getElementById('exp-'+id).textContent='▼';
-  if(it) it.open=false;
+  if(it)it.open=false;
 }
-function resetForm(){ if(items.length>0&&!confirm('초기화할까요?')) return; items=[]; cnt=0; renderAll(); }
+function resetForm(){if(items.length>0&&!confirm('초기화할까요?'))return;items=[];cnt=0;renderAll();}
 function showPreview(){
-  if(items.length===0){ alert('품목을 추가해주세요.'); return; }
+  if(items.length===0){alert('품목을 추가해주세요.');return;}
   const client=document.getElementById('client').value||'(거래처명)';
-  const site=document.getElementById('site').value, rd=document.getElementById('rdate').value;
-  let rows='', total=0;
+  const site=document.getElementById('site').value,rd=document.getElementById('rdate').value;
+  let rows='',total=0;
   items.forEach(it=>{
-    const db=MODEL_DB[it.catKey], {amt,rollM,cutM}=calc(it.qty,it.r,it.c); total+=amt;
+    const db=MODEL_DB[it.catKey],{amt,rollM,cutM}=calc(it.qty,it.r,it.c);total+=amt;
     const dn=db?`${db.name} ${it.modelName}`:it.modelName;
-    rows+=`<tr><td>${dn}\x3c/td><td style="text-align:right">${it.qty}m\x3c/td><td style="text-align:right">${amt.toLocaleString()}\x3c/td>\x3c/tr>`;
-    if(rollM>0) rows+=`<tr class="sub-row"><td>&nbsp;&nbsp;└ 롤 ${rollM}m × ${it.r.toLocaleString()}\x3c/td><td>\x3c/td><td style="text-align:right">${(rollM*it.r).toLocaleString()}\x3c/td>\x3c/tr>`;
-    if(cutM>0) rows+=`<tr class="sub-row"><td>&nbsp;&nbsp;└ 절단 ${cutM}m × ${it.c.toLocaleString()}\x3c/td><td>\x3c/td><td style="text-align:right">${(cutM*it.c).toLocaleString()}\x3c/td>\x3c/tr>`;
+    rows+=`<tr><td>${dn}</td><td style="text-align:right">${it.qty}m</td><td style="text-align:right">${amt.toLocaleString()}</td></tr>`;
+    if(rollM>0)rows+=`<tr class="sub-row"><td>&nbsp;&nbsp;└ 롤 ${rollM}m × ${it.r.toLocaleString()}</td><td></td><td style="text-align:right">${(rollM*it.r).toLocaleString()}</td></tr>`;
+    if(cutM>0)rows+=`<tr class="sub-row"><td>&nbsp;&nbsp;└ 절단 ${cutM}m × ${it.c.toLocaleString()}</td><td></td><td style="text-align:right">${(cutM*it.c).toLocaleString()}</td></tr>`;
   });
   document.getElementById('parea').innerHTML=`
     <div class="pv-wrap">
-      <div class="pv-title">인테리어 필름 견적서\x3c/div>
+      <div class="pv-title">인테리어 필름 견적서</div>
       <div class="pv-info">
-        <div class="pv-row"><span class="pv-k">거래처\x3c/span><span class="pv-v bold">${client}\x3c/span>\x3c/div>
+        <div class="pv-row"><span class="pv-k">거래처</span><span class="pv-v bold">${client}</span></div>
         ${site?`<div class="pv-row"><span class="pv-k">현장명</span><span class="pv-v">${site}</span></div>`:''}
-        <div class="pv-row"><span class="pv-k">견적일\x3c/span><span class="pv-v">${rd}\x3c/span>\x3c/div>
-      \x3c/div>
+        <div class="pv-row"><span class="pv-k">견적일</span><span class="pv-v">${rd}</span></div>
+      </div>
       <div class="pv-table-wrap"><table class="pv-table">
-        <thead><tr><th>품목\x3c/th><th style="text-align:right">수량\x3c/th><th style="text-align:right">금액\x3c/th>\x3c/tr>\x3c/thead>
-        <tbody>${rows}\x3c/tbody>
-        <tfoot><tr><td colspan="2">합&nbsp;&nbsp;계\x3c/td><td>${total.toLocaleString()}\x3c/td>\x3c/tr>\x3c/tfoot>
-      \x3c/table>\x3c/div>
-      <div class="pv-bank"><div class="pv-bank-notice">⚠ &nbsp; 선 입 금 후 발 주\x3c/div>
-        <div class="pv-bank-body"><div class="pv-bank-num">332-135674-04-011\x3c/div>
-          <div class="pv-bank-info">기업은행 &nbsp;|&nbsp; 예금주: 주식회사 오션메이드\x3c/div>\x3c/div>\x3c/div>
+        <thead><tr><th>품목</th><th style="text-align:right">수량</th><th style="text-align:right">금액</th></tr></thead>
+        <tbody>${rows}</tbody>
+        <tfoot><tr><td colspan="2">합&nbsp;&nbsp;계</td><td>${total.toLocaleString()}</td></tr></tfoot>
+      </table></div>
+      <div class="pv-bank"><div class="pv-bank-notice">⚠ &nbsp; 선 입 금 후 발 주</div>
+        <div class="pv-bank-body"><div class="pv-bank-num">332-135674-04-011</div>
+          <div class="pv-bank-info">기업은행 &nbsp;|&nbsp; 예금주: 주식회사 오션메이드</div></div></div>
       <div class="pv-supplier">
-        <div style="font-size:11px;color:#aaa;margin-bottom:4px">공급자 정보\x3c/div>
-        <div style="font-weight:700;color:#555">㈜오션메이드 &nbsp;|&nbsp; 041-534-7475\x3c/div>
-        <div style="font-size:11px;color:#aaa;margin-top:2px">충남 아산시 신창면 환경공원로 213-9\x3c/div>
-      \x3c/div>
-    \x3c/div>`;
+        <div style="font-size:11px;color:#aaa;margin-bottom:4px">공급자 정보</div>
+        <div style="font-weight:700;color:#555">㈜오션메이드 &nbsp;|&nbsp; 041-534-7475</div>
+        <div style="font-size:11px;color:#aaa;margin-top:2px">충남 아산시 신창면 환경공원로 213-9</div>
+      </div>
+    </div>`;
   document.getElementById('preview-ovl').classList.add('show');
 }
 
 // ===== 거래처 =====
 let currentClientTab='film';
-function loadClients(type){ try{ return JSON.parse(localStorage.getItem('om_cl_'+type)||'[]'); }catch(e){ return []; } }
+function loadClients(type){try{return JSON.parse(localStorage.getItem('om_cl_'+type)||'[]');}catch(e){return[];}}
 function saveClient(type){
-  const v=document.getElementById('new-client').value.trim(); if(!v) return;
-  const arr=loadClients(type); if(!arr.includes(v)){ arr.unshift(v); localStorage.setItem('om_cl_'+type,JSON.stringify(arr)); }
+  const v=document.getElementById('new-client').value.trim();if(!v)return;
+  const arr=loadClients(type);if(!arr.includes(v)){arr.unshift(v);localStorage.setItem('om_cl_'+type,JSON.stringify(arr));}
   document.getElementById('new-client').value='';
-  refreshClientUI(); refreshFilmDoorDrops();
+  refreshClientUI();refreshFilmDoorDrops();
 }
 function deleteClient(name,type){
   localStorage.setItem('om_cl_'+type,JSON.stringify(loadClients(type).filter(c=>c!==name)));
-  refreshClientUI(); refreshFilmDoorDrops();
+  refreshClientUI();refreshFilmDoorDrops();
 }
 function switchClientTab(type){
   currentClientTab=type;
   ['film','door'].forEach(t=>{
-    const b=document.getElementById('ctab-'+t); if(!b) return;
+    const b=document.getElementById('ctab-'+t);if(!b)return;
     b.style.borderBottomColor=t===type?'var(--or)':'transparent';
     b.style.color=t===type?'var(--or)':'var(--g5)';
     b.style.fontWeight=t===type?'700':'600';
   });
   refreshClientUI();
 }
-function openClientMgr(){ document.getElementById('client-ovl').classList.add('show'); refreshClientUI(); }
+function openClientMgr(){document.getElementById('client-ovl').classList.add('show');refreshClientUI();}
 function refreshClientUI(){
   const arr=loadClients(currentClientTab);
-  const el=document.getElementById('client-chips'); if(!el) return;
-  el.innerHTML=arr.length===0?`<p style="font-size:13px;color:var(--g5);text-align:center;padding:16px">거래처가 없습니다\x3c/p>`
+  const el=document.getElementById('client-chips');if(!el)return;
+  el.innerHTML=arr.length===0?`<p style="font-size:13px;color:var(--g5);text-align:center;padding:16px">거래처가 없습니다</p>`
     :arr.map((c,i)=>`
       <div style="display:flex;align-items:center;gap:8px;padding:9px 12px;background:var(--g0);border:1.5px solid var(--bd);border-radius:9px;margin-bottom:6px;">
         <div style="display:flex;flex-direction:column;gap:2px">
-          <button onclick="moveClient('${c.replace(/'/g,"\\'")}','${currentClientTab}',-1)" ${i===0?'disabled':''} style="background:none;border:1px solid var(--bd);border-radius:3px;cursor:pointer;font-size:10px;padding:1px 4px;color:${i===0?'#ccc':'var(--br)'}">▲\x3c/button>
-          <button onclick="moveClient('${c.replace(/'/g,"\\'")}','${currentClientTab}',1)" ${i===arr.length-1?'disabled':''} style="background:none;border:1px solid var(--bd);border-radius:3px;cursor:pointer;font-size:10px;padding:1px 4px;color:${i===arr.length-1?'#ccc':'var(--br)'}">▼\x3c/button>
-        \x3c/div>
-        <span style="flex:1;font-size:14px;font-weight:600">${c}\x3c/span>
-        <button onclick="deleteClient('${c.replace(/'/g,"\\'")}','${currentClientTab}')" style="background:none;border:1px solid #FFBBAA;border-radius:5px;color:var(--or);cursor:pointer;font-size:12px;padding:2px 7px">삭제\x3c/button>
-      \x3c/div>`).join('');
+          <button onclick="moveClient('${c.replace(/'/g,"\\'")}','${currentClientTab}',-1)" ${i===0?'disabled':''} style="background:none;border:1px solid var(--bd);border-radius:3px;cursor:pointer;font-size:10px;padding:1px 4px;color:${i===0?'#ccc':'var(--br)'}">▲</button>
+          <button onclick="moveClient('${c.replace(/'/g,"\\'")}','${currentClientTab}',1)" ${i===arr.length-1?'disabled':''} style="background:none;border:1px solid var(--bd);border-radius:3px;cursor:pointer;font-size:10px;padding:1px 4px;color:${i===arr.length-1?'#ccc':'var(--br)'}">▼</button>
+        </div>
+        <span style="flex:1;font-size:14px;font-weight:600">${c}</span>
+        <button onclick="deleteClient('${c.replace(/'/g,"\\'")}','${currentClientTab}')" style="background:none;border:1px solid #FFBBAA;border-radius:5px;color:var(--or);cursor:pointer;font-size:12px;padding:2px 7px">삭제</button>
+      </div>`).join('');
 }
 function moveClient(name,type,dir){
   const arr=loadClients(type),idx=arr.indexOf(name),ni=idx+dir;
-  if(ni<0||ni>=arr.length) return;
-  arr.splice(idx,1); arr.splice(ni,0,name);
+  if(ni<0||ni>=arr.length)return;
+  arr.splice(idx,1);arr.splice(ni,0,name);
   localStorage.setItem('om_cl_'+type,JSON.stringify(arr));
-  refreshClientUI(); refreshFilmDoorDrops();
+  refreshClientUI();refreshFilmDoorDrops();
 }
 function refreshFilmDoorDrops(){
   ['film','door'].forEach(type=>{
     const listId=type==='film'?'client-drop-list':'door-client-drop-list';
-    const el=document.getElementById(listId); if(!el) return;
+    const el=document.getElementById(listId);if(!el)return;
     const arr=loadClients(type);
-    el.innerHTML=arr.length===0?`<div style="padding:12px;text-align:center;font-size:13px;color:var(--g5)">거래처 없음\x3c/div>`
-      :arr.map(c=>`<div class="cl-item" onclick="selectFilmDoorClient('${type}','${c.replace(/'/g,"\\'")}')">$${c}\x3c/div>`).join('').replace(/\$/g,'');
+    el.innerHTML=arr.length===0?`<div style="padding:12px;text-align:center;font-size:13px;color:var(--g5)">거래처 없음</div>`
+      :arr.map(c=>`<div class="cl-item" onclick="selectFilmDoorClient('${type}','${c.replace(/'/g,"\\'")}')"> ${c}</div>`).join('');
   });
 }
 function toggleClientDrop(type){
-  const drop=document.getElementById(type==='film'?'client-drop':'door-client-drop'); if(!drop) return;
+  const drop=document.getElementById(type==='film'?'client-drop':'door-client-drop');if(!drop)return;
   const isOpen=drop.style.display!=='none';
-  ['client-drop','door-client-drop'].forEach(id=>{ const el=document.getElementById(id); if(el) el.style.display='none'; });
-  if(!isOpen) drop.style.display='block';
+  ['client-drop','door-client-drop'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none';});
+  if(!isOpen)drop.style.display='block';
 }
 function selectFilmDoorClient(type,name){
   if(type==='film'){
     document.getElementById('client').value=name;
-    const t=document.getElementById('client-display-text'); if(t){t.textContent=name;t.style.color='var(--g9)';}
-    const d=document.getElementById('client-drop'); if(d) d.style.display='none';
-  } else {
+    const t=document.getElementById('client-display-text');if(t){t.textContent=name;t.style.color='var(--g9)';}
+    const d=document.getElementById('client-drop');if(d)d.style.display='none';
+  }else{
     document.getElementById('door-client').value=name;
-    const t=document.getElementById('door-client-display-text'); if(t){t.textContent=name;t.style.color='var(--g9)';}
-    const d=document.getElementById('door-client-drop'); if(d) d.style.display='none';
+    const t=document.getElementById('door-client-display-text');if(t){t.textContent=name;t.style.color='var(--g9)';}
+    const d=document.getElementById('door-client-drop');if(d)d.style.display='none';
   }
 }
 document.addEventListener('click',e=>{
   if(!e.target.closest('[id$="-drop"]')&&!e.target.closest('[id$="-display"]')){
-    ['client-drop','door-client-drop'].forEach(id=>{ const el=document.getElementById(id); if(el) el.style.display='none'; });
+    ['client-drop','door-client-drop'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none';});
   }
 });
 
 // ===== 판매 데이터 =====
-function loadSales(){ try{ return JSON.parse(localStorage.getItem('om_sales')||'[]'); }catch(e){ return []; } }
-function saveSale(rec){ const s=loadSales(); s.unshift({...rec,id:Date.now()}); localStorage.setItem('om_sales',JSON.stringify(s.slice(0,500))); }
+function loadSales(){try{return JSON.parse(localStorage.getItem('om_sales')||'[]');}catch(e){return[];}}
+function saveSale(rec){const s=loadSales();s.unshift({...rec,id:Date.now()});localStorage.setItem('om_sales',JSON.stringify(s.slice(0,500)));}
 function confirmQuote(){
-  const client=document.getElementById('client').value||'(거래처명)', rd=document.getElementById('rdate').value;
+  const client=document.getElementById('client').value||'(거래처명)',rd=document.getElementById('rdate').value;
   if(items.length===0){alert('품목을 추가해주세요.');return;}
-  let total=0; items.forEach(it=>{const{amt}=calc(it.qty,it.r,it.c);total+=amt;});
+  let total=0;items.forEach(it=>{const{amt}=calc(it.qty,it.r,it.c);total+=amt;});
   saveSale({type:'필름',client,date:rd,site:document.getElementById('site')?.value||'',total,month:rd.slice(0,7)});
   const btn=document.querySelector('.btn-confirm');
   if(btn){btn.textContent='✅ 저장완료!';btn.style.background='#888';btn.disabled=true;setTimeout(()=>{btn.textContent='✅ 견적 확정';btn.style.background='var(--gn)';btn.disabled=false;},2000);}
 }
 
 // ===== 도어 =====
-let doorGroups=[], doorCnt=0, doorGrade=1;
+let doorGroups=[],doorCnt=0,doorGrade=1;
 function setDoorGrade(g){
   doorGrade=g;
   [1,2].forEach(n=>{
-    const b=document.getElementById(`grade-btn-${n}`); if(!b) return;
+    const b=document.getElementById(`grade-btn-${n}`);if(!b)return;
     if(n===g){b.style.background='var(--br)';b.style.borderColor='var(--br)';b.style.color='white';b.style.fontWeight='800';}
     else{b.style.background='white';b.style.borderColor='var(--bd)';b.style.color='var(--g5)';b.style.fontWeight='700';}
   });
@@ -1010,54 +927,54 @@ function addDoorGroup(){
   doorGroups.push({key,open:true,items:[{id:doorCnt++,w:900,h:2100,qty:1}]});
   renderDoorGroups();
 }
-function removeDoorGroup(gi){ doorGroups.splice(gi,1); renderDoorGroups(); updateDoorTotals(); }
-function toggleDoorGroup(gi){ doorGroups[gi].open=!doorGroups[gi].open; renderDoorGroups(); }
-function updateDoorGroup(gi,field,val){ if(field==='key') doorGroups[gi].key=val; renderDoorGroups(); updateDoorTotals(); }
+function removeDoorGroup(gi){doorGroups.splice(gi,1);renderDoorGroups();updateDoorTotals();}
+function toggleDoorGroup(gi){doorGroups[gi].open=!doorGroups[gi].open;renderDoorGroups();}
+function updateDoorGroup(gi,field,val){if(field==='key')doorGroups[gi].key=val;renderDoorGroups();updateDoorTotals();}
 function addDoorRow(gi){
-  doorGroups[gi].items.push({id:doorCnt++,w:0,h:0,qty:1}); renderDoorGroups();
-  setTimeout(()=>{ const rows=document.querySelectorAll(`.drow-w-${gi}`); if(rows.length){const last=rows[rows.length-1];last.focus();last.select();} },30);
+  doorGroups[gi].items.push({id:doorCnt++,w:0,h:0,qty:1});renderDoorGroups();
+  setTimeout(()=>{const rows=document.querySelectorAll(`.drow-w-${gi}`);if(rows.length){const last=rows[rows.length-1];last.focus();last.select();}},30);
 }
 function removeDoorRow(gi,id){
   doorGroups[gi].items=doorGroups[gi].items.filter(x=>x.id!==id);
-  if(doorGroups[gi].items.length===0) doorGroups.splice(gi,1);
-  renderDoorGroups(); updateDoorTotals();
+  if(doorGroups[gi].items.length===0)doorGroups.splice(gi,1);
+  renderDoorGroups();updateDoorTotals();
 }
 function updateDoorRow(gi,id,field,val){
-  const item=doorGroups[gi].items.find(x=>x.id===id); if(item) item[field]=parseInt(val)||0; updateDoorTotals();
+  const item=doorGroups[gi].items.find(x=>x.id===id);if(item)item[field]=parseInt(val)||0;updateDoorTotals();
 }
-function getFlatDoorItems(){ const flat=[]; doorGroups.forEach(g=>g.items.forEach(it=>flat.push({id:it.id,key:g.key,w:it.w,h:it.h,qty:it.qty}))); return flat; }
-function resetDoorForm(){ if(doorGroups.length>0&&!confirm('초기화할까요?')) return; doorGroups=[]; doorCnt=0; renderDoorGroups(); }
+function getFlatDoorItems(){const flat=[];doorGroups.forEach(g=>g.items.forEach(it=>flat.push({id:it.id,key:g.key,w:it.w,h:it.h,qty:it.qty})));return flat;}
+function resetDoorForm(){if(doorGroups.length>0&&!confirm('초기화할까요?'))return;doorGroups=[];doorCnt=0;renderDoorGroups();}
 function updateDoorTotals(){
   const flat=getFlatDoorItems(),groups={};
-  flat.forEach(it=>{ if(!groups[it.key]) groups[it.key]=[]; for(let i=0;i<it.qty;i++) groups[it.key].push({w:it.w,h:it.h}); });
+  flat.forEach(it=>{if(!groups[it.key])groups[it.key]=[];for(let i=0;i<it.qty;i++)groups[it.key].push({w:it.w,h:it.h});});
   let total=0;
-  Object.entries(groups).forEach(([key,pieces])=>{ if(!pieces.length) return; total+=Math.round(calcSheetDecimal(pieces)*getUnitPrice(key)); });
-  const el=document.getElementById('door-total'); if(el) el.textContent=total.toLocaleString()+' 원';
+  Object.entries(groups).forEach(([key,pieces])=>{if(!pieces.length)return;total+=Math.round(calcSheetDecimal(pieces)*getUnitPrice(key));});
+  const el=document.getElementById('door-total');if(el)el.textContent=total.toLocaleString()+' 원';
 }
 function renderDoorGroups(){
-  const wrap=document.getElementById('door-items-wrap'); if(!wrap) return;
-  if(!doorGroups.length){ wrap.innerHTML='<div style="text-align:center;padding:16px;color:var(--gray-500);font-size:13px">+ 색상 추가를 눌러 시작하세요</div>'; updateDoorTotals(); return; }
+  const wrap=document.getElementById('door-items-wrap');if(!wrap)return;
+  if(!doorGroups.length){wrap.innerHTML='<div style="text-align:center;padding:16px;color:var(--gray-500);font-size:13px">+ 색상 추가를 눌러 시작하세요</div>';updateDoorTotals();return;}
   wrap.innerHTML=doorGroups.map((g,gi)=>{
     const[colorName,colorType]=g.key.split('|');
     const piecesInGroup=g.items.reduce((s,it)=>s+it.qty,0);
-    const pieces=[]; g.items.forEach(it=>{for(let i=0;i<it.qty;i++) pieces.push({w:it.w,h:it.h});});
+    const pieces=[];g.items.forEach(it=>{for(let i=0;i<it.qty;i++)pieces.push({w:it.w,h:it.h});});
     const sheets=pieces.length>0?calcSheetDecimal(pieces):0,unit=getUnitPrice(g.key),groupAmt=Math.round(sheets*unit);
     const rows=g.open?`
       <div style="padding:10px 12px;background:#FAFAF8;border-top:1px solid var(--border)">
         <div style="margin-bottom:8px">
-          <label style="font-size:10px;color:var(--gray-500);font-weight:700;text-transform:uppercase;display:block;margin-bottom:4px">색상 선택\x3c/label>
+          <label style="font-size:10px;color:var(--gray-500);font-weight:700;text-transform:uppercase;display:block;margin-bottom:4px">색상 선택</label>
           <select onchange="updateDoorGroup(${gi},'key',this.value)" style="width:100%;padding:8px 12px;border:1.5px solid #A8C4E8;border-radius:9px;font-size:14px;font-family:inherit;background:#EAF1FA;color:var(--blue);font-weight:700">
             ${DOOR_PRICES.map(p=>`<option value="${p.name}|${p.type}"${(p.name+'|'+p.type)===g.key?' selected':''}>${p.name} (${p.type})</option>`).join('')}
-          \x3c/select>
-        \x3c/div>
+          </select>
+        </div>
         <table style="width:100%;border-collapse:collapse;font-size:13px">
           <thead><tr style="background:#1A4F8A;color:white">
-            <th style="padding:7px 6px;text-align:center;width:24px;font-size:11px">#\x3c/th>
-            <th style="padding:7px 6px;text-align:center;font-size:11px">폭(mm)\x3c/th>
-            <th style="padding:7px 6px;text-align:center;font-size:11px">높이(mm)\x3c/th>
-            <th style="padding:7px 6px;text-align:center;width:50px;font-size:11px">수량\x3c/th>
-            <th style="padding:7px 4px;width:26px">\x3c/th>
-          \x3c/tr>\x3c/thead>
+            <th style="padding:7px 6px;text-align:center;width:24px;font-size:11px">#</th>
+            <th style="padding:7px 6px;text-align:center;font-size:11px">폭(mm)</th>
+            <th style="padding:7px 6px;text-align:center;font-size:11px">높이(mm)</th>
+            <th style="padding:7px 6px;text-align:center;width:50px;font-size:11px">수량</th>
+            <th style="padding:7px 4px;width:26px"></th>
+          </tr></thead>
           <tbody>
             ${g.items.map((it,ri)=>`
               <tr style="border-bottom:1px solid var(--border);${ri%2===0?'background:white':'background:#FAFAF8'}">
@@ -1067,41 +984,31 @@ function renderDoorGroups(){
                 <td style="padding:4px 3px"><input type="number" value="${it.qty}" min="1" tabindex="${gi*100+ri*3+3}" onchange="updateDoorRow(${gi},${it.id},'qty',this.value)" onkeydown="if(event.key==='Tab'&&!event.shiftKey&&${ri===g.items.length-1}){event.preventDefault();addDoorRow(${gi});}" style="width:100%;padding:6px 4px;border:1px solid var(--border);border-radius:7px;font-size:13px;font-weight:700;text-align:center;font-family:inherit"></td>
                 <td style="padding:4px 4px;text-align:center"><button onclick="removeDoorRow(${gi},${it.id})" tabindex="-1" style="background:none;border:1px solid #DDBBBB;border-radius:5px;color:#CC6666;cursor:pointer;font-size:12px;padding:2px 6px;line-height:1">×</button></td>
               </tr>`).join('')}
-          \x3c/tbody>
-        \x3c/table>
-        <button onclick="addDoorRow(${gi})" style="width:100%;margin-top:8px;padding:8px;border:1.5px dashed #B8CDE8;border-radius:8px;background:none;color:var(--blue);font-size:13px;font-weight:600;cursor:pointer">+ 행 추가\x3c/button>
-      \x3c/div>`:''
+          </tbody>
+        </table>
+        <button onclick="addDoorRow(${gi})" style="width:100%;margin-top:8px;padding:8px;border:1.5px dashed #B8CDE8;border-radius:8px;background:none;color:var(--blue);font-size:13px;font-weight:600;cursor:pointer">+ 행 추가</button>
+      </div>`:''
     ;
     return `<div style="border:1.5px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden">
       <div onclick="toggleDoorGroup(${gi})" style="background:linear-gradient(135deg,#1A4F8A,#2563a8);padding:11px 14px;display:flex;align-items:center;gap:10px;cursor:pointer">
-        <div style="width:22px;height:22px;background:rgba(255,255,255,0.2);border:1.5px solid rgba(255,255,255,0.35);border-radius:50%;color:white;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center">${gi+1}\x3c/div>
+        <div style="width:22px;height:22px;background:rgba(255,255,255,0.2);border:1.5px solid rgba(255,255,255,0.35);border-radius:50%;color:white;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center">${gi+1}</div>
         <div style="flex:1">
-          <div style="font-size:14px;font-weight:700;color:white">${colorName} <span style="font-size:11px;opacity:0.75">(${colorType})\x3c/span>\x3c/div>
-          <div style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:2px">${piecesInGroup}개 부재 · ${sheets}장 · ${groupAmt.toLocaleString()}원\x3c/div>
-        \x3c/div>
+          <div style="font-size:14px;font-weight:700;color:white">${colorName} <span style="font-size:11px;opacity:0.75">(${colorType})</span></div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:2px">${piecesInGroup}개 부재 · ${sheets}장 · ${groupAmt.toLocaleString()}원</div>
+        </div>
         <div style="display:flex;align-items:center;gap:8px">
-          <button onclick="event.stopPropagation();removeDoorGroup(${gi})" style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:6px;color:white;cursor:pointer;font-size:12px;padding:3px 8px">삭제\x3c/button>
-          <span style="color:white;font-size:14px">${g.open?'▲':'▼'}\x3c/span>
-        \x3c/div>
-      \x3c/div>
+          <button onclick="event.stopPropagation();removeDoorGroup(${gi})" style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:6px;color:white;cursor:pointer;font-size:12px;padding:3px 8px">삭제</button>
+          <span style="color:white;font-size:14px">${g.open?'▲':'▼'}</span>
+        </div>
+      </div>
       ${rows}
-    \x3c/div>`;
+    </div>`;
   }).join('');
   updateDoorTotals();
 }
 
 // ===== 재단 알고리즘 =====
-function normalizePiece(w,h){ return {rowL:Math.max(w,h),rowH:Math.min(w,h)}; }
-function buildColumns(pieces){
-  const sorted=[...pieces].sort((a,b)=>b.rowL-a.rowL||b.rowH-a.rowH),columns=[];
-  for(const p of sorted){
-    let bestCol=null,bestWaste=Infinity;
-    for(const col of columns){ if(p.rowH<=col.colW&&col.usedY+p.rowL<=2440){const w=col.colW-p.rowH;if(w<bestWaste){bestWaste=w;bestCol=col;}} }
-    if(bestCol){bestCol.items.push(p);bestCol.usedY+=p.rowL+KERF;}
-    else columns.push({colW:p.rowH,usedY:p.rowL+KERF,items:[p]});
-  }
-  return columns;
-}
+function normalizePiece(w,h){return{rowL:Math.max(w,h),rowH:Math.min(w,h)};}
 function maxRectsPack(pieces){
   const sheets=[];
   function splitFree(free,px,py,pw,ph){
@@ -1109,10 +1016,10 @@ function maxRectsPack(pieces){
     for(const f of free){
       const ox=px<f.x+f.w&&px+pw>f.x&&py<f.y+f.h&&py+ph>f.y;
       if(!ox){result.push(f);continue;}
-      if(f.x<px) result.push({x:f.x,y:f.y,w:px-f.x,h:f.h});
-      if(f.x+f.w>px+pw+KERF) result.push({x:px+pw+KERF,y:f.y,w:f.x+f.w-(px+pw+KERF),h:f.h});
-      if(f.y<py) result.push({x:f.x,y:f.y,w:f.w,h:py-f.y});
-      if(f.y+f.h>py+ph+KERF) result.push({x:f.x,y:py+ph+KERF,w:f.w,h:f.y+f.h-(py+ph+KERF)});
+      if(f.x<px)result.push({x:f.x,y:f.y,w:px-f.x,h:f.h});
+      if(f.x+f.w>px+pw+KERF)result.push({x:px+pw+KERF,y:f.y,w:f.x+f.w-(px+pw+KERF),h:f.h});
+      if(f.y<py)result.push({x:f.x,y:f.y,w:f.w,h:py-f.y});
+      if(f.y+f.h>py+ph+KERF)result.push({x:f.x,y:py+ph+KERF,w:f.w,h:f.y+f.h-(py+ph+KERF)});
     }
     return result.filter((a,i)=>a.w>0&&a.h>0&&!result.some((b,j)=>i!==j&&b.x<=a.x&&b.y<=a.y&&b.x+b.w>=a.x+a.w&&b.y+b.h>=a.y+a.h));
   }
@@ -1128,8 +1035,8 @@ function maxRectsPack(pieces){
     if(bestSh&&bestF){
       bestSh.pieces.push({x:bestF.x,y:bestF.y,w:bestW,h:bestH,origW:p.origW,origH:p.origH,name:p.name});
       bestSh.free=splitFree(bestSh.free,bestF.x,bestF.y,bestW,bestH);
-    } else {
-      const sh={pieces:[],free:[{x:0,y:0,w:1220,h:2440}]}; sheets.push(sh);
+    }else{
+      const sh={pieces:[],free:[{x:0,y:0,w:1220,h:2440}]};sheets.push(sh);
       sh.pieces.push({x:0,y:0,w:p.rowH,h:p.rowL,origW:p.origW,origH:p.origH,name:p.name});
       sh.free=splitFree(sh.free,0,0,p.rowH,p.rowL);
     }
@@ -1138,29 +1045,29 @@ function maxRectsPack(pieces){
 }
 function optimizeCuts(doors){
   const pieces=[];
-  doors.forEach(d=>{ for(let i=0;i<d.qty;i++){const{rowL,rowH}=normalizePiece(d.w,d.h);pieces.push({rowL,rowH,origW:d.w,origH:d.h,name:d.name});} });
+  doors.forEach(d=>{for(let i=0;i<d.qty;i++){const{rowL,rowH}=normalizePiece(d.w,d.h);pieces.push({rowL,rowH,origW:d.w,origH:d.h,name:d.name});}});
   const sheets=maxRectsPack(pieces);
   sheets.sort((a,b)=>b.pieces.reduce((s,p)=>s+p.w*p.h,0)-a.pieces.reduce((s,p)=>s+p.w*p.h,0));
   sheets.forEach(sh=>{sh.usedX=sh.pieces.length>0?Math.max(...sh.pieces.map(p=>p.x+p.w)):0;});
   return sheets;
 }
 function calcSheetDecimal(pieces){
-  if(!pieces||!pieces.length) return 0;
+  if(!pieces||!pieces.length)return 0;
   const pcs=pieces.map(p=>({rowL:Math.max(p.w,p.h),rowH:Math.min(p.w,p.h)}));
   const sorted=[...pcs].sort((a,b)=>b.rowL-a.rowL||b.rowH-a.rowH),columns=[];
   for(const p of sorted){
     let placed=false;
     for(const col of columns){if(p.rowH<=col.colW&&col.usedY+p.rowL<=2440){col.usedY+=p.rowL+KERF;placed=true;break;}}
-    if(!placed) columns.push({colW:p.rowH,usedY:p.rowL+KERF});
+    if(!placed)columns.push({colW:p.rowH,usedY:p.rowL+KERF});
   }
   const colsSorted=[...columns].sort((a,b)=>b.colW-a.colW),sheets=[];
   for(const col of colsSorted){
     let bestSh=null,bestWaste=Infinity;
     for(const sh of sheets){const addX=sh.usedX>0?KERF:0,rem=1220-sh.usedX-addX-col.colW;if(rem>=0&&rem<bestWaste){bestWaste=rem;bestSh=sh;}}
-    if(bestSh) bestSh.usedX=bestSh.usedX+(bestSh.usedX>0?KERF:0)+col.colW;
+    if(bestSh)bestSh.usedX=bestSh.usedX+(bestSh.usedX>0?KERF:0)+col.colW;
     else sheets.push({usedX:col.colW});
   }
-  if(!sheets.length) return 0;
+  if(!sheets.length)return 0;
   sheets.sort((a,b)=>b.usedX-a.usedX);
   return(sheets.length-1)+Math.ceil(sheets[sheets.length-1].usedX/100)/10;
 }
@@ -1174,97 +1081,97 @@ function calcDoorQuote(){
   const date=document.getElementById('door-date').value;
   const colorGroups={};
   flat.forEach(it=>{
-    if(!colorGroups[it.key]) colorGroups[it.key]=[];
-    for(let i=0;i<it.qty;i++) colorGroups[it.key].push({w:it.w,h:it.h,name:it.key});
+    if(!colorGroups[it.key])colorGroups[it.key]=[];
+    for(let i=0;i<it.qty;i++)colorGroups[it.key].push({w:it.w,h:it.h,name:it.key});
   });
   lastSheets=optimizeCuts(Object.entries(colorGroups).flatMap(([key,pieces])=>{
     const unique={};
     pieces.forEach(p=>{const k=`${p.w}_${p.h}`;unique[k]=(unique[k]||0)+1;});
     return Object.entries(unique).map(([k,qty])=>{const[w,h]=k.split('_');return{w:+w,h:+h,qty,name:key};});
   }));
-  let rows='',total=0,totalSheetDecimal=0;
+  let rows='',total=0;
   const colorSummary=Object.entries(colorGroups).map(([key,pieces])=>{
     const sheetDecimal=calcSheetDecimal(pieces),unit=getUnitPrice(key),amt=Math.round(sheetDecimal*unit);
-    totalSheetDecimal+=sheetDecimal; total+=amt;
+    total+=amt;
     const[colorName,colorType]=key.split('|');
     return{key,colorName,colorType,pieces,sheetDecimal,unit,amt};
   });
   colorSummary.forEach(({colorName,colorType,pieces,sheetDecimal,unit,amt})=>{
     rows+=`<tr>
-      <td>${colorName}<br><span style="font-size:11px;color:#888">${colorType}\x3c/span>\x3c/td>
-      <td style="text-align:center">${pieces.length}개\x3c/td>
-      <td style="text-align:center">${sheetDecimal}장\x3c/td>
-      <td style="text-align:right">${unit.toLocaleString()}\x3c/td>
-      <td style="text-align:right;font-weight:700">${amt.toLocaleString()}\x3c/td>
-    \x3c/tr>`;
+      <td>${colorName}<br><span style="font-size:11px;color:#888">${colorType}</span></td>
+      <td style="text-align:center">${pieces.length}개</td>
+      <td style="text-align:center">${sheetDecimal}장</td>
+      <td style="text-align:right">${unit.toLocaleString()}</td>
+      <td style="text-align:right;font-weight:700">${amt.toLocaleString()}</td>
+    </tr>`;
   });
   document.getElementById('door-preview-area').innerHTML=`
     <div class="pv-wrap">
-      <div class="pv-title">도 &nbsp; 어 &nbsp; 발 &nbsp; 주\x3c/div>
+      <div class="pv-title">도 &nbsp; 어 &nbsp; 발 &nbsp; 주</div>
       <div class="pv-info">
-        <div class="pv-row"><span class="pv-k">거래처\x3c/span><span class="pv-v bold">${client}\x3c/span>\x3c/div>
-        <div class="pv-row"><span class="pv-k">견적일\x3c/span><span class="pv-v">${date}\x3c/span>\x3c/div>
-        <div class="pv-row"><span class="pv-k">원판규격\x3c/span><span class="pv-v">2440×1220mm · SUPER 레이저도어\x3c/span>\x3c/div>
-      \x3c/div>
+        <div class="pv-row"><span class="pv-k">거래처</span><span class="pv-v bold">${client}</span></div>
+        <div class="pv-row"><span class="pv-k">견적일</span><span class="pv-v">${date}</span></div>
+        <div class="pv-row"><span class="pv-k">원판규격</span><span class="pv-v">2440×1220mm · SUPER 레이저도어</span></div>
+      </div>
       <button onclick="drawCutLayout(lastSheets)" style="width:100%;padding:13px;background:linear-gradient(135deg,#1A4F8A,#2563a8);color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between">
-        <span>📐 재단 배치도 보기\x3c/span>
-        <span style="font-size:18px;background:rgba(255,255,255,0.2);border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center">▶\x3c/span>
-      \x3c/button>
+        <span>📐 재단 배치도 보기</span>
+        <span style="font-size:18px;background:rgba(255,255,255,0.2);border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center">▶</span>
+      </button>
       <div class="pv-table-wrap"><table class="pv-table">
-        <thead><tr><th>색상명\x3c/th><th>부재수\x3c/th><th>원판(장)\x3c/th><th>단가/장\x3c/th><th>금액\x3c/th>\x3c/tr>\x3c/thead>
-        <tbody>${rows}\x3c/tbody>
-        <tfoot><tr><td colspan="4">합 &nbsp; 계\x3c/td><td>${total.toLocaleString()}\x3c/td>\x3c/tr>\x3c/tfoot>
-      \x3c/table>\x3c/div>
-      <div class="pv-bank"><div class="pv-bank-notice">⚠ &nbsp; 선 입 금 후 발 주\x3c/div>
-        <div class="pv-bank-body"><div class="pv-bank-num">332-135674-04-011\x3c/div>
-          <div class="pv-bank-info">기업은행 &nbsp;|&nbsp; 예금주: 주식회사 오션메이드\x3c/div>\x3c/div>\x3c/div>
-      <div style="font-size:10px;color:#aaa;text-align:center;padding:6px 0">※ 입금확인 후 제작 · SUPER 레이저도어 제로조인트 기준\x3c/div>
-    \x3c/div>`;
+        <thead><tr><th>색상명</th><th>부재수</th><th>원판(장)</th><th>단가/장</th><th>금액</th></tr></thead>
+        <tbody>${rows}</tbody>
+        <tfoot><tr><td colspan="4">합 &nbsp; 계</td><td>${total.toLocaleString()}</td></tr></tfoot>
+      </table></div>
+      <div class="pv-bank"><div class="pv-bank-notice">⚠ &nbsp; 선 입 금 후 발 주</div>
+        <div class="pv-bank-body"><div class="pv-bank-num">332-135674-04-011</div>
+          <div class="pv-bank-info">기업은행 &nbsp;|&nbsp; 예금주: 주식회사 오션메이드</div></div></div>
+      <div style="font-size:10px;color:#aaa;text-align:center;padding:6px 0">※ 입금확인 후 제작 · SUPER 레이저도어 제로조인트 기준</div>
+    </div>`;
   document.getElementById('door-preview-ovl').classList.add('show');
 }
-function closeDoorPreview(){ document.getElementById('door-preview-ovl').classList.remove('show'); }
-function closeCutLayout(){ document.getElementById('cut-layout-ovl').classList.remove('show'); }
+function closeDoorPreview(){document.getElementById('door-preview-ovl').classList.remove('show');}
+function closeCutLayout(){document.getElementById('cut-layout-ovl').classList.remove('show');}
 function drawCutLayout(sheets){
   const ovl=document.getElementById('cut-layout-ovl'),container=document.getElementById('cut-layout-container');
-  if(!ovl||!container) return;
+  if(!ovl||!container)return;
   const COLORS=['#B8D4E8','#F5D5B0','#C8E6C8','#F5C5D0','#D8D0F0','#F0E8C0','#C8E0E8','#E8D0C8'];
-  const keyColorMap={}; let colorIdx=0;
-  getFlatDoorItems().forEach(it=>{if(!keyColorMap[it.key]) keyColorMap[it.key]=COLORS[colorIdx++%COLORS.length];});
+  const keyColorMap={};let colorIdx=0;
+  getFlatDoorItems().forEach(it=>{if(!keyColorMap[it.key])keyColorMap[it.key]=COLORS[colorIdx++%COLORS.length];});
   const SVG_W=160,SVG_H=320,scaleX=SVG_W/1220,scaleY=SVG_H/2440;
   container.innerHTML=sheets.map((sheet,si)=>{
     const usedArea=sheet.pieces.reduce((s,p)=>s+p.w*p.h,0),eff=Math.round(usedArea/(1220*2440)*100);
-    const cutYSet=new Set(); sheet.pieces.forEach(p=>{if(p.y>0) cutYSet.add(p.y);});
+    const cutYSet=new Set();sheet.pieces.forEach(p=>{if(p.y>0)cutYSet.add(p.y);});
     const cutLines=[...cutYSet].map(y=>`<line x1="0" y1="${y*scaleY}" x2="${SVG_W}" y2="${y*scaleY}" stroke="#666" stroke-width="0.8" stroke-dasharray="2,2"/>`).join('');
     const rects=sheet.pieces.map(p=>{
       const color=keyColorMap[p.name]||'#DDD';
       const px=p.x*scaleX,py=p.y*scaleY,pw=p.w*scaleX,ph=p.h*scaleY;
       const fs=Math.min(pw,ph)>14?7:5;
       return `<rect x="${px}" y="${py}" width="${pw}" height="${ph}" fill="${color}" stroke="#444" stroke-width="0.8" rx="1"/>
-        <text x="${px+pw/2}" y="${py+ph/2}" text-anchor="middle" dominant-baseline="middle" font-size="${fs}" fill="#222" font-family="sans-serif">${p.origW}×${p.origH}\x3c/text>`;
+        <text x="${px+pw/2}" y="${py+ph/2}" text-anchor="middle" dominant-baseline="middle" font-size="${fs}" fill="#222" font-family="sans-serif">${p.origW}×${p.origH}</text>`;
     }).join('');
     const maxX=sheet.pieces.reduce((m,p)=>Math.max(m,p.x+p.w),0),usedXpx=maxX*scaleX,wasteW=1220-maxX;
     return `<div style="margin-bottom:24px;display:inline-block;margin-right:16px;vertical-align:top">
-      <div style="font-size:12px;font-weight:700;color:var(--blue);margin-bottom:3px">원판${si+1}번 · 효율${eff}%\x3c/div>
-      <div style="font-size:10px;color:var(--gray-500);margin-bottom:5px">사용${maxX}mm / 낭비${wasteW}mm\x3c/div>
+      <div style="font-size:12px;font-weight:700;color:var(--blue);margin-bottom:3px">원판${si+1}번 · 효율${eff}%</div>
+      <div style="font-size:10px;color:var(--gray-500);margin-bottom:5px">사용${maxX}mm / 낭비${wasteW}mm</div>
       <div style="display:flex;align-items:flex-start;gap:4px">
         <svg width="${SVG_W}" height="${SVG_H}" style="border:1.5px solid #999;border-radius:4px;background:#F5F5F0;">
           ${rects}${cutLines}
           ${wasteW>0?`<rect x="${usedXpx}" y="0" width="${SVG_W-usedXpx}" height="${SVG_H}" fill="#E0E0D8" opacity="0.55"/>
             <line x1="${usedXpx}" y1="0" x2="${usedXpx}" y2="${SVG_H}" stroke="#CC3333" stroke-width="1.5" stroke-dasharray="4,3"/>`:''}
           <rect x="0" y="0" width="${SVG_W}" height="${SVG_H}" fill="none" stroke="#888" stroke-width="1.5"/>
-          <text x="2" y="${SVG_H-3}" font-size="6" fill="#bbb" font-family="sans-serif">←1220→\x3c/text>
-        \x3c/svg>
-        <div style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:9px;color:#aaa;align-self:center">2440mm\x3c/div>
-      \x3c/div>
-    \x3c/div>`;
+          <text x="2" y="${SVG_H-3}" font-size="6" fill="#bbb" font-family="sans-serif">←1220→</text>
+        </svg>
+        <div style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:9px;color:#aaa;align-self:center">2440mm</div>
+      </div>
+    </div>`;
   }).join('');
-  container.innerHTML=`<div style="overflow-x:auto;white-space:nowrap;padding-bottom:8px">${container.innerHTML}\x3c/div>`;
+  container.innerHTML=`<div style="overflow-x:auto;white-space:nowrap;padding-bottom:8px">${container.innerHTML}</div>`;
   const legend=Object.entries(keyColorMap).map(([key,color])=>{
     const[name,type]=key.split('|');
     return `<div style="display:flex;align-items:center;gap:6px;margin-bottom:5px">
-      <div style="width:14px;height:14px;background:${color};border:1px solid #888;border-radius:2px;flex-shrink:0">\x3c/div>
-      <span style="font-size:12px;color:var(--gray-700)">${name} <span style="color:#aaa;font-size:11px">(${type})\x3c/span>\x3c/span>
-    \x3c/div>`;
+      <div style="width:14px;height:14px;background:${color};border:1px solid #888;border-radius:2px;flex-shrink:0"></div>
+      <span style="font-size:12px;color:var(--gray-700)">${name} <span style="color:#aaa;font-size:11px">(${type})</span></span>
+    </div>`;
   }).join('');
   document.getElementById('cut-legend').innerHTML=legend;
   ovl.classList.add('show');
@@ -1272,14 +1179,14 @@ function drawCutLayout(sheets){
 function doDoorPrint(){
   const content=document.getElementById('door-preview-area').innerHTML;
   const win=window.open('','_blank','width=420,height=900');
-  win.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>도어 발주 견적서\x3c/title>
+  win.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>도어 발주 견적서</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
-  <style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Noto Sans KR',sans-serif;background:white;max-width:480px;margin:0 auto}.pv-wrap{padding:18px 14px 24px}.pv-title{text-align:center;font-size:20px;font-weight:800;letter-spacing:6px;color:#1A4F8A;margin-bottom:12px;padding-bottom:10px;border-bottom:3px solid #1A4F8A}.pv-info{border:1.5px solid #DDD;border-radius:8px;overflow:hidden;margin-bottom:10px}.pv-row{display:flex;padding:8px 12px;border-bottom:1px solid #EEE;font-size:13px}.pv-row:last-child{border-bottom:none}.pv-k{color:#999;font-size:11px;min-width:56px}.pv-v{flex:1}.pv-v.bold{font-size:15px;font-weight:800}.pv-table-wrap{border:1.5px solid #DDD;border-radius:8px;overflow:hidden;margin-bottom:10px}.pv-table{width:100%;border-collapse:collapse;font-size:12px}.pv-table thead tr{background:#1A4F8A}.pv-table th{padding:8px 6px;color:white;font-size:11px}.pv-table th:first-child{text-align:left;padding-left:12px}.pv-table th:not(:first-child){text-align:right;padding-right:8px}.pv-table td{padding:9px 6px;border-bottom:1px solid #EEE}.pv-table td:first-child{text-align:left;padding-left:12px}.pv-table td:not(:first-child){text-align:right;padding-right:8px}.pv-table tfoot td{padding:10px 6px;background:#F0EDE8;border-top:2px solid #1A4F8A;font-weight:800}.pv-bank{border:2px solid #E8630A;border-radius:10px;overflow:hidden;margin-bottom:10px}.pv-bank-notice{background:#E8630A;color:white;text-align:center;padding:8px;font-size:13px;font-weight:800;letter-spacing:3px}.pv-bank-body{padding:10px 14px}.pv-bank-num{font-size:20px;font-weight:800;color:#1A4F8A;letter-spacing:1px}.pv-bank-info{font-size:12px;color:#555}button{display:none!important}@media print{body{padding:0}}\x3c/style>
-  \x3c/head><body>${content}\x3cscript>window.onload=()=>window.print()<\/script>\x3c/body>\x3c/html>`);
+  <style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Noto Sans KR',sans-serif;background:white;max-width:480px;margin:0 auto}.pv-wrap{padding:18px 14px 24px}.pv-title{text-align:center;font-size:20px;font-weight:800;letter-spacing:6px;color:#1A4F8A;margin-bottom:12px;padding-bottom:10px;border-bottom:3px solid #1A4F8A}.pv-info{border:1.5px solid #DDD;border-radius:8px;overflow:hidden;margin-bottom:10px}.pv-row{display:flex;padding:8px 12px;border-bottom:1px solid #EEE;font-size:13px}.pv-row:last-child{border-bottom:none}.pv-k{color:#999;font-size:11px;min-width:56px}.pv-v{flex:1}.pv-v.bold{font-size:15px;font-weight:800}.pv-table-wrap{border:1.5px solid #DDD;border-radius:8px;overflow:hidden;margin-bottom:10px}.pv-table{width:100%;border-collapse:collapse;font-size:12px}.pv-table thead tr{background:#1A4F8A}.pv-table th{padding:8px 6px;color:white;font-size:11px}.pv-table th:first-child{text-align:left;padding-left:12px}.pv-table th:not(:first-child){text-align:right;padding-right:8px}.pv-table td{padding:9px 6px;border-bottom:1px solid #EEE}.pv-table td:first-child{text-align:left;padding-left:12px}.pv-table td:not(:first-child){text-align:right;padding-right:8px}.pv-table tfoot td{padding:10px 6px;background:#F0EDE8;border-top:2px solid #1A4F8A;font-weight:800}.pv-bank{border:2px solid #E8630A;border-radius:10px;overflow:hidden;margin-bottom:10px}.pv-bank-notice{background:#E8630A;color:white;text-align:center;padding:8px;font-size:13px;font-weight:800;letter-spacing:3px}.pv-bank-body{padding:10px 14px}.pv-bank-num{font-size:20px;font-weight:800;color:#1A4F8A;letter-spacing:1px}.pv-bank-info{font-size:12px;color:#555}button{display:none!important}@media print{body{padding:0}}</style>
+  </head><body>${content}<\`+\`script>window.onload=()=>window.print()<\/script></body></html>`);
   win.document.close();
 }
 
-// ===== 공유용 단가표 =====
+// ===== 공유용 단가표 (수정됨: 고아 코드 블록 제거) =====
 function showShareView(){
   const gradeKey=`g${priceTabGrade}`;
   const catOrder=['매트','글로시','PP','프레스티지 PP','프레스티지 아크릴','PVC (데코보드)','PET','MFB','UV','방염보드(MFB/MFC)'];
@@ -1289,22 +1196,22 @@ function showShareView(){
   const groups={};
   DOOR_PRICES.forEach(p=>{
     const cat=p.cat||'기타';
-    if(!groups[cat]) groups[cat]=[];
+    if(!groups[cat])groups[cat]=[];
     groups[cat].push(p);
   });
 
   const sections=catOrder.filter(c=>groups[c]).map(cat=>{
-    const items=groups[cat], color=catColor[cat]||'#6B3A1F', label=catLabel[cat]||cat;
+    const items=groups[cat],color=catColor[cat]||'#6B3A1F',label=catLabel[cat]||cat;
     const rows=items.map((p,i)=>`
       <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 7px;background:${i%2===0?'#fff':'#FAF7F2'};border-bottom:1px solid #EDE8E0;gap:4px;">
-        <span style="font-size:10.5px;color:#2D1A0A;font-weight:500;line-height:1.25;word-break:keep-all;flex:1">${p.name}${p.type&&p.type!=='일반'?` <span style='font-size:9px;color:#aaa'>[${p.type}]</span>`:''}\x3c/span>
-        <span style="font-size:11.5px;font-weight:800;color:${color};white-space:nowrap;flex-shrink:0">${p[gradeKey].toLocaleString()}<span style="font-size:9px;font-weight:400;color:#bbb">원\x3c/span>\x3c/span>
-      \x3c/div>`).join('');
+        <span style="font-size:10.5px;color:#2D1A0A;font-weight:500;line-height:1.25;word-break:keep-all;flex:1">${p.name}${p.type&&p.type!=='일반'?` <span style='font-size:9px;color:#aaa'>[${p.type}]</span>`:''}</span>
+        <span style="font-size:11.5px;font-weight:800;color:${color};white-space:nowrap;flex-shrink:0">${p[gradeKey].toLocaleString()}<span style="font-size:9px;font-weight:400;color:#bbb">원</span></span>
+      </div>`).join('');
     return `<div style="margin-bottom:8px;border-radius:7px;overflow:hidden;border:1.5px solid #DDD0BC;break-inside:avoid">
       <div style="background:${color};padding:4px 8px;display:flex;align-items:center;justify-content:space-between">
-        <span style="font-size:10.5px;font-weight:800;color:white">${label}\x3c/span>
-        <span style="font-size:9.5px;color:rgba(255,255,255,.75)">${items.length}종\x3c/span>
-      \x3c/div>${rows}\x3c/div>`;
+        <span style="font-size:10.5px;font-weight:800;color:white">${label}</span>
+        <span style="font-size:9.5px;color:rgba(255,255,255,.75)">${items.length}종</span>
+      </div>${rows}</div>`;
   }).join('');
 
   const now=new Date();
@@ -1312,80 +1219,41 @@ function showShareView(){
 
   const html=`<div style="padding:12px 12px 20px;background:white;font-family:'Noto Sans KR',sans-serif;">
     <div style="text-align:center;padding-bottom:10px;margin-bottom:12px;border-bottom:2.5px solid #E8630A">
-      <div style="font-size:15px;font-weight:900;color:#6B3A1F;letter-spacing:1.5px">SUPER 레이저도어 단가표\x3c/div>
+      <div style="font-size:15px;font-weight:900;color:#6B3A1F;letter-spacing:1.5px">SUPER 레이저도어 단가표</div>
       <div style="display:flex;justify-content:center;gap:8px;margin-top:4px;flex-wrap:wrap">
-        <span style="font-size:10px;color:#8B6045">기준일: ${dateStr}\x3c/span>
-        <span style="font-size:10px;color:#ccc">|\x3c/span>
-        <span style="font-size:10px;font-weight:700;color:#2A6A2A">✅ VAT 포함\x3c/span>
-        <span style="font-size:10px;color:#ccc">|\x3c/span>
-        <span style="font-size:10px;color:#8B6045">㈜오션메이드\x3c/span>
-      \x3c/div>
-    \x3c/div>
-    <div style="columns:2;column-gap:8px;column-fill:balance">${sections}\x3c/div>
+        <span style="font-size:10px;color:#8B6045">기준일: ${dateStr}</span>
+        <span style="font-size:10px;color:#ccc">|</span>
+        <span style="font-size:10px;font-weight:700;color:#2A6A2A">✅ VAT 포함</span>
+        <span style="font-size:10px;color:#ccc">|</span>
+        <span style="font-size:10px;color:#8B6045">㈜오션메이드</span>
+      </div>
+    </div>
+    <div style="columns:2;column-gap:8px;column-fill:balance">${sections}</div>
     <div style="margin-top:10px;padding:8px 10px;background:#EEF8EE;border-radius:7px;border:1.5px solid #A8D4A8">
-      <div style="font-size:10px;color:#2A6A2A;line-height:1.8">✅ <b>단가는 부가세 포함\x3c/b> 가격입니다<br>📞 041-534-7475 · 기업은행 332-135674-04-011 (㈜오션메이드)\x3c/div>
-    \x3c/div>
-  \x3c/div>`;
+      <div style="font-size:10px;color:#2A6A2A;line-height:1.8">✅ <b>단가는 부가세 포함</b> 가격입니다<br>📞 041-534-7475 · 기업은행 332-135674-04-011 (㈜오션메이드)</div>
+    </div>
+  </div>`;
 
   document.getElementById('share-parea').innerHTML=html;
   document.getElementById('share-ovl').classList.add('show');
   document.getElementById('share-ovl').scrollTop=0;
 }
 
-  const groups={};
-  DOOR_PRICES.forEach(p=>{
-    if(!groups[p.type]) groups[p.type]=[];
-    groups[p.type].push(p);
-  });
-
-  const sections=typeOrder.filter(t=>groups[t]).map(type=>{
-    const items=groups[type];
-    const color=typeColor[type]||'#6B3A1F';
-    const rows=items.map((p,i)=>`
-      <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 7px;background:${i%2===0?'#fff':'#FAF7F2'};border-bottom:1px solid #EDE8E0;gap:4px;">
-        <span style="font-size:10.5px;color:#2D1A0A;font-weight:500;line-height:1.25;word-break:keep-all;flex:1">${p.name}\x3c/span>
-        <span style="font-size:11.5px;font-weight:800;color:${color};white-space:nowrap;flex-shrink:0">${p[gradeKey].toLocaleString()}<span style="font-size:9px;font-weight:400;color:#bbb">원\x3c/span>\x3c/span>
-      \x3c/div>`).join('');
-    return `
-      <div style="margin-bottom:8px;border-radius:7px;overflow:hidden;border:1.5px solid #DDD0BC;break-inside:avoid">
-        <div style="background:${color};padding:4px 8px;display:flex;align-items:center;justify-content:space-between">
-          <span style="font-size:10.5px;font-weight:800;color:white;letter-spacing:.2px">${typeLabel[type]||type}\x3c/span>
-          <span style="font-size:9.5px;color:rgba(255,255,255,.75)">${items.length}종\x3c/span>
-        \x3c/div>
-        ${rows}
-      \x3c/div>`;
-  }).join('');
-
-  const now=new Date();
-  const dateStr=`${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')}`;
-
-  const html=`
-    <div style="padding:12px 12px 20px;background:white;font-family:'Noto Sans KR',sans-serif;">
-      <div style="text-align:center;padding-bottom:10px;margin-bottom:12px;border-bottom:2.5px solid #E8630A">
-        <div style="font-size:15px;font-weight:900;color:#6B3A1F;letter-spacing:1.5px">SUPER 레이저도어 단가표\x3c/div>
-        <div style="display:flex;justify-content:center;gap:8px;margin-top:4px;flex-wrap:wrap">
-          <span style="font-size:10px;color:#8B6045">기준일: ${dateStr}\x3c/span>
-          <span style="font-size:10px;color:#ccc">|\x3c/span>
-          <span style="font-size:10px;color:#8B6045">VAT 미포함\x3c/span>
-          <span style="font-size:10px;color:#ccc">|\x3c/span>
-          <span style="font-size:10px;color:#8B6045">㈜오션메이드\x3c/span>
-        \x3c/div>
-
 function printShareView(){
-  _openPrintWindow(document.getElementById('share-parea').innerHTML, '도어 단가표');
+  _openPrintWindow(document.getElementById('share-parea').innerHTML,'도어 단가표');
 }
 
-function _openPrintWindow(content, title){
-  const style='*{box-sizing:border-box;margin:0;padding:0;}body{font-family:\'Noto Sans KR\',sans-serif;background:white;max-width:520px;margin:0 auto;padding:0;}@media print{@page{margin:6mm;size:A4 portrait;}body{max-width:100%;}}';
+function _openPrintWindow(content,title){
+  const style="*{box-sizing:border-box;margin:0;padding:0;}body{font-family:'Noto Sans KR',sans-serif;background:white;max-width:520px;margin:0 auto;padding:0;}@media print{@page{margin:6mm;size:A4 portrait;}body{max-width:100%;}}";
   const fullHtml=`<!DOCTYPE html><html><head><meta charset="utf-8"><title>${title}</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <style>${style}</style></head><body>${content}
-    \x3cscript>document.fonts.ready.then(()=>setTimeout(()=>window.print(),400))<\/script></body></html>`;
+    <`+`script>document.fonts.ready.then(()=>setTimeout(()=>window.print(),400))<\/script></body></html>`;
   const blob=new Blob([fullHtml],{type:'text/html;charset=utf-8'});
   const url=URL.createObjectURL(blob);
   const a=document.createElement('a');
-  a.href=url; a.target='_blank'; a.rel='noopener';
-  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  a.href=url;a.target='_blank';a.rel='noopener';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
   setTimeout(()=>URL.revokeObjectURL(url),5000);
 }
 
@@ -1393,15 +1261,11 @@ function _openPrintWindow(content, title){
 function showFilmShareView(){
   const now=new Date();
   const dateStr=`${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')}`;
-
   let sections='';
   FILM_PRICE_SECTIONS.forEach(sec=>{
     const items=[];
-    sec.keys.forEach(k=>{
-      const db=MODEL_DB[k]; if(!db) return;
-      db.models.forEach(m=>items.push({model:m, roll:db.roll, cut:db.cut, catName:db.name}));
-    });
-    if(!items.length) return;
+    sec.keys.forEach(k=>{const db=MODEL_DB[k];if(!db)return;db.models.forEach(m=>items.push({model:m,roll:db.roll,cut:db.cut}));});
+    if(!items.length)return;
     const color=sec.color;
     const rows=items.map((it,i)=>`
       <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 7px;background:${i%2===0?'#fff':'#FAF7F2'};border-bottom:1px solid #EDE8E0;gap:4px;">
@@ -1413,11 +1277,9 @@ function showFilmShareView(){
         <div style="background:${color};padding:4px 8px;display:flex;align-items:center;justify-content:space-between">
           <span style="font-size:10.5px;font-weight:800;color:white">${sec.label}</span>
           <span style="font-size:9.5px;color:rgba(255,255,255,.75)">${items.length}종 · 절단 ${items[0].cut.toLocaleString()}원~</span>
-        </div>
-        ${rows}
+        </div>${rows}
       </div>`;
   });
-
   const html=`
     <div style="padding:12px 12px 20px;background:white;font-family:'Noto Sans KR',sans-serif;">
       <div style="text-align:center;padding-bottom:10px;margin-bottom:12px;border-bottom:2.5px solid #E8630A">
@@ -1430,9 +1292,7 @@ function showFilmShareView(){
           <span style="font-size:10px;color:#8B6045">㈜오션메이드</span>
         </div>
       </div>
-      <div style="columns:2;column-gap:8px;column-fill:balance">
-        ${sections}
-      </div>
+      <div style="columns:2;column-gap:8px;column-fill:balance">${sections}</div>
       <div style="margin-top:10px;padding:8px 10px;background:#FEF6EE;border-radius:7px;border:1.5px solid #E8C8A0">
         <div style="font-size:10px;color:#7A5535;line-height:1.8">
           📋 단가는 <b>롤 단가(25m 단위)</b> 기준 · 25m 미만 절단 시 별도 단가 적용<br>
@@ -1440,110 +1300,78 @@ function showFilmShareView(){
         </div>
       </div>
     </div>`;
-
   document.getElementById('film-share-parea').innerHTML=html;
   document.getElementById('film-share-ovl').classList.add('show');
   document.getElementById('film-share-ovl').scrollTop=0;
 }
-
 function printFilmShareView(){
-  _openPrintWindow(document.getElementById('film-share-parea').innerHTML, '예림 인테리어필름 단가표');
+  _openPrintWindow(document.getElementById('film-share-parea').innerHTML,'예림 인테리어필름 단가표');
 }
 
 // ===== 필름 단가표 탭 =====
-const FILM_PRICE_SECTIONS = [
-  {key:'solid',    label:'솔리드 계열',     color:'#6B3A1F', keys:['HSM','HPA','HA','HS']},
-  {key:'texture',  label:'텍스처·펄',       color:'#7B5EA7', keys:['HE','HE407']},
-  {key:'paint',    label:'페인티드우드',     color:'#C04010', keys:['HP_low','HP_high']},
-  {key:'wood',     label:'우드 계열',        color:'#4A7A3A', keys:['HW','HWB','HPW','GW','RW']},
-  {key:'stone',    label:'스톤·마블·세라믹', color:'#555E6E', keys:['HN','HM','HCP','HLC']},
-  {key:'fabric',   label:'패브릭',           color:'#8B6045', keys:['HF']},
-  {key:'metal',    label:'메탈',             color:'#5A6A7A', keys:['HT','PM','HPM']},
-  {key:'antibac',  label:'항균',             color:'#2A7A5A', keys:['HC','HL']},
-  {key:'premium',  label:'프리미엄',         color:'#1A4F8A', keys:['HR','HU','HI','HO']},
+const FILM_PRICE_SECTIONS=[
+  {key:'solid',label:'솔리드 계열',color:'#6B3A1F',keys:['HSM','HPA','HA','HS']},
+  {key:'texture',label:'텍스처·펄',color:'#7B5EA7',keys:['HE','HE407']},
+  {key:'paint',label:'페인티드우드',color:'#C04010',keys:['HP_low','HP_high']},
+  {key:'wood',label:'우드 계열',color:'#4A7A3A',keys:['HW','HWB','HPW','GW','RW']},
+  {key:'stone',label:'스톤·마블·세라믹',color:'#555E6E',keys:['HN','HM','HCP','HLC']},
+  {key:'fabric',label:'패브릭',color:'#8B6045',keys:['HF']},
+  {key:'metal',label:'메탈',color:'#5A6A7A',keys:['HT','PM','HPM']},
+  {key:'antibac',label:'항균',color:'#2A7A5A',keys:['HC','HL']},
+  {key:'premium',label:'프리미엄',color:'#1A4F8A',keys:['HR','HU','HI','HO']},
 ];
-let filmSectionOpen = {};
-
-function toggleFilmSection(key){
-  filmSectionOpen[key] = !filmSectionOpen[key];
-  renderFilmPriceTable();
-}
-function toggleAllFilmSections(open){
-  FILM_PRICE_SECTIONS.forEach(s=>filmSectionOpen[s.key]=open);
-  renderFilmPriceTable();
-}
-
+let filmSectionOpen={};
+function toggleFilmSection(key){filmSectionOpen[key]=!filmSectionOpen[key];renderFilmPriceTable();}
+function toggleAllFilmSections(open){FILM_PRICE_SECTIONS.forEach(s=>filmSectionOpen[s.key]=open);renderFilmPriceTable();}
 function renderFilmPriceTable(){
-  const el=document.getElementById('film-price-content'); if(!el) return;
+  const el=document.getElementById('film-price-content');if(!el)return;
   const q=(document.getElementById('fp-search')?.value||'').toLowerCase();
   const hasSearch=q.length>0;
-
   let html='';
   FILM_PRICE_SECTIONS.forEach(sec=>{
-    // 해당 섹션의 모든 모델 수집
     const allItems=[];
     sec.keys.forEach(k=>{
-      const db=MODEL_DB[k]; if(!db) return;
-      db.models.forEach(m=>{
-        if(!q || m.toLowerCase().includes(q) || db.name.includes(q)){
-          allItems.push({key:k, catName:db.name, model:m, roll:db.roll, cut:db.cut});
-        }
-      });
+      const db=MODEL_DB[k];if(!db)return;
+      db.models.forEach(m=>{if(!q||m.toLowerCase().includes(q)||db.name.includes(q))allItems.push({key:k,catName:db.name,model:m,roll:db.roll,cut:db.cut});});
     });
-    if(!allItems.length) return;
-
-    const isOpen = hasSearch || filmSectionOpen[sec.key];
-
+    if(!allItems.length)return;
+    const isOpen=hasSearch||filmSectionOpen[sec.key];
     html+=`
       <div style="border:1.5px solid var(--bd);border-radius:10px;margin-bottom:10px;overflow:hidden;box-shadow:var(--sh)">
-        <div onclick="toggleFilmSection('${sec.key}')"
-          style="background:${sec.color};padding:10px 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
-          <div>
-            <span style="font-size:13px;font-weight:800;color:white">${sec.label}</span>
-            <span style="font-size:11px;color:rgba(255,255,255,.7);margin-left:8px">${allItems.length}종</span>
-          </div>
+        <div onclick="toggleFilmSection('${sec.key}')" style="background:${sec.color};padding:10px 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
+          <div><span style="font-size:13px;font-weight:800;color:white">${sec.label}</span><span style="font-size:11px;color:rgba(255,255,255,.7);margin-left:8px">${allItems.length}종</span></div>
           <div style="display:flex;align-items:center;gap:10px">
             <span style="font-size:11px;color:rgba(255,255,255,.85)">롤&nbsp;<b>${allItems[0].roll.toLocaleString()}</b>원~</span>
             <span style="color:white;font-size:13px;font-weight:700">${isOpen?'▲':'▼'}</span>
           </div>
         </div>
-        ${isOpen ? `
-        <div style="background:white">
+        ${isOpen?`<div style="background:white">
           ${sec.keys.map(k=>{
-            const db=MODEL_DB[k]; if(!db) return '';
+            const db=MODEL_DB[k];if(!db)return'';
             const filteredModels=db.models.filter(m=>!q||m.toLowerCase().includes(q)||db.name.includes(q));
-            if(!filteredModels.length) return '';
-            return `
-              <div style="border-bottom:1px solid var(--bd)">
-                <div style="background:${sec.color}22;padding:5px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid ${sec.color}33">
-                  <span style="font-size:11px;font-weight:800;color:${sec.color}">${db.name}</span>
-                  <span style="font-size:10px;color:var(--g5)">롤 ${db.roll.toLocaleString()} · 절단 ${db.cut.toLocaleString()}</span>
-                </div>
-                ${filteredModels.map((m,i)=>`
-                  <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 12px;background:${i%2===0?'white':'var(--cr)'};border-bottom:1px solid #EDE8E0">
-                    <span style="font-size:12.5px;color:var(--g9);font-weight:500">${m}\x3c/span>
-                    <div style="text-align:right;flex-shrink:0;margin-left:8px">
-                      <span style="font-size:12px;font-weight:700;color:${sec.color}">${db.roll.toLocaleString()}\x3c/span>
-                      <span style="font-size:10px;color:var(--g5)">/롤\x3c/span>
-                    \x3c/div>
-                  \x3c/div>`).join('')}
-              </div>`;
+            if(!filteredModels.length)return'';
+            return`<div style="border-bottom:1px solid var(--bd)">
+              <div style="background:${sec.color}22;padding:5px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid ${sec.color}33">
+                <span style="font-size:11px;font-weight:800;color:${sec.color}">${db.name}</span>
+                <span style="font-size:10px;color:var(--g5)">롤 ${db.roll.toLocaleString()} · 절단 ${db.cut.toLocaleString()}</span>
+              </div>
+              ${filteredModels.map((m,i)=>`
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 12px;background:${i%2===0?'white':'var(--cr)'};border-bottom:1px solid #EDE8E0">
+                  <span style="font-size:12.5px;color:var(--g9);font-weight:500">${m}</span>
+                  <div style="text-align:right;flex-shrink:0;margin-left:8px">
+                    <span style="font-size:12px;font-weight:700;color:${sec.color}">${db.roll.toLocaleString()}</span>
+                    <span style="font-size:10px;color:var(--g5)">/롤</span>
+                  </div>
+                </div>`).join('')}
+            </div>`;
           }).join('')}
-        \x3c/div>` : ''}
+        </div>`:''}
       </div>`;
   });
-
-  if(!html) html='<div style="text-align:center;padding:24px;color:var(--g5)">검색 결과가 없습니다\x3c/div>';
-
-  // 단가 안내
-  html+=`
-    <div style="padding:10px 12px;background:#FEF6EE;border-radius:8px;border:1.5px solid #E8C8A0;margin-top:4px">
-      <div style="font-size:11px;color:#7A5535;line-height:1.8">
-        📋 <b>롤단가</b>: 25m 단위 / <b>절단단가</b>: 25m 미만 절단 시<br>
-        1롤=25m · VAT 미포함 · 2026.06 기준
-      </div>
-    </div>`;
-
+  if(!html)html='<div style="text-align:center;padding:24px;color:var(--g5)">검색 결과가 없습니다</div>';
+  html+=`<div style="padding:10px 12px;background:#FEF6EE;border-radius:8px;border:1.5px solid #E8C8A0;margin-top:4px">
+    <div style="font-size:11px;color:#7A5535;line-height:1.8">📋 <b>롤단가</b>: 25m 단위 / <b>절단단가</b>: 25m 미만 절단 시<br>1롤=25m · VAT 미포함 · 2026.06 기준</div>
+  </div>`;
   el.innerHTML=html;
 }
 
@@ -1558,35 +1386,27 @@ function setPriceTab(g){
   document.getElementById('pt-g2').style.cssText=g===2?s1:s2;
   renderPriceTable();
 }
-function filterPriceTable(){ renderPriceTable(); }
-
-function toggleDoorPriceSection(cat){
-  doorPriceSectionOpen[cat]=!doorPriceSectionOpen[cat];
-  renderPriceTable();
-}
-
+function filterPriceTable(){renderPriceTable();}
+function toggleDoorPriceSection(cat){doorPriceSectionOpen[cat]=!doorPriceSectionOpen[cat];renderPriceTable();}
 function renderPriceTable(){
-  const el=document.getElementById('price-table-content'); if(!el) return;
+  const el=document.getElementById('price-table-content');if(!el)return;
   const q=(document.getElementById('price-search')?.value||'').toLowerCase();
   const gradeKey=`g${priceTabGrade}`;
   const hasSearch=q.length>0;
-
   const catOrder=['매트','글로시','PP','프레스티지 PP','프레스티지 아크릴','PVC (데코보드)','PET','MFB','UV','방염보드(MFB/MFC)'];
   const catLabel={'매트':'매트 도어','글로시':'글로시 도어','PP':'PP 우드/키친','프레스티지 PP':'프레스티지 PP','프레스티지 아크릴':'프레스티지 아크릴','PVC (데코보드)':'PVC 데코보드','PET':'PET (메탈·특수)','MFB':'MFB / LPM','UV':'UV 코팅','방염보드(MFB/MFC)':'방염 처리'};
   const catColor={'매트':'#6B3A1F','글로시':'#1A4F8A','PP':'#4A6741','프레스티지 PP':'#1A5080','프레스티지 아크릴':'#7B5EA7','PVC (데코보드)':'#8B6045','PET':'#5A6A7A','MFB':'#555E6E','UV':'#2A7A5A','방염보드(MFB/MFC)':'#C04010'};
-
   const groups={};
   DOOR_PRICES.forEach(p=>{
-    if(q && !p.name.toLowerCase().includes(q) && !(p.type||'').toLowerCase().includes(q)) return;
+    if(q&&!p.name.toLowerCase().includes(q)&&!(p.type||'').toLowerCase().includes(q))return;
     const cat=p.cat||'기타';
-    if(!groups[cat]) groups[cat]=[];
+    if(!groups[cat])groups[cat]=[];
     groups[cat].push(p);
   });
-  if(!Object.keys(groups).length){ el.innerHTML='<div style="text-align:center;padding:24px;color:var(--g5)">검색 결과 없음\x3c/div>'; return; }
-
+  if(!Object.keys(groups).length){el.innerHTML='<div style="text-align:center;padding:24px;color:var(--g5)">검색 결과 없음</div>';return;}
   let html='';
   catOrder.filter(c=>groups[c]).forEach(cat=>{
-    const items=groups[cat], color=catColor[cat]||'#6B3A1F', label=catLabel[cat]||cat;
+    const items=groups[cat],color=catColor[cat]||'#6B3A1F',label=catLabel[cat]||cat;
     const isOpen=hasSearch||(doorPriceSectionOpen[cat]===true);
     html+=`<div style="border:1.5px solid var(--bd);border-radius:10px;margin-bottom:10px;overflow:hidden;box-shadow:var(--sh)">
       <div onclick="toggleDoorPriceSection('${cat.replace(/'/g,"\\'")}');" style="background:${color};padding:10px 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
@@ -1595,9 +1415,9 @@ function renderPriceTable(){
       </div>
       ${isOpen?`<div>${items.map((p,i)=>`
         <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 14px;background:${i%2===0?'white':'var(--cr)'};border-bottom:1px solid #EDE8E0">
-          <div><span style="font-size:13px;color:var(--g9);font-weight:500">${p.name}</span>${p.type&&p.type!=='일반'?`<span style="font-size:10px;color:var(--g5);margin-left:5px">[${p.type}]\x3c/span>`:''}</div>
+          <div><span style="font-size:13px;color:var(--g9);font-weight:500">${p.name}</span>${p.type&&p.type!=='일반'?`<span style="font-size:10px;color:var(--g5);margin-left:5px">[${p.type}]</span>`:''}</div>
           <span style="font-size:14px;font-weight:800;color:${color};white-space:nowrap;margin-left:8px">${p[gradeKey].toLocaleString()}<span style="font-size:10px;font-weight:400;color:var(--g5)">원</span></span>
-        </div>`).join('')}\x3c/div>`:''}
+        </div>`).join('')}</div>`:''}
     </div>`;
   });
   html+=`<div style="padding:9px 12px;background:#EEF8EE;border-radius:8px;border:1.5px solid #A8D4A8;margin-top:4px">
@@ -1606,17 +1426,15 @@ function renderPriceTable(){
   el.innerHTML=html;
 }
 
-
-
 // ===== 데이터 탭 =====
 function renderData(){
-  const sales=loadSales(),el=document.getElementById('data-inner'); if(!el) return;
-  if(!sales.length){ el.innerHTML=`<div style="text-align:center;padding:60px 20px;color:var(--g5)"><div style="font-size:40px;margin-bottom:12px">📭</div><div style="font-size:15px;font-weight:700;margin-bottom:6px">아직 확정된 견적이 없어요</div></div>`; return; }
+  const sales=loadSales(),el=document.getElementById('data-inner');if(!el)return;
+  if(!sales.length){el.innerHTML=`<div style="text-align:center;padding:60px 20px;color:var(--g5)"><div style="font-size:40px;margin-bottom:12px">📭</div><div style="font-size:15px;font-weight:700;margin-bottom:6px">아직 확정된 견적이 없어요</div></div>`;return;}
   const now=new Date(),ym=now.toISOString().slice(0,7);
   const thisMonth=sales.filter(s=>s.month===ym);
   const totalAmt=sales.reduce((s,x)=>s+(x.total||0),0),monthAmt=thisMonth.reduce((s,x)=>s+(x.total||0),0);
   const byType={};sales.forEach(x=>{byType[x.type]=(byType[x.type]||0)+(x.total||0);});
-  const byClient={};sales.forEach(x=>{if(!byClient[x.client]) byClient[x.client]={amt:0,cnt:0};byClient[x.client].amt+=(x.total||0);byClient[x.client].cnt++;});
+  const byClient={};sales.forEach(x=>{if(!byClient[x.client])byClient[x.client]={amt:0,cnt:0};byClient[x.client].amt+=(x.total||0);byClient[x.client].cnt++;});
   const topC=Object.entries(byClient).sort((a,b)=>b[1].amt-a[1].amt).slice(0,6),maxC=topC[0]?.[1]?.amt||1;
   const byMonth={};sales.forEach(x=>{byMonth[x.month]=(byMonth[x.month]||0)+(x.total||0);});
   const months=Object.entries(byMonth).sort((a,b)=>a[0].localeCompare(b[0])).slice(-6),maxM=Math.max(...months.map(m=>m[1]))||1;
@@ -1632,85 +1450,80 @@ function renderData(){
     <div class="stat-card" style="margin-bottom:14px;">
       ${Object.entries(byType).map(([type,amt])=>`
         <div style="display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid var(--bd);">
-          <span class="type-badge ${typeBadge[type]||'tb-film'}">${typeIcon[type]||'📄'} ${type}\x3c/span>
-          <div style="flex:1"><div class="bar-wrap"><div class="bar-fill" style="width:${Math.round(amt/totalAmt*100)}%">\x3c/div>\x3c/div>\x3c/div>
-          <span style="font-size:13px;font-weight:700;color:var(--br);white-space:nowrap">${(amt/10000).toFixed(0)}만원\x3c/span>
-        \x3c/div>`).join('')}
+          <span class="type-badge ${typeBadge[type]||'tb-film'}">${typeIcon[type]||'📄'} ${type}</span>
+          <div style="flex:1"><div class="bar-wrap"><div class="bar-fill" style="width:${Math.round(amt/totalAmt*100)}%"></div></div></div>
+          <span style="font-size:13px;font-weight:700;color:var(--br);white-space:nowrap">${(amt/10000).toFixed(0)}만원</span>
+        </div>`).join('')}
     </div>
     <div style="font-size:13px;font-weight:800;color:var(--g7);margin-bottom:8px">🏢 거래처별 TOP6</div>
     ${topC.map(([name,d])=>`
       <div class="stat-card" style="padding:10px 14px;margin-bottom:6px;">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
-          <span style="font-size:13px;font-weight:700">${name}\x3c/span>
-          <span style="font-size:13px;font-weight:800;color:var(--br)">${d.amt.toLocaleString()}원\x3c/span>
-        \x3c/div>
+          <span style="font-size:13px;font-weight:700">${name}</span>
+          <span style="font-size:13px;font-weight:800;color:var(--br)">${d.amt.toLocaleString()}원</span>
+        </div>
         <div style="display:flex;align-items:center;">
-          <span style="font-size:11px;color:var(--g5)">${d.cnt}건\x3c/span>
-          <div style="flex:1;margin:0 10px"><div class="bar-wrap"><div class="bar-fill" style="width:${Math.round(d.amt/maxC*100)}%">\x3c/div>\x3c/div>\x3c/div>
-        \x3c/div>
-      \x3c/div>`).join('')}
+          <span style="font-size:11px;color:var(--g5)">${d.cnt}건</span>
+          <div style="flex:1;margin:0 10px"><div class="bar-wrap"><div class="bar-fill" style="width:${Math.round(d.amt/maxC*100)}%"></div></div></div>
+        </div>
+      </div>`).join('')}
     <div style="font-size:13px;font-weight:800;color:var(--g7);margin:14px 0 8px">📅 월별 매출</div>
     ${months.map(([month,amt])=>`
       <div class="stat-card" style="padding:9px 14px;margin-bottom:6px;">
         <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
-          <span style="font-size:13px;font-weight:700">${month}\x3c/span>
-          <span style="font-size:13px;font-weight:800;color:var(--br)">${amt.toLocaleString()}원\x3c/span>
-        \x3c/div>
-        <div class="bar-wrap"><div class="bar-fill" style="width:${Math.round(amt/maxM*100)}%">\x3c/div>\x3c/div>
-      \x3c/div>`).join('')}
+          <span style="font-size:13px;font-weight:700">${month}</span>
+          <span style="font-size:13px;font-weight:800;color:var(--br)">${amt.toLocaleString()}원</span>
+        </div>
+        <div class="bar-wrap"><div class="bar-fill" style="width:${Math.round(amt/maxM*100)}%"></div></div>
+      </div>`).join('')}
     <div style="font-size:13px;font-weight:800;color:var(--g7);margin:14px 0 8px">📋 최근 내역</div>
     ${sales.slice(0,15).map(s=>`
       <div class="stat-card" style="padding:10px 14px;margin-bottom:6px;">
         <div style="display:flex;justify-content:space-between;align-items:center;">
-          <div><span class="type-badge ${typeBadge[s.type]||'tb-film'}">${typeIcon[s.type]||''} ${s.type}\x3c/span><span style="font-size:13px;font-weight:700">${s.client}\x3c/span>\x3c/div>
-          <span style="font-size:14px;font-weight:800;color:var(--br)">${(s.total||0).toLocaleString()}원\x3c/span>
-        \x3c/div>
-        <div style="font-size:11px;color:var(--g5);margin-top:4px">${s.date}${s.site?' · '+s.site:''}\x3c/div>
-      \x3c/div>`).join('')}
+          <div><span class="type-badge ${typeBadge[s.type]||'tb-film'}">${typeIcon[s.type]||''} ${s.type}</span><span style="font-size:13px;font-weight:700">${s.client}</span></div>
+          <span style="font-size:14px;font-weight:800;color:var(--br)">${(s.total||0).toLocaleString()}원</span>
+        </div>
+        <div style="font-size:11px;color:var(--g5);margin-top:4px">${s.date}${s.site?' · '+s.site:''}</div>
+      </div>`).join('')}
     <div style="display:flex;gap:8px;margin-top:8px;padding-bottom:14px;">
       <button onclick="exportCsv()" style="flex:1;padding:12px;border:1.5px solid var(--bd);border-radius:9px;background:#fff;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;color:var(--g7)">📥 CSV</button>
       <button onclick="if(confirm('전체 삭제?')){localStorage.removeItem('om_sales');renderData();}" style="flex:1;padding:12px;border:1.5px solid #FFBBAA;border-radius:9px;background:#fff;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;color:var(--or)">🗑 초기화</button>
     </div>`;
 }
 function exportCsv(){
-  const s=loadSales(); if(!s.length){alert('데이터 없음');return;}
+  const s=loadSales();if(!s.length){alert('데이터 없음');return;}
   const csv='유형,거래처,날짜,금액,현장\n'+s.map(x=>`${x.type},${x.client},${x.date},${x.total||0},${x.site||''}`).join('\n');
   const a=document.createElement('a');
   a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);
-  a.download='오션메이드_견적데이터.csv'; a.click();
+  a.download='오션메이드_견적데이터.csv';a.click();
 }
 
 // ===== 탭 전환 =====
 const TABS=['chat','film','door','film-price','price','data'];
 function switchTab(name){
   TABS.forEach(t=>{
-    const p=document.getElementById('tp-'+t); if(!p) return;
-    if(t==='chat') p.style.display=t===name?'flex':'none';
+    const p=document.getElementById('tp-'+t);if(!p)return;
+    if(t==='chat')p.style.display=t===name?'flex':'none';
     else p.style.display=t===name?'block':'none';
     const b=document.getElementById('bn-'+t);
-    if(b) b.className='bn'+(t===name?' on':'');
+    if(b)b.className='bn'+(t===name?' on':'');
   });
-  if(name==='data') renderData();
-  if(name==='price') renderPriceTable();
-  if(name==='film-price') renderFilmPriceTable();
-  if(name==='chat'){ const m=document.getElementById('chat-msgs'); if(m) setTimeout(()=>m.scrollTop=m.scrollHeight,50); }
-  // 탭 전환 시 최상단으로 스크롤
-  if(name!=='chat'){
-    const el=document.getElementById('tp-'+name);
-    if(el){ el.scrollTop=0; }
-    window.scrollTo(0,0);
-  }
+  if(name==='data')renderData();
+  if(name==='price')renderPriceTable();
+  if(name==='film-price')renderFilmPriceTable();
+  if(name==='chat'){const m=document.getElementById('chat-msgs');if(m)setTimeout(()=>m.scrollTop=m.scrollHeight,50);}
+  if(name!=='chat'){const el=document.getElementById('tp-'+name);if(el)el.scrollTop=0;window.scrollTo(0,0);}
 }
 
 // ===== 공통 유틸 =====
-function closeOvl(id){ document.getElementById(id)?.classList.remove('show'); }
+function closeOvl(id){document.getElementById(id)?.classList.remove('show');}
 function doPrint(){
   const content=document.getElementById('parea')?.innerHTML||'';
   const win=window.open('','_blank','width=420,height=900');
   win.document.write(`<!DOCTYPE html><html><head><meta charset="utf-8"><title>필름 견적서</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
   <style>*{box-sizing:border-box;margin:0;padding:0;}body{font-family:'Noto Sans KR',sans-serif;padding:20px;max-width:480px;margin:0 auto;}.pv-wrap{padding:6px 0 24px;}.pv-title{text-align:center;font-size:18px;font-weight:900;letter-spacing:5px;color:#3D1F0A;margin-bottom:10px;padding-bottom:8px;border-bottom:2px solid #E8630A;}.pv-info{border:1px solid #DDD;border-radius:8px;overflow:hidden;margin-bottom:8px;}.pv-row{display:flex;padding:7px 12px;border-bottom:1px solid #EEE;font-size:12px;}.pv-row:last-child{border-bottom:none;}.pv-k{color:#888;font-size:10px;min-width:50px;font-weight:700;}.pv-v{flex:1;color:#111;}.pv-v.bold{font-size:14px;font-weight:900;color:#3D1F0A;}.pv-table-wrap{border:1px solid #DDD;border-radius:8px;overflow:hidden;margin-bottom:8px;}.pv-table{width:100%;border-collapse:collapse;font-size:12px;}.pv-table thead tr{background:#3D1F0A;}.pv-table th{padding:7px 5px;color:#FAF5EE;font-size:10px;}.pv-table th:first-child{text-align:left;padding-left:10px;}.pv-table th:not(:first-child){text-align:right;padding-right:6px;}.pv-table td{padding:8px 5px;border-bottom:1px solid #F0E8DC;}.pv-table td:first-child{text-align:left;padding-left:10px;font-weight:600;}.pv-table td:not(:first-child){text-align:right;padding-right:6px;}.pv-table tfoot td{padding:9px 5px;background:#F0E6D6;border-top:2px solid #E8630A;font-weight:900;color:#3D1F0A;}.pv-table tfoot td:first-child{padding-left:10px;}.pv-table tfoot td:last-child{text-align:right;padding-right:6px;}.sub-row td{font-size:11px!important;color:#AAA!important;background:#FAF5EE!important;}.pv-bank{border:2px solid #E8630A;border-radius:8px;overflow:hidden;margin-bottom:8px;}.pv-bank-notice{background:#E8630A;color:#fff;text-align:center;padding:6px;font-size:12px;font-weight:800;letter-spacing:3px;}.pv-bank-body{padding:8px 12px;}.pv-bank-num{font-size:18px;font-weight:900;color:#3D1F0A;}.pv-bank-info{font-size:11px;color:#666;}.pv-supplier{text-align:center;font-size:10px;color:#888;margin-top:6px;}button{display:none!important}@media print{body{padding:10px}}</style>
-  </head><body>${content}\x3cscript>window.onload=()=>window.print()<\/script></body></html>`);
+  </head><body>${content}<`+`script>window.onload=()=>window.print()<\/script></body></html>`);
   win.document.close();
 }
 
@@ -1756,7 +1569,7 @@ HI PP SOLID·HO PP WOOD: 롤14,200/절단22,000
 
 【싱크대공장 거래처】
 서산백조: 즉시선입금·글로시선호·입금귀신
-서산가야(김동겸): 발주확정·빠른배송요청·보링조율잦음·본인집시공발주도함
+서산가야(김동겸): 발주확정·빠른배송요청·보링조율잦음
 서산새롬: 선입금·우량·A등급
 서산다림: 정기거래
 이천씽크(임사장): 발주확정·대량발주증가
@@ -1773,7 +1586,7 @@ HI PP SOLID·HO PP WOOD: 롤14,200/절단22,000
 MK퍼니처: 반드시선입금·카카오없음·전화발주만
 JJ: 발주확정
 
-【레이저엣지 코드표】(공급: 레하우/지오시스템, 담당: 문정우, 결제: 당일/익일즉시, 한번에모아서발주)
+【레이저엣지 코드표】(공급: 레하우/지오시스템, 담당: 문정우, 결제: 당일/익일즉시)
 WH002MT=매트밀크화이트, WH007MT=매트화이트, WH003HG=글로시화이트, WH002HG=글로시밀크화이트
 GY002MT=매트그레이, GY002HG=글로시그레이, GY003MT=매트다크그레이, GY005MT=매트라이트그레이
 GY007MT=매트샌드그레이, GY008MT=매트포그그레이, GY022MT=듀이클라우드
@@ -1786,10 +1599,10 @@ HG=글로시, MT=매트
 【합판 공급: 예림키친】
 담당: 김아름·이정무·신숙영·하용이
 주문: 카카오톡 "특판)색상명 OO장 엣지 O개 부탁드립니다"
-⚠ 토요일 서산배송 없음 / 특판=장당1,000원할인 (MD70장·PB80장 밴딩단위)
+⚠ 토요일 서산배송 없음 / 특판=장당1,000원할인
 
 【생산 프로세스】
-① 발주서접수 → ② 견적서작성(김남현) → ③ 선입금확인(오션봇) → ④ 네스팅재단(2440→2420실출고) → ⑤ 엣지밴딩 → ⑥ 보링 → ⑦ 품질검사 → ⑧ 포장 → ⑨ 출고
+① 발주서접수 → ② 견적서작성(김남현) → ③ 선입금확인(오션봇) → ④ 네스팅재단 → ⑤ 엣지밴딩 → ⑥ 보링 → ⑦ 품질검사 → ⑧ 포장 → ⑨ 출고
 
 【보링 기준】
 일반도어: 위120/아래700 | 상부장: 100~120/100~120 | 소형(폭좁음): 80~100
@@ -1799,35 +1612,30 @@ HG=글로시, MT=매트
 즉시선입금: 서산백조·MK퍼니처·서산새롬·라온씽크·미래씽크
 발주확정(후불): 서산가야·상록수·이천·윤퍼니·JJ·하미주·우리씽크·서산다림
 
-【앱 기능】
-🤖척척박사(AI상담) | 🎨필름견적서 | 🚪도어발주견적·재단배치도
-🏷필름단가조회·공유출력 | 💰도어단가조회(A/B등급)·공유출력 | 📊매출통계
-
 일반 대화(인사·날씨 등)도 자연스럽게 답변하세요.`;
-
 
 let chatInited=false,chatHistory=[];
 function initChat(){
-  if(chatInited) return; chatInited=true; chatHistory=[];
+  if(chatInited)return;chatInited=true;chatHistory=[];
   addBot(`안녕하세요! <b>오션 척척박사</b>입니다 🤖<br><br>거래처·단가·엣지 등 업무 전반을 도와드려요.<br>자유롭게 말씀해 주세요!`);
 }
 function addBot(html){
-  const b=document.getElementById('chat-msgs'); if(!b) return;
-  const d=document.createElement('div'); d.className='cbw';
+  const b=document.getElementById('chat-msgs');if(!b)return;
+  const d=document.createElement('div');d.className='cbw';
   d.innerHTML=`<div class="cav">🤖</div><div class="cbl bot-bl">${html}</div>`;
-  b.appendChild(d); b.scrollTop=b.scrollHeight;
+  b.appendChild(d);b.scrollTop=b.scrollHeight;
 }
 function addUsr(txt){
-  const b=document.getElementById('chat-msgs'); if(!b) return;
-  const d=document.createElement('div'); d.className='cbw u';
+  const b=document.getElementById('chat-msgs');if(!b)return;
+  const d=document.createElement('div');d.className='cbw u';
   d.innerHTML=`<div class="cav u">나</div><div class="cbl usr-bl">${txt}</div>`;
-  b.appendChild(d); b.scrollTop=b.scrollHeight;
+  b.appendChild(d);b.scrollTop=b.scrollHeight;
 }
 function showDots(){
-  const b=document.getElementById('chat-msgs'); if(!b) return;
-  const d=document.createElement('div'); d.className='cbw'; d.id='tdot';
+  const b=document.getElementById('chat-msgs');if(!b)return;
+  const d=document.createElement('div');d.className='cbw';d.id='tdot';
   d.innerHTML=`<div class="cav">🤖</div><div class="cbl bot-bl"><div class="tdot"><span></span><span></span><span></span></div></div>`;
-  b.appendChild(d); b.scrollTop=b.scrollHeight;
+  b.appendChild(d);b.scrollTop=b.scrollHeight;
 }
 async function sendToAI(userMsg){
   chatHistory.push({role:'user',content:userMsg});
@@ -1841,51 +1649,49 @@ async function sendToAI(userMsg){
     const reply=data.content?.[0]?.text||'답변을 가져오지 못했습니다.';
     chatHistory.push({role:'assistant',content:reply});
     return reply;
-  }catch(e){ chatHistory.pop(); throw e; }
+  }catch(e){chatHistory.pop();throw e;}
 }
 async function sendChat(){
-  const i=document.getElementById('chat-inp'),t=i.value.trim(); if(!t) return;
-  addUsr(t); i.value=''; i.disabled=true; document.querySelector('.chat-send').disabled=true; showDots();
+  const i=document.getElementById('chat-inp'),t=i.value.trim();if(!t)return;
+  addUsr(t);i.value='';i.disabled=true;document.querySelector('.chat-send').disabled=true;showDots();
   try{
     const reply=await sendToAI(t);
-    const d=document.getElementById('tdot'); if(d) d.remove();
+    const d=document.getElementById('tdot');if(d)d.remove();
     addBot(reply.replace(/\n/g,'<br>'));
   }catch(e){
-    const d=document.getElementById('tdot'); if(d) d.remove();
+    const d=document.getElementById('tdot');if(d)d.remove();
     addBot(`⚠️ 연결 오류<br><small style="color:#999">${e.message}</small>`);
-  }finally{ i.disabled=false; document.querySelector('.chat-send').disabled=false; i.focus(); }
+  }finally{i.disabled=false;document.querySelector('.chat-send').disabled=false;i.focus();}
 }
-function askBot(q){ switchTab('chat'); setTimeout(()=>{document.getElementById('chat-inp').value=q;sendChat();},150); }
+function askBot(q){switchTab('chat');setTimeout(()=>{document.getElementById('chat-inp').value=q;sendChat();},150);}
 
 // ===== 앱 초기화 =====
 const PW='8253';
 var _appReady=false;
 function checkPw(){
   const v=document.getElementById('pw-inp').value;
-  if(v===PW){if(_appReady) enterApp();else window.addEventListener('appready',enterApp,{once:true});}
+  if(v===PW){if(_appReady)enterApp();else window.addEventListener('appready',enterApp,{once:true});}
   else{const e=document.getElementById('pw-err');e.classList.add('show');document.getElementById('pw-inp').value='';setTimeout(()=>e.classList.remove('show'),2000);}
 }
 function enterApp(){
   document.getElementById('pw-screen').classList.add('hidden');
   document.getElementById('app').style.display='block';
   sessionStorage.setItem('auth','1');
-  initAll(); switchTab('chat');
+  initAll();switchTab('chat');
 }
 function initAll(){
   const t=new Date().toISOString().slice(0,10);
-  ['rdate','door-date'].forEach(id=>{const el=document.getElementById(id);if(el) el.value=t;});
-  // 필름 단가표 섹션 초기 상태
+  ['rdate','door-date'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=t;});
   filmSectionOpen={};
   FILM_PRICE_SECTIONS.forEach(s=>filmSectionOpen[s.key]=false);
-  filmSectionOpen['solid']=true; // 솔리드 계열 기본 펼침
-  refreshFilmDoorDrops(); addItem(); renderDoorGroups(); initChat();
+  filmSectionOpen['solid']=true;
+  refreshFilmDoorDrops();addItem();renderDoorGroups();initChat();
 }
 window.addEventListener('load',function(){
-  _appReady=true; window.dispatchEvent(new Event('appready'));
-  if(sessionStorage.getItem('auth')==='1') enterApp();
-  else setTimeout(()=>{const i=document.getElementById('pw-inp');if(i) i.focus();},100);
+  _appReady=true;window.dispatchEvent(new Event('appready'));
+  if(sessionStorage.getItem('auth')==='1')enterApp();
+  else setTimeout(()=>{const i=document.getElementById('pw-inp');if(i)i.focus();},100);
 });
-
 </script>
 </body>
 </html>
