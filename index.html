@@ -1376,11 +1376,7 @@ function printShareView(){
 }
 
 function _openPrintWindow(content, title){
-  const style=`
-    *{box-sizing:border-box;margin:0;padding:0;}
-    body{font-family:'Noto Sans KR',sans-serif;background:white;max-width:520px;margin:0 auto;padding:0;}
-    @media print{@page{margin:6mm;size:A4 portrait;}body{max-width:100%;}}
-  `;
+  const style='*{box-sizing:border-box;margin:0;padding:0;}body{font-family:\'Noto Sans KR\',sans-serif;background:white;max-width:520px;margin:0 auto;padding:0;}@media print{@page{margin:6mm;size:A4 portrait;}body{max-width:100%;}}';
   const fullHtml=`<!DOCTYPE html><html><head><meta charset="utf-8"><title>${title}</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <style>${style}</style></head><body>${content}
