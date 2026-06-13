@@ -1291,7 +1291,7 @@ function showFilmShareView(){
         <div style="display:flex;justify-content:center;gap:8px;margin-top:4px;flex-wrap:wrap">
           <span style="font-size:10px;color:#8B6045">기준일: ${dateStr}</span>
           <span style="font-size:10px;color:#ccc">|</span>
-          <span style="font-size:10px;color:#8B6045">VAT 미포함</span>
+          <span style="font-size:10px;color:#8B6045">VAT 포함</span>
           <span style="font-size:10px;color:#ccc">|</span>
           <span style="font-size:10px;color:#8B6045">㈜오션메이드</span>
         </div>
@@ -1374,7 +1374,7 @@ function renderFilmPriceTable(){
   });
   if(!html)html='<div style="text-align:center;padding:24px;color:var(--g5)">검색 결과가 없습니다</div>';
   html+=`<div style="padding:10px 12px;background:#FEF6EE;border-radius:8px;border:1.5px solid #E8C8A0;margin-top:4px">
-    <div style="font-size:11px;color:#7A5535;line-height:1.8">📋 <b>롤단가</b>: 25m 단위 / <b>절단단가</b>: 25m 미만 절단 시<br>1롤=25m · VAT 미포함 · 2026.06 기준</div>
+    <div style="font-size:11px;color:#7A5535;line-height:1.8">📋 <b>롤단가</b>: 25m 단위 / <b>절단단가</b>: 25m 미만 절단 시<br>1롤=25m · VAT 포함 · 2026.06 기준</div>
   </div>`;
   el.innerHTML=html;
 }
