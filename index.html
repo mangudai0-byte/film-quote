@@ -494,6 +494,7 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
 <script>
 // ===== 제품 데이터 =====
 const ROLL_M=25;
+const FLAME_ADD=3900; // 방염 추가단가 /m
 const MODEL_DB={
   'HSM':{name:'슈퍼매트',roll:8700,cut:11900,models:['HSM01 매트화이트','HSM02 매트밀크화이트','HSM03 매트캐시미어','HSM04 매트브라운','HSM06 매트그레이','HSM07 매트다크그레이','HSM10 매트딥그린','HSM11 매트딥블루','HSM16 매트아이보리','HSM20 매트라이트그레이','HSM21 매트샌드그레이','HSM27 매트문빔그레이','HSM28 매트스노우베이지','HSM29 매트포그그레이','HSM30 매트듀이클라우드','HSM31 매트코타화이트','HSM32 매트허니드롭','HSM33 매트버터스카치','HSM34 매트스카이브리즈','HSM35 매트타우니레드']},
   'HPA':{name:'슈퍼매트(프레스티지)',roll:8700,cut:13500,models:['HPA03 아크샌드듄','HPA04 아크얼그레이','HPA05 아크런던그레이','HPA06 아크플라워블루','HPA11 아크페블그레이']},
@@ -656,8 +657,13 @@ const SHEET_W=2440,SHEET_H=1220,KERF=6;
 // ===== 필름 견적 =====
 let items=[],cnt=0;
 function today(){return new Date().toISOString().slice(0,10);}
-function calc(qty,r,c){if(qty<=0)return{amt:0,rollM:0,cutM:0};const rollM=Math.floor(qty/ROLL_M)*ROLL_M,cutM=qty%ROLL_M;return{amt:rollM*r+cutM*c,rollM,cutM};}
-function addItem(){const id=cnt++,k=MODEL_KEYS[0],db=MODEL_DB[k];items.push({id,catKey:k,modelName:db.models[0],qty:5,r:db.roll,c:db.cut,open:true});renderAll();}
+function calc(qty,r,c,flame){
+  if(qty<=0)return{amt:0,rollM:0,cutM:0};
+  const fr=flame?r+FLAME_ADD:r, fc=flame?c+FLAME_ADD:c;
+  const rollM=Math.floor(qty/ROLL_M)*ROLL_M,cutM=qty%ROLL_M;
+  return{amt:rollM*fr+cutM*fc,rollM,cutM,fr,fc};
+}
+function addItem(){const id=cnt++,k=MODEL_KEYS[0],db=MODEL_DB[k];items.push({id,catKey:k,modelName:db.models[0],qty:5,r:db.roll,c:db.cut,flame:false,open:true});renderAll();}
 function removeItem(id){items=items.filter(x=>x.id!==id);renderAll();}
 function get(id){return items.find(x=>x.id===id);}
 function onCat(id,catKey){
@@ -684,42 +690,42 @@ function setQty(id,v){const it=get(id);it.qty=v;const inp=document.querySelector
 function updateItemHeader(id){
   const it=get(id);if(!it)return;
   const db=MODEL_DB[it.catKey];if(!db)return;
-  const{amt}=calc(it.qty,it.r,it.c);
+  const{amt}=calc(it.qty,it.r,it.c,it.flame);
   const card=document.querySelector(`#det-${id}`)?.closest('.item-card');if(!card)return;
   const n=card.querySelector('.item-row-name'),s=card.querySelector('.item-row-sub'),a=card.querySelector('.item-row-amt');
-  if(n)n.textContent=db.name;
-  if(s)s.textContent=`${it.modelName} · ${it.qty}m`;
+  if(n)n.textContent=db.name+(it.flame?' 🔥':'');
+  if(s)s.textContent=`${it.modelName} · ${it.qty}m`+(it.flame?' · 방염':'');
   if(a){a.textContent=amt.toLocaleString()+'원';a.className='item-row-amt'+(amt===0?' zero':'');}
-  let total=0;items.forEach(x=>{const{amt}=calc(x.qty,x.r,x.c);total+=amt;});
+  let total=0;items.forEach(x=>{const{amt}=calc(x.qty,x.r,x.c,x.flame);total+=amt;});
   document.getElementById('total-amt').textContent=total.toLocaleString()+' 원';
 }
 function updateBreakdown(id){
   const it=get(id);if(!it)return;
-  const{rollM,cutM,amt}=calc(it.qty,it.r,it.c);
+  const{rollM,cutM,amt,fr,fc}=calc(it.qty,it.r,it.c,it.flame);
   const det=document.getElementById('det-'+id);if(!det)return;
   const chipsEl=det.querySelector('.bd-chips'),totalEl=det.querySelector('.bd-total .val');
   if(chipsEl){
     let html='';
-    if(rollM>0)html+=`<div class="bd-chip roll-chip"><div class="chip-left"><span class="chip-tag">롤</span><span class="chip-desc">${rollM}m × ${it.r.toLocaleString()}원</span></div><span class="chip-amt">${(rollM*it.r).toLocaleString()}원</span></div>`;
-    if(cutM>0)html+=`<div class="bd-chip cut-chip"><div class="chip-left"><span class="chip-tag">절단</span><span class="chip-desc">${cutM}m × ${it.c.toLocaleString()}원</span></div><span class="chip-amt">${(cutM*it.c).toLocaleString()}원</span></div>`;
+    if(rollM>0)html+=`<div class="bd-chip roll-chip"><div class="chip-left"><span class="chip-tag">롤</span><span class="chip-desc">${rollM}m × ${fr.toLocaleString()}원${it.flame?` <span style="color:var(--or);font-size:9px">(+${FLAME_ADD.toLocaleString()})</span>`:''}</span></div><span class="chip-amt">${(rollM*fr).toLocaleString()}원</span></div>`;
+    if(cutM>0)html+=`<div class="bd-chip cut-chip"><div class="chip-left"><span class="chip-tag">절단</span><span class="chip-desc">${cutM}m × ${fc.toLocaleString()}원${it.flame?` <span style="color:var(--or);font-size:9px">(+${FLAME_ADD.toLocaleString()})</span>`:''}</span></div><span class="chip-amt">${(cutM*fc).toLocaleString()}원</span></div>`;
     chipsEl.innerHTML=html;
   }
   if(totalEl)totalEl.textContent=amt.toLocaleString()+'원';
 }
 function renderAll(){
   const wrap=document.getElementById('items-wrap');wrap.innerHTML='';let total=0;
-  items.forEach((it,idx)=>{const{amt}=calc(it.qty,it.r,it.c);total+=amt;wrap.appendChild(buildEl(it,idx+1));});
+  items.forEach((it,idx)=>{const{amt}=calc(it.qty,it.r,it.c,it.flame);total+=amt;wrap.appendChild(buildEl(it,idx+1));});
   document.getElementById('total-amt').textContent=total.toLocaleString()+' 원';
 }
 function buildEl(it,num){
-  const{amt,rollM,cutM}=calc(it.qty,it.r,it.c);
+  const{amt,rollM,cutM,fr,fc}=calc(it.qty,it.r,it.c,it.flame);
   const db=MODEL_DB[it.catKey];if(!db)return document.createElement('div');
   const div=document.createElement('div');div.className='item-card';
   const isOpen=it.open!==false;
   div.innerHTML=`
     <div class="item-row" onclick="toggleDetail(${it.id})">
       <div class="item-num">${num}</div>
-      <div class="item-row-info"><div class="item-row-name">${db.name}</div><div class="item-row-sub">${it.modelName} · ${it.qty}m</div></div>
+      <div class="item-row-info"><div class="item-row-name">${db.name}${it.flame?' 🔥':''}</div><div class="item-row-sub">${it.modelName} · ${it.qty}m${it.flame?' · 방염':''}</div></div>
       <div class="item-row-amt${amt===0?' zero':''}">${amt.toLocaleString()}원</div>
       <div class="item-expand-btn" id="exp-${it.id}">${isOpen?'▲':'▼'}</div>
     </div>
@@ -731,6 +737,19 @@ function buildEl(it,num){
           </div>
           <div class="sel-block model"><label>품명</label>
             <select class="model-sel" onchange="onModel(${it.id},this.value)">${db.models.map(m=>`<option value="${m}"${m===it.modelName?' selected':''}>${m}</option>`).join('')}</select>
+          </div>
+        </div>
+        <!-- 방염 토글 -->
+        <div onclick="toggleFlame(${it.id})" style="display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-radius:10px;cursor:pointer;border:2px solid ${it.flame?'#E8630A':'var(--border)'};background:${it.flame?'#FEF0E4':'white'};">
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="font-size:18px">🔥</span>
+            <div>
+              <div style="font-size:13px;font-weight:700;color:${it.flame?'#E8630A':'var(--gray-700)'}">방염 처리</div>
+              <div style="font-size:11px;color:var(--gray-500)">+${FLAME_ADD.toLocaleString()}원/m 추가</div>
+            </div>
+          </div>
+          <div style="width:44px;height:26px;border-radius:13px;background:${it.flame?'#E8630A':'#DDD'};position:relative;transition:background .2s">
+            <div style="width:20px;height:20px;border-radius:50%;background:white;position:absolute;top:3px;left:${it.flame?'21px':'3px'};transition:left .2s;box-shadow:0 1px 3px rgba(0,0,0,.2)"></div>
           </div>
         </div>
         <div class="qty-box">
@@ -750,18 +769,18 @@ function buildEl(it,num){
         <div style="display:flex;gap:8px">
           <div style="flex:1;background:var(--blue-light);border:1.5px solid #B8CDE8;border-radius:9px;padding:8px 10px;display:flex;justify-content:space-between;align-items:center">
             <span style="font-size:10px;font-weight:700;color:var(--blue)">롤 단가</span>
-            <span class="roll-val" style="font-size:13px;font-weight:800;color:var(--blue)">${it.r.toLocaleString()}<span style="font-size:10px">원</span></span>
+            <span class="roll-val" style="font-size:13px;font-weight:800;color:var(--blue)">${fr.toLocaleString()}<span style="font-size:10px">원</span></span>
           </div>
           <div style="flex:1;background:var(--orange-light);border:1.5px solid #E8C0B0;border-radius:9px;padding:8px 10px;display:flex;justify-content:space-between;align-items:center">
             <span style="font-size:10px;font-weight:700;color:var(--orange)">절단 단가</span>
-            <span class="cut-val" style="font-size:13px;font-weight:800;color:var(--orange)">${it.c.toLocaleString()}<span style="font-size:10px">원</span></span>
+            <span class="cut-val" style="font-size:13px;font-weight:800;color:var(--orange)">${fc.toLocaleString()}<span style="font-size:10px">원</span></span>
           </div>
         </div>
         <div class="breakdown">
           <div class="bd-title">계산 내역</div>
           <div class="bd-chips">
-            ${rollM>0?`<div class="bd-chip roll-chip"><div class="chip-left"><span class="chip-tag">롤</span><span class="chip-desc">${rollM}m × ${it.r.toLocaleString()}원</span></div><span class="chip-amt">${(rollM*it.r).toLocaleString()}원</span></div>`:''}
-            ${cutM>0?`<div class="bd-chip cut-chip"><div class="chip-left"><span class="chip-tag">절단</span><span class="chip-desc">${cutM}m × ${it.c.toLocaleString()}원</span></div><span class="chip-amt">${(cutM*it.c).toLocaleString()}원</span></div>`:''}
+            ${rollM>0?`<div class="bd-chip roll-chip"><div class="chip-left"><span class="chip-tag">롤</span><span class="chip-desc">${rollM}m × ${fr.toLocaleString()}원${it.flame?` <span style="color:var(--or);font-size:9px">(+${FLAME_ADD.toLocaleString()})</span>`:''}</span></div><span class="chip-amt">${(rollM*fr).toLocaleString()}원</span></div>`:''}
+            ${cutM>0?`<div class="bd-chip cut-chip"><div class="chip-left"><span class="chip-tag">절단</span><span class="chip-desc">${cutM}m × ${fc.toLocaleString()}원${it.flame?` <span style="color:var(--or);font-size:9px">(+${FLAME_ADD.toLocaleString()})</span>`:''}</span></div><span class="chip-amt">${(cutM*fc).toLocaleString()}원</span></div>`:''}
           </div>
           <div class="bd-total"><span class="lbl">소계</span><span class="val">${amt.toLocaleString()}원</span></div>
         </div>
@@ -783,6 +802,19 @@ function collapseItem(id){
   document.getElementById('exp-'+id).textContent='▼';
   if(it)it.open=false;
 }
+function toggleFlame(id){
+  const it=get(id);if(!it)return;
+  it.flame=!it.flame;
+  // 단가 표시용 재렌더
+  const det=document.getElementById('det-'+id);
+  if(det){
+    const rv=det.querySelector('.roll-val'),cv=det.querySelector('.cut-val');
+    const fr=it.flame?it.r+FLAME_ADD:it.r, fc=it.flame?it.c+FLAME_ADD:it.c;
+    if(rv)rv.innerHTML=`${fr.toLocaleString()}<span style="font-size:10px">원</span>`;
+    if(cv)cv.innerHTML=`${fc.toLocaleString()}<span style="font-size:10px">원</span>`;
+  }
+  renderAll(); // 전체 재렌더로 토글 UI 업데이트
+}
 function resetForm(){if(items.length>0&&!confirm('초기화할까요?'))return;items=[];cnt=0;renderAll();}
 function showPreview(){
   if(items.length===0){alert('품목을 추가해주세요.');return;}
@@ -790,11 +822,12 @@ function showPreview(){
   const site=document.getElementById('site').value,rd=document.getElementById('rdate').value;
   let rows='',total=0;
   items.forEach(it=>{
-    const db=MODEL_DB[it.catKey],{amt,rollM,cutM}=calc(it.qty,it.r,it.c);total+=amt;
+    const db=MODEL_DB[it.catKey],{amt,rollM,cutM,fr,fc}=calc(it.qty,it.r,it.c,it.flame);total+=amt;
     const dn=db?`${db.name} ${it.modelName}`:it.modelName;
-    rows+=`<tr><td>${dn}</td><td style="text-align:right">${it.qty}m</td><td style="text-align:right">${amt.toLocaleString()}</td></tr>`;
-    if(rollM>0)rows+=`<tr class="sub-row"><td>&nbsp;&nbsp;└ 롤 ${rollM}m × ${it.r.toLocaleString()}</td><td></td><td style="text-align:right">${(rollM*it.r).toLocaleString()}</td></tr>`;
-    if(cutM>0)rows+=`<tr class="sub-row"><td>&nbsp;&nbsp;└ 절단 ${cutM}m × ${it.c.toLocaleString()}</td><td></td><td style="text-align:right">${(cutM*it.c).toLocaleString()}</td></tr>`;
+    const flameTag=it.flame?` <span style="background:#FEF0E4;color:#E8630A;font-size:10px;padding:1px 5px;border-radius:4px;font-weight:700">🔥방염</span>`:'';
+    rows+=`<tr><td>${dn}${flameTag}</td><td style="text-align:right">${it.qty}m</td><td style="text-align:right">${amt.toLocaleString()}</td></tr>`;
+    if(rollM>0)rows+=`<tr class="sub-row"><td>&nbsp;&nbsp;└ 롤 ${rollM}m × ${fr.toLocaleString()}원</td><td></td><td style="text-align:right">${(rollM*fr).toLocaleString()}</td></tr>`;
+    if(cutM>0)rows+=`<tr class="sub-row"><td>&nbsp;&nbsp;└ 절단 ${cutM}m × ${fc.toLocaleString()}원</td><td></td><td style="text-align:right">${(cutM*fc).toLocaleString()}</td></tr>`;
   });
   document.getElementById('parea').innerHTML=`
     <div class="pv-wrap">
@@ -904,7 +937,7 @@ function saveSale(rec){const s=loadSales();s.unshift({...rec,id:Date.now()});loc
 function confirmQuote(){
   const client=document.getElementById('client').value||'(거래처명)',rd=document.getElementById('rdate').value;
   if(items.length===0){alert('품목을 추가해주세요.');return;}
-  let total=0;items.forEach(it=>{const{amt}=calc(it.qty,it.r,it.c);total+=amt;});
+  let total=0;items.forEach(it=>{const{amt}=calc(it.qty,it.r,it.c,it.flame);total+=amt;});
   saveSale({type:'필름',client,date:rd,site:document.getElementById('site')?.value||'',total,month:rd.slice(0,7)});
   const btn=document.querySelector('.btn-confirm');
   if(btn){btn.textContent='✅ 저장완료!';btn.style.background='#888';btn.disabled=true;setTimeout(()=>{btn.textContent='✅ 견적 확정';btn.style.background='var(--gn)';btn.disabled=false;},2000);}
@@ -1303,6 +1336,9 @@ function showFilmShareView(){
           📞 041-534-7475 · 기업은행 332-135674-04-011 (㈜오션메이드)
         </div>
       </div>
+      <div style="margin-top:6px;padding:8px 10px;background:#FFF0E8;border-radius:7px;border:1.5px solid #E8A070">
+        <div style="font-size:10px;color:#C04010;line-height:1.8">🔥 <b>방염 처리 시 +3,900원/m</b> 추가 적용</div>
+      </div>
     </div>`;
   document.getElementById('film-share-parea').innerHTML=html;
   document.getElementById('film-share-ovl').classList.add('show');
@@ -1375,6 +1411,9 @@ function renderFilmPriceTable(){
   if(!html)html='<div style="text-align:center;padding:24px;color:var(--g5)">검색 결과가 없습니다</div>';
   html+=`<div style="padding:10px 12px;background:#FEF6EE;border-radius:8px;border:1.5px solid #E8C8A0;margin-top:4px">
     <div style="font-size:11px;color:#7A5535;line-height:1.8">📋 <b>롤단가</b>: 25m 단위 / <b>절단단가</b>: 25m 미만 절단 시<br>1롤=25m · VAT 포함 · 2026.06 기준</div>
+  </div>
+  <div style="padding:10px 12px;background:#FFF0E8;border-radius:8px;border:1.5px solid #E8A070;margin-top:6px">
+    <div style="font-size:11px;color:#C04010;line-height:1.8">🔥 <b>방염 처리 시 +3,900원/m</b> 추가 적용<br>견적서 작성 시 품목별 방염 토글로 자동 계산됩니다</div>
   </div>`;
   el.innerHTML=html;
 }
