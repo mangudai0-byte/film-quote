@@ -195,6 +195,8 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
 .tb-door{background:#FEE8E0;color:#C04010;}
 #grade-btn-1,#grade-btn-2{display:flex;align-items:center;justify-content:center;padding:10px;border-radius:10px;cursor:pointer;font-weight:700;font-size:14px;transition:all .15s;}
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
 
@@ -414,7 +416,10 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
     <div class="modal-bar">
       <button class="cls-btn" onclick="closeOvl('film-share-ovl')">‹ 뒤로</button>
       <h3>예림필름 단가표</h3>
-      <button onclick="printFilmShareView()" style="height:34px;padding:0 12px;background:var(--or);border:none;border-radius:7px;font-size:13px;color:white;font-weight:700;cursor:pointer;">🖨 저장</button>
+      <div style="display:flex;gap:6px">
+        <button onclick="saveShareAsImage('film-share-parea','예림_인테리어필름_단가표')" style="height:34px;padding:0 9px;background:var(--or);border:none;border-radius:7px;font-size:11.5px;color:white;font-weight:700;cursor:pointer;">🖼 이미지</button>
+        <button onclick="saveShareAsPdf('film-share-parea','예림_인테리어필름_단가표')" style="height:34px;padding:0 9px;background:var(--om-brown);border:none;border-radius:7px;font-size:11.5px;color:white;font-weight:700;cursor:pointer;">📄 PDF</button>
+      </div>
     </div>
     <div class="parea" id="film-share-parea"></div>
   </div>
@@ -424,10 +429,14 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
 <div class="tp" id="tp-price">
   <div class="th"><div class="th-row">
     <div class="th-av">💰</div>
-    <div><div class="th-ttl">도어 단가표</div><div class="th-sub">SUPER 레이저도어 · 2025.06.15 기준</div></div>
+    <div><div class="th-ttl" id="price-tab-title">예림 생산도어 단가표</div><div class="th-sub" id="price-tab-sub">SUPER 레이저도어 · 2025.06.15 기준</div></div>
   </div></div>
   <div class="container" style="padding-top:14px;padding-bottom:80px;">
-    <div style="display:flex;gap:6px;margin-bottom:12px;background:var(--cr-dk);border-radius:10px;padding:8px;">
+    <div style="display:flex;gap:6px;margin-bottom:10px;background:var(--cr-dk);border-radius:10px;padding:8px;">
+      <button id="pm-yerim" onclick="setPriceManufacturer('yerim')" style="flex:1;padding:8px;border-radius:8px;border:none;font-size:13px;font-weight:800;cursor:pointer;background:var(--or);color:white;font-family:inherit;">🎨 예림</button>
+      <button id="pm-hansol" onclick="setPriceManufacturer('hansol')" style="flex:1;padding:8px;border-radius:8px;border:none;font-size:13px;font-weight:700;cursor:pointer;background:white;color:var(--g5);font-family:inherit;">🚪 한솔</button>
+    </div>
+    <div id="grade-toggle-wrap" style="display:flex;gap:6px;margin-bottom:12px;background:var(--cr-dk);border-radius:10px;padding:8px;">
       <button id="pt-g1" onclick="setPriceTab(1)" style="flex:1;padding:8px;border-radius:8px;border:none;font-size:13px;font-weight:800;cursor:pointer;background:var(--br);color:white;font-family:inherit;">A등급</button>
       <button id="pt-g2" onclick="setPriceTab(2)" style="flex:1;padding:8px;border-radius:8px;border:none;font-size:13px;font-weight:700;cursor:pointer;background:white;color:var(--g5);font-family:inherit;">B등급</button>
     </div>
@@ -444,8 +453,11 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
   <div class="modal">
     <div class="modal-bar">
       <button class="cls-btn" onclick="closeOvl('share-ovl')">‹ 뒤로</button>
-      <h3>도어 단가표</h3>
-      <button onclick="printShareView()" style="height:34px;padding:0 12px;background:var(--or);border:none;border-radius:7px;font-size:13px;color:white;font-weight:700;cursor:pointer;">🖨 저장</button>
+      <h3 id="share-modal-title">예림 생산도어 단가표</h3>
+      <div style="display:flex;gap:6px">
+        <button onclick="saveShareAsImage('share-parea', shareFileBaseName())" style="height:34px;padding:0 9px;background:var(--or);border:none;border-radius:7px;font-size:11.5px;color:white;font-weight:700;cursor:pointer;">🖼 이미지</button>
+        <button onclick="saveShareAsPdf('share-parea', shareFileBaseName())" style="height:34px;padding:0 9px;background:var(--om-brown);border:none;border-radius:7px;font-size:11.5px;color:white;font-weight:700;cursor:pointer;">📄 PDF</button>
+      </div>
     </div>
     <div class="parea" id="share-parea"></div>
   </div>
@@ -653,6 +665,80 @@ const DOOR_PRICES=[
   {name:'윈체스터월넛/방염 MFC',type:'LPM',cat:'방염보드(MFB/MFC)',g1:103000,g2:108000},
 ];
 const SHEET_W=2440,SHEET_H=1220,KERF=6;
+
+// ===== 한솔 생산도어 단가표 (단일가, 2026.06.18~) =====
+const HANSOL_DOOR_PRICES=[
+  {name:'피케그레이',cat:'시그니처',price:153000},
+  {name:'피케딥브라운',cat:'시그니처',price:153000},
+  {name:'캐니언미스트',cat:'시그니처',price:153000},
+  {name:'캐니언그레이지',cat:'시그니처',price:153000},
+  {name:'테네시오크',cat:'시그니처',price:153000},
+  {name:'테니시월넛',cat:'시그니처',price:153000},
+  {name:'테네시다크월넛',cat:'시그니처',price:153000},
+  {name:'클레이크림',cat:'시그니처',price:153000},
+  {name:'클레이포그',cat:'시그니처',price:153000},
+  {name:'클레이샌드',cat:'시그니처',price:153000},
+  {name:'슬랫크림',cat:'시그니처',price:153000},
+  {name:'슬랫샌드',cat:'시그니처',price:153000},
+  {name:'콘크리트크림',cat:'시그니처',price:153000},
+  {name:'콘크리트화이트',cat:'시그니처',price:153000},
+  {name:'콘크리트샌드',cat:'시그니처',price:153000},
+  {name:'칼프그레이',cat:'시그니처',price:153000},
+  {name:'칼프브라운',cat:'시그니처',price:153000},
+  {name:'칼프블랙',cat:'시그니처',price:153000},
+  {name:'메종라이트오크',cat:'시그니처',price:153000},
+  {name:'쉘화이트우드',cat:'시그니처',price:153000},
+  {name:'쉘그레이우드',cat:'시그니처',price:153000},
+  {name:'조슈아라이트',cat:'시그니처',price:153000},
+  {name:'베르겐오크',cat:'시그니처',price:153000},
+  {name:'내츄럴크랙오크',cat:'시그니처',price:153000},
+  {name:'베이라이트오크',cat:'시그니처',price:153000},
+  {name:'베이내츄럴오크',cat:'시그니처',price:153000},
+  {name:'엘로이실버',cat:'시그니처',price:153000},
+  {name:'엘로이골드',cat:'시그니처',price:153000},
+  {name:'바이브실버',cat:'시그니처',price:153000},
+  {name:'바이브골드',cat:'시그니처',price:153000},
+  {name:'플루트브라운',cat:'시그니처',price:153000},
+  {name:'크라프트화이트',cat:'시그니처',price:153000},
+  {name:'헤센브라운',cat:'시그니처',price:153000},
+  {name:'안도크림',cat:'스페셜',price:123000},
+  {name:'코멘트옐로우',cat:'스페셜',price:123000},
+  {name:'리유베이지',cat:'스페셜',price:123000},
+  {name:'샤인펄화이트',cat:'스페셜',price:123000},
+  {name:'퍼펙트화이트',cat:'스페셜',price:123000},
+  {name:'클린화이트',cat:'스페셜',price:123000},
+  {name:'도브화이트',cat:'스페셜',price:123000},
+  {name:'크림화이트',cat:'스페셜',price:123000},
+  {name:'포그그레이',cat:'스페셜',price:123000},
+  {name:'샌드그레이',cat:'스페셜',price:123000},
+  {name:'새틴베이지',cat:'스페셜',price:123000},
+  {name:'라이트그레이',cat:'스페셜',price:123000},
+  {name:'모노그레이',cat:'스페셜',price:123000},
+  {name:'애쉬베이지',cat:'스페셜',price:123000},
+  {name:'다크그레이',cat:'스페셜',price:123000},
+  {name:'바살트그레이',cat:'스페셜',price:123000},
+  {name:'럭스블랙',cat:'스페셜',price:123000},
+  {name:'코튼블루',cat:'스페셜',price:123000},
+  {name:'로지핑크',cat:'스페셜',price:123000},
+  {name:'로투스핑크',cat:'스페셜',price:123000},
+  {name:'미스트그린',cat:'스페셜',price:123000},
+  {name:'제스퍼그린',cat:'스페셜',price:123000},
+  {name:'스모키올리브',cat:'스페셜',price:123000},
+  {name:'인디고',cat:'스페셜',price:123000},
+  {name:'밀키화이트',cat:'엔트리',price:96000},
+  {name:'실키화이트',cat:'엔트리',price:96000},
+  {name:'미스트그레이',cat:'엔트리',price:96000},
+  {name:'그레이지',cat:'엔트리',price:96000},
+  {name:'쿨그레이',cat:'엔트리',price:96000},
+  {name:'모카그레이',cat:'엔트리',price:96000},
+  {name:'차콜그레이',cat:'엔트리',price:96000},
+  {name:'오프그레이',cat:'엔트리',price:96000},
+  {name:'크레마그레이',cat:'엔트리',price:96000},
+  {name:'소프트베이지',cat:'엔트리',price:96000},
+  {name:'올리브',cat:'엔트리',price:96000},
+  {name:'듄그레이',cat:'엔트리',price:96000},
+  {name:'에센셜베이',cat:'엔트리',price:96000},
+];
 
 // ===== 필름 견적 =====
 let items=[],cnt=0;
@@ -1225,6 +1311,7 @@ function doDoorPrint(){
 
 // ===== 공유용 단가표 (수정됨: 고아 코드 블록 제거) =====
 function showShareView(){
+  if(priceManufacturer==='hansol'){showHansolShareView();return;}
   const gradeKey=`g${priceTabGrade}`;
   const catOrder=['매트','글로시','PP','프레스티지 PP','프레스티지 아크릴','PVC (데코보드)','PET','MFB','UV','방염보드(MFB/MFC)'];
   const catLabel={'매트':'매트 도어','글로시':'글로시 도어','PP':'PP 우드/키친','프레스티지 PP':'프레스티지 PP','프레스티지 아크릴':'프레스티지 아크릴','PVC (데코보드)':'PVC 데코보드','PET':'PET (메탈·특수)','MFB':'MFB / LPM','UV':'UV 코팅','방염보드(MFB/MFC)':'방염 처리'};
@@ -1256,7 +1343,7 @@ function showShareView(){
 
   const html=`<div style="padding:12px 12px 20px;background:white;font-family:'Noto Sans KR',sans-serif;">
     <div style="text-align:center;padding-bottom:10px;margin-bottom:12px;border-bottom:2.5px solid #E8630A">
-      <div style="font-size:15px;font-weight:900;color:#6B3A1F;letter-spacing:1.5px">SUPER 레이저도어 단가표</div>
+      <div style="font-size:15px;font-weight:900;color:#6B3A1F;letter-spacing:1.5px">예림 생산도어 단가표</div>
       <div style="display:flex;justify-content:center;gap:8px;margin-top:4px;flex-wrap:wrap">
         <span style="font-size:10px;color:#8B6045">기준일: ${dateStr}</span>
         <span style="font-size:10px;color:#ccc">|</span>
@@ -1276,22 +1363,98 @@ function showShareView(){
   document.getElementById('share-ovl').scrollTop=0;
 }
 
-function printShareView(){
-  _openPrintWindow(document.getElementById('share-parea').innerHTML,'도어 단가표');
+function showHansolShareView(){
+  const catOrder=['시그니처','스페셜','엔트리'];
+  const catColor={'시그니처':'#1A4F8A','스페셜':'#7B5EA7','엔트리':'#4A6741'};
+  const groups={};
+  HANSOL_DOOR_PRICES.forEach(p=>{
+    const cat=p.cat||'기타';
+    if(!groups[cat])groups[cat]=[];
+    groups[cat].push(p);
+  });
+  const sections=catOrder.filter(c=>groups[c]).map(cat=>{
+    const items=groups[cat],color=catColor[cat]||'#6B3A1F';
+    const rows=items.map((p,i)=>`
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 7px;background:${i%2===0?'#fff':'#FAF7F2'};border-bottom:1px solid #EDE8E0;gap:4px;">
+        <span style="font-size:10.5px;color:#2D1A0A;font-weight:500;line-height:1.25;word-break:keep-all;flex:1">${p.name}</span>
+        <span style="font-size:11.5px;font-weight:800;color:${color};white-space:nowrap;flex-shrink:0">${p.price.toLocaleString()}<span style="font-size:9px;font-weight:400;color:#bbb">원</span></span>
+      </div>`).join('');
+    return `<div style="margin-bottom:8px;border-radius:7px;overflow:hidden;border:1.5px solid #DDD0BC;break-inside:avoid">
+      <div style="background:${color};padding:4px 8px;display:flex;align-items:center;justify-content:space-between">
+        <span style="font-size:10.5px;font-weight:800;color:white">${cat}</span>
+        <span style="font-size:9.5px;color:rgba(255,255,255,.75)">${items.length}종</span>
+      </div>${rows}</div>`;
+  }).join('');
+
+  const now=new Date();
+  const dateStr=`${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')}`;
+
+  const html=`<div style="padding:12px 12px 20px;background:white;font-family:'Noto Sans KR',sans-serif;">
+    <div style="text-align:center;padding-bottom:10px;margin-bottom:12px;border-bottom:2.5px solid #1A4F8A">
+      <div style="font-size:15px;font-weight:900;color:#1A4F8A;letter-spacing:1.5px">한솔 생산도어 단가표</div>
+      <div style="display:flex;justify-content:center;gap:8px;margin-top:4px;flex-wrap:wrap">
+        <span style="font-size:10px;color:#8B6045">기준일: ${dateStr}</span>
+        <span style="font-size:10px;color:#ccc">|</span>
+        <span style="font-size:10px;font-weight:700;color:#2A6A2A">✅ VAT 포함</span>
+        <span style="font-size:10px;color:#ccc">|</span>
+        <span style="font-size:10px;color:#8B6045">㈜오션메이드</span>
+      </div>
+    </div>
+    <div style="columns:2;column-gap:8px;column-fill:balance">${sections}</div>
+    <div style="margin-top:10px;padding:8px 10px;background:#EEF8EE;border-radius:7px;border:1.5px solid #A8D4A8">
+      <div style="font-size:10px;color:#2A6A2A;line-height:1.8">✅ <b>단가는 부가세 포함 · 단일가(등급 구분 없음)</b><br>📞 041-534-7475 · 기업은행 332-135674-04-011 (㈜오션메이드)</div>
+    </div>
+  </div>`;
+
+  document.getElementById('share-parea').innerHTML=html;
+  document.getElementById('share-ovl').classList.add('show');
+  document.getElementById('share-ovl').scrollTop=0;
 }
 
-function _openPrintWindow(content,title){
-  const style="*{box-sizing:border-box;margin:0;padding:0;}body{font-family:'Noto Sans KR',sans-serif;background:white;max-width:520px;margin:0 auto;padding:0;}@media print{@page{margin:6mm;size:A4 portrait;}body{max-width:100%;}}";
-  const fullHtml=`<!DOCTYPE html><html><head><meta charset="utf-8"><title>${title}</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-    <style>${style}</style></head><body>${content}
-    <`+`script>document.fonts.ready.then(()=>setTimeout(()=>window.print(),400))<\/script></body></html>`;
-  const blob=new Blob([fullHtml],{type:'text/html;charset=utf-8'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
-  a.href=url;a.target='_blank';a.rel='noopener';
-  document.body.appendChild(a);a.click();document.body.removeChild(a);
-  setTimeout(()=>URL.revokeObjectURL(url),5000);
+function shareFileBaseName(){
+  return priceManufacturer==='hansol'?'한솔_생산도어_단가표':'예림_생산도어_단가표';
+}
+
+// ===== 단가표 이미지/PDF 저장 =====
+async function saveShareAsImage(elId,baseName){
+  const el=document.getElementById(elId);if(!el)return;
+  const btn=event?.target?.closest('button');
+  const origText=btn?btn.textContent:null;
+  if(btn){btn.textContent='⏳ 생성중...';btn.disabled=true;}
+  try{
+    const canvas=await html2canvas(el,{scale:2,backgroundColor:'#ffffff',useCORS:true});
+    const link=document.createElement('a');
+    link.download=`${baseName}_${today()}.png`;
+    link.href=canvas.toDataURL('image/png');
+    document.body.appendChild(link);link.click();document.body.removeChild(link);
+  }catch(e){
+    alert('이미지 생성 중 오류가 발생했습니다: '+e.message);
+  }finally{
+    if(btn){btn.textContent=origText;btn.disabled=false;}
+  }
+}
+async function saveShareAsPdf(elId,baseName){
+  const el=document.getElementById(elId);if(!el)return;
+  const btn=event?.target?.closest('button');
+  const origText=btn?btn.textContent:null;
+  if(btn){btn.textContent='⏳ 생성중...';btn.disabled=true;}
+  try{
+    const canvas=await html2canvas(el,{scale:2,backgroundColor:'#ffffff',useCORS:true});
+    const imgData=canvas.toDataURL('image/png');
+    const{jsPDF}=window.jspdf;
+    const pxToMm=px=>px*0.264583;
+    const imgWmm=pxToMm(canvas.width),imgHmm=pxToMm(canvas.height);
+    const pageW=210; // A4 width mm
+    const scale=pageW/imgWmm;
+    const finalW=pageW,finalH=imgHmm*scale;
+    const pdf=new jsPDF({orientation:'portrait',unit:'mm',format:[pageW,Math.max(finalH,297)]});
+    pdf.addImage(imgData,'PNG',0,0,finalW,finalH);
+    pdf.save(`${baseName}_${today()}.pdf`);
+  }catch(e){
+    alert('PDF 생성 중 오류가 발생했습니다: '+e.message);
+  }finally{
+    if(btn){btn.textContent=origText;btn.disabled=false;}
+  }
 }
 
 // ===== 필름 공유용 단가표 =====
@@ -1344,10 +1507,6 @@ function showFilmShareView(){
   document.getElementById('film-share-ovl').classList.add('show');
   document.getElementById('film-share-ovl').scrollTop=0;
 }
-function printFilmShareView(){
-  _openPrintWindow(document.getElementById('film-share-parea').innerHTML,'예림 인테리어필름 단가표');
-}
-
 // ===== 필름 단가표 탭 =====
 const FILM_PRICE_SECTIONS=[
   {key:'solid',label:'솔리드 계열',color:'#6B3A1F',keys:['HSM','HPA','HA','HS']},
@@ -1420,7 +1579,32 @@ function renderFilmPriceTable(){
 
 // ===== 도어 단가표 탭 =====
 let priceTabGrade=1;
+let priceManufacturer='yerim'; // 'yerim' | 'hansol'
 let doorPriceSectionOpen={'매트':true,'글로시':false,'PP':false,'프레스티지 PP':false,'프레스티지 아크릴':false,'PVC (데코보드)':false,'PET':false,'MFB':false,'UV':false,'방염보드(MFB/MFC)':false};
+let hansolPriceSectionOpen={'시그니처':true,'스페셜':false,'엔트리':false};
+function setPriceManufacturer(m){
+  priceManufacturer=m;
+  const s1='flex:1;padding:8px;border-radius:8px;border:none;font-size:13px;font-weight:800;cursor:pointer;background:var(--or);color:white;font-family:inherit;';
+  const s2='flex:1;padding:8px;border-radius:8px;border:none;font-size:13px;font-weight:700;cursor:pointer;background:white;color:var(--g5);font-family:inherit;';
+  document.getElementById('pm-yerim').style.cssText=m==='yerim'?s1:s2;
+  document.getElementById('pm-hansol').style.cssText=m==='hansol'?s1:s2;
+  const gradeWrap=document.getElementById('grade-toggle-wrap');
+  const title=document.getElementById('price-tab-title'),sub=document.getElementById('price-tab-sub');
+  const shareTitle=document.getElementById('share-modal-title');
+  if(m==='yerim'){
+    gradeWrap.style.display='flex';
+    title.textContent='예림 생산도어 단가표';
+    sub.textContent='SUPER 레이저도어 · 2025.06.15 기준';
+    if(shareTitle)shareTitle.textContent='예림 생산도어 단가표';
+  }else{
+    gradeWrap.style.display='none';
+    title.textContent='한솔 생산도어 단가표';
+    sub.textContent='제로조인트 기준단가표 · 2026.06.18 기준';
+    if(shareTitle)shareTitle.textContent='한솔 생산도어 단가표';
+  }
+  document.getElementById('price-search').value='';
+  renderPriceTable();
+}
 function setPriceTab(g){
   priceTabGrade=g;
   const s1='flex:1;padding:8px;border-radius:8px;border:none;font-size:13px;cursor:pointer;background:var(--br);color:white;font-family:inherit;font-weight:800;';
@@ -1431,7 +1615,9 @@ function setPriceTab(g){
 }
 function filterPriceTable(){renderPriceTable();}
 function toggleDoorPriceSection(cat){doorPriceSectionOpen[cat]=!doorPriceSectionOpen[cat];renderPriceTable();}
+function toggleHansolPriceSection(cat){hansolPriceSectionOpen[cat]=!hansolPriceSectionOpen[cat];renderPriceTable();}
 function renderPriceTable(){
+  if(priceManufacturer==='hansol'){renderHansolPriceTable();return;}
   const el=document.getElementById('price-table-content');if(!el)return;
   const q=(document.getElementById('price-search')?.value||'').toLowerCase();
   const gradeKey=`g${priceTabGrade}`;
@@ -1465,6 +1651,41 @@ function renderPriceTable(){
   });
   html+=`<div style="padding:9px 12px;background:#EEF8EE;border-radius:8px;border:1.5px solid #A8D4A8;margin-top:4px">
     <div style="font-size:11px;color:#2A6A2A;line-height:1.8">✅ <b>모든 단가는 부가세(VAT) 포함</b> 가격입니다<br>📐 원판 2440×1220mm · SUPER 레이저도어 · 2025.06.15~</div>
+  </div>`;
+  el.innerHTML=html;
+}
+function renderHansolPriceTable(){
+  const el=document.getElementById('price-table-content');if(!el)return;
+  const q=(document.getElementById('price-search')?.value||'').toLowerCase();
+  const hasSearch=q.length>0;
+  const catOrder=['시그니처','스페셜','엔트리'];
+  const catColor={'시그니처':'#1A4F8A','스페셜':'#7B5EA7','엔트리':'#4A6741'};
+  const groups={};
+  HANSOL_DOOR_PRICES.forEach(p=>{
+    if(q&&!p.name.toLowerCase().includes(q))return;
+    const cat=p.cat||'기타';
+    if(!groups[cat])groups[cat]=[];
+    groups[cat].push(p);
+  });
+  if(!Object.keys(groups).length){el.innerHTML='<div style="text-align:center;padding:24px;color:var(--g5)">검색 결과 없음</div>';return;}
+  let html='';
+  catOrder.filter(c=>groups[c]).forEach(cat=>{
+    const items=groups[cat],color=catColor[cat]||'#6B3A1F';
+    const isOpen=hasSearch||(hansolPriceSectionOpen[cat]===true);
+    html+=`<div style="border:1.5px solid var(--bd);border-radius:10px;margin-bottom:10px;overflow:hidden;box-shadow:var(--sh)">
+      <div onclick="toggleHansolPriceSection('${cat}');" style="background:${color};padding:10px 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
+        <div><span style="font-size:13px;font-weight:800;color:white">${cat}</span><span style="font-size:11px;color:rgba(255,255,255,.7);margin-left:8px">${items.length}종</span></div>
+        <div style="display:flex;align-items:center;gap:10px"><span style="font-size:11px;color:rgba(255,255,255,.85)"><b>${items[0].price.toLocaleString()}</b>원</span><span style="color:white;font-size:13px;font-weight:700">${isOpen?'▲':'▼'}</span></div>
+      </div>
+      ${isOpen?`<div>${items.map((p,i)=>`
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 14px;background:${i%2===0?'white':'var(--cr)'};border-bottom:1px solid #EDE8E0">
+          <span style="font-size:13px;color:var(--g9);font-weight:500">${p.name}</span>
+          <span style="font-size:14px;font-weight:800;color:${color};white-space:nowrap;margin-left:8px">${p.price.toLocaleString()}<span style="font-size:10px;font-weight:400;color:var(--g5)">원</span></span>
+        </div>`).join('')}</div>`:''}
+    </div>`;
+  });
+  html+=`<div style="padding:9px 12px;background:#EEF8EE;border-radius:8px;border:1.5px solid #A8D4A8;margin-top:4px">
+    <div style="font-size:11px;color:#2A6A2A;line-height:1.8">✅ <b>모든 단가는 부가세(VAT) 포함</b> 가격입니다 · 단일가(등급 구분 없음)<br>📐 제로조인트 기준 · 한솔 생산도어 · 2026.06.18~</div>
   </div>`;
   el.innerHTML=html;
 }
