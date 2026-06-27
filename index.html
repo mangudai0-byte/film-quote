@@ -64,8 +64,6 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
 .tdot span{width:7px;height:7px;background:#C8A070;border-radius:50%;animation:tb 1.2s infinite;}
 .tdot span:nth-child(2){animation-delay:.2s;}.tdot span:nth-child(3){animation-delay:.4s;}
 @keyframes tb{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-7px)}}
-.chips-wrap{padding:7px 12px 5px;display:flex;gap:6px;overflow-x:auto;background:#fff;border-top:1px solid var(--bd);flex-shrink:0;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
-.chips-wrap::-webkit-scrollbar{display:none;}
 .qc{font-size:11.5px;padding:5px 12px;border:1.5px solid #C8A070;border-radius:20px;background:#fff;color:var(--br-mid);cursor:pointer;white-space:nowrap;font-family:var(--fn);font-weight:700;flex-shrink:0;}
 .qc:active{background:var(--or);color:#fff;border-color:var(--or);}
 .chat-bar{padding:8px 12px;background:#fff;border-top:1px solid var(--bd);display:flex;gap:8px;flex-shrink:0;padding-bottom:calc(72px + 8px);}
@@ -73,8 +71,8 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
 .chat-inp:focus{border-color:var(--or);}
 .chat-send{width:42px;height:42px;border-radius:50%;background:var(--or);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 8px rgba(232,99,10,.4);}
 .container{max-width:540px;margin:0 auto;padding:14px 14px 0;}
-.card{background:var(--wh);border-radius:var(--r);margin-bottom:12px;border:1.5px solid var(--bd);box-shadow:var(--sh);overflow:hidden;}
-.card-header{background:linear-gradient(to right,var(--om-cream-dk),#F5E8D5);border-bottom:1.5px solid var(--border);padding:11px 18px;display:flex;align-items:center;gap:10px;}
+.card{background:var(--wh);border-radius:var(--r);margin-bottom:12px;border:1.5px solid var(--bd);box-shadow:var(--sh);overflow:visible;}
+.card-header{background:linear-gradient(to right,var(--om-cream-dk),#F5E8D5);border-bottom:1.5px solid var(--border);padding:11px 18px;display:flex;align-items:center;gap:10px;border-radius:var(--r) var(--r) 0 0;}
 .card-header .icon{width:28px;height:28px;background:var(--om-orange);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;}
 .card-header h2{font-size:13px;font-weight:700;color:var(--om-brown);}
 .card-body{padding:16px 18px;}
@@ -181,7 +179,7 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
 .bd-total .lbl{font-size:12px;color:var(--gray-500);font-weight:600;}
 .bd-total .val{font-size:22px;font-weight:800;color:var(--gray-900);}
 .confirm-item-btn{width:100%;padding:13px;background:var(--om-brown);color:var(--om-cream);border:none;border-radius:9px;font-size:15px;font-weight:700;cursor:pointer;}
-.cl-item{padding:11px 14px;font-size:14px;font-weight:600;cursor:pointer;border-bottom:1px solid var(--bd);}
+.cl-item{padding:12px 14px;font-size:14px;font-weight:600;cursor:pointer;border-bottom:1px solid var(--bd);}
 .cl-item:hover{background:var(--cr);}
 .stat-card{background:#fff;border-radius:12px;padding:13px 15px;margin-bottom:8px;border:1.5px solid var(--bd);box-shadow:var(--sh);}
 .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:14px;}
@@ -222,17 +220,6 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
     </div>
   </div>
   <div id="chat-msgs"></div>
-  <div class="chips-wrap">
-    <button class="qc" onclick="askBot('결제방식')">💳 결제방식</button>
-    <button class="qc" onclick="askBot('엣지코드표')">🎨 엣지코드</button>
-    <button class="qc" onclick="askBot('도어단가기준')">💰 도어단가</button>
-    <button class="qc" onclick="askBot('업무흐름')">🔄 업무흐름</button>
-    <button class="qc" onclick="askBot('서산거래처')">📋 서산거래처</button>
-    <button class="qc" onclick="askBot('보링기준')">🔧 보링</button>
-    <button class="qc" onclick="askBot('예림합판주문')">📦 합판주문</button>
-    <button class="qc" onclick="askBot('소수점견적규칙')">📊 소수점</button>
-    <button class="qc" onclick="askBot('도움말')">❓ 도움말</button>
-  </div>
   <div class="chat-bar">
     <input class="chat-inp" id="chat-inp" type="text" placeholder="무엇이든 물어보세요..." maxlength="300"
            onkeydown="if(event.key==='Enter')sendChat()">
@@ -266,7 +253,7 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
                 <span id="client-display-text">-- 선택 --</span>
                 <span style="position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:12px">▾</span>
               </div>
-              <div id="client-drop" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:white;border:2px solid var(--pk-blue);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,0.15);z-index:200;max-height:200px;overflow-y:auto">
+              <div id="client-drop" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:white;border:2px solid var(--pk-blue);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,0.15);z-index:200;max-height:320px;overflow-y:auto;-webkit-overflow-scrolling:touch">
                 <div id="client-drop-list"></div>
               </div>
             </div>
@@ -331,7 +318,7 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
                 <span id="door-client-display-text">-- 선택 --</span>
                 <span style="position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:12px">▾</span>
               </div>
-              <div id="door-client-drop" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:white;border:2px solid var(--pk-blue);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,0.15);z-index:200;max-height:200px;overflow-y:auto">
+              <div id="door-client-drop" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;background:white;border:2px solid var(--pk-blue);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,0.15);z-index:200;max-height:320px;overflow-y:auto;-webkit-overflow-scrolling:touch">
                 <div id="door-client-drop-list"></div>
               </div>
             </div>
@@ -507,10 +494,10 @@ const MODEL_DB={
   'HS':{name:'솔리드',roll:5900,cut:9100,models:['HS001 순백','HS002 유백','HS004 크림화이트','HS005 밀크화이트','HS007 쿨그레이','HS008 모카그레이','HS009 라이트그레이','HS010 진그레이','HS013 차콜','HS014 어반그레이','HS015 올블랙','HS017 샌드크래커','HS018 애프리콧','HS022 베이비핑크','HS023 뮤트핑크','HS024 드라이로즈','HS026 다크플럼','HS027 소프트블루','HS028 윈디블루','HS029 어반블루','HS030 로열블루','HS031 헤일네이버','HS032 샌드베이지','HS033 제이드그린','HS034 어반카키','HS035 휴그린','HS036 모스그린','HS037 딥오션','HS038 머드그레이','HS039 샌드','HS040 옐로우','HS041 베이비그린','HS042 소프트민트','HS043 라벤더','HS044 퓨어레드','HS045 쥬시옐로우','HS046 페일화이트','HS048 올리브그레이','HS049 오렌지퍼시먼','HS050 바나나크림','HS051 스모키코코아','HS052 위스퍼화이트','HS053 코지화이트']},
   'HE':{name:'텍스처',roll:5900,cut:9100,models:['HE401 화이트펄','HE403 소프트화이트','HE404 스킨','HE405 민트그레이','HE406 브라운']},
   'HE407':{name:'펄(HE407)',roll:8700,cut:13500,models:['HE407 러스터화이트']},
-  'HP_low':{name:'페인티드우드(저가)',roll:5900,cut:9100,models:['HP505 청백페인트','HP506 화이트페인트','HP507 베이지페인트','HP508 웜그레이페인트','HP513 브라운페인트','HP514 딥그레이페인트','HP516 미드그레이페인트','HP517 매트블랙페인트']},
-  'HP_high':{name:'페인트(고가)',roll:6100,cut:9400,models:['HP501 바닐라페인트','HP518 화이트헤링본','HP519 토피넛헤링본','HP520 미드블루헤링본','HP521 쁘레회벽화이트','HP522 쁘레회벽웜그레이','HP523 쁘레회벽쿨그레이','HP524 쁘레회벽코지브라운','HP525 쁘레회벽로지','HP526 쁘레회벽크림콘','HP527 쁘레회벽민트','HP530 쁘레회벽스노우','HP540 쁘레회벽크램','HP601 프리모듀화이트','HP602 프리모베일화이트','HP603 아트페어화이트','HP604 로하스클레이화이트']},
-  'HW':{name:'우드',roll:5900,cut:9100,models:['HW1001 클리어오크','HW1002 심플그레인','HW1004 크림오크','HW1009 브러쉬오크소프트','HW1010 버치','HW1016 프렌치오크','HW1019 오크마일드','HW1020 브러쉬오크마일드','HW1021 리얼오크','HW1023 콰트로러스크(세로)','HW1024 로열워시오크','HW1025 빈티지오크','HW1028 클래식오크','HW1031 화이트오크','HW1033 그레이오크','HW1035 워시애쉬','HW1036 콰트로브룩클린(세로)','HW1038 중체리','HW1039 연체리','HW1040 콰트로시에나(세로)','HW1041 메이플','HW1044 레드티크','HW1045 레드오크','HW1046 홍송','HW1047 콰트로엄버(세로)','HW1049 월넛','HW1050 크린웬지','HW1055 로열아카시아','HW1056 로열월넛','HW1058 티크','HW1059 아카시아','HW1060 연월넛','HW1065 브릭월넛','HW1066 딥브라운월넛','HW1067 로즈탄오크','HW1068 새들탄오크','HW1069 프리스틴오크','HW1070 아콘오크','HW1071 더스트애쉬','HW1072 헤이즐애쉬','HW1073 브랜디오크','HW1077 카멜사펠레','HW1078 브라운사펠레','HW1079 세피아사펠레','HW1083 리브베이지','HW1084 리브브라운']},
-  'HWB':{name:'우드(굵)',roll:6100,cut:9400,models:['HWB1003 소프트워시오크','HWB1005 화인오크','HWB1007 브룩시더(세로)','HWB1011 락메이플','HWB1012 쉬머오크','HWB1013 샤인오크','HWB1014 브룩시더베이지(세로)','HWB1017 마일드워시오크','HWB1018 쏘마크오크','HWB1022 스트라이프우드','HWB1027 크림월넛','HWB1029 퓨어오크','HWB1030 펄오크','HWB1034 베이지오크','HWB1042 내츄럴브라운','HWB1052 애쉬브라운','HWB1061 디어애쉬','HWB1062 워시그레이','HWB1063 애쉬라이트브라운','HWB1064 오크딥','HWB1076 워시베이지','HWB1080 미스티엘름','HWB1081 샌드엘름','HWB1082 토프엘름']},
+  'HP_low':{name:'페인티드우드',roll:5900,cut:9100,models:['HP505 청백페인트','HP506 화이트페인트','HP507 베이지페인트','HP508 웜그레이페인트','HP513 브라운페인트','HP514 딥그레이페인트','HP516 미드그레이페인트','HP517 매트블랙페인트']},
+  'HP_high':{name:'페인트',roll:6100,cut:9400,models:['HP501 바닐라페인트','HP518 화이트헤링본','HP519 토피넛헤링본','HP520 미드블루헤링본','HP521 쁘레회벽화이트','HP522 쁘레회벽웜그레이','HP523 쁘레회벽쿨그레이','HP524 쁘레회벽코지브라운','HP525 쁘레회벽로지','HP526 쁘레회벽크림콘','HP527 쁘레회벽민트','HP530 쁘레회벽스노우','HP540 쁘레회벽크램','HP601 프리모듀화이트','HP602 프리모베일화이트','HP603 아트페어화이트','HP604 로하스클레이화이트']},
+  'HW':{name:'우드(HW)',roll:5900,cut:9100,models:['HW1001 클리어오크','HW1002 심플그레인','HW1004 크림오크','HW1009 브러쉬오크소프트','HW1010 버치','HW1016 프렌치오크','HW1019 오크마일드','HW1020 브러쉬오크마일드','HW1021 리얼오크','HW1023 콰트로러스크(세로)','HW1024 로열워시오크','HW1025 빈티지오크','HW1028 클래식오크','HW1031 화이트오크','HW1033 그레이오크','HW1035 워시애쉬','HW1036 콰트로브룩클린(세로)','HW1038 중체리','HW1039 연체리','HW1040 콰트로시에나(세로)','HW1041 메이플','HW1044 레드티크','HW1045 레드오크','HW1046 홍송','HW1047 콰트로엄버(세로)','HW1049 월넛','HW1050 크린웬지','HW1055 로열아카시아','HW1056 로열월넛','HW1058 티크','HW1059 아카시아','HW1060 연월넛','HW1065 브릭월넛','HW1066 딥브라운월넛','HW1067 로즈탄오크','HW1068 새들탄오크','HW1069 프리스틴오크','HW1070 아콘오크','HW1071 더스트애쉬','HW1072 헤이즐애쉬','HW1073 브랜디오크','HW1077 카멜사펠레','HW1078 브라운사펠레','HW1079 세피아사펠레','HW1083 리브베이지','HW1084 리브브라운']},
+  'HWB':{name:'우드(HWB)',roll:6100,cut:9400,models:['HWB1003 소프트워시오크','HWB1005 화인오크','HWB1007 브룩시더(세로)','HWB1011 락메이플','HWB1012 쉬머오크','HWB1013 샤인오크','HWB1014 브룩시더베이지(세로)','HWB1017 마일드워시오크','HWB1018 쏘마크오크','HWB1022 스트라이프우드','HWB1027 크림월넛','HWB1029 퓨어오크','HWB1030 펄오크','HWB1034 베이지오크','HWB1042 내츄럴브라운','HWB1052 애쉬브라운','HWB1061 디어애쉬','HWB1062 워시그레이','HWB1063 애쉬라이트브라운','HWB1064 오크딥','HWB1076 워시베이지','HWB1080 미스티엘름','HWB1081 샌드엘름','HWB1082 토프엘름']},
   'HPW':{name:'키친우드',roll:6100,cut:9400,models:['HPW21 프렌치오크','HPW22 피넛오크','HPW23 카카오월넛','HPW24 던오크']},
   'GW':{name:'그란데우드',roll:8700,cut:13500,models:['GW001 그란데체스넛샌드','GW002 그란데체스넛토프','GW003 그란데체스넛마롱','GW004 그란데체스넛바크','GW005 그란데오크카멜','GW006 그란데오크넛티']},
   'RW':{name:'레노우드',roll:8700,cut:13500,models:['RW5001 레노라벨로월넛','RW5002 레노샌드오크','RW5003 레노오가닉오크','RW5004 레노라티버치','RW5005 레노팔라우티크']},
@@ -1765,6 +1752,7 @@ function doPrint(){
 const SYSTEM_PROMPT=`당신은 주식회사 오션메이드의 전담 AI 비서 "척척박사"입니다.
 직원들이 업무 중 질문하면 친절하고 정확하게 답변하세요.
 답변은 간결하게, 핵심만 정리해주세요.
+단가를 물어보면 정확한 숫자로 즉시 답변하세요.
 
 【회사 기본정보】
 주식회사 오션메이드 | 대표: 정근도 | 사업자: 591-86-03453
@@ -1778,31 +1766,130 @@ const SYSTEM_PROMPT=`당신은 주식회사 오션메이드의 전담 AI 비서 
 김남현(공장장): 재단·생산관리·견적서작성·재고관리
 이석원: 엣지밴딩·보링·포장·출고 / 안현: 보조작업
 
-【레이저도어 단가 (2025.06.15~, 장당, 부가세 포함)】
-매트일반 94,000 / 매트후면강화 105,000~108,000 / 매트내지문(컬러) 104,000~105,000
-글로시 104,000~109,000 / 우드·키친(슈가엘름·피넛오크·카카오월넛·던오크) 105,000
-콘크리트 107,000 / 세라믹문 110,000
-PP프레스티지(네이처·카타니아·그레이쉬오크) 130,000 / PP(세이오크·세이메이플) 133,000
-아크릴프레스티지 127,000 / 메탈(사피아노·헤어라인) 117,000 / 메탈(웨이비) 121,000 / 메탈바이브 125,000
-예림필름도어(HS·HP·HW계열) 98,000~106,000 / 방염 106,000~110,000
-화이트유광·소프트화이트 93,000 / 부클레·밤부 129,000
-A등급=위 단가 / B등급=A+5,000 → 등급은 거래처에 절대 노출 금지
+【예림 생산도어 단가 (2025.06.15~, 장당, VAT포함, A등급 기준)】
+B등급=A등급+5,000원 / 등급은 거래처에 절대 노출 금지
 
-【예림필름 단가 (2026.06~, VAT미포함)】
-HSM슈퍼매트: 롤8,700/절단11,900 | HPA·HA슈퍼매트프레스티지: 롤8,700/절단13,500
-HS솔리드: 롤5,900/절단9,100 | HE텍스처: 롤5,900/절단9,100 | HE407펄: 롤8,700/절단13,500
-HP저가(505~517): 롤5,900/절단9,100 | HP고가(501·518~604): 롤6,100/절단9,400
-HW우드: 롤5,900/절단9,100 | HWB우드굵: 롤6,100/절단9,400 | HPW키친우드: 롤6,100/절단9,400
-GW그란데우드: 롤8,700/절단13,500 | RW레노우드: 롤8,700/절단13,500
-HN스톤: 롤5,900/절단9,100 | HM마블·HF패브릭: 롤6,300/절단9,700
-HCP세라믹·HLC콘크리트: 롤6,100/절단9,400 | HT·PM·HPM메탈: 롤7,100/절단10,900
-HC솔리드항균: 롤6,200/절단9,600 | HL우드항균: 롤6,400/절단9,900
-HR리얼우드: 롤12,000/절단18,600 | HU리얼터치우드: 롤15,300/절단23,700
-HI PP SOLID·HO PP WOOD: 롤14,200/절단22,000
-1롤=25m / 25m미만=절단단가 / 소수점청구: 기본컬러(매트밀크·캐시미어·포그)만 가능
+▶ 매트 (특판 = 기본 보드 사용, 후면강화 = 강화보드)
+- 매트 화이트/밀크화이트 특판: 94,000
+- 매트 캐시미어/포그그레이 특판: 94,000
+- 매트화이트 후면강화: 105,000
+- 매트밀크화이트 후면강화: 105,000
+- 매트캐시미어 후면강화: 107,000
+- 매트포그그레이/샌드그레이/스노우베이지/듀이클라우드/브라운/그레이/라이트그레이/다크그레이/아이보리/코타화이트 후면강화: 107,000
+- 매트 펄 화이트 후면강화: 108,000
+- 매트 카페브라운/블랙/딥그린/딥블루/인디고/코튼블루/미스트그린/로지핑크/스모키올리브/허니드롭/버터스카치/스카이브리즈/타우니레드: 104,000
+- 매트 펄 다크그레이/펄 블랙: 105,000
+
+▶ 글로시
+- 글로시 화이트/밀크화이트: 104,000
+- 글로시 캐시미어/브라운/그레이/다크그레이/딥블루/코튼블루/아이보리/라이트그레이/샌드그레이/스모키올리브/펄다크그레이/펄블랙: 109,000
+- 글로시 펄화이트: 106,000
+
+▶ PP 우드/키친
+- 슈가엘름/프렌치오크/피넛오크/카카오월넛/던오크/레더모카/레더크림: 105,000
+- 콘크리트화이트/콘크리트그레이: 107,000
+- 세라믹문(퍼시픽/그레이/움브라/브릭): 110,000
+
+▶ 프레스티지 PP
+- 네이처오크/카타니아오크/그레이쉬오크: 130,000
+- 세이오크/세이메이플: 133,000
+
+▶ 프레스티지 아크릴
+- 아크 플랫화이트/퓨어코튼/샌드듄/얼그레이/런던그레이/플라워블루/미드나잇블루/미드나잇그레이/마멀레이드/포레스트그린: 127,000
+
+▶ PVC 데코보드 (예림필름 래핑)
+- 크림화이트HS004/HS046: 98,000
+- HP521/HP522/HW1069/HW1081/오크마일드HW1019/오크딥HW1064/HW1077/HW1065/퓨어화이트HC801/페일그레이HC802: 101,000
+
+▶ PET 특수
+- 헤어라인화이트/헤어라인그레이/사피아노화이트/사피아노그레이/사피아노블루: 117,000
+- 메탈헤어라인/웨이비퓨어코튼/웨이비그레이: 121,000
+- 메탈바이브실버/메탈바이브브라운/메탈쉐도우그라파이트/메탈쉐도우코퍼브라운: 125,000
+
+▶ MFB/LPM
+- 화이트유광/소프트화이트: 93,000
+- 코임브라/윈체스터월넛/스톤화이트/스톤그레이/스톤블랙: 100,000
+- 소프트월넛: 103,000
+- 사하라누아르/아라베스카토/팔라디나/몽블랑체스넛: 106,000
+- 부클레/밤부: 129,000
+
+▶ UV
+- 유로화이트: 95,000
+- 리치펄화이트: 96,000
+- 웨이브화이트/웨이브그레이/리치펄라이트그레이/라이트그레이: 106,000
+
+▶ 방염보드
+- 소프트화이트MFB방염/윈체스터월넛MFB방염: 106,000~110,000
+
+【한솔 생산도어 단가 (2026.06.18~, 장당, VAT포함, 단일가)】
+▶ 시그니처 (153,000원): 피케그레이/피케딥브라운/캐니언미스트/캐니언그레이지/테네시오크/테네시월넛/테네시다크월넛/클레이크림/클레이포그/클레이샌드/슬랫크림/슬랫샌드/콘크리트크림/콘크리트화이트/콘크리트샌드/칼프그레이/칼프브라운/칼프블랙/메종라이트오크/쉘화이트우드/쉘그레이우드/조슈아라이트/베르겐오크/내츄럴크랙오크/베이라이트오크/베이내츄럴오크/엘로이실버/엘로이골드/바이브실버/바이브골드/플루트브라운/크라프트화이트/헤센브라운
+▶ 스페셜 (123,000원): 안도크림/코멘트옐로우/리유베이지/샤인펄화이트/퍼펙트화이트/클린화이트/도브화이트/크림화이트/포그그레이/샌드그레이/새틴베이지/라이트그레이/모노그레이/애쉬베이지/다크그레이/바살트그레이/럭스블랙/코튼블루/로지핑크/로투스핑크/미스트그린/제스퍼그린/스모키올리브/인디고
+▶ 엔트리 (96,000원): 밀키화이트/실키화이트/미스트그레이/그레이지/쿨그레이/모카그레이/차콜그레이/오프그레이/크레마그레이/소프트베이지/올리브/듄그레이/에센셜베이
+
+【예림 인테리어필름 단가 (2026.06~, VAT포함, 롤=25m)】
+계산법: 25m 단위=롤단가, 25m미만=절단단가, 방염 추가시 +3,900원/m
+소수점청구 가능 색상: 매트밀크화이트·매트캐시미어·매트포그그레이만
+
+▶ HSM 슈퍼매트 (롤8,700/절단11,900)
+HSM01매트화이트·HSM02매트밀크화이트·HSM03매트캐시미어·HSM04매트브라운·HSM06매트그레이·HSM07매트다크그레이·HSM10매트딥그린·HSM11매트딥블루·HSM16매트아이보리·HSM20매트라이트그레이·HSM21매트샌드그레이·HSM27매트문빔그레이·HSM28매트스노우베이지·HSM29매트포그그레이·HSM30매트듀이클라우드·HSM31매트코타화이트·HSM32매트허니드롭·HSM33매트버터스카치·HSM34매트스카이브리즈·HSM35매트타우니레드
+
+▶ HPA 슈퍼매트 프레스티지 (롤8,700/절단13,500)
+HPA03아크샌드듄·HPA04아크얼그레이·HPA05아크런던그레이·HPA06아크플라워블루·HPA11아크페블그레이·HA911매트소프트그레이
+
+▶ HS 솔리드 (롤5,900/절단9,100)
+순백·유백·크림화이트·밀크화이트·쿨그레이·모카그레이·라이트그레이·진그레이·차콜·어반그레이·올블랙·샌드크래커·애프리콧·베이비핑크·뮤트핑크·드라이로즈·다크플럼·소프트블루·윈디블루·어반블루·로열블루·헤일네이버·샌드베이지·제이드그린·어반카키·휴그린·모스그린·딥오션·머드그레이·샌드·옐로우·베이비그린·소프트민트·라벤더·퓨어레드·쥬시옐로우·페일화이트·올리브그레이·오렌지퍼시먼·바나나크림·스모키코코아·위스퍼화이트·코지화이트
+
+▶ HE 텍스처 (롤5,900/절단9,100) / HE407 펄 (롤8,700/절단13,500)
+화이트펄·소프트화이트·스킨·민트그레이·브라운 / HE407러스터화이트
+
+▶ HP 페인티드우드 (롤5,900/절단9,100)
+HP505청백페인트·HP506화이트페인트·HP507베이지페인트·HP508웜그레이페인트·HP513브라운페인트·HP514딥그레이페인트·HP516미드그레이페인트·HP517매트블랙페인트
+
+▶ HP 페인트 (롤6,100/절단9,400)
+HP501바닐라페인트·HP518화이트헤링본·HP519토피넛헤링본·HP520미드블루헤링본·HP521~527/530/540 쁘레회벽시리즈·HP601~604 프리모/아트/로하스시리즈
+
+▶ HW 우드(HW) (롤5,900/절단9,100)
+클리어오크·심플그레인·크림오크·브러쉬오크소프트·버치·프렌치오크·오크마일드·브러쉬오크마일드·리얼오크·콰트로러스크(세로)·로열워시오크·빈티지오크·클래식오크·화이트오크·그레이오크·워시애쉬·콰트로브룩클린(세로)·중체리·연체리·콰트로시에나(세로)·메이플·레드티크·레드오크·홍송·콰트로엄버(세로)·월넛·크린웬지·로열아카시아·로열월넛·티크·아카시아·연월넛·브릭월넛·딥브라운월넛·로즈탄오크·새들탄오크·프리스틴오크·아콘오크·더스트애쉬·헤이즐애쉬·브랜디오크·카멜사펠레·브라운사펠레·세피아사펠레·리브베이지·리브브라운
+
+▶ HWB 우드(HWB) (롤6,100/절단9,400)
+소프트워시오크·화인오크·브룩시더(세로)·락메이플·쉬머오크·샤인오크·브룩시더베이지(세로)·마일드워시오크·쏘마크오크·스트라이프우드·크림월넛·퓨어오크·펄오크·베이지오크·내츄럴브라운·애쉬브라운·디어애쉬·워시그레이·애쉬라이트브라운·오크딥·워시베이지·미스티엘름·샌드엘름·토프엘름
+
+▶ HPW 키친우드 (롤6,100/절단9,400)
+프렌치오크·피넛오크·카카오월넛·던오크
+
+▶ GW 그란데우드 (롤8,700/절단13,500)
+체스넛샌드·체스넛토프·체스넛마롱·체스넛바크·오크카멜·오크넛티
+
+▶ RW 레노우드 (롤8,700/절단13,500)
+라벨로월넛·샌드오크·오가닉오크·라티버치·팔라우티크
+
+▶ HN 스톤 (롤5,900/절단9,100)
+솔리드콘크리트그레이/다크·솔리드스톤그레이/브라운·유로스톤화이트/포그화이트/모데나크림/샌드/멜린지
+
+▶ HM 마블 (롤6,300/절단9,700) / HF 패브릭 (롤6,300/절단9,700)
+화이트비앙코 등 마블 4종 / 코트니·위브·수틸·린넨·트윌 시리즈 12종
+
+▶ HCP 세라믹 (롤6,100/절단9,400) / HLC 콘크리트 (롤6,100/절단9,400)
+세라믹문퍼시픽/그레이/움브라/브릭 / 콘크리트화이트/그레이
+
+▶ HT·PM·HPM 메탈 (롤7,100/절단10,900)
+메탈그레이·골드 / 메탈실버헤어라인 / 메탈쉐도우그라파이트·코퍼브라운
+
+▶ HC 솔리드항균 (롤6,200/절단9,600) / HL 우드항균 (롤6,400/절단9,900)
+퓨어화이트·페일그레이·모노그레이·클래식블루 / 라이트애쉬·스킨오크
+
+▶ HR 리얼우드 (롤12,000/절단18,600) / HU 리얼터치우드 (롤15,300/절단23,700)
+트라이베카·팜비치애쉬·로베레켄들·윌리스플럼 / 로베레UK·로베레아즈데코·노체비스코토·로베레카카오
+
+▶ HI PP SOLID / HO PP WOOD (롤14,200/절단22,000)
+스카이오크화이트·스카이오크그레이 / 카타니아오크·네이처오크·그레이쉬오크·세이오크·세이메이플
+
+【필름 견적 계산법】
+예시) HSM 슈퍼매트 30m 주문시: 25m×8,700=217,500 + 5m×11,900=59,500 = 합계 277,000원
+예시) HS솔리드 20m 방염: 20m×(9,100+3,900)=20×13,000=260,000원
 
 【싱크대공장 거래처】
-서산백조: 즉시선입금·글로시선호·입금귀신
+서산백조: 즉시선입금·글로시선호
 서산가야(김동겸): 발주확정·빠른배송요청·보링조율잦음
 서산새롬: 선입금·우량·A등급
 서산다림: 정기거래
@@ -1833,10 +1920,10 @@ HG=글로시, MT=매트
 【합판 공급: 예림키친】
 담당: 김아름·이정무·신숙영·하용이
 주문: 카카오톡 "특판)색상명 OO장 엣지 O개 부탁드립니다"
-⚠ 토요일 서산배송 없음 / 특판=장당1,000원할인
+⚠ 토요일 서산배송 없음 / 특판=장당1,000원할인 (MD70장·PB80장 밴딩단위)
 
 【생산 프로세스】
-① 발주서접수 → ② 견적서작성(김남현) → ③ 선입금확인(오션봇) → ④ 네스팅재단 → ⑤ 엣지밴딩 → ⑥ 보링 → ⑦ 품질검사 → ⑧ 포장 → ⑨ 출고
+① 발주서접수 → ② 견적서작성(김남현) → ③ 선입금확인(오션봇) → ④ 네스팅재단(2440→2420실출고) → ⑤ 엣지밴딩 → ⑥ 보링 → ⑦ 품질검사 → ⑧ 포장 → ⑨ 출고
 
 【보링 기준】
 일반도어: 위120/아래700 | 상부장: 100~120/100~120 | 소형(폭좁음): 80~100
@@ -1874,28 +1961,111 @@ function showDots(){
 async function sendToAI(userMsg){
   chatHistory.push({role:'user',content:userMsg});
   try{
+    const quoteSystemExtra=`
+만약 사용자가 필름 견적서 생성을 요청하면(예: "견적서 만들어줘", "견적서 뽑아줘", "한롤 견적서", "Xm 견적" 등),
+반드시 답변 맨 앞에 아래 형식을 정확히 출력하고, 그 다음에 설명을 이어쓰세요.
+품목코드(catKey)는 다음 중 하나만 사용: HSM, HPA, HA, HS, HE, HE407, HP_low, HP_high, HW, HWB, HPW, GW, RW, HN, HM, HF, HCP, HLC, HT, PM, HPM, HC, HL, HR, HU, HI, HO
+모델명은 데이터베이스에 있는 정확한 이름 전체(예: HP522 쁘레회벽웜그레이)를 사용하세요.
+방염 요청 시 flame을 true로 하세요.
+1롤=25m 입니다.
+사용자가 거래처명을 언급하면 반드시 client 필드에 넣으세요.
+
+출력 형식 (이 형식을 정확히 지키세요):
+QUOTE_START
+{"client":"거래처명(없으면 빈문자열)","items":[{"catKey":"HS","modelName":"HS004 크림화이트","qty":25,"flame":false}]}
+QUOTE_END
+
+거래처 포함 예시:
+QUOTE_START
+{"client":"천안필름","items":[{"catKey":"HP_high","modelName":"HP522 쁘레회벽웜그레이","qty":25,"flame":false}]}
+QUOTE_END
+
+견적서 생성 요청이 아닌 일반 질문에는 QUOTE_START/QUOTE_END 없이 답변하세요.`;
+
     const res=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1200,system:SYSTEM_PROMPT,messages:chatHistory.slice(-10)})
+      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1200,system:SYSTEM_PROMPT+quoteSystemExtra,messages:chatHistory.slice(-10)})
     });
     if(!res.ok){const err=await res.json();throw new Error(err.error?.message||`API 오류 ${res.status}`);}
     const data=await res.json();
-    const reply=data.content?.[0]?.text||'답변을 가져오지 못했습니다.';
+    let reply=data.content?.[0]?.text||'답변을 가져오지 못했습니다.';
+
+    // QUOTE 블록 추출
+    const quoteMatch=reply.match(/QUOTE_START\s*([\s\S]*?)\s*QUOTE_END/);
+    if(quoteMatch){
+      try{
+        const quoteData=JSON.parse(quoteMatch[1].trim());
+        reply=reply.replace(/QUOTE_START[\s\S]*?QUOTE_END/,'').trim();
+        chatHistory.push({role:'assistant',content:reply});
+        return {reply, quoteData};
+      }catch(e){}
+    }
     chatHistory.push({role:'assistant',content:reply});
-    return reply;
+    return {reply, quoteData:null};
   }catch(e){chatHistory.pop();throw e;}
 }
+
 async function sendChat(){
   const i=document.getElementById('chat-inp'),t=i.value.trim();if(!t)return;
   addUsr(t);i.value='';i.disabled=true;document.querySelector('.chat-send').disabled=true;showDots();
   try{
-    const reply=await sendToAI(t);
+    const result=await sendToAI(t);
     const d=document.getElementById('tdot');if(d)d.remove();
-    addBot(reply.replace(/\n/g,'<br>'));
+    addBot(result.reply.replace(/\n/g,'<br>'));
+
+    // 견적서 자동 생성
+    if(result.quoteData&&result.quoteData.items&&result.quoteData.items.length>0){
+      setTimeout(()=>buildQuoteFromAI(result.quoteData),600);
+    }
   }catch(e){
     const d=document.getElementById('tdot');if(d)d.remove();
     addBot(`⚠️ 연결 오류<br><small style="color:#999">${e.message}</small>`);
   }finally{i.disabled=false;document.querySelector('.chat-send').disabled=false;i.focus();}
+}
+
+function buildQuoteFromAI(quoteData){
+  // 필름 견적 탭 데이터 초기화 후 채우기
+  items=[];cnt=0;
+  quoteData.items.forEach(qItem=>{
+    const db=MODEL_DB[qItem.catKey];
+    if(!db)return;
+    // 모델명 매칭 (일부만 입력해도 찾기)
+    let modelName=db.models.find(m=>m===qItem.modelName)
+      ||db.models.find(m=>m.toLowerCase().includes((qItem.modelName||'').toLowerCase()))
+      ||db.models[0];
+    const id=cnt++;
+    items.push({id,catKey:qItem.catKey,modelName,qty:qItem.qty||25,r:db.roll,c:db.cut,flame:qItem.flame||false,open:false});
+  });
+  if(items.length===0){
+    addBot('⚠️ 품목 정보를 찾지 못했습니다. 정확한 품목명으로 다시 요청해 주세요.');
+    return;
+  }
+  // 거래처명 세팅
+  if(quoteData.client){
+    const clientInput=document.getElementById('client');
+    const clientText=document.getElementById('client-display-text');
+    if(clientInput)clientInput.value=quoteData.client;
+    if(clientText){clientText.textContent=quoteData.client;clientText.style.color='var(--g9)';}
+  }
+  // 오늘 날짜 세팅
+  const rdEl=document.getElementById('rdate');
+  if(rdEl)rdEl.value=today();
+  renderAll();
+
+  // 견적서 바로 팝업
+  showPreview();
+
+  // 채팅에 안내 버튼 추가
+  const b=document.getElementById('chat-msgs');
+  const div=document.createElement('div');div.className='cbw';
+  div.innerHTML=`<div class="cav">🤖</div><div class="cbl bot-bl">
+    📋 견적서가 생성됐어요!<br>
+    <button onclick="switchTab('film');document.getElementById('preview-ovl').classList.add('show');"
+      style="margin-top:8px;padding:8px 16px;background:var(--or);color:white;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;">
+      📄 견적서 확인하기
+    </button>
+  </div>`;
+  b.appendChild(div);b.scrollTop=b.scrollHeight;
 }
 function askBot(q){switchTab('chat');setTimeout(()=>{document.getElementById('chat-inp').value=q;sendChat();},150);}
 
