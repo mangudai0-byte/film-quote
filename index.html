@@ -287,7 +287,8 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
     </div>
     <div class="parea" id="parea"></div>
     <div style="display:flex;gap:8px;padding:12px 16px;border-top:2px solid var(--border);background:white;position:sticky;bottom:0">
-      <button class="btn-print" style="flex:1" onclick="doPrint()">🖨 인쇄/저장</button>
+      <button onclick="saveQuoteAsImage(this)" style="flex:1;padding:14px;background:var(--or);color:white;border:none;border-radius:var(--radius);font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;">🖼 이미지 저장</button>
+      <button class="btn-print" onclick="doPrint()" style="flex:1">🖨 인쇄</button>
     </div>
   </div>
 </div>
@@ -1422,6 +1423,23 @@ function shareFileBaseName(){
 }
 
 // ===== 단가표 이미지/PDF 저장 =====
+async function saveQuoteAsImage(btnEl){
+  const el=document.getElementById('parea');if(!el)return;
+  const origText=btnEl?btnEl.textContent:null;
+  if(btnEl){btnEl.textContent='⏳ 생성중...';btnEl.disabled=true;}
+  try{
+    const client=document.getElementById('client')?.value||'견적서';
+    const canvas=await html2canvas(el,{scale:2.5,backgroundColor:'#ffffff',useCORS:true,scrollY:0});
+    const link=document.createElement('a');
+    link.download=`오션메이드_필름견적서_${client}_${today()}.png`;
+    link.href=canvas.toDataURL('image/png');
+    document.body.appendChild(link);link.click();document.body.removeChild(link);
+  }catch(e){
+    alert('이미지 생성 중 오류가 발생했습니다: '+e.message);
+  }finally{
+    if(btnEl){btnEl.textContent=origText;btnEl.disabled=false;}
+  }
+}
 async function saveShareAsImage(elId,baseName,btnEl){
   const el=document.getElementById(elId);if(!el)return;
   const btn=btnEl||null;
