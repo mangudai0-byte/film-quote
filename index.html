@@ -283,13 +283,9 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
     <div class="modal-bar">
       <button class="close-btn" onclick="document.getElementById('preview-ovl').classList.remove('show')">‹ 뒤로</button>
       <h3>견적서 미리보기</h3>
-      <div style="width:60px"></div>
+      <button onclick="saveQuoteAsImage(this)" style="height:34px;padding:0 10px;background:var(--or);border:none;border-radius:7px;font-size:12px;color:white;font-weight:700;cursor:pointer;white-space:nowrap;">견적서 저장</button>
     </div>
     <div class="parea" id="parea"></div>
-    <div style="display:flex;gap:8px;padding:12px 16px;border-top:2px solid var(--border);background:white;position:sticky;bottom:0">
-      <button onclick="saveQuoteAsImage(this)" style="flex:1;padding:14px;background:var(--or);color:white;border:none;border-radius:var(--radius);font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;">🖼 이미지 저장</button>
-      <button class="btn-print" onclick="doPrint()" style="flex:1">🖨 인쇄</button>
-    </div>
   </div>
 </div>
 </div>
