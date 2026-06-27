@@ -287,8 +287,7 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
     </div>
     <div class="parea" id="parea"></div>
     <div style="display:flex;gap:8px;padding:12px 16px;border-top:2px solid var(--border);background:white;position:sticky;bottom:0">
-      <button class="btn-confirm" onclick="confirmQuote()">✅ 견적 확정</button>
-      <button class="btn-print" onclick="doPrint()">🖨 인쇄/저장</button>
+      <button class="btn-print" style="flex:1" onclick="doPrint()">🖨 인쇄/저장</button>
     </div>
   </div>
 </div>
@@ -850,7 +849,6 @@ function buildEl(it,num){
           </div>
           <div class="bd-total"><span class="lbl">소계</span><span class="val">${amt.toLocaleString()}원</span></div>
         </div>
-        <button class="confirm-item-btn" onclick="collapseItem(${it.id})">✅ 확정</button>
         <button style="width:100%;padding:11px;border:2px solid #FFAAAA;border-radius:10px;background:none;color:var(--pk-red);font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;margin-top:6px" onclick="removeItem(${it.id})">🗑 삭제</button>
       </div>
     </div>`;
@@ -886,6 +884,15 @@ function showPreview(){
   if(items.length===0){alert('품목을 추가해주세요.');return;}
   const client=document.getElementById('client').value||'(거래처명)';
   const site=document.getElementById('site').value,rd=document.getElementById('rdate').value;
+  // 견적서 보기 시 자동으로 데이터 저장
+  let autoTotal=0;
+  const colorList=[];
+  items.forEach(it=>{
+    const{amt}=calc(it.qty,it.r,it.c,it.flame);
+    autoTotal+=amt;
+    colorList.push({name:(MODEL_DB[it.catKey]?.name||'')+' '+it.modelName,qty:it.qty,amt});
+  });
+  saveSale({type:'필름',client,date:rd,site:site||'',total:autoTotal,month:rd.slice(0,7),colorList});
   let rows='',total=0;
   items.forEach(it=>{
     const db=MODEL_DB[it.catKey],{amt,rollM,cutM,fr,fc}=calc(it.qty,it.r,it.c,it.flame);total+=amt;
@@ -949,14 +956,36 @@ function refreshClientUI(){
   const el=document.getElementById('client-chips');if(!el)return;
   el.innerHTML=arr.length===0?`<p style="font-size:13px;color:var(--g5);text-align:center;padding:16px">거래처가 없습니다</p>`
     :arr.map((c,i)=>`
-      <div style="display:flex;align-items:center;gap:8px;padding:9px 12px;background:var(--g0);border:1.5px solid var(--bd);border-radius:9px;margin-bottom:6px;">
+      <div id="cli-row-${i}" style="display:flex;align-items:center;gap:8px;padding:9px 12px;background:var(--g0);border:1.5px solid var(--bd);border-radius:9px;margin-bottom:6px;">
         <div style="display:flex;flex-direction:column;gap:2px">
           <button onclick="moveClient('${c.replace(/'/g,"\\'")}','${currentClientTab}',-1)" ${i===0?'disabled':''} style="background:none;border:1px solid var(--bd);border-radius:3px;cursor:pointer;font-size:10px;padding:1px 4px;color:${i===0?'#ccc':'var(--br)'}">▲</button>
           <button onclick="moveClient('${c.replace(/'/g,"\\'")}','${currentClientTab}',1)" ${i===arr.length-1?'disabled':''} style="background:none;border:1px solid var(--bd);border-radius:3px;cursor:pointer;font-size:10px;padding:1px 4px;color:${i===arr.length-1?'#ccc':'var(--br)'}">▼</button>
         </div>
-        <span style="flex:1;font-size:14px;font-weight:600">${c}</span>
+        <span id="cli-name-${i}" style="flex:1;font-size:14px;font-weight:600">${c}</span>
+        <input id="cli-inp-${i}" type="text" value="${c.replace(/"/g,'&quot;')}" style="display:none;flex:1;padding:6px 10px;border:1.5px solid var(--or);border-radius:7px;font-size:14px;font-family:inherit;outline:none;" onkeydown="if(event.key==='Enter')saveClientEdit(${i},'${c.replace(/'/g,"\\'")}','${currentClientTab}')">
+        <button id="cli-edit-btn-${i}" onclick="startClientEdit(${i})" style="background:none;border:1px solid var(--bd);border-radius:5px;color:var(--br);cursor:pointer;font-size:12px;padding:2px 7px">수정</button>
+        <button id="cli-save-btn-${i}" onclick="saveClientEdit(${i},'${c.replace(/'/g,"\\'")}','${currentClientTab}')" style="display:none;background:var(--or);border:none;border-radius:5px;color:white;cursor:pointer;font-size:12px;padding:2px 7px;font-weight:700">저장</button>
         <button onclick="deleteClient('${c.replace(/'/g,"\\'")}','${currentClientTab}')" style="background:none;border:1px solid #FFBBAA;border-radius:5px;color:var(--or);cursor:pointer;font-size:12px;padding:2px 7px">삭제</button>
       </div>`).join('');
+}
+function startClientEdit(i){
+  document.getElementById('cli-name-'+i).style.display='none';
+  document.getElementById('cli-inp-'+i).style.display='flex';
+  document.getElementById('cli-edit-btn-'+i).style.display='none';
+  document.getElementById('cli-save-btn-'+i).style.display='inline-block';
+  const inp=document.getElementById('cli-inp-'+i);
+  inp.focus();inp.select();
+}
+function saveClientEdit(i,oldName,type){
+  const inp=document.getElementById('cli-inp-'+i);
+  const newName=inp?.value.trim();
+  if(!newName||newName===oldName){refreshClientUI();return;}
+  const arr=loadClients(type);
+  const idx=arr.indexOf(oldName);
+  if(idx===-1){refreshClientUI();return;}
+  arr[idx]=newName;
+  localStorage.setItem('om_cl_'+type,JSON.stringify(arr));
+  refreshClientUI();refreshFilmDoorDrops();
 }
 function moveClient(name,type,dir){
   const arr=loadClients(type),idx=arr.indexOf(name),ni=idx+dir;
@@ -999,14 +1028,11 @@ document.addEventListener('click',e=>{
 
 // ===== 판매 데이터 =====
 function loadSales(){try{return JSON.parse(localStorage.getItem('om_sales')||'[]');}catch(e){return[];}}
-function saveSale(rec){const s=loadSales();s.unshift({...rec,id:Date.now()});localStorage.setItem('om_sales',JSON.stringify(s.slice(0,500)));}
-function confirmQuote(){
-  const client=document.getElementById('client').value||'(거래처명)',rd=document.getElementById('rdate').value;
-  if(items.length===0){alert('품목을 추가해주세요.');return;}
-  let total=0;items.forEach(it=>{const{amt}=calc(it.qty,it.r,it.c,it.flame);total+=amt;});
-  saveSale({type:'필름',client,date:rd,site:document.getElementById('site')?.value||'',total,month:rd.slice(0,7)});
-  const btn=document.querySelector('.btn-confirm');
-  if(btn){btn.textContent='✅ 저장완료!';btn.style.background='#888';btn.disabled=true;setTimeout(()=>{btn.textContent='✅ 견적 확정';btn.style.background='var(--gn)';btn.disabled=false;},2000);}
+function saveSale(rec){
+  if(!rec.type||!rec.client||rec.client==='(거래처명)'||rec.total===0) return; // 불완전 데이터 저장 안 함
+  const s=loadSales().filter(x=>x.type&&x.total>0); // 기존 undefined/0원 데이터 자동 정리
+  s.unshift({...rec,id:Date.now()});
+  localStorage.setItem('om_sales',JSON.stringify(s.slice(0,500)));
 }
 
 // ===== 도어 =====
@@ -1654,12 +1680,22 @@ function renderData(){
   const now=new Date(),ym=now.toISOString().slice(0,7);
   const thisMonth=sales.filter(s=>s.month===ym);
   const totalAmt=sales.reduce((s,x)=>s+(x.total||0),0),monthAmt=thisMonth.reduce((s,x)=>s+(x.total||0),0);
-  const byType={};sales.forEach(x=>{byType[x.type]=(byType[x.type]||0)+(x.total||0);});
   const byClient={};sales.forEach(x=>{if(!byClient[x.client])byClient[x.client]={amt:0,cnt:0};byClient[x.client].amt+=(x.total||0);byClient[x.client].cnt++;});
   const topC=Object.entries(byClient).sort((a,b)=>b[1].amt-a[1].amt).slice(0,6),maxC=topC[0]?.[1]?.amt||1;
   const byMonth={};sales.forEach(x=>{byMonth[x.month]=(byMonth[x.month]||0)+(x.total||0);});
   const months=Object.entries(byMonth).sort((a,b)=>a[0].localeCompare(b[0])).slice(-6),maxM=Math.max(...months.map(m=>m[1]))||1;
-  const typeBadge={필름:'tb-film',도어:'tb-door'},typeIcon={필름:'🎨',도어:'🚪'};
+  const typeBadge={필름:'tb-film'},typeIcon={필름:'🎨'};
+
+  // 필름 색상별 순위 집계
+  const byColor={};
+  sales.filter(s=>s.type==='필름'&&s.colorList).forEach(s=>{
+    s.colorList.forEach(c=>{
+      if(!byColor[c.name])byColor[c.name]={cnt:0,qty:0,amt:0};
+      byColor[c.name].cnt++;byColor[c.name].qty+=c.qty||0;byColor[c.name].amt+=c.amt||0;
+    });
+  });
+  const topColors=Object.entries(byColor).sort((a,b)=>b[1].cnt-a[1].cnt).slice(0,8);
+
   el.innerHTML=`
     <div class="stat-grid">
       <div class="sg-card"><div class="sg-lbl">이번달 매출</div><div class="sg-val">${(monthAmt/10000).toFixed(0)}만</div></div>
@@ -1667,15 +1703,17 @@ function renderData(){
       <div class="sg-card"><div class="sg-lbl">총 매출액</div><div class="sg-val">${(totalAmt/10000).toFixed(0)}만</div></div>
       <div class="sg-card"><div class="sg-lbl">이번달 건수</div><div class="sg-val">${thisMonth.length}건</div></div>
     </div>
-    <div style="font-size:13px;font-weight:800;color:var(--g7);margin-bottom:8px">📊 견적 유형별</div>
+    <div style="font-size:13px;font-weight:800;color:var(--g7);margin-bottom:8px">🎨 필름 색상별 순위</div>
+    ${topColors.length>0?`
     <div class="stat-card" style="margin-bottom:14px;">
-      ${Object.entries(byType).map(([type,amt])=>`
-        <div style="display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid var(--bd);">
-          <span class="type-badge ${typeBadge[type]||'tb-film'}">${typeIcon[type]||'📄'} ${type}</span>
-          <div style="flex:1"><div class="bar-wrap"><div class="bar-fill" style="width:${Math.round(amt/totalAmt*100)}%"></div></div></div>
-          <span style="font-size:13px;font-weight:700;color:var(--br);white-space:nowrap">${(amt/10000).toFixed(0)}만원</span>
+      ${topColors.map(([name,d],i)=>`
+        <div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--bd);">
+          <span style="font-size:13px;font-weight:800;color:var(--or);min-width:20px">${i+1}</span>
+          <span style="flex:1;font-size:13px;font-weight:600;color:var(--g9)">${name}</span>
+          <span style="font-size:11px;color:var(--g5)">${d.qty}m · ${d.cnt}회</span>
+          <span style="font-size:13px;font-weight:700;color:var(--br);white-space:nowrap">${d.amt.toLocaleString()}원</span>
         </div>`).join('')}
-    </div>
+    </div>`:'<div class="stat-card" style="margin-bottom:14px;text-align:center;color:var(--g5);font-size:13px;padding:16px">데이터 누적 중...</div>'}
     <div style="font-size:13px;font-weight:800;color:var(--g7);margin-bottom:8px">🏢 거래처별 TOP6</div>
     ${topC.map(([name,d])=>`
       <div class="stat-card" style="padding:10px 14px;margin-bottom:6px;">
@@ -1701,7 +1739,7 @@ function renderData(){
     ${sales.slice(0,15).map(s=>`
       <div class="stat-card" style="padding:10px 14px;margin-bottom:6px;">
         <div style="display:flex;justify-content:space-between;align-items:center;">
-          <div><span class="type-badge ${typeBadge[s.type]||'tb-film'}">${typeIcon[s.type]||''} ${s.type}</span><span style="font-size:13px;font-weight:700">${s.client}</span></div>
+          <div><span style="font-size:13px;font-weight:700">${s.client}</span></div>
           <span style="font-size:14px;font-weight:800;color:var(--br)">${(s.total||0).toLocaleString()}원</span>
         </div>
         <div style="font-size:11px;color:var(--g5);margin-top:4px">${s.date}${s.site?' · '+s.site:''}</div>
