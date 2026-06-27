@@ -2035,7 +2035,7 @@ QUOTE_END
 견적서 생성 요청이 아닌 일반 질문에는 QUOTE_START/QUOTE_END 없이 답변하세요.`;
 
     const res=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',headers:{'Content-Type':'application/json'},
+      method:'POST',headers:{'Content-Type':'application/json','anthropic-dangerous-direct-browser-access':'true'},
       body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1200,system:SYSTEM_PROMPT+quoteSystemExtra,messages:chatHistory.slice(-10)})
     });
     if(!res.ok){const err=await res.json();throw new Error(err.error?.message||`API 오류 ${res.status}`);}
