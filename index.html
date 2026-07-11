@@ -500,7 +500,7 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
 <div class="ovl" id="stock-add-ovl">
   <div class="modal" style="max-height:92vh;margin:4vh auto auto;border-radius:16px;overflow:hidden;max-width:500px;">
     <div class="modal-bar">
-      <h3 id="stock-modal-title">📦 입고 등록</h3>
+      <h3 id="stock-modal-title">📥 입고</h3>
       <button class="cls-btn" onclick="closeOvl('stock-add-ovl')">×</button>
     </div>
     <div style="padding:14px;overflow-y:auto;-webkit-overflow-scrolling:touch;max-height:calc(92vh - 54px);">
@@ -509,18 +509,18 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
         <button id="stock-tab-in" onclick="switchStockTab('in')" style="flex:1;padding:8px;border-radius:8px;border:none;font-size:13px;font-weight:800;cursor:pointer;background:var(--gn);color:white;font-family:inherit;">📥 입고</button>
         <button id="stock-tab-out" onclick="switchStockTab('out')" style="flex:1;padding:8px;border-radius:8px;border:none;font-size:13px;font-weight:700;cursor:pointer;background:white;color:var(--g5);font-family:inherit;">📤 출고</button>
       </div>
-      <!-- 신규 폼 숨김 (입고 폼에 통합) -->
       <div id="stock-form-new" style="display:none;"></div>
-      <!-- 입고 폼 (신규 색상도 여기서 처리) -->
+
+      <!-- 입고 폼 -->
       <div id="stock-form-in">
         <div style="background:var(--gn-l);border:1.5px solid var(--gn);border-radius:9px;padding:10px 13px;margin-bottom:12px;font-size:12px;color:var(--gn);">
-          💡 목록에 없는 색상은 직접 입력하면 자동으로 신규 등록됩니다
+          💡 목록에 없는 색상도 선택하면 자동으로 신규 등록됩니다
         </div>
         <div class="field"><label>대분류</label>
           <select id="si-cat" onchange="updateStockInModel()" style="width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;background:#fff;-webkit-appearance:none;outline:none;"></select>
         </div>
         <div class="field"><label>색상 선택</label>
-          <select id="si-model" style="width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;background:#fff;-webkit-appearance:none;outline:none;"></select>
+          <select id="si-model" onchange="updateSiWarnVisibility()" style="width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;background:#fff;-webkit-appearance:none;outline:none;"></select>
         </div>
         <div class="field"><label>입고량</label>
           <div style="display:flex;align-items:center;gap:8px;">
@@ -534,14 +534,14 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
               <span style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--g5);pointer-events:none;">m</span>
             </div>
           </div>
-          <div id="si-total-display" style="margin-top:8px;padding:10px 14px;background:var(--gn-l);border:1.5px solid var(--gn);border-radius:8px;text-align:center;font-size:15px;font-weight:800;color:var(--gn);display:none;">= 합계 0m</div>
-        </div>
+          <div id="si-total-display" style="margin-top:8px;padding:10px 14px;background:var(--gn-l);border:1.5px solid var(--gn);border-radius:8px;text-align:center;font-size:15px;font-weight:800;color:var(--gn);display:none;"></div>
         </div>
         <div class="field" id="si-warn-wrap"><label>재고 경고 기준 (m) — 처음 등록 시</label>
           <input id="si-warn" type="number" min="0" placeholder="예: 5" value="5" style="width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;outline:none;">
         </div>
         <button onclick="saveStockIn()" style="width:100%;padding:14px;background:var(--gn);color:white;border:none;border-radius:10px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;margin-top:4px;">📥 입고 처리</button>
       </div>
+
       <!-- 출고 폼 -->
       <div id="stock-form-out" style="display:none;">
         <div class="field"><label>대분류</label>
@@ -550,7 +550,7 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
         <div class="field"><label>색상 선택</label>
           <select id="so-model" onchange="updateSoStockInfo()" style="width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;background:#fff;-webkit-appearance:none;outline:none;"></select>
         </div>
-        <div id="so-stock-info" style="display:none;margin-bottom:10px;padding:10px 13px;background:#FEF0E4;border:1.5px solid var(--or);border-radius:8px;font-size:13px;font-weight:700;color:var(--or);text-align:center;"></div>
+        <div id="so-stock-info" style="display:none;margin-bottom:10px;padding:10px 13px;border-radius:8px;font-size:13px;font-weight:700;text-align:center;"></div>
         <div class="field"><label>출고량</label>
           <div style="display:flex;align-items:center;gap:8px;">
             <div style="flex:1;position:relative;">
