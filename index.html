@@ -194,10 +194,9 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
 #grade-btn-1,#grade-btn-2{display:flex;align-items:center;justify-content:center;padding:10px;border-radius:10px;cursor:pointer;font-weight:700;font-size:14px;transition:all .15s;}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getDatabase, ref, set, get, onValue, push, remove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
-
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>
   const firebaseConfig = {
     apiKey: "AIzaSyAnWXXmlsbL23GvVR_oPVpO3JnaWSS8h3U",
     authDomain: "ocean-made.firebaseapp.com",
@@ -207,29 +206,19 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
     messagingSenderId: "986574497830",
     appId: "1:986574497830:web:904537b5a6510a49e45ee7"
   };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-  window._fbDb = db;
-  window._fbRef = ref;
-  window._fbSet = set;
-  window._fbGet = get;
-  window._fbOnValue = onValue;
-  window._fbPush = push;
-  window._fbRemove = remove;
+  firebase.initializeApp(firebaseConfig);
+  window._fbDb = firebase.database();
 
   // 재고 실시간 동기화
-  onValue(ref(db, 'stock'), (snapshot) => {
+  window._fbDb.ref('stock').on('value', (snapshot) => {
     const data = snapshot.val();
     window._stockCache = data ? Object.values(data) : [];
     if(typeof renderStock === 'function') renderStock();
   });
-  onValue(ref(db, 'stock_log'), (snapshot) => {
+  window._fbDb.ref('stock_log').on('value', (snapshot) => {
     const data = snapshot.val();
     window._stockLogCache = data ? Object.values(data).sort((a,b)=>b.id-a.id) : [];
   });
-
-  window._fbReady = true;
   console.log('Firebase 연결됨');
 </script>
 </head>
@@ -1906,16 +1895,15 @@ function renderData(){
 // ===== 재고 관리 (Firebase 실시간 동기화) =====
 function loadStock(){return window._stockCache||[];}
 function saveStock(arr){
-  if(!window._fbDb)return;
-  // 배열을 객체로 변환해서 Firebase에 저장
+  if(!window._fbDb){alert('Firebase 연결 중입니다. 잠시 후 다시 시도해주세요.');return;}
   const obj={};arr.forEach(s=>{obj['s'+s.id]=s;});
-  window._fbSet(window._fbRef(window._fbDb,'stock'),obj);
+  window._fbDb.ref('stock').set(obj);
 }
 function loadStockLog(){return window._stockLogCache||[];}
 function saveStockLog(arr){
   if(!window._fbDb)return;
   const obj={};arr.slice(0,500).forEach(l=>{obj['l'+l.id]=l;});
-  window._fbSet(window._fbRef(window._fbDb,'stock_log'),obj);
+  window._fbDb.ref('stock_log').set(obj);
 }
 
 function openStockAdd(){
