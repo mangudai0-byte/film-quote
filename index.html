@@ -1824,80 +1824,155 @@ function renderHansolPriceTable(){
 
 // ===== 데이터 탭 =====
 function renderData(){
-  const sales=loadSales(),el=document.getElementById('data-inner');if(!el)return;
-  if(!sales.length){el.innerHTML=`<div style="text-align:center;padding:60px 20px;color:var(--g5)"><div style="font-size:40px;margin-bottom:12px">📭</div><div style="font-size:15px;font-weight:700;margin-bottom:6px">아직 확정된 견적이 없어요</div></div>`;return;}
-  const now=new Date(),ym=now.toISOString().slice(0,7);
-  const thisMonth=sales.filter(s=>s.month===ym);
-  const totalAmt=sales.reduce((s,x)=>s+(x.total||0),0),monthAmt=thisMonth.reduce((s,x)=>s+(x.total||0),0);
-  const byClient={};sales.forEach(x=>{if(!byClient[x.client])byClient[x.client]={amt:0,cnt:0};byClient[x.client].amt+=(x.total||0);byClient[x.client].cnt++;});
-  const topC=Object.entries(byClient).sort((a,b)=>b[1].amt-a[1].amt).slice(0,6),maxC=topC[0]?.[1]?.amt||1;
-  const byMonth={};sales.forEach(x=>{byMonth[x.month]=(byMonth[x.month]||0)+(x.total||0);});
-  const months=Object.entries(byMonth).sort((a,b)=>a[0].localeCompare(b[0])).slice(-6),maxM=Math.max(...months.map(m=>m[1]))||1;
-  const typeBadge={필름:'tb-film'},typeIcon={필름:'🎨'};
+  const el=document.getElementById('data-inner');if(!el)return;
+  const stock=loadStock();
+  const log=loadStockLog();
 
-  // 필름 색상별 순위 집계
-  const byColor={};
-  sales.filter(s=>s.type==='필름'&&s.colorList).forEach(s=>{
-    s.colorList.forEach(c=>{
-      if(!byColor[c.name])byColor[c.name]={cnt:0,qty:0,amt:0};
-      byColor[c.name].cnt++;byColor[c.name].qty+=c.qty||0;byColor[c.name].amt+=c.amt||0;
-    });
+  if(stock.length===0&&log.length===0){
+    el.innerHTML=`<div style="text-align:center;padding:60px 20px;color:var(--g5)">
+      <div style="font-size:40px;margin-bottom:12px">📦</div>
+      <div style="font-size:15px;font-weight:700;margin-bottom:6px">재고 데이터가 없어요</div>
+      <div style="font-size:13px">재고관리 탭에서 입고 등록 후 데이터가 쌓입니다</div>
+    </div>`;return;
+  }
+
+  // 집계
+  const totalQty=stock.reduce((s,x)=>s+x.qty,0);
+  const totalColors=stock.length;
+  const lowStock=stock.filter(s=>s.qty<=s.warn);
+
+  // 출고 로그만
+  const outLogs=log.filter(l=>l.type==='출고');
+  const inLogs=log.filter(l=>l.type==='입고');
+
+  // 색상별 출고량 집계
+  const outByColor={};
+  outLogs.forEach(l=>{
+    if(!outByColor[l.modelName])outByColor[l.modelName]={qty:0,cnt:0};
+    outByColor[l.modelName].qty+=l.qty;
+    outByColor[l.modelName].cnt++;
   });
-  const topColors=Object.entries(byColor).sort((a,b)=>b[1].cnt-a[1].cnt).slice(0,8);
+
+  // 색상별 입고량 집계
+  const inByColor={};
+  inLogs.forEach(l=>{
+    if(!inByColor[l.modelName])inByColor[l.modelName]=0;
+    inByColor[l.modelName]+=l.qty;
+  });
+
+  // 출고 랭킹 TOP8
+  const outRanking=Object.entries(outByColor).sort((a,b)=>b[1].qty-a[1].qty).slice(0,8);
+  const maxOut=outRanking[0]?.[1]?.qty||1;
+
+  // 잔여 재고 적은 순 (부족 아닌 것 포함)
+  const lowRanking=[...stock].sort((a,b)=>a.qty-b.qty).slice(0,6);
+
+  // 회전율: 출고량/입고량 * 100
+  const turnover=Object.keys(inByColor).map(name=>{
+    const inQ=inByColor[name]||0;
+    const outQ=outByColor[name]?.qty||0;
+    const rate=inQ>0?Math.round(outQ/inQ*100):0;
+    return{name,inQ,outQ,rate};
+  }).filter(x=>x.inQ>0).sort((a,b)=>b.rate-a.rate).slice(0,6);
+
+  // 최근 이력 10건
+  const recentLog=log.slice(0,10);
 
   el.innerHTML=`
-    <div class="stat-grid">
-      <div class="sg-card"><div class="sg-lbl">이번달 매출</div><div class="sg-val">${(monthAmt/10000).toFixed(0)}만</div></div>
-      <div class="sg-card"><div class="sg-lbl">누적 견적</div><div class="sg-val">${sales.length}건</div></div>
-      <div class="sg-card"><div class="sg-lbl">총 매출액</div><div class="sg-val">${(totalAmt/10000).toFixed(0)}만</div></div>
-      <div class="sg-card"><div class="sg-lbl">이번달 건수</div><div class="sg-val">${thisMonth.length}건</div></div>
+    <!-- 요약 카드 -->
+    <div class="stat-grid" style="grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px;">
+      <div class="sg-card" style="text-align:center;">
+        <div class="sg-lbl">총 보유량</div>
+        <div style="font-size:16px;font-weight:900;color:var(--br);">${qtyToRollMeter(totalQty)}</div>
+      </div>
+      <div class="sg-card" style="text-align:center;">
+        <div class="sg-lbl">관리 색상</div>
+        <div style="font-size:18px;font-weight:900;color:var(--br);">${totalColors}<span style="font-size:12px;font-weight:400;color:var(--g5);">종</span></div>
+      </div>
+      <div class="sg-card" style="text-align:center;${lowStock.length>0?'border-color:var(--or);background:#FFF8F5;':''}">
+        <div class="sg-lbl" style="${lowStock.length>0?'color:var(--or);':''}">재고 부족</div>
+        <div style="font-size:18px;font-weight:900;color:${lowStock.length>0?'var(--or)':'var(--gn)'};">${lowStock.length}<span style="font-size:12px;font-weight:400;">종</span></div>
+      </div>
     </div>
-    <div style="font-size:13px;font-weight:800;color:var(--g7);margin-bottom:8px">🎨 필름 색상별 순위</div>
-    ${topColors.length>0?`
-    <div class="stat-card" style="margin-bottom:14px;">
-      ${topColors.map(([name,d],i)=>`
-        <div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--bd);">
-          <span style="font-size:13px;font-weight:800;color:var(--or);min-width:20px">${i+1}</span>
-          <span style="flex:1;font-size:13px;font-weight:600;color:var(--g9)">${name}</span>
-          <span style="font-size:11px;color:var(--g5)">${d.qty}m · ${d.cnt}회</span>
-          <span style="font-size:13px;font-weight:700;color:var(--br);white-space:nowrap">${d.amt.toLocaleString()}원</span>
+
+    <!-- 출고 랭킹 -->
+    <div style="font-size:13px;font-weight:800;color:var(--g7);margin-bottom:8px;">🔥 출고 많은 색상 TOP8</div>
+    <div class="stat-card" style="margin-bottom:14px;padding:12px 14px;">
+      ${outRanking.length===0?'<div style="text-align:center;color:var(--g5);font-size:13px;padding:12px;">출고 이력이 없습니다</div>':
+        outRanking.map(([name,d],i)=>`
+        <div style="display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:${i<outRanking.length-1?'1px solid var(--bd)':'none'};">
+          <span style="font-size:13px;font-weight:900;color:var(--or);min-width:20px;">${i+1}</span>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:12px;font-weight:600;color:var(--g9);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${name}</div>
+            <div style="height:4px;background:#F0E8DC;border-radius:2px;margin-top:4px;overflow:hidden;">
+              <div style="height:100%;width:${Math.round(d.qty/maxOut*100)}%;background:var(--or);border-radius:2px;"></div>
+            </div>
+          </div>
+          <div style="text-align:right;flex-shrink:0;">
+            <div style="font-size:13px;font-weight:800;color:var(--or);">${qtyToRollMeter(d.qty)}</div>
+            <div style="font-size:10px;color:var(--g5);">${d.cnt}회</div>
+          </div>
         </div>`).join('')}
-    </div>`:'<div class="stat-card" style="margin-bottom:14px;text-align:center;color:var(--g5);font-size:13px;padding:16px">데이터 누적 중...</div>'}
-    <div style="font-size:13px;font-weight:800;color:var(--g7);margin-bottom:8px">🏢 거래처별 TOP6</div>
-    ${topC.map(([name,d])=>`
-      <div class="stat-card" style="padding:10px 14px;margin-bottom:6px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
-          <span style="font-size:13px;font-weight:700">${name}</span>
-          <span style="font-size:13px;font-weight:800;color:var(--br)">${d.amt.toLocaleString()}원</span>
-        </div>
-        <div style="display:flex;align-items:center;">
-          <span style="font-size:11px;color:var(--g5)">${d.cnt}건</span>
-          <div style="flex:1;margin:0 10px"><div class="bar-wrap"><div class="bar-fill" style="width:${Math.round(d.amt/maxC*100)}%"></div></div></div>
-        </div>
-      </div>`).join('')}
-    <div style="font-size:13px;font-weight:800;color:var(--g7);margin:14px 0 8px">📅 월별 매출</div>
-    ${months.map(([month,amt])=>`
-      <div class="stat-card" style="padding:9px 14px;margin-bottom:6px;">
-        <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
-          <span style="font-size:13px;font-weight:700">${month}</span>
-          <span style="font-size:13px;font-weight:800;color:var(--br)">${amt.toLocaleString()}원</span>
-        </div>
-        <div class="bar-wrap"><div class="bar-fill" style="width:${Math.round(amt/maxM*100)}%"></div></div>
-      </div>`).join('')}
-    <div style="font-size:13px;font-weight:800;color:var(--g7);margin:14px 0 8px">📋 최근 내역</div>
-    ${sales.slice(0,15).map(s=>`
-      <div class="stat-card" style="padding:10px 14px;margin-bottom:6px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;">
-          <div><span style="font-size:13px;font-weight:700">${s.client}</span></div>
-          <span style="font-size:14px;font-weight:800;color:var(--br)">${(s.total||0).toLocaleString()}원</span>
-        </div>
-        <div style="font-size:11px;color:var(--g5);margin-top:4px">${s.date}${s.site?' · '+s.site:''}</div>
-      </div>`).join('')}
-    <div style="display:flex;gap:8px;margin-top:8px;padding-bottom:14px;">
+    </div>
+
+    <!-- 잔여 재고 현황 -->
+    <div style="font-size:13px;font-weight:800;color:var(--g7);margin-bottom:8px;">📉 잔여 재고 적은 순</div>
+    <div class="stat-card" style="margin-bottom:14px;padding:12px 14px;">
+      ${lowRanking.length===0?'<div style="text-align:center;color:var(--g5);font-size:13px;padding:12px;">재고 없음</div>':
+        lowRanking.map((s,i)=>{
+          const isLow=s.qty<=s.warn;
+          return`<div style="display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:${i<lowRanking.length-1?'1px solid var(--bd)':'none'};${isLow?'background:#FFF8F5;margin:0 -4px;padding:6px 4px;border-radius:6px;':''}">
+            <div style="flex:1;min-width:0;">
+              <div style="font-size:12px;font-weight:600;color:var(--g9);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${s.modelName}</div>
+              <div style="font-size:10px;color:var(--g5);">${s.catName||''}</div>
+            </div>
+            <div style="text-align:right;flex-shrink:0;">
+              <span style="font-size:13px;font-weight:800;color:${isLow?'var(--or)':'var(--br)'};">${qtyToRollMeter(s.qty)}</span>
+              ${isLow?'<span style="display:block;font-size:10px;color:var(--or);font-weight:700;">⚠ 부족</span>':''}
+            </div>
+          </div>`;
+        }).join('')}
+    </div>
+
+    <!-- 회전율 -->
+    ${turnover.length>0?`
+    <div style="font-size:13px;font-weight:800;color:var(--g7);margin-bottom:8px;">🔄 색상별 회전율 (출고/입고)</div>
+    <div class="stat-card" style="margin-bottom:14px;padding:12px 14px;">
+      ${turnover.map((t,i)=>`
+        <div style="display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:${i<turnover.length-1?'1px solid var(--bd)':'none'};">
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:12px;font-weight:600;color:var(--g9);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${t.name}</div>
+            <div style="font-size:10px;color:var(--g5);">입고 ${qtyToRollMeter(t.inQ)} → 출고 ${qtyToRollMeter(t.outQ)}</div>
+          </div>
+          <div style="text-align:right;flex-shrink:0;">
+            <span style="font-size:14px;font-weight:900;color:${t.rate>=80?'var(--or)':t.rate>=50?'var(--gd)':'var(--gn)'};">${t.rate}%</span>
+          </div>
+        </div>`).join('')}
+    </div>`:''}
+
+    <!-- 최근 입출고 이력 -->
+    <div style="font-size:13px;font-weight:800;color:var(--g7);margin-bottom:8px;">📋 최근 입출고 이력</div>
+    <div class="stat-card" style="margin-bottom:14px;padding:12px 14px;">
+      ${recentLog.length===0?'<div style="text-align:center;color:var(--g5);font-size:13px;padding:12px;">이력 없음</div>':
+        recentLog.map((l,i)=>`
+        <div style="display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:${i<recentLog.length-1?'1px solid var(--bd)':'none'};">
+          <div style="width:34px;height:34px;border-radius:50%;background:${l.type==='입고'?'var(--gn)':'var(--or)'};color:white;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">${l.type==='입고'?'📥':'📤'}</div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:12px;font-weight:700;color:var(--g9);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${l.modelName}</div>
+            <div style="font-size:11px;color:var(--g5);">${l.date}</div>
+          </div>
+          <div style="text-align:right;flex-shrink:0;">
+            <span style="font-size:13px;font-weight:800;color:${l.type==='입고'?'var(--gn)':'var(--or)'};">${l.type==='입고'?'+':'-'}${qtyToRollMeter(l.qty)}</span>
+          </div>
+        </div>`).join('')}
+    </div>
+
+    <div style="display:flex;gap:8px;margin-top:4px;padding-bottom:14px;">
       <button onclick="exportCsv()" style="flex:1;padding:12px;border:1.5px solid var(--bd);border-radius:9px;background:#fff;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;color:var(--g7)">📥 CSV</button>
-      <button onclick="if(confirm('전체 삭제?')){localStorage.removeItem('om_sales');renderData();}" style="flex:1;padding:12px;border:1.5px solid #FFBBAA;border-radius:9px;background:#fff;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;color:var(--or)">🗑 초기화</button>
     </div>`;
 }
+
+
 // ===== 재고 관리 =====
 // ===== 재고 관리 (Firebase 실시간 동기화) =====
 function loadStock(){return window._stockCache||[];}
@@ -2114,9 +2189,9 @@ let stockCatOpen={};
 function qtyToRollMeter(qty){
   const rolls=Math.floor(qty/25);
   const meters=Math.round((qty%25)*10)/10;
-  if(rolls>0&&meters>0) return `${rolls}롤+${meters}m`;
-  if(rolls>0) return `${rolls}롤`;
-  return `${meters}m`;
+  if(rolls>0&&meters>0)return rolls+'롤+'+meters+'m';
+  if(rolls>0)return rolls+'롤';
+  return meters+'m';
 }
 
 function toggleStockCat(cat){
@@ -2132,66 +2207,91 @@ function renderStock(){
   const warns=arr.filter(s=>s.qty<=s.warn);
   const alertWrap=document.getElementById('stock-alert-wrap');
   if(alertWrap){
-    alertWrap.innerHTML=warns.length>0?`
-      <div style="background:#FEF0E4;border:1.5px solid var(--or);border-radius:10px;padding:10px 13px;margin-bottom:10px;">
-        <div style="font-size:12px;font-weight:800;color:var(--or);margin-bottom:4px;">⚠️ 재고 부족 ${warns.length}종</div>
-        ${warns.map(s=>`<div style="font-size:11px;color:var(--g7);padding:1px 0;">• ${s.modelName} — <b>${qtyToRollMeter(s.qty)}</b></div>`).join('')}
-      </div>`:'';
+    if(warns.length>0){
+      alertWrap.innerHTML='<div style="background:#FEF0E4;border:1.5px solid var(--or);border-radius:10px;padding:10px 13px;margin-bottom:10px;">'
+        +'<div style="font-size:12px;font-weight:800;color:var(--or);margin-bottom:4px;">⚠️ 재고 부족 '+warns.length+'종</div>'
+        +warns.map(s=>'<div style="font-size:11px;color:var(--g7);padding:1px 0;">• '+s.modelName+' — <b>'+qtyToRollMeter(s.qty)+'</b></div>').join('')
+        +'</div>';
+    } else {
+      alertWrap.innerHTML='';
+    }
   }
 
   const el=document.getElementById('stock-list');
   if(!el)return;
-  if(arr.length===0){
-    el.innerHTML=`<div style="text-align:center;padding:60px 20px;color:var(--g5);">
-      <div style="font-size:40px;margin-bottom:12px">📦</div>
-      <div style="font-size:15px;font-weight:700;margin-bottom:6px">등록된 재고가 없어요</div>
-      <div style="font-size:13px">상단 [📥 입고] 버튼으로 색상을 등록하세요</div>
-    </div>`;return;
-  }
-  if(filtered.length===0){el.innerHTML='<div style="text-align:center;padding:24px;color:var(--g5)">검색 결과 없음</div>';return;}
 
+  if(arr.length===0){
+    el.innerHTML='<div style="text-align:center;padding:60px 20px;color:var(--g5);">'
+      +'<div style="font-size:40px;margin-bottom:12px">📦</div>'
+      +'<div style="font-size:15px;font-weight:700;margin-bottom:6px">등록된 재고가 없어요</div>'
+      +'<div style="font-size:13px">상단 [📥 입고] 버튼으로 색상을 등록하세요</div></div>';
+    return;
+  }
+  if(filtered.length===0){
+    el.innerHTML='<div style="text-align:center;padding:24px;color:var(--g5)">검색 결과 없음</div>';
+    return;
+  }
+
+  // 카테고리별 그룹
   const groups={};
-  filtered.forEach(s=>{
+  filtered.forEach(function(s){
     const cat=s.catName||s.cat||'기타';
     if(!groups[cat])groups[cat]=[];
     groups[cat].push(s);
   });
 
-  if(Object.keys(stockCatOpen).length===0||!q){
-    if(!q) Object.keys(groups).forEach((cat,i)=>{if(stockCatOpen[cat]===undefined)stockCatOpen[cat]=i===0;});
-  }
+  // 첫 로드 시 첫 카테고리만 열기
+  Object.keys(groups).forEach(function(cat,i){
+    if(stockCatOpen[cat]===undefined) stockCatOpen[cat]=(i===0);
+  });
 
-  el.innerHTML=Object.entries(groups).map(([cat,items])=>{
-    const isOpen=q?true:(stockCatOpen[cat]!==false);
-    const lowCount=items.filter(s=>s.qty<=s.warn).length;
-    return`
-    <div style="margin-bottom:6px;border:1.5px solid var(--bd);border-radius:10px;overflow:hidden;box-shadow:var(--sh);">
-      <div onclick="toggleStockCat('${cat.replace(/'/g,"\'")}\`)" style="background:var(--br);padding:8px 13px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
-        <div style="display:flex;align-items:center;gap:8px;">
-          <span style="font-size:13px;font-weight:800;color:white;">${cat}</span>
-          <span style="font-size:11px;color:rgba(255,255,255,.65);">${items.length}종</span>
-          ${lowCount>0?`<span style="font-size:10px;background:var(--or);color:white;padding:1px 6px;border-radius:8px;font-weight:700;">⚠ ${lowCount}</span>`:''}
-        </div>
-        <span style="color:white;font-size:12px;">${isOpen?'▲':'▼'}</span>
-      </div>
-      ${isOpen?`<div style="background:white;">
-        ${items.map((s,i)=>{
-          const isLow=s.qty<=s.warn;
-          const rolls=Math.floor(s.qty/25);
-          const meters=Math.round((s.qty%25)*10)/10;
-          return`<div onclick="showStockDetail(${s.id})" style="display:flex;align-items:center;padding:7px 13px;border-bottom:${i<items.length-1?'1px solid #F5EDE0':'none'};cursor:pointer;${isLow?'background:#FFF8F5;':''}"
-            <div style="flex:1;min-width:0;">
-              <div style="font-size:12px;font-weight:600;color:var(--g9);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${s.modelName}</div>
-            </div>
-            <div style="flex-shrink:0;margin-left:8px;display:flex;align-items:center;gap:4px;">
-              ${isLow?'<span style="font-size:10px;color:var(--or);font-weight:700;">⚠</span>':''}
-              <span style="font-size:14px;font-weight:900;color:${isLow?'var(--or)':'var(--br)'};">${rolls>0?rolls+'롤':''}${rolls>0&&meters>0?'+':''}${meters>0?meters+'m':''}</span>
-            </div>
-          </div>`;
-        }).join('')}
-      </div>`:''}
-    </div>`;
-  }).join('');
+  let html='';
+  Object.entries(groups).forEach(function([cat,items]){
+    const isOpen=q?true:(stockCatOpen[cat]===true);
+    const lowCount=items.filter(function(s){return s.qty<=s.warn;}).length;
+
+    html+='<div style="margin-bottom:6px;border:1.5px solid var(--bd);border-radius:10px;overflow:hidden;box-shadow:var(--sh);">';
+    html+='<div onclick="toggleStockCat(decodeURIComponent(this.dataset.cat))" data-cat="'+encodeURIComponent(cat)+'" style="background:var(--br);padding:9px 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;">';
+    html+='<div style="display:flex;align-items:center;gap:8px;">';
+    html+='<span style="font-size:13px;font-weight:800;color:white;">'+cat+'</span>';
+    html+='<span style="font-size:11px;color:rgba(255,255,255,.65);">'+items.length+'종</span>';
+    if(lowCount>0) html+='<span style="font-size:10px;background:var(--or);color:white;padding:1px 6px;border-radius:8px;font-weight:700;">⚠ '+lowCount+'</span>';
+    html+='</div>';
+    html+='<span style="color:white;font-size:12px;">'+(isOpen?'▲':'▼')+'</span>';
+    html+='</div>';
+
+    if(isOpen){
+      html+='<div style="background:white;">';
+      items.forEach(function(s,i){
+        const isLow=s.qty<=s.warn;
+        const rolls=Math.floor(s.qty/25);
+        const meters=Math.round((s.qty%25)*10)/10;
+        let qtyStr='';
+        if(rolls>0&&meters>0) qtyStr=rolls+'롤+'+meters+'m';
+        else if(rolls>0) qtyStr=rolls+'롤';
+        else qtyStr=meters+'m';
+
+        html+='<div onclick="showStockDetail('+s.id+')" style="display:flex;align-items:center;padding:8px 14px;'
+          +(i<items.length-1?'border-bottom:1px solid #F5EDE0;':'')
+          +(isLow?'background:#FFF8F5;':'')
+          +'cursor:pointer;">';
+        html+='<div style="flex:1;min-width:0;"><div style="font-size:12.5px;font-weight:600;color:var(--g9);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+s.modelName+'</div></div>';
+        html+='<div style="flex-shrink:0;margin-left:10px;display:flex;align-items:center;gap:6px;">';
+        if(isLow) html+='<span style="font-size:10px;color:var(--or);font-weight:700;">⚠부족</span>';
+        html+='<span style="font-size:14px;font-weight:900;color:'+(isLow?'var(--or)':'var(--br)')+';">'+qtyStr+'</span>';
+        html+='</div></div>';
+      });
+      html+='</div>';
+    }
+    html+='</div>';
+  });
+
+  el.innerHTML=html;
+}
+
+function toggleStockCatByName(cat){
+  stockCatOpen[cat]=!stockCatOpen[cat];
+  renderStock();
 }
 
 function exportCsv(){
