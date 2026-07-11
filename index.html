@@ -2108,19 +2108,34 @@ function showStockDetail(id){
     </div>`;
   document.getElementById('stock-detail-ovl').classList.add('show');
 }
+// 재고 카테고리 열림/닫힘 상태
+let stockCatOpen={};
+
+function qtyToRollMeter(qty){
+  const rolls=Math.floor(qty/25);
+  const meters=Math.round((qty%25)*10)/10;
+  if(rolls>0&&meters>0) return `${rolls}롤+${meters}m`;
+  if(rolls>0) return `${rolls}롤`;
+  return `${meters}m`;
+}
+
+function toggleStockCat(cat){
+  stockCatOpen[cat]=!stockCatOpen[cat];
+  renderStock();
+}
+
 function renderStock(){
   const arr=loadStock();
   const q=(document.getElementById('stock-search')?.value||'').toLowerCase();
   const filtered=arr.filter(s=>!q||s.modelName.toLowerCase().includes(q)||(s.catName||'').includes(q));
 
-  // 부족 경고
   const warns=arr.filter(s=>s.qty<=s.warn);
   const alertWrap=document.getElementById('stock-alert-wrap');
   if(alertWrap){
     alertWrap.innerHTML=warns.length>0?`
-      <div style="background:#FEF0E4;border:1.5px solid var(--or);border-radius:10px;padding:12px 14px;margin-bottom:12px;">
-        <div style="font-size:12px;font-weight:800;color:var(--or);margin-bottom:6px;">⚠️ 재고 부족 ${warns.length}종</div>
-        ${warns.map(s=>`<div style="font-size:12px;color:var(--g7);padding:2px 0;">• ${s.modelName} — <b>${s.qty}m</b> 남음</div>`).join('')}
+      <div style="background:#FEF0E4;border:1.5px solid var(--or);border-radius:10px;padding:10px 13px;margin-bottom:10px;">
+        <div style="font-size:12px;font-weight:800;color:var(--or);margin-bottom:4px;">⚠️ 재고 부족 ${warns.length}종</div>
+        ${warns.map(s=>`<div style="font-size:11px;color:var(--g7);padding:1px 0;">• ${s.modelName} — <b>${qtyToRollMeter(s.qty)}</b></div>`).join('')}
       </div>`:'';
   }
 
@@ -2130,12 +2145,11 @@ function renderStock(){
     el.innerHTML=`<div style="text-align:center;padding:60px 20px;color:var(--g5);">
       <div style="font-size:40px;margin-bottom:12px">📦</div>
       <div style="font-size:15px;font-weight:700;margin-bottom:6px">등록된 재고가 없어요</div>
-      <div style="font-size:13px">상단 [＋ 입고] 버튼으로 색상을 등록하세요</div>
+      <div style="font-size:13px">상단 [📥 입고] 버튼으로 색상을 등록하세요</div>
     </div>`;return;
   }
   if(filtered.length===0){el.innerHTML='<div style="text-align:center;padding:24px;color:var(--g5)">검색 결과 없음</div>';return;}
 
-  // 카테고리별 그룹
   const groups={};
   filtered.forEach(s=>{
     const cat=s.catName||s.cat||'기타';
@@ -2143,29 +2157,41 @@ function renderStock(){
     groups[cat].push(s);
   });
 
-  el.innerHTML=Object.entries(groups).map(([cat,items])=>`
-    <div style="margin-bottom:16px;">
-      <div style="font-size:12px;font-weight:800;color:var(--g5);margin-bottom:6px;letter-spacing:.5px;text-transform:uppercase;">${cat}</div>
-      ${items.map(s=>{
-        const pct=Math.min(100,s.warn>0?Math.round(s.qty/Math.max(s.qty,s.warn*3)*100):100);
-        const isLow=s.qty<=s.warn;
-        return`<div onclick="showStockDetail(${s.id})" style="background:white;border:1.5px solid ${isLow?'var(--or)':'var(--bd)'};border-radius:10px;padding:13px 15px;margin-bottom:8px;cursor:pointer;box-shadow:var(--sh);">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+  if(Object.keys(stockCatOpen).length===0||!q){
+    if(!q) Object.keys(groups).forEach((cat,i)=>{if(stockCatOpen[cat]===undefined)stockCatOpen[cat]=i===0;});
+  }
+
+  el.innerHTML=Object.entries(groups).map(([cat,items])=>{
+    const isOpen=q?true:(stockCatOpen[cat]!==false);
+    const lowCount=items.filter(s=>s.qty<=s.warn).length;
+    return`
+    <div style="margin-bottom:6px;border:1.5px solid var(--bd);border-radius:10px;overflow:hidden;box-shadow:var(--sh);">
+      <div onclick="toggleStockCat('${cat.replace(/'/g,"\'")}\`)" style="background:var(--br);padding:8px 13px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:13px;font-weight:800;color:white;">${cat}</span>
+          <span style="font-size:11px;color:rgba(255,255,255,.65);">${items.length}종</span>
+          ${lowCount>0?`<span style="font-size:10px;background:var(--or);color:white;padding:1px 6px;border-radius:8px;font-weight:700;">⚠ ${lowCount}</span>`:''}
+        </div>
+        <span style="color:white;font-size:12px;">${isOpen?'▲':'▼'}</span>
+      </div>
+      ${isOpen?`<div style="background:white;">
+        ${items.map((s,i)=>{
+          const isLow=s.qty<=s.warn;
+          const rolls=Math.floor(s.qty/25);
+          const meters=Math.round((s.qty%25)*10)/10;
+          return`<div onclick="showStockDetail(${s.id})" style="display:flex;align-items:center;padding:7px 13px;border-bottom:${i<items.length-1?'1px solid #F5EDE0':'none'};cursor:pointer;${isLow?'background:#FFF8F5;':''}"
             <div style="flex:1;min-width:0;">
-              <div style="font-size:13px;font-weight:700;color:var(--g9);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${s.modelName}</div>
+              <div style="font-size:12px;font-weight:600;color:var(--g9);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${s.modelName}</div>
             </div>
-            <div style="text-align:right;flex-shrink:0;margin-left:10px;">
-              <span style="font-size:20px;font-weight:900;color:${isLow?'var(--or)':'var(--br)'};">${s.qty}</span>
-              <span style="font-size:12px;color:var(--g5);">m</span>
-              ${isLow?'<span style="display:block;font-size:10px;color:var(--or);font-weight:700;">⚠ 부족</span>':''}
+            <div style="flex-shrink:0;margin-left:8px;display:flex;align-items:center;gap:4px;">
+              ${isLow?'<span style="font-size:10px;color:var(--or);font-weight:700;">⚠</span>':''}
+              <span style="font-size:14px;font-weight:900;color:${isLow?'var(--or)':'var(--br)'};">${rolls>0?rolls+'롤':''}${rolls>0&&meters>0?'+':''}${meters>0?meters+'m':''}</span>
             </div>
-          </div>
-          <div style="height:5px;background:#F0E8DC;border-radius:3px;overflow:hidden;">
-            <div style="height:100%;width:${pct}%;background:${isLow?'var(--or)':'var(--gn)'};border-radius:3px;transition:width .3s;"></div>
-          </div>
-        </div>`;
-      }).join('')}
-    </div>`).join('');
+          </div>`;
+        }).join('')}
+      </div>`:''}
+    </div>`;
+  }).join('');
 }
 
 function exportCsv(){
