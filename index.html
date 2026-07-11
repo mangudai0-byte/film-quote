@@ -1864,6 +1864,10 @@ function renderData(){
   const outRanking=Object.entries(outByColor).sort((a,b)=>b[1].qty-a[1].qty).slice(0,8);
   const maxOut=outRanking[0]?.[1]?.qty||1;
 
+  // 보유량 많은 순 TOP8
+  const highRanking=[...stock].sort((a,b)=>b.qty-a.qty).slice(0,8);
+  const maxHigh=highRanking[0]?.qty||1;
+
   // 잔여 재고 적은 순 (부족 아닌 것 포함)
   const lowRanking=[...stock].sort((a,b)=>a.qty-b.qty).slice(0,6);
 
@@ -1912,6 +1916,23 @@ function renderData(){
             <div style="font-size:13px;font-weight:800;color:var(--or);">${qtyToRollMeter(d.qty)}</div>
             <div style="font-size:10px;color:var(--g5);">${d.cnt}회</div>
           </div>
+        </div>`).join('')}
+    </div>
+
+    <!-- 보유량 랭킹 -->
+    <div style="font-size:13px;font-weight:800;color:var(--g7);margin-bottom:8px;">📦 보유량 많은 색상 TOP8</div>
+    <div class="stat-card" style="margin-bottom:14px;padding:12px 14px;">
+      ${highRanking.length===0?'<div style="text-align:center;color:var(--g5);font-size:13px;padding:12px;">재고 없음</div>':
+        highRanking.map((s,i)=>`
+        <div style="display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:${i<highRanking.length-1?'1px solid var(--bd)':'none'};">
+          <span style="font-size:13px;font-weight:900;color:var(--br);min-width:20px;">${i+1}</span>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:12px;font-weight:600;color:var(--g9);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${s.modelName}</div>
+            <div style="height:4px;background:#F0E8DC;border-radius:2px;margin-top:4px;overflow:hidden;">
+              <div style="height:100%;width:${Math.round(s.qty/maxHigh*100)}%;background:var(--br);border-radius:2px;"></div>
+            </div>
+          </div>
+          <span style="font-size:13px;font-weight:800;color:var(--br);flex-shrink:0;">${qtyToRollMeter(s.qty)}</span>
         </div>`).join('')}
     </div>
 
