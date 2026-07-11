@@ -480,7 +480,8 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
   <div class="th"><div class="th-row">
     <div class="th-av">📦</div>
     <div><div class="th-ttl">재고 관리</div><div class="th-sub">필름 절단 재고 현황</div></div>
-    <button class="th-btn" onclick="openStockAdd()">＋ 입고</button>
+    <button class="th-btn" onclick="openStockAdd('in')" style="background:var(--gn);border-color:var(--gn);margin-right:4px;">📥 입고</button>
+    <button class="th-btn" onclick="openStockAdd('out')" style="background:var(--or);border-color:var(--or);">📤 출고</button>
   </div></div>
   <div class="container" style="padding-top:14px;padding-bottom:80px;">
     <!-- 검색 -->
@@ -546,11 +547,26 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
       </div>
       <!-- 출고 폼 -->
       <div id="stock-form-out" style="display:none;">
-        <div class="field"><label>색상 선택</label>
-          <select id="so-item" style="width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;background:#fff;-webkit-appearance:none;outline:none;"></select>
+        <div class="field"><label>대분류</label>
+          <select id="so-cat" onchange="updateStockOutModel()" style="width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;background:#fff;-webkit-appearance:none;outline:none;"></select>
         </div>
-        <div class="field"><label>출고량 (m)</label>
-          <input id="so-qty" type="number" min="1" placeholder="출고 수량" style="width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;outline:none;">
+        <div class="field"><label>색상 선택</label>
+          <select id="so-model" onchange="updateSoStockInfo()" style="width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;background:#fff;-webkit-appearance:none;outline:none;"></select>
+        </div>
+        <div id="so-stock-info" style="display:none;margin-bottom:10px;padding:10px 13px;background:#FEF0E4;border:1.5px solid var(--or);border-radius:8px;font-size:13px;font-weight:700;color:var(--or);text-align:center;"></div>
+        <div class="field"><label>출고량</label>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="flex:1;position:relative;">
+              <input id="so-rolls" type="number" min="0" step="1" placeholder="0" oninput="calcSoTotal()" style="width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:16px;font-family:inherit;outline:none;text-align:center;font-weight:700;">
+              <span style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--g5);pointer-events:none;">롤</span>
+            </div>
+            <span style="font-size:18px;color:var(--g5);font-weight:300;">+</span>
+            <div style="flex:1;position:relative;">
+              <input id="so-meters" type="number" min="0" step="5" placeholder="0" oninput="calcSoTotal()" style="width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:16px;font-family:inherit;outline:none;text-align:center;font-weight:700;">
+              <span style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--g5);pointer-events:none;">m</span>
+            </div>
+          </div>
+          <div id="so-total-display" style="margin-top:8px;padding:10px 14px;background:#FEF0E4;border:1.5px solid var(--or);border-radius:8px;text-align:center;font-size:15px;font-weight:800;color:var(--or);display:none;"></div>
         </div>
         <div class="field"><label>거래처 (선택)</label>
           <input id="so-client" type="text" placeholder="거래처명" style="width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;outline:none;">
@@ -1906,17 +1922,6 @@ function saveStockLog(arr){
   window._fbDb.ref('stock_log').set(obj);
 }
 
-function openStockAdd(){
-  switchStockTab('in');
-  // 대분류 드롭다운 초기화
-  const siCat=document.getElementById('si-cat');
-  if(siCat&&siCat.children.length===0){
-    siCat.innerHTML=MODEL_KEYS.map(k=>`<option value="${k}">${MODEL_DB[k].name}</option>`).join('');
-  }
-  updateStockInModel();
-  refreshStockSelects();
-  document.getElementById('stock-add-ovl').classList.add('show');
-}
 function switchStockTab(tab){
   ['in','out','new'].forEach(t=>{
     const btn=document.getElementById('stock-tab-'+t);
@@ -1950,13 +1955,66 @@ function updateSiWarnVisibility(){
   if(wrap)wrap.style.display=exists?'none':'block';
 }
 function updateStockNewModel(){updateStockInModel();}
-function refreshStockSelects(){
-  const arr=loadStock();
-  const soItem=document.getElementById('so-item');
-  if(soItem){
-    soItem.innerHTML=arr.length===0?'<option value="">등록된 재고 없음</option>'
-      :arr.map(s=>`<option value="${s.id}">${s.modelName} (${s.qty}m)</option>`).join('');
+function openStockAdd(tab){
+  switchStockTab(tab||'in');
+  const siCat=document.getElementById('si-cat');
+  if(siCat&&siCat.children.length===0){
+    siCat.innerHTML=MODEL_KEYS.map(k=>`<option value="${k}">${MODEL_DB[k].name}</option>`).join('');
   }
+  const soCat=document.getElementById('so-cat');
+  if(soCat&&soCat.children.length===0){
+    soCat.innerHTML=MODEL_KEYS.map(k=>`<option value="${k}">${MODEL_DB[k].name}</option>`).join('');
+  }
+  updateStockInModel();
+  updateStockOutModel();
+  document.getElementById('stock-add-ovl').classList.add('show');
+}
+function updateStockOutModel(){
+  const cat=document.getElementById('so-cat')?.value;
+  const modelSel=document.getElementById('so-model');
+  if(!cat||!modelSel)return;
+  const db=MODEL_DB[cat];
+  if(!db)return;
+  modelSel.innerHTML=db.models.map(m=>`<option value="${m}">${m}</option>`).join('');
+  updateSoStockInfo();
+}
+function updateSoStockInfo(){
+  const modelName=document.getElementById('so-model')?.value;
+  const arr=loadStock();
+  const item=arr.find(s=>s.modelName===modelName);
+  const info=document.getElementById('so-stock-info');
+  if(info){
+    if(item){
+      info.style.display='block';
+      info.style.background=item.qty<=item.warn?'#FEF0E4':'#EAF0E8';
+      info.style.borderColor=item.qty<=item.warn?'var(--or)':'var(--gn)';
+      info.style.color=item.qty<=item.warn?'var(--or)':'var(--gn)';
+      info.textContent=`현재 재고: ${item.qty}m${item.qty<=item.warn?' ⚠ 부족':''}`;
+    }else{
+      info.style.display='block';
+      info.style.background='#FEF0E4';
+      info.style.borderColor='var(--or)';
+      info.style.color='var(--or)';
+      info.textContent='⚠ 재고에 등록되지 않은 색상입니다';
+    }
+  }
+}
+function calcSoTotal(){
+  const rolls=parseFloat(document.getElementById('so-rolls')?.value)||0;
+  const meters=parseFloat(document.getElementById('so-meters')?.value)||0;
+  const total=rolls*25+meters;
+  const disp=document.getElementById('so-total-display');
+  if(disp){
+    if(rolls>0||meters>0){
+      disp.style.display='block';
+      disp.textContent=`= 합계 ${total}m (${rolls>0?rolls+'롤 × 25m':''}${rolls>0&&meters>0?' + ':''}${meters>0?meters+'m':''})`;
+    }else{
+      disp.style.display='none';
+    }
+  }
+}
+function refreshStockSelects(){
+  // 출고 드롭다운은 이제 대분류→색상 방식으로 변경됨
 }
 function calcSiTotal(){
   const rolls=parseFloat(document.getElementById('si-rolls')?.value)||0;
@@ -2005,23 +2063,29 @@ function saveStockIn(){
   renderStock();
 }
 function saveStockOut(){
-  const stockId=parseInt(document.getElementById('so-item')?.value);
-  const qty=parseFloat(document.getElementById('so-qty')?.value)||0;
+  const modelName=document.getElementById('so-model')?.value;
+  const rolls=parseFloat(document.getElementById('so-rolls')?.value)||0;
+  const meters=parseFloat(document.getElementById('so-meters')?.value)||0;
+  const qty=rolls*25+meters;
   const client=document.getElementById('so-client')?.value||'';
   const memo=document.getElementById('so-memo')?.value||'';
-  if(!stockId||qty<=0){alert('수량을 입력해주세요.');return;}
+  if(!modelName){alert('색상을 선택해주세요.');return;}
+  if(qty<=0){alert('출고 수량을 입력해주세요.');return;}
   const arr=loadStock();
-  const item=arr.find(s=>s.id===stockId);
-  if(!item){alert('항목을 찾을 수 없습니다.');return;}
-  if(item.qty<qty){alert(`재고 부족! 현재 잔량: ${item.qty}m`);return;}
+  const item=arr.find(s=>s.modelName===modelName);
+  if(!item){alert('재고에 등록되지 않은 색상입니다.\n먼저 입고 처리해주세요.');return;}
+  if(item.qty<qty){alert(`재고 부족!\n현재 잔량: ${item.qty}m\n출고 요청: ${qty}m`);return;}
   item.qty=Math.round((item.qty-qty)*10)/10;
   saveStock(arr);
   const log=loadStockLog();
-  log.unshift({id:Date.now(),stockId,modelName:item.modelName,type:'출고',qty,client,memo,date:today()});
+  log.unshift({id:Date.now(),stockId:item.id,modelName,type:'출고',qty,client,memo,date:today()});
   saveStockLog(log);
-  document.getElementById('so-qty').value='';
+  document.getElementById('so-rolls').value='';
+  document.getElementById('so-meters').value='';
   document.getElementById('so-client').value='';
   document.getElementById('so-memo').value='';
+  const disp=document.getElementById('so-total-display');
+  if(disp)disp.style.display='none';
   closeOvl('stock-add-ovl');
   renderStock();
 }
@@ -2504,6 +2568,11 @@ function initAll(){
   if(siCat){
     siCat.innerHTML=MODEL_KEYS.map(k=>`<option value="${k}">${MODEL_DB[k].name}</option>`).join('');
     updateStockInModel();
+  }
+  const soCat=document.getElementById('so-cat');
+  if(soCat){
+    soCat.innerHTML=MODEL_KEYS.map(k=>`<option value="${k}">${MODEL_DB[k].name}</option>`).join('');
+    updateStockOutModel();
   }
   refreshFilmDoorDrops();addItem();renderDoorGroups();initChat();
 }
