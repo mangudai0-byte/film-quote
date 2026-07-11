@@ -194,6 +194,44 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
 #grade-btn-1,#grade-btn-2{display:flex;align-items:center;justify-content:center;padding:10px;border-radius:10px;cursor:pointer;font-weight:700;font-size:14px;transition:all .15s;}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getDatabase, ref, set, get, onValue, push, remove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAnWXXmlsbL23GvVR_oPVpO3JnaWSS8h3U",
+    authDomain: "ocean-made.firebaseapp.com",
+    databaseURL: "https://ocean-made-default-rtdb.firebaseio.com",
+    projectId: "ocean-made",
+    storageBucket: "ocean-made.firebasestorage.app",
+    messagingSenderId: "986574497830",
+    appId: "1:986574497830:web:904537b5a6510a49e45ee7"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+  window._fbDb = db;
+  window._fbRef = ref;
+  window._fbSet = set;
+  window._fbGet = get;
+  window._fbOnValue = onValue;
+  window._fbPush = push;
+  window._fbRemove = remove;
+
+  // 재고 실시간 동기화
+  onValue(ref(db, 'stock'), (snapshot) => {
+    const data = snapshot.val();
+    window._stockCache = data ? Object.values(data) : [];
+    if(typeof renderStock === 'function') renderStock();
+  });
+  onValue(ref(db, 'stock_log'), (snapshot) => {
+    const data = snapshot.val();
+    window._stockLogCache = data ? Object.values(data).sort((a,b)=>b.id-a.id) : [];
+  });
+
+  window._fbReady = true;
+  console.log('Firebase 연결됨');
+</script>
 </head>
 <body>
 
@@ -494,8 +532,20 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
         <div class="field"><label>색상 선택</label>
           <select id="si-model" style="width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;background:#fff;-webkit-appearance:none;outline:none;"></select>
         </div>
-        <div class="field"><label>입고량 (m)</label>
-          <input id="si-qty" type="number" min="0.1" step="0.1" placeholder="입고 수량" style="width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;outline:none;">
+        <div class="field"><label>입고량</label>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div style="flex:1;position:relative;">
+              <input id="si-rolls" type="number" min="0" step="1" placeholder="0" oninput="calcSiTotal()" style="width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:16px;font-family:inherit;outline:none;text-align:center;font-weight:700;">
+              <span style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--g5);pointer-events:none;">롤</span>
+            </div>
+            <span style="font-size:18px;color:var(--g5);font-weight:300;">+</span>
+            <div style="flex:1;position:relative;">
+              <input id="si-meters" type="number" min="0" step="5" placeholder="0" oninput="calcSiTotal()" style="width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:16px;font-family:inherit;outline:none;text-align:center;font-weight:700;">
+              <span style="position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--g5);pointer-events:none;">m</span>
+            </div>
+          </div>
+          <div id="si-total-display" style="margin-top:8px;padding:10px 14px;background:var(--gn-l);border:1.5px solid var(--gn);border-radius:8px;text-align:center;font-size:15px;font-weight:800;color:var(--gn);display:none;">= 합계 0m</div>
+        </div>
         </div>
         <div class="field" id="si-warn-wrap"><label>재고 경고 기준 (m) — 처음 등록 시</label>
           <input id="si-warn" type="number" min="0" placeholder="예: 5" value="5" style="width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;outline:none;">
@@ -836,7 +886,7 @@ function onModel(id,modelName){
   if(det&&!det.classList.contains('hidden')){setTimeout(()=>{const q=det.querySelector('.qty-input');if(q){q.focus();q.select();}},30);}
 }
 function onQty(id,v){const it=get(id);it.qty=+v||0;updateItemHeader(id);updateBreakdown(id);}
-function stepQty(id,d){const it=get(id);it.qty=Math.max(0,it.qty+d);const inp=document.querySelector(`#det-${id} .qty-input`);if(inp)inp.value=it.qty;updateItemHeader(id);updateBreakdown(id);}
+function stepQty(id,d){const it=get(id);it.qty=Math.max(0,it.qty+d*5);const inp=document.querySelector(`#det-${id} .qty-input`);if(inp)inp.value=it.qty;updateItemHeader(id);updateBreakdown(id);}
 function setQty(id,v){const it=get(id);it.qty=v;const inp=document.querySelector(`#det-${id} .qty-input`);if(inp)inp.value=v;updateItemHeader(id);updateBreakdown(id);}
 function updateItemHeader(id){
   const it=get(id);if(!it)return;
@@ -907,9 +957,9 @@ function buildEl(it,num){
           <div class="qty-top">
             <span class="qty-label">수량</span>
             <div class="qty-stepper">
-              <button class="qty-btn" onclick="stepQty(${it.id},-1)">−</button>
-              <input class="qty-input" type="number" value="${it.qty}" min="0" onchange="onQty(${it.id},this.value)" onblur="onQty(${it.id},this.value)">
-              <button class="qty-btn" onclick="stepQty(${it.id},1)">＋</button>
+              <button class="qty-btn" onclick="stepQty(${it.id},-1)" style="font-size:13px;font-weight:800;">−5</button>
+              <input class="qty-input" type="number" value="${it.qty}" min="0" step="5" onchange="onQty(${it.id},this.value)" onblur="onQty(${it.id},this.value)">
+              <button class="qty-btn" onclick="stepQty(${it.id},1)" style="font-size:13px;font-weight:800;">+5</button>
             </div>
             <span class="qty-unit">m</span>
           </div>
@@ -1853,10 +1903,20 @@ function renderData(){
     </div>`;
 }
 // ===== 재고 관리 =====
-function loadStock(){try{return JSON.parse(localStorage.getItem('om_stock')||'[]');}catch(e){return[];}}
-function saveStock(arr){localStorage.setItem('om_stock',JSON.stringify(arr));}
-function loadStockLog(){try{return JSON.parse(localStorage.getItem('om_stock_log')||'[]');}catch(e){return[];}}
-function saveStockLog(arr){localStorage.setItem('om_stock_log',JSON.stringify(arr.slice(0,1000)));}
+// ===== 재고 관리 (Firebase 실시간 동기화) =====
+function loadStock(){return window._stockCache||[];}
+function saveStock(arr){
+  if(!window._fbDb)return;
+  // 배열을 객체로 변환해서 Firebase에 저장
+  const obj={};arr.forEach(s=>{obj['s'+s.id]=s;});
+  window._fbSet(window._fbRef(window._fbDb,'stock'),obj);
+}
+function loadStockLog(){return window._stockLogCache||[];}
+function saveStockLog(arr){
+  if(!window._fbDb)return;
+  const obj={};arr.slice(0,500).forEach(l=>{obj['l'+l.id]=l;});
+  window._fbSet(window._fbRef(window._fbDb,'stock_log'),obj);
+}
 
 function openStockAdd(){
   switchStockTab('in');
@@ -1910,11 +1970,26 @@ function refreshStockSelects(){
       :arr.map(s=>`<option value="${s.id}">${s.modelName} (${s.qty}m)</option>`).join('');
   }
 }
-function saveStockNew(){saveStockIn();}
+function calcSiTotal(){
+  const rolls=parseFloat(document.getElementById('si-rolls')?.value)||0;
+  const meters=parseFloat(document.getElementById('si-meters')?.value)||0;
+  const total=rolls*25+meters;
+  const disp=document.getElementById('si-total-display');
+  if(disp){
+    if(rolls>0||meters>0){
+      disp.style.display='block';
+      disp.textContent=`= 합계 ${total}m (${rolls}롤 × 25m${meters>0?' + '+meters+'m':''})`;
+    }else{
+      disp.style.display='none';
+    }
+  }
+}
 function saveStockIn(){
   const cat=document.getElementById('si-cat')?.value;
   const modelName=document.getElementById('si-model')?.value;
-  const qty=parseFloat(document.getElementById('si-qty')?.value)||0;
+  const rolls=parseFloat(document.getElementById('si-rolls')?.value)||0;
+  const meters=parseFloat(document.getElementById('si-meters')?.value)||0;
+  const qty=rolls*25+meters;
   const warn=parseFloat(document.getElementById('si-warn')?.value)||5;
   const memo=document.getElementById('si-memo')?.value||'';
   if(!modelName){alert('색상을 선택해주세요.');return;}
@@ -1930,10 +2005,14 @@ function saveStockIn(){
   item.qty=Math.round((item.qty+qty)*10)/10;
   saveStock(arr);
   const log=loadStockLog();
-  log.unshift({id:Date.now(),stockId:item.id,modelName,type:'입고',qty,memo:isNew?`신규 등록${memo?' · '+memo:''}`:memo,date:today()});
+  const memoText=isNew?`신규 등록${memo?' · '+memo:''}`:memo;
+  log.unshift({id:Date.now(),stockId:item.id,modelName,type:'입고',qty,memo:memoText,date:today()});
   saveStockLog(log);
-  document.getElementById('si-qty').value='';
+  document.getElementById('si-rolls').value='';
+  document.getElementById('si-meters').value='';
   document.getElementById('si-memo').value='';
+  const disp=document.getElementById('si-total-display');
+  if(disp)disp.style.display='none';
   closeOvl('stock-add-ovl');
   renderStock();
 }
