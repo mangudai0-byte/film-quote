@@ -498,12 +498,12 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
 
 <!-- 입고/출고 모달 -->
 <div class="ovl" id="stock-add-ovl">
-  <div class="modal" style="max-height:85vh;margin:7vh auto auto;border-radius:16px;overflow:hidden;max-width:500px;">
+  <div class="modal" style="max-height:92vh;margin:4vh auto auto;border-radius:16px;overflow:hidden;max-width:500px;">
     <div class="modal-bar">
       <h3 id="stock-modal-title">📦 입고 등록</h3>
       <button class="cls-btn" onclick="closeOvl('stock-add-ovl')">×</button>
     </div>
-    <div style="padding:16px;overflow-y:auto;max-height:calc(85vh - 54px);">
+    <div style="padding:14px;overflow-y:auto;-webkit-overflow-scrolling:touch;max-height:calc(92vh - 54px);">
       <!-- 탭 -->
       <div style="display:flex;gap:6px;margin-bottom:16px;background:var(--cr-dk);border-radius:10px;padding:6px;">
         <button id="stock-tab-in" onclick="switchStockTab('in')" style="flex:1;padding:8px;border-radius:8px;border:none;font-size:13px;font-weight:800;cursor:pointer;background:var(--gn);color:white;font-family:inherit;">📥 입고</button>
@@ -540,9 +540,6 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
         <div class="field" id="si-warn-wrap"><label>재고 경고 기준 (m) — 처음 등록 시</label>
           <input id="si-warn" type="number" min="0" placeholder="예: 5" value="5" style="width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;outline:none;">
         </div>
-        <div class="field"><label>메모 (선택)</label>
-          <input id="si-memo" type="text" placeholder="예: 예림 발주분" style="width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;outline:none;">
-        </div>
         <button onclick="saveStockIn()" style="width:100%;padding:14px;background:var(--gn);color:white;border:none;border-radius:10px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;margin-top:4px;">📥 입고 처리</button>
       </div>
       <!-- 출고 폼 -->
@@ -568,12 +565,6 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
           </div>
           <div id="so-total-display" style="margin-top:8px;padding:10px 14px;background:#FEF0E4;border:1.5px solid var(--or);border-radius:8px;text-align:center;font-size:15px;font-weight:800;color:var(--or);display:none;"></div>
         </div>
-        <div class="field"><label>거래처 (선택)</label>
-          <input id="so-client" type="text" placeholder="거래처명" style="width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;outline:none;">
-        </div>
-        <div class="field"><label>메모 (선택)</label>
-          <input id="so-memo" type="text" placeholder="예: 현장 출고" style="width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;outline:none;">
-        </div>
         <button onclick="saveStockOut()" style="width:100%;padding:14px;background:var(--or);color:white;border:none;border-radius:10px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;margin-top:4px;">📤 출고 처리</button>
       </div>
     </div>
@@ -582,7 +573,7 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
 
 <!-- 재고 상세/이력 모달 -->
 <div class="ovl" id="stock-detail-ovl">
-  <div class="modal" style="max-height:85vh;margin:7vh auto auto;border-radius:16px;overflow:hidden;max-width:500px;">
+  <div class="modal" style="max-height:92vh;margin:4vh auto auto;border-radius:16px;overflow:hidden;max-width:500px;">
     <div class="modal-bar">
       <h3 id="stock-detail-title">재고 이력</h3>
       <button class="cls-btn" onclick="closeOvl('stock-detail-ovl')">×</button>
@@ -2037,7 +2028,6 @@ function saveStockIn(){
   const meters=parseFloat(document.getElementById('si-meters')?.value)||0;
   const qty=rolls*25+meters;
   const warn=parseFloat(document.getElementById('si-warn')?.value)||5;
-  const memo=document.getElementById('si-memo')?.value||'';
   if(!modelName){alert('색상을 선택해주세요.');return;}
   if(qty<=0){alert('입고 수량을 입력해주세요.');return;}
   const arr=loadStock();
@@ -2051,12 +2041,10 @@ function saveStockIn(){
   item.qty=Math.round((item.qty+qty)*10)/10;
   saveStock(arr);
   const log=loadStockLog();
-  const memoText=isNew?`신규 등록${memo?' · '+memo:''}`:memo;
-  log.unshift({id:Date.now(),stockId:item.id,modelName,type:'입고',qty,memo:memoText,date:today()});
+  log.unshift({id:Date.now(),stockId:item.id,modelName,type:'입고',qty,memo:isNew?'신규 등록':'',date:today()});
   saveStockLog(log);
   document.getElementById('si-rolls').value='';
   document.getElementById('si-meters').value='';
-  document.getElementById('si-memo').value='';
   const disp=document.getElementById('si-total-display');
   if(disp)disp.style.display='none';
   closeOvl('stock-add-ovl');
@@ -2067,8 +2055,6 @@ function saveStockOut(){
   const rolls=parseFloat(document.getElementById('so-rolls')?.value)||0;
   const meters=parseFloat(document.getElementById('so-meters')?.value)||0;
   const qty=rolls*25+meters;
-  const client=document.getElementById('so-client')?.value||'';
-  const memo=document.getElementById('so-memo')?.value||'';
   if(!modelName){alert('색상을 선택해주세요.');return;}
   if(qty<=0){alert('출고 수량을 입력해주세요.');return;}
   const arr=loadStock();
@@ -2078,12 +2064,10 @@ function saveStockOut(){
   item.qty=Math.round((item.qty-qty)*10)/10;
   saveStock(arr);
   const log=loadStockLog();
-  log.unshift({id:Date.now(),stockId:item.id,modelName,type:'출고',qty,client,memo,date:today()});
+  log.unshift({id:Date.now(),stockId:item.id,modelName,type:'출고',qty,date:today()});
   saveStockLog(log);
   document.getElementById('so-rolls').value='';
   document.getElementById('so-meters').value='';
-  document.getElementById('so-client').value='';
-  document.getElementById('so-memo').value='';
   const disp=document.getElementById('so-total-display');
   if(disp)disp.style.display='none';
   closeOvl('stock-add-ovl');
