@@ -448,6 +448,94 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
   <div class="container" id="data-inner" style="padding-top:14px;"></div>
 </div>
 
+<!-- 재고관리 탭 -->
+<div class="tp" id="tp-stock">
+  <div class="th"><div class="th-row">
+    <div class="th-av">📦</div>
+    <div><div class="th-ttl">재고 관리</div><div class="th-sub">필름 절단 재고 현황</div></div>
+    <button class="th-btn" onclick="openStockAdd()">＋ 입고</button>
+  </div></div>
+  <div class="container" style="padding-top:14px;padding-bottom:80px;">
+    <!-- 검색 -->
+    <div style="position:relative;margin-bottom:12px;">
+      <input type="text" id="stock-search" placeholder="색상명 검색..." oninput="renderStock()" style="width:100%;padding:10px 14px 10px 36px;border:1.5px solid var(--bd);border-radius:10px;font-size:14px;font-family:inherit;outline:none;background:white;">
+      <span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:14px;">🔍</span>
+    </div>
+    <!-- 재고 부족 경고 -->
+    <div id="stock-alert-wrap"></div>
+    <!-- 재고 목록 -->
+    <div id="stock-list"></div>
+  </div>
+</div>
+
+<!-- 입고/출고 모달 -->
+<div class="ovl" id="stock-add-ovl">
+  <div class="modal" style="max-height:85vh;margin:7vh auto auto;border-radius:16px;overflow:hidden;max-width:500px;">
+    <div class="modal-bar">
+      <h3 id="stock-modal-title">📦 입고 등록</h3>
+      <button class="cls-btn" onclick="closeOvl('stock-add-ovl')">×</button>
+    </div>
+    <div style="padding:16px;overflow-y:auto;max-height:calc(85vh - 54px);">
+      <!-- 탭 -->
+      <div style="display:flex;gap:6px;margin-bottom:16px;background:var(--cr-dk);border-radius:10px;padding:6px;">
+        <button id="stock-tab-in" onclick="switchStockTab('in')" style="flex:1;padding:8px;border-radius:8px;border:none;font-size:13px;font-weight:800;cursor:pointer;background:var(--gn);color:white;font-family:inherit;">📥 입고</button>
+        <button id="stock-tab-out" onclick="switchStockTab('out')" style="flex:1;padding:8px;border-radius:8px;border:none;font-size:13px;font-weight:700;cursor:pointer;background:white;color:var(--g5);font-family:inherit;">📤 출고</button>
+      </div>
+      <!-- 신규 폼 숨김 (입고 폼에 통합) -->
+      <div id="stock-form-new" style="display:none;"></div>
+      <!-- 입고 폼 (신규 색상도 여기서 처리) -->
+      <div id="stock-form-in">
+        <div style="background:var(--gn-l);border:1.5px solid var(--gn);border-radius:9px;padding:10px 13px;margin-bottom:12px;font-size:12px;color:var(--gn);">
+          💡 목록에 없는 색상은 직접 입력하면 자동으로 신규 등록됩니다
+        </div>
+        <div class="field"><label>대분류</label>
+          <select id="si-cat" onchange="updateStockInModel()" style="width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;background:#fff;-webkit-appearance:none;outline:none;"></select>
+        </div>
+        <div class="field"><label>색상 선택</label>
+          <select id="si-model" style="width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;background:#fff;-webkit-appearance:none;outline:none;"></select>
+        </div>
+        <div class="field"><label>입고량 (m)</label>
+          <input id="si-qty" type="number" min="0.1" step="0.1" placeholder="입고 수량" style="width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;outline:none;">
+        </div>
+        <div class="field" id="si-warn-wrap"><label>재고 경고 기준 (m) — 처음 등록 시</label>
+          <input id="si-warn" type="number" min="0" placeholder="예: 5" value="5" style="width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;outline:none;">
+        </div>
+        <div class="field"><label>메모 (선택)</label>
+          <input id="si-memo" type="text" placeholder="예: 예림 발주분" style="width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;outline:none;">
+        </div>
+        <button onclick="saveStockIn()" style="width:100%;padding:14px;background:var(--gn);color:white;border:none;border-radius:10px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;margin-top:4px;">📥 입고 처리</button>
+      </div>
+      <!-- 출고 폼 -->
+      <div id="stock-form-out" style="display:none;">
+        <div class="field"><label>색상 선택</label>
+          <select id="so-item" style="width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;background:#fff;-webkit-appearance:none;outline:none;"></select>
+        </div>
+        <div class="field"><label>출고량 (m)</label>
+          <input id="so-qty" type="number" min="1" placeholder="출고 수량" style="width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;outline:none;">
+        </div>
+        <div class="field"><label>거래처 (선택)</label>
+          <input id="so-client" type="text" placeholder="거래처명" style="width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;outline:none;">
+        </div>
+        <div class="field"><label>메모 (선택)</label>
+          <input id="so-memo" type="text" placeholder="예: 현장 출고" style="width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;outline:none;">
+        </div>
+        <button onclick="saveStockOut()" style="width:100%;padding:14px;background:var(--or);color:white;border:none;border-radius:10px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;margin-top:4px;">📤 출고 처리</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 재고 상세/이력 모달 -->
+<div class="ovl" id="stock-detail-ovl">
+  <div class="modal" style="max-height:85vh;margin:7vh auto auto;border-radius:16px;overflow:hidden;max-width:500px;">
+    <div class="modal-bar">
+      <h3 id="stock-detail-title">재고 이력</h3>
+      <button class="cls-btn" onclick="closeOvl('stock-detail-ovl')">×</button>
+    </div>
+    <div id="stock-detail-inner" style="padding:14px;overflow-y:auto;max-height:calc(85vh - 54px);"></div>
+  </div>
+</div>
+
 <!-- 거래처 관리 모달 -->
 <div class="ovl" id="client-ovl">
   <div class="modal" style="max-height:80vh;margin:10vh auto auto;border-radius:16px;overflow:hidden;max-width:500px;">
@@ -476,6 +564,7 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
   <button class="bn" id="bn-film-price" onclick="switchTab('film-price')">필름<br>단가표</button>
   <button class="bn" id="bn-price" onclick="switchTab('price')">생산도어<br>단가표</button>
   <button class="bn" id="bn-data" onclick="switchTab('data')">데이터</button>
+  <button class="bn" id="bn-stock" onclick="switchTab('stock')">재고<br>관리</button>
 </nav>
 
 </div>
@@ -1763,6 +1852,207 @@ function renderData(){
       <button onclick="if(confirm('전체 삭제?')){localStorage.removeItem('om_sales');renderData();}" style="flex:1;padding:12px;border:1.5px solid #FFBBAA;border-radius:9px;background:#fff;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;color:var(--or)">🗑 초기화</button>
     </div>`;
 }
+// ===== 재고 관리 =====
+function loadStock(){try{return JSON.parse(localStorage.getItem('om_stock')||'[]');}catch(e){return[];}}
+function saveStock(arr){localStorage.setItem('om_stock',JSON.stringify(arr));}
+function loadStockLog(){try{return JSON.parse(localStorage.getItem('om_stock_log')||'[]');}catch(e){return[];}}
+function saveStockLog(arr){localStorage.setItem('om_stock_log',JSON.stringify(arr.slice(0,1000)));}
+
+function openStockAdd(){
+  switchStockTab('in');
+  // 대분류 드롭다운 초기화
+  const siCat=document.getElementById('si-cat');
+  if(siCat&&siCat.children.length===0){
+    siCat.innerHTML=MODEL_KEYS.map(k=>`<option value="${k}">${MODEL_DB[k].name}</option>`).join('');
+  }
+  updateStockInModel();
+  refreshStockSelects();
+  document.getElementById('stock-add-ovl').classList.add('show');
+}
+function switchStockTab(tab){
+  ['in','out','new'].forEach(t=>{
+    const btn=document.getElementById('stock-tab-'+t);
+    const form=document.getElementById('stock-form-'+t);
+    if(form)form.style.display=t===tab?'block':'none';
+    if(!btn)return;
+    const isActive=t===tab;
+    const baseStyle='flex:1;padding:8px;border-radius:8px;border:none;font-size:13px;cursor:pointer;font-family:inherit;';
+    const colors={in:'background:var(--gn);color:white;font-weight:800;',out:'background:var(--or);color:white;font-weight:800;'};
+    btn.style.cssText=baseStyle+(isActive?(colors[t]||'background:var(--br);color:white;font-weight:800;'):'background:white;color:var(--g5);font-weight:700;');
+  });
+  const titles={in:'📥 입고',out:'📤 출고'};
+  const t=document.getElementById('stock-modal-title');
+  if(t)t.textContent=titles[tab]||'재고 관리';
+}
+function updateStockInModel(){
+  const cat=document.getElementById('si-cat')?.value;
+  const modelSel=document.getElementById('si-model');
+  if(!cat||!modelSel)return;
+  const db=MODEL_DB[cat];
+  if(!db)return;
+  modelSel.innerHTML=db.models.map(m=>`<option value="${m}">${m}</option>`).join('');
+  // 경고 기준 wrap: 이미 등록된 색상이면 숨김
+  updateSiWarnVisibility();
+}
+function updateSiWarnVisibility(){
+  const modelName=document.getElementById('si-model')?.value;
+  const arr=loadStock();
+  const exists=arr.find(s=>s.modelName===modelName);
+  const wrap=document.getElementById('si-warn-wrap');
+  if(wrap)wrap.style.display=exists?'none':'block';
+}
+function updateStockNewModel(){updateStockInModel();}
+function refreshStockSelects(){
+  const arr=loadStock();
+  const soItem=document.getElementById('so-item');
+  if(soItem){
+    soItem.innerHTML=arr.length===0?'<option value="">등록된 재고 없음</option>'
+      :arr.map(s=>`<option value="${s.id}">${s.modelName} (${s.qty}m)</option>`).join('');
+  }
+}
+function saveStockNew(){saveStockIn();}
+function saveStockIn(){
+  const cat=document.getElementById('si-cat')?.value;
+  const modelName=document.getElementById('si-model')?.value;
+  const qty=parseFloat(document.getElementById('si-qty')?.value)||0;
+  const warn=parseFloat(document.getElementById('si-warn')?.value)||5;
+  const memo=document.getElementById('si-memo')?.value||'';
+  if(!modelName){alert('색상을 선택해주세요.');return;}
+  if(qty<=0){alert('입고 수량을 입력해주세요.');return;}
+  const arr=loadStock();
+  let item=arr.find(s=>s.modelName===modelName);
+  const isNew=!item;
+  if(isNew){
+    const db=MODEL_DB[cat]||{};
+    item={id:Date.now(),cat,catName:db.name||cat,modelName,qty:0,warn};
+    arr.push(item);
+  }
+  item.qty=Math.round((item.qty+qty)*10)/10;
+  saveStock(arr);
+  const log=loadStockLog();
+  log.unshift({id:Date.now(),stockId:item.id,modelName,type:'입고',qty,memo:isNew?`신규 등록${memo?' · '+memo:''}`:memo,date:today()});
+  saveStockLog(log);
+  document.getElementById('si-qty').value='';
+  document.getElementById('si-memo').value='';
+  closeOvl('stock-add-ovl');
+  renderStock();
+}
+function saveStockOut(){
+  const stockId=parseInt(document.getElementById('so-item')?.value);
+  const qty=parseFloat(document.getElementById('so-qty')?.value)||0;
+  const client=document.getElementById('so-client')?.value||'';
+  const memo=document.getElementById('so-memo')?.value||'';
+  if(!stockId||qty<=0){alert('수량을 입력해주세요.');return;}
+  const arr=loadStock();
+  const item=arr.find(s=>s.id===stockId);
+  if(!item){alert('항목을 찾을 수 없습니다.');return;}
+  if(item.qty<qty){alert(`재고 부족! 현재 잔량: ${item.qty}m`);return;}
+  item.qty=Math.round((item.qty-qty)*10)/10;
+  saveStock(arr);
+  const log=loadStockLog();
+  log.unshift({id:Date.now(),stockId,modelName:item.modelName,type:'출고',qty,client,memo,date:today()});
+  saveStockLog(log);
+  document.getElementById('so-qty').value='';
+  document.getElementById('so-client').value='';
+  document.getElementById('so-memo').value='';
+  closeOvl('stock-add-ovl');
+  renderStock();
+}
+function deleteStock(id){
+  if(!confirm('이 항목을 삭제할까요?'))return;
+  saveStock(loadStock().filter(s=>s.id!==id));
+  renderStock();
+}
+function showStockDetail(id){
+  const arr=loadStock();
+  const item=arr.find(s=>s.id===id);
+  if(!item)return;
+  const logs=loadStockLog().filter(l=>l.stockId===id);
+  document.getElementById('stock-detail-title').textContent=item.modelName;
+  const inner=document.getElementById('stock-detail-inner');
+  inner.innerHTML=`
+    <div style="background:var(--or);color:white;border-radius:12px;padding:16px 20px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;">
+      <div><div style="font-size:12px;opacity:.85">현재 잔량</div><div style="font-size:28px;font-weight:900">${item.qty}m</div></div>
+      <div style="display:flex;gap:8px;">
+        <button onclick="closeOvl('stock-detail-ovl');switchStockTab('in');refreshStockSelects();setTimeout(()=>{document.getElementById('si-item').value=${id};},50);document.getElementById('stock-add-ovl').classList.add('show');" style="padding:8px 14px;background:var(--gn);color:white;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">📥 입고</button>
+        <button onclick="closeOvl('stock-detail-ovl');switchStockTab('out');refreshStockSelects();setTimeout(()=>{document.getElementById('so-item').value=${id};},50);document.getElementById('stock-add-ovl').classList.add('show');" style="padding:8px 14px;background:var(--or);color:white;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;">📤 출고</button>
+      </div>
+    </div>
+    <div style="font-size:13px;font-weight:800;color:var(--g7);margin-bottom:8px;">📋 입출고 이력</div>
+    ${logs.length===0?'<div style="text-align:center;color:var(--g5);padding:20px;">이력 없음</div>':
+      logs.map(l=>`
+        <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--bd);">
+          <div style="width:40px;height:40px;border-radius:50%;background:${l.type==='입고'?'var(--gn)':'var(--or)'};color:white;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">${l.type==='입고'?'📥':'📤'}</div>
+          <div style="flex:1;">
+            <div style="font-size:13px;font-weight:700;color:${l.type==='입고'?'var(--gn)':'var(--or)'};">${l.type} ${l.qty}m</div>
+            <div style="font-size:11px;color:var(--g5);">${l.date}${l.client?' · '+l.client:''}${l.memo?' · '+l.memo:''}</div>
+          </div>
+        </div>`).join('')}
+    <div style="margin-top:16px;padding-top:12px;border-top:2px solid var(--bd);">
+      <button onclick="deleteStock(${id});closeOvl('stock-detail-ovl');" style="width:100%;padding:12px;border:1.5px solid #FFBBAA;border-radius:9px;background:#fff;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;color:var(--or)">🗑 이 항목 삭제</button>
+    </div>`;
+  document.getElementById('stock-detail-ovl').classList.add('show');
+}
+function renderStock(){
+  const arr=loadStock();
+  const q=(document.getElementById('stock-search')?.value||'').toLowerCase();
+  const filtered=arr.filter(s=>!q||s.modelName.toLowerCase().includes(q)||(s.catName||'').includes(q));
+
+  // 부족 경고
+  const warns=arr.filter(s=>s.qty<=s.warn);
+  const alertWrap=document.getElementById('stock-alert-wrap');
+  if(alertWrap){
+    alertWrap.innerHTML=warns.length>0?`
+      <div style="background:#FEF0E4;border:1.5px solid var(--or);border-radius:10px;padding:12px 14px;margin-bottom:12px;">
+        <div style="font-size:12px;font-weight:800;color:var(--or);margin-bottom:6px;">⚠️ 재고 부족 ${warns.length}종</div>
+        ${warns.map(s=>`<div style="font-size:12px;color:var(--g7);padding:2px 0;">• ${s.modelName} — <b>${s.qty}m</b> 남음</div>`).join('')}
+      </div>`:'';
+  }
+
+  const el=document.getElementById('stock-list');
+  if(!el)return;
+  if(arr.length===0){
+    el.innerHTML=`<div style="text-align:center;padding:60px 20px;color:var(--g5);">
+      <div style="font-size:40px;margin-bottom:12px">📦</div>
+      <div style="font-size:15px;font-weight:700;margin-bottom:6px">등록된 재고가 없어요</div>
+      <div style="font-size:13px">상단 [＋ 입고] 버튼으로 색상을 등록하세요</div>
+    </div>`;return;
+  }
+  if(filtered.length===0){el.innerHTML='<div style="text-align:center;padding:24px;color:var(--g5)">검색 결과 없음</div>';return;}
+
+  // 카테고리별 그룹
+  const groups={};
+  filtered.forEach(s=>{
+    const cat=s.catName||s.cat||'기타';
+    if(!groups[cat])groups[cat]=[];
+    groups[cat].push(s);
+  });
+
+  el.innerHTML=Object.entries(groups).map(([cat,items])=>`
+    <div style="margin-bottom:16px;">
+      <div style="font-size:12px;font-weight:800;color:var(--g5);margin-bottom:6px;letter-spacing:.5px;text-transform:uppercase;">${cat}</div>
+      ${items.map(s=>{
+        const pct=Math.min(100,s.warn>0?Math.round(s.qty/Math.max(s.qty,s.warn*3)*100):100);
+        const isLow=s.qty<=s.warn;
+        return`<div onclick="showStockDetail(${s.id})" style="background:white;border:1.5px solid ${isLow?'var(--or)':'var(--bd)'};border-radius:10px;padding:13px 15px;margin-bottom:8px;cursor:pointer;box-shadow:var(--sh);">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <div style="flex:1;min-width:0;">
+              <div style="font-size:13px;font-weight:700;color:var(--g9);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${s.modelName}</div>
+            </div>
+            <div style="text-align:right;flex-shrink:0;margin-left:10px;">
+              <span style="font-size:20px;font-weight:900;color:${isLow?'var(--or)':'var(--br)'};">${s.qty}</span>
+              <span style="font-size:12px;color:var(--g5);">m</span>
+              ${isLow?'<span style="display:block;font-size:10px;color:var(--or);font-weight:700;">⚠ 부족</span>':''}
+            </div>
+          </div>
+          <div style="height:5px;background:#F0E8DC;border-radius:3px;overflow:hidden;">
+            <div style="height:100%;width:${pct}%;background:${isLow?'var(--or)':'var(--gn)'};border-radius:3px;transition:width .3s;"></div>
+          </div>
+        </div>`;
+      }).join('')}
+    </div>`).join('');
+}
+
 function exportCsv(){
   const s=loadSales();if(!s.length){alert('데이터 없음');return;}
   const csv='유형,거래처,날짜,금액,현장\n'+s.map(x=>`${x.type},${x.client},${x.date},${x.total||0},${x.site||''}`).join('\n');
@@ -1772,7 +2062,7 @@ function exportCsv(){
 }
 
 // ===== 탭 전환 =====
-const TABS=['chat','film','door','film-price','price','data'];
+const TABS=['chat','film','door','film-price','price','data','stock'];
 function switchTab(name){
   TABS.forEach(t=>{
     const p=document.getElementById('tp-'+t);if(!p)return;
@@ -1784,6 +2074,7 @@ function switchTab(name){
   if(name==='data')renderData();
   if(name==='price')renderPriceTable();
   if(name==='film-price')renderFilmPriceTable();
+  if(name==='stock')renderStock();
   if(name==='chat'){const m=document.getElementById('chat-msgs');if(m)setTimeout(()=>m.scrollTop=m.scrollHeight,50);}
   if(name!=='chat'){const el=document.getElementById('tp-'+name);if(el)el.scrollTop=0;window.scrollTo(0,0);}
 }
@@ -2141,6 +2432,12 @@ function initAll(){
   filmSectionOpen={};
   FILM_PRICE_SECTIONS.forEach(s=>filmSectionOpen[s.key]=false);
   filmSectionOpen['solid']=true;
+  // 재고 입고 대분류 드롭다운 초기화
+  const siCat=document.getElementById('si-cat');
+  if(siCat){
+    siCat.innerHTML=MODEL_KEYS.map(k=>`<option value="${k}">${MODEL_DB[k].name}</option>`).join('');
+    updateStockInModel();
+  }
   refreshFilmDoorDrops();addItem();renderDoorGroups();initChat();
 }
 window.addEventListener('load',function(){
