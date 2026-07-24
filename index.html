@@ -1839,7 +1839,7 @@ function renderData(){
   // 집계
   const totalQty=stock.reduce((s,x)=>s+x.qty,0);
   const totalColors=stock.length;
-  const lowStock=stock.filter(s=>s.qty<=s.warn);
+  const lowStock=stock.filter(s=>s.qty>0&&s.qty<=s.warn);
 
   // 출고 로그만
   const outLogs=log.filter(l=>l.type==='출고');
@@ -2225,7 +2225,7 @@ function renderStock(){
   const q=(document.getElementById('stock-search')?.value||'').toLowerCase();
   const filtered=arr.filter(s=>!q||s.modelName.toLowerCase().includes(q)||(s.catName||'').includes(q));
 
-  const warns=arr.filter(s=>s.qty<=s.warn);
+  const warns=arr.filter(s=>s.qty>0&&s.qty<=s.warn);
   const alertWrap=document.getElementById('stock-alert-wrap');
   if(alertWrap){
     if(warns.length>0){
