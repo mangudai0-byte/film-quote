@@ -2297,6 +2297,55 @@ function saveStockOut(){
   closeOvl('stock-add-ovl');
   renderStock();
 }
+function toggleRenamePanel(id){
+  const panel=document.getElementById('rename-panel-'+id);
+  if(!panel)return;
+  const willShow=panel.style.display==='none';
+  panel.style.display=willShow?'block':'none';
+  if(willShow){const inp=panel.querySelector('.model-search-input');if(inp)setTimeout(()=>inp.focus(),30);}
+}
+let renameResultsMap={};
+function onRenameSearch(id,q){
+  const box=document.getElementById('rename-results-'+id);if(!box)return;
+  const q2=(q||'').trim();
+  if(!q2){box.innerHTML='';box.classList.remove('show');renameResultsMap[id]=[];return;}
+  const results=searchModelDB(q2);
+  renameResultsMap[id]=results;
+  if(results.length===0){
+    box.innerHTML='<div class="sr-empty">검색 결과 없음</div>';
+  } else {
+    box.innerHTML=results.map((r,i)=>`<div class="sr-item" onmousedown="event.preventDefault();applyRenameStock(${id},${i})"><span class="sr-model">${r.model}</span><span class="sr-cat">${r.catName}</span></div>`).join('');
+  }
+  box.classList.add('show');
+}
+function hideRenameResults(id){
+  const box=document.getElementById('rename-results-'+id);
+  if(box)box.classList.remove('show');
+}
+function applyRenameStock(id,i){
+  const r=(renameResultsMap[id]||[])[i];if(!r)return;
+  const arr=loadStock();
+  const item=arr.find(s=>s.id===id);
+  if(!item)return;
+  if(r.model===item.modelName){toggleRenamePanel(id);return;}
+  const target=arr.find(s=>s.modelName===r.model&&s.id!==id);
+  if(target){
+    if(!confirm(`"${r.model}" 항목이 이미 있습니다.\n두 항목을 합칠까요?\n(${item.modelName} ${item.qty}m + ${target.modelName} ${target.qty}m = ${Math.round((item.qty+target.qty)*10)/10}m)`))return;
+    target.qty=Math.round((target.qty+item.qty)*10)/10;
+    const logs=loadStockLog();
+    logs.forEach(l=>{if(l.stockId===id){l.stockId=target.id;l.modelName=target.modelName;}});
+    saveStockLog(logs);
+    saveStock(arr.filter(s=>s.id!==id));
+  } else {
+    item.modelName=r.model;item.cat=r.catKey;item.catName=r.catName;
+    const logs=loadStockLog();
+    logs.forEach(l=>{if(l.stockId===id)l.modelName=r.model;});
+    saveStockLog(logs);
+    saveStock(arr);
+  }
+  closeOvl('stock-detail-ovl');
+  renderStock();
+}
 function deleteStock(id){
   if(!confirm('이 항목을 삭제할까요?'))return;
   saveStock(loadStock().filter(s=>s.id!==id));
@@ -2328,6 +2377,13 @@ function showStockDetail(id){
           </div>
         </div>`).join('')}
     <div style="margin-top:16px;padding-top:12px;border-top:2px solid var(--bd);">
+      <button onclick="toggleRenamePanel(${id})" style="width:100%;padding:12px;border:1.5px solid var(--bd);border-radius:9px;background:#fff;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;color:var(--g7);margin-bottom:8px;">✏️ 이름 변경 / 병합</button>
+      <div id="rename-panel-${id}" style="display:none;position:relative;margin-bottom:8px;">
+        <input type="text" class="model-search-input" placeholder="올바른 모델명 검색 (예: 프렌치오크K)" autocomplete="off"
+          oninput="onRenameSearch(${id},this.value)"
+          onblur="setTimeout(()=&gt;hideRenameResults(${id}),150)">
+        <div class="model-search-results" id="rename-results-${id}"></div>
+      </div>
       <button onclick="deleteStock(${id});closeOvl('stock-detail-ovl');" style="width:100%;padding:12px;border:1.5px solid #FFBBAA;border-radius:9px;background:#fff;font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;color:var(--or)">🗑 이 항목 삭제</button>
     </div>`;
   document.getElementById('stock-detail-ovl').classList.add('show');
