@@ -161,6 +161,18 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
 .sel-block select{width:100%;padding:11px 36px 11px 14px;border-radius:8px;font-size:14px;font-family:inherit;-webkit-appearance:none;appearance:none;cursor:pointer;font-weight:600;outline:none;}
 .sel-block.cat select{border:1.5px solid #C8A070;background:linear-gradient(to bottom,#FAF0E4,#F5E6D2);color:var(--om-brown);}
 .sel-block.model select{border:1.5px solid #D4B090;background:linear-gradient(to bottom,#FBF5EC,#F5EDE0);color:var(--om-brown-mid);}
+.sel-block.search::after{content:none;}
+.sel-block.search label{color:var(--om-brown);}
+.model-search-input{width:100%;padding:11px 14px 11px 36px;border-radius:8px;font-size:14px;font-family:inherit;border:1.5px solid var(--border);outline:none;box-sizing:border-box;background:white url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="%23999" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>') no-repeat 12px center;}
+.model-search-input:focus{border-color:var(--om-brown);}
+.model-search-results{display:none;position:absolute;left:0;right:0;top:100%;margin-top:4px;max-height:240px;overflow-y:auto;background:white;border:1.5px solid var(--om-brown);border-radius:10px;box-shadow:0 8px 20px rgba(0,0,0,.12);z-index:50;}
+.model-search-results.show{display:block;}
+.sr-item{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 14px;cursor:pointer;border-bottom:1px solid #F0EBE3;}
+.sr-item:last-child{border-bottom:none;}
+.sr-item:hover,.sr-item.active{background:#FAF0E4;}
+.sr-model{font-size:13px;font-weight:700;color:var(--gray-900);}
+.sr-cat{font-size:11px;font-weight:600;color:var(--gray-500);white-space:nowrap;}
+.sr-empty{padding:14px;text-align:center;font-size:12px;color:var(--gray-500);}
 .breakdown{background:white;border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;}
 .bd-title{font-size:10px;font-weight:700;color:var(--gray-500);margin-bottom:8px;letter-spacing:.8px;text-transform:uppercase;}
 .bd-chips{display:flex;flex-direction:column;gap:7px;}
@@ -629,7 +641,7 @@ const MODEL_DB={
   'HP_high':{name:'페인트',roll:6100,cut:9300,models:['HP501 바닐라페인트','HP518 화이트헤링본','HP519 토피넛헤링본','HP520 미드블루헤링본','HP521 쁘레회벽화이트','HP522 쁘레회벽웜그레이','HP523 쁘레회벽쿨그레이','HP524 쁘레회벽코지브라운','HP525 쁘레회벽로지','HP526 쁘레회벽크림콘','HP527 쁘레회벽민트','HP530 쁘레회벽스노우','HP540 쁘레회벽크램','HP601 프리모듀화이트','HP602 프리모베일화이트','HP603 아트페어화이트','HP604 로하스클레이화이트']},
   'HW':{name:'우드(HW)',roll:5900,cut:9100,models:['HW1001 클리어오크','HW1002 심플그레인','HW1004 크림오크','HW1009 브러쉬오크소프트','HW1010 버치','HW1016 프렌치오크','HW1019 오크마일드','HW1020 브러쉬오크마일드','HW1021 리얼오크','HW1023 콰트로러스크(세로)','HW1024 로열워시오크','HW1025 빈티지오크','HW1028 클래식오크','HW1031 화이트오크','HW1033 그레이오크','HW1035 워시애쉬','HW1036 콰트로브룩클린(세로)','HW1038 중체리','HW1039 연체리','HW1040 콰트로시에나(세로)','HW1041 메이플','HW1044 레드티크','HW1045 레드오크','HW1046 홍송','HW1047 콰트로엄버(세로)','HW1049 월넛','HW1050 크린웬지','HW1055 로열아카시아','HW1056 로열월넛','HW1058 티크','HW1059 아카시아','HW1060 연월넛','HW1065 브릭월넛','HW1066 딥브라운월넛','HW1067 로즈탄오크','HW1068 새들탄오크','HW1069 프리스틴오크','HW1070 아콘오크','HW1071 더스트애쉬','HW1072 헤이즐애쉬','HW1073 브랜디오크','HW1077 카멜사펠레','HW1078 브라운사펠레','HW1079 세피아사펠레','HW1083 리브베이지','HW1084 리브브라운']},
   'HWB':{name:'우드(HWB)',roll:6100,cut:9300,models:['HWB1003 소프트워시오크','HWB1005 화인오크','HWB1007 브룩시더(세로)','HWB1011 락메이플','HWB1012 쉬머오크','HWB1013 샤인오크','HWB1014 브룩시더베이지(세로)','HWB1017 마일드워시오크','HWB1018 쏘마크오크','HWB1022 스트라이프우드','HWB1027 크림월넛','HWB1029 퓨어오크','HWB1030 펄오크','HWB1034 베이지오크','HWB1042 내츄럴브라운','HWB1052 애쉬브라운','HWB1061 디어애쉬','HWB1062 워시그레이','HWB1063 애쉬라이트브라운','HWB1064 오크딥','HWB1076 워시베이지','HWB1080 미스티엘름','HWB1081 샌드엘름','HWB1082 토프엘름']},
-  'HPW':{name:'키친우드',roll:6100,cut:9300,models:['HPW21 프렌치오크','HPW22 피넛오크','HPW23 카카오월넛','HPW24 던오크']},
+  'HPW':{name:'키친우드',roll:6100,cut:9300,models:['HPW21 프렌치오크K','HPW22 피넛오크','HPW23 카카오월넛','HPW24 던오크']},
   'GW':{name:'그란데우드',roll:8700,cut:11900,models:['GW001 그란데체스넛샌드','GW002 그란데체스넛토프','GW003 그란데체스넛마롱','GW004 그란데체스넛바크','GW005 그란데오크카멜','GW006 그란데오크넛티']},
   'RW':{name:'레노우드',roll:8700,cut:11900,models:['RW5001 레노라벨로월넛','RW5002 레노샌드오크','RW5003 레노오가닉오크','RW5004 레노라티버치','RW5005 레노팔라우티크']},
   'HN':{name:'스톤',roll:5900,cut:9100,models:['HN2001 솔리드콘크리트그레이','HN2002 솔리드콘크리트다크','HN2003 솔리드스톤그레이','HN2004 솔리드스톤브라운','HN2009 유로스톤화이트','HN2010 유로스톤포그화이트','HN2011 유로스톤모데나크림','HN2012 유로스톤샌드','HN2013 유로스톤멜린지']},
@@ -863,6 +875,53 @@ function calc(qty,r,c,flame){
 function addItem(){const id=cnt++,k=MODEL_KEYS[0],db=MODEL_DB[k];items.push({id,catKey:k,modelName:db.models[0],qty:5,r:db.roll,c:db.cut,flame:false,open:true});renderAll();}
 function removeItem(id){items=items.filter(x=>x.id!==id);renderAll();}
 function get(id){return items.find(x=>x.id===id);}
+let searchResultsMap={};
+function searchModelDB(q){
+  q=(q||'').trim().toLowerCase();
+  if(!q)return[];
+  const res=[];
+  MODEL_KEYS.forEach(k=>{
+    const db=MODEL_DB[k];
+    db.models.forEach(m=>{
+      if(m.toLowerCase().includes(q))res.push({catKey:k,catName:db.name,model:m});
+    });
+  });
+  return res.slice(0,30);
+}
+function onModelSearch(id,q){
+  const box=document.getElementById('search-results-'+id);if(!box)return;
+  const q2=(q||'').trim();
+  if(!q2){box.innerHTML='';box.classList.remove('show');searchResultsMap[id]=[];return;}
+  const results=searchModelDB(q2);
+  searchResultsMap[id]=results;
+  if(results.length===0){
+    box.innerHTML='<div class="sr-empty">검색 결과 없음</div>';
+  } else {
+    box.innerHTML=results.map((r,i)=>`<div class="sr-item" onmousedown="event.preventDefault();selectSearchResult(${id},${i})"><span class="sr-model">${r.model}</span><span class="sr-cat">${r.catName}</span></div>`).join('');
+  }
+  box.classList.add('show');
+}
+function hideSearchResults(id){
+  const box=document.getElementById('search-results-'+id);
+  if(box)box.classList.remove('show');
+}
+function selectSearchResult(id,i){
+  const r=(searchResultsMap[id]||[])[i];if(!r)return;
+  const it=get(id);if(!it)return;
+  const db=MODEL_DB[r.catKey];if(!db)return;
+  it.catKey=r.catKey;it.modelName=r.model;it.r=db.roll;it.c=db.cut;
+  const det=document.getElementById('det-'+id);
+  if(det){
+    const catSel=det.querySelector('.cat-sel');
+    if(catSel)catSel.value=r.catKey;
+    const modelSel=det.querySelector('.model-sel');
+    if(modelSel){modelSel.innerHTML=db.models.map(m=>`<option value="${m}"${m===it.modelName?' selected':''}>${m}</option>`).join('');}
+    const searchInp=det.querySelector('.model-search-input');
+    if(searchInp)searchInp.value='';
+  }
+  hideSearchResults(id);
+  updateItemHeader(id);updateBreakdown(id);
+}
 function onCat(id,catKey){
   const it=get(id);it.catKey=catKey;
   const db=MODEL_DB[catKey];it.modelName=db.models[0];it.r=db.roll;it.c=db.cut;
@@ -928,9 +987,17 @@ function buildEl(it,num){
     </div>
     <div class="item-detail${isOpen?'':' hidden'}" id="det-${it.id}">
       <div class="item-body">
+        <div class="sel-block search">
+          <label>필름명 검색</label>
+          <input type="text" class="model-search-input" placeholder="모델번호나 색상명으로 검색 (예: 프렌치오크)" autocomplete="off"
+            oninput="onModelSearch(${it.id},this.value)"
+            onfocus="onModelSearch(${it.id},this.value)"
+            onblur="setTimeout(()=>hideSearchResults(${it.id}),150)">
+          <div class="model-search-results" id="search-results-${it.id}"></div>
+        </div>
         <div class="sel-group">
           <div class="sel-block cat"><label>대분류</label>
-            <select onchange="onCat(${it.id},this.value)">${MODEL_KEYS.map(k=>`<option value="${k}"${k===it.catKey?' selected':''}>${MODEL_DB[k].name}</option>`).join('')}</select>
+            <select class="cat-sel" onchange="onCat(${it.id},this.value)">${MODEL_KEYS.map(k=>`<option value="${k}"${k===it.catKey?' selected':''}>${MODEL_DB[k].name}</option>`).join('')}</select>
           </div>
           <div class="sel-block model"><label>품명</label>
             <select class="model-sel" onchange="onModel(${it.id},this.value)">${db.models.map(m=>`<option value="${m}"${m===it.modelName?' selected':''}>${m}</option>`).join('')}</select>
