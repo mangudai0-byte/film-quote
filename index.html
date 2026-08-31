@@ -528,12 +528,20 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
         <div style="background:var(--gn-l);border:1.5px solid var(--gn);border-radius:9px;padding:10px 13px;margin-bottom:12px;font-size:12px;color:var(--gn);">
           💡 목록에 없는 색상도 선택하면 자동으로 신규 등록됩니다
         </div>
+        <div class="field" style="position:relative;"><label>필름명 검색</label>
+          <input id="si-search-input" type="text" class="model-search-input" placeholder="모델번호나 색상명으로 검색" autocomplete="off"
+            oninput="onStockModelSearch('si',this.value)"
+            onfocus="onStockModelSearch('si',this.value)"
+            onblur="setTimeout(()=&gt;hideStockSearchResults('si'),150)">
+          <div class="model-search-results" id="si-search-results"></div>
+        </div>
         <div class="field"><label>대분류</label>
           <select id="si-cat" onchange="updateStockInModel()" style="width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;background:#fff;-webkit-appearance:none;outline:none;"></select>
         </div>
         <div class="field"><label>색상 선택</label>
           <select id="si-model" onchange="updateSiWarnVisibility()" style="width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;background:#fff;-webkit-appearance:none;outline:none;"></select>
         </div>
+        <div id="si-stock-info" style="display:none;margin-bottom:10px;padding:10px 13px;border-radius:8px;font-size:13px;font-weight:700;text-align:center;"></div>
         <div class="field"><label>입고량</label>
           <div style="display:flex;align-items:center;gap:8px;">
             <div style="flex:1;position:relative;">
@@ -556,6 +564,13 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
 
       <!-- 출고 폼 -->
       <div id="stock-form-out" style="display:none;">
+        <div class="field" style="position:relative;"><label>필름명 검색</label>
+          <input id="so-search-input" type="text" class="model-search-input" placeholder="모델번호나 색상명으로 검색" autocomplete="off"
+            oninput="onStockModelSearch('so',this.value)"
+            onfocus="onStockModelSearch('so',this.value)"
+            onblur="setTimeout(()=&gt;hideStockSearchResults('so'),150)">
+          <div class="model-search-results" id="so-search-results"></div>
+        </div>
         <div class="field"><label>대분류</label>
           <select id="so-cat" onchange="updateStockOutModel()" style="width:100%;padding:10px 13px;border:1.5px solid var(--bd);border-radius:8px;font-size:14px;font-family:inherit;background:#fff;-webkit-appearance:none;outline:none;"></select>
         </div>
@@ -2076,6 +2091,36 @@ function saveStockLog(arr){
   window._fbDb.ref('stock_log').set(obj);
 }
 
+let stockSearchResultsMap={};
+function onStockModelSearch(prefix,q){
+  const box=document.getElementById(prefix+'-search-results');if(!box)return;
+  const q2=(q||'').trim();
+  if(!q2){box.innerHTML='';box.classList.remove('show');stockSearchResultsMap[prefix]=[];return;}
+  const results=searchModelDB(q2);
+  stockSearchResultsMap[prefix]=results;
+  if(results.length===0){
+    box.innerHTML='<div class="sr-empty">검색 결과 없음</div>';
+  } else {
+    box.innerHTML=results.map((r,i)=>`<div class="sr-item" onmousedown="event.preventDefault();selectStockSearchResult('${prefix}',${i})"><span class="sr-model">${r.model}</span><span class="sr-cat">${r.catName}</span></div>`).join('');
+  }
+  box.classList.add('show');
+}
+function hideStockSearchResults(prefix){
+  const box=document.getElementById(prefix+'-search-results');
+  if(box)box.classList.remove('show');
+}
+function selectStockSearchResult(prefix,i){
+  const r=(stockSearchResultsMap[prefix]||[])[i];if(!r)return;
+  const catSel=document.getElementById(prefix+'-cat');
+  const modelSel=document.getElementById(prefix+'-model');
+  const db=MODEL_DB[r.catKey];if(!db)return;
+  if(catSel)catSel.value=r.catKey;
+  if(modelSel)modelSel.innerHTML=db.models.map(m=>`<option value="${m}"${m===r.model?' selected':''}>${m}</option>`).join('');
+  const inp=document.getElementById(prefix+'-search-input');
+  if(inp)inp.value='';
+  hideStockSearchResults(prefix);
+  if(prefix==='si')updateSiWarnVisibility();else updateSoStockInfo();
+}
 function switchStockTab(tab){
   ['in','out','new'].forEach(t=>{
     const btn=document.getElementById('stock-tab-'+t);
@@ -2107,6 +2152,22 @@ function updateSiWarnVisibility(){
   const exists=arr.find(s=>s.modelName===modelName);
   const wrap=document.getElementById('si-warn-wrap');
   if(wrap)wrap.style.display=exists?'none':'block';
+  const info=document.getElementById('si-stock-info');
+  if(info){
+    if(exists){
+      info.style.display='block';
+      info.style.background=exists.qty<=exists.warn?'#FEF0E4':'#EAF0E8';
+      info.style.borderColor=exists.qty<=exists.warn?'var(--or)':'var(--gn)';
+      info.style.color=exists.qty<=exists.warn?'var(--or)':'var(--gn)';
+      info.textContent=`현재 재고: ${exists.qty}m${exists.qty<=exists.warn?' ⚠ 부족':''}`;
+    }else{
+      info.style.display='block';
+      info.style.background='#EAF0E8';
+      info.style.borderColor='var(--gn)';
+      info.style.color='var(--gn)';
+      info.textContent='🆕 신규 색상 — 입고 시 자동 등록됩니다';
+    }
+  }
 }
 function updateStockNewModel(){updateStockInModel();}
 function openStockAdd(tab){
