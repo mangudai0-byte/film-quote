@@ -609,6 +609,17 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
   </div>
 </div>
 
+<!-- 잘못된 이름 데이터 정리 모달 -->
+<div class="ovl" id="cleanup-ovl">
+  <div class="modal" style="max-height:92vh;margin:4vh auto auto;border-radius:16px;overflow:hidden;max-width:500px;">
+    <div class="modal-bar">
+      <h3>🧹 잘못된 이름 데이터 정리</h3>
+      <button class="cls-btn" onclick="closeOvl('cleanup-ovl')">×</button>
+    </div>
+    <div id="cleanup-inner" style="padding:14px;overflow-y:auto;max-height:calc(85vh - 54px);"></div>
+  </div>
+</div>
+
 <!-- 거래처 관리 모달 -->
 <div class="ovl" id="client-ovl">
   <div class="modal" style="max-height:80vh;margin:10vh auto auto;border-radius:16px;overflow:hidden;max-width:500px;">
@@ -1964,7 +1975,15 @@ function renderData(){
   // 최근 이력 10건
   const recentLog=log.slice(0,10);
 
+  // 잘못된(현재 단가표에 없는) 이름 데이터 감지
+  const orphanNames=findOrphanNames();
+
   el.innerHTML=`
+    ${orphanNames.length>0?`
+    <div onclick="openCleanupPanel()" style="cursor:pointer;background:#FEF0E4;border:1.5px solid var(--or);border-radius:10px;padding:12px 14px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-size:12px;font-weight:800;color:var(--or);">⚠️ 잘못된 이름 데이터 ${orphanNames.length}건 발견</div>
+      <div style="font-size:11px;font-weight:700;color:var(--or);">정리하기 ›</div>
+    </div>`:''}
     <!-- 요약 카드 -->
     <div class="stat-grid" style="grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px;">
       <div class="sg-card" style="text-align:center;">
@@ -2296,6 +2315,109 @@ function saveStockOut(){
   if(disp)disp.style.display='none';
   closeOvl('stock-add-ovl');
   renderStock();
+}
+function getValidModelNameSet(){
+  const set=new Set();
+  MODEL_KEYS.forEach(k=>MODEL_DB[k].models.forEach(m=>set.add(m)));
+  return set;
+}
+function findOrphanNames(){
+  const valid=getValidModelNameSet();
+  const stock=loadStock();
+  const log=loadStockLog();
+  const names=new Set();
+  stock.forEach(s=>{if(!valid.has(s.modelName))names.add(s.modelName);});
+  log.forEach(l=>{if(!valid.has(l.modelName))names.add(l.modelName);});
+  return Array.from(names);
+}
+let cleanupResultsMap={};
+function openCleanupPanel(){
+  window._orphanList=findOrphanNames();
+  renderCleanupPanel();
+  document.getElementById('cleanup-ovl').classList.add('show');
+}
+function renderCleanupPanel(){
+  const inner=document.getElementById('cleanup-inner');if(!inner)return;
+  const orphans=window._orphanList||[];
+  const stock=loadStock();
+  const log=loadStockLog();
+  if(orphans.length===0){
+    inner.innerHTML='<div style="text-align:center;padding:40px 20px;color:var(--g5)"><div style="font-size:32px;margin-bottom:10px">✅</div><div style="font-size:14px;font-weight:700;">정리할 항목이 없어요</div></div>';
+    return;
+  }
+  inner.innerHTML=`
+    <div style="font-size:12px;color:var(--g5);margin-bottom:12px;">현재 단가표에 없는 이름들이에요. 올바른 이름을 검색해서 연결하면 재고·이력이 자동으로 합쳐져요.</div>
+    ${orphans.map((name,i)=>{
+      const stockItem=stock.find(s=>s.modelName===name);
+      const logCount=log.filter(l=>l.modelName===name).length;
+      return `
+      <div style="border:1.5px solid var(--bd);border-radius:10px;padding:12px;margin-bottom:10px;">
+        <div style="font-size:13px;font-weight:800;color:var(--g9);margin-bottom:2px;">${name}</div>
+        <div style="font-size:11px;color:var(--g5);margin-bottom:8px;">${stockItem?`현재 재고 ${stockItem.qty}m · `:''}이력 ${logCount}건</div>
+        <div style="position:relative;">
+          <input type="text" class="model-search-input" placeholder="올바른 이름 검색" autocomplete="off"
+            oninput="onCleanupSearch(${i},this.value)"
+            onblur="setTimeout(()=&gt;hideCleanupResults(${i}),150)">
+          <div class="model-search-results" id="cleanup-results-${i}"></div>
+        </div>
+      </div>`;
+    }).join('')}`;
+}
+function onCleanupSearch(i,q){
+  const box=document.getElementById('cleanup-results-'+i);if(!box)return;
+  const q2=(q||'').trim();
+  if(!q2){box.innerHTML='';box.classList.remove('show');cleanupResultsMap[i]=[];return;}
+  const results=searchModelDB(q2);
+  cleanupResultsMap[i]=results;
+  if(results.length===0){
+    box.innerHTML='<div class="sr-empty">검색 결과 없음</div>';
+  } else {
+    box.innerHTML=results.map((r,ri)=>`<div class="sr-item" onmousedown="event.preventDefault();applyCleanupFix(${i},${ri})"><span class="sr-model">${r.model}</span><span class="sr-cat">${r.catName}</span></div>`).join('');
+  }
+  box.classList.add('show');
+}
+function hideCleanupResults(i){
+  const box=document.getElementById('cleanup-results-'+i);
+  if(box)box.classList.remove('show');
+}
+function fixOrphanName(oldName,catKey,newModel){
+  const arr=loadStock();
+  const oldItem=arr.find(s=>s.modelName===oldName);
+  const targetItem=arr.find(s=>s.modelName===newModel);
+  let newArr=arr;
+  let targetId=null;
+  if(oldItem){
+    if(targetItem&&targetItem!==oldItem){
+      targetItem.qty=Math.round((targetItem.qty+oldItem.qty)*10)/10;
+      newArr=arr.filter(s=>s!==oldItem);
+      targetId=targetItem.id;
+    }else{
+      oldItem.modelName=newModel;oldItem.cat=catKey;oldItem.catName=MODEL_DB[catKey]?.name||oldItem.catName;
+      targetId=oldItem.id;
+    }
+  }else if(targetItem){
+    targetId=targetItem.id;
+  }
+  saveStock(newArr);
+  const logs=loadStockLog();
+  logs.forEach(l=>{
+    if(l.modelName===oldName){
+      l.modelName=newModel;
+      if(targetId!=null)l.stockId=targetId;
+    }
+  });
+  saveStockLog(logs);
+}
+function applyCleanupFix(i,ri){
+  const oldName=(window._orphanList||[])[i];
+  const r=(cleanupResultsMap[i]||[])[ri];
+  if(!oldName||!r)return;
+  if(!confirm(`"${oldName}" → "${r.model}"(으)로 변경(병합)할까요?`))return;
+  fixOrphanName(oldName,r.catKey,r.model);
+  window._orphanList=findOrphanNames();
+  renderCleanupPanel();
+  renderStock();
+  renderData();
 }
 function toggleRenamePanel(id){
   const panel=document.getElementById('rename-panel-'+id);
