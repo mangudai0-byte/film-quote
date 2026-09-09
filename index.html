@@ -337,7 +337,7 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
       <div style="width:36px;height:36px;border-radius:50%;background:var(--om-orange);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;">🚪</div>
       <div>
         <div style="font-size:15px;font-weight:800;color:var(--om-cream);">비규격 생산도어 발주 견적</div>
-        <div style="font-size:11px;color:rgba(250,245,238,.65);margin-top:1px;">SUPER 레이저도어 · 재단 최적화</div>
+        <div style="font-size:11px;color:rgba(250,245,238,.65);margin-top:1px;">SUPER 레이저도어 · 간편 견적</div>
       </div>
       <button onclick="openClientMgr()" style="margin-left:auto;background:rgba(250,245,238,.12);border:1.5px solid rgba(250,245,238,.25);color:var(--om-cream);padding:6px 11px;border-radius:8px;font-size:11px;font-family:inherit;cursor:pointer;font-weight:700;">👥 거래처</button>
     </div>
@@ -394,19 +394,6 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
     <div class="parea" id="door-preview-area"></div>
     <div style="display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--bd);background:white;position:sticky;bottom:0">
       <button class="btn-pr" style="flex:1" onclick="doDoorPrint()">🖨 인쇄/저장</button>
-    </div>
-  </div>
-</div>
-<div class="ovl" id="cut-layout-ovl">
-  <div class="modal">
-    <div class="modal-bar">
-      <button class="cls-btn" onclick="closeCutLayout()">‹ 뒤로</button>
-      <h3>📐 재단 배치도</h3>
-      <div style="width:60px"></div>
-    </div>
-    <div style="padding:16px;overflow-y:auto;max-height:calc(100vh - 60px)">
-      <div id="cut-legend" style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;padding:12px;background:var(--gray-50);border-radius:10px"></div>
-      <div id="cut-layout-container"></div>
     </div>
   </div>
 </div>
@@ -1271,84 +1258,124 @@ function setDoorGrade(g){
   });
   renderDoorGroups();
 }
-function getUnitPrice(key){
+function getUnitPrice(brand,key){
+  if(brand==='hansol'){
+    const p=HANSOL_DOOR_PRICES.find(p=>p.name===key);
+    return p?p.price:0;
+  }
   const[name,type]=key.split('|');
   const p=DOOR_PRICES.find(p=>p.name===name&&p.type===type)||DOOR_PRICES.find(p=>p.name===name);
   return p?p[`g${doorGrade}`]:0;
 }
 function addDoorGroup(){
   const key=DOOR_PRICES[0].name+'|'+DOOR_PRICES[0].type;
-  doorGroups.push({key,open:true,items:[{id:doorCnt++,w:900,h:2100,qty:1}]});
+  doorGroups.push({brand:'yerim',key,open:true,amount:1});
   renderDoorGroups();
 }
 function removeDoorGroup(gi){doorGroups.splice(gi,1);renderDoorGroups();updateDoorTotals();}
 function toggleDoorGroup(gi){doorGroups[gi].open=!doorGroups[gi].open;renderDoorGroups();}
-function updateDoorGroup(gi,field,val){if(field==='key')doorGroups[gi].key=val;renderDoorGroups();updateDoorTotals();}
-function addDoorRow(gi){
-  doorGroups[gi].items.push({id:doorCnt++,w:0,h:0,qty:1});renderDoorGroups();
-  setTimeout(()=>{const rows=document.querySelectorAll(`.drow-w-${gi}`);if(rows.length){const last=rows[rows.length-1];last.focus();last.select();}},30);
+let doorSearchResultsMap={};
+function searchDoorColors(q,brand){
+  q=(q||'').trim().toLowerCase();
+  if(!q)return[];
+  if(brand==='hansol'){
+    return HANSOL_DOOR_PRICES.filter(p=>p.name.toLowerCase().includes(q)).slice(0,30).map(p=>({name:p.name,label:p.cat}));
+  }
+  return DOOR_PRICES.filter(p=>p.name.toLowerCase().includes(q)).slice(0,30).map(p=>({name:p.name,type:p.type,label:p.type}));
 }
-function removeDoorRow(gi,id){
-  doorGroups[gi].items=doorGroups[gi].items.filter(x=>x.id!==id);
-  if(doorGroups[gi].items.length===0)doorGroups.splice(gi,1);
+function onDoorColorSearch(gi,q){
+  const box=document.getElementById('door-search-results-'+gi);if(!box)return;
+  const q2=(q||'').trim();
+  const brand=(doorGroups[gi]||{}).brand||'yerim';
+  if(!q2){box.innerHTML='';box.classList.remove('show');doorSearchResultsMap[gi]=[];return;}
+  const results=searchDoorColors(q2,brand);
+  doorSearchResultsMap[gi]=results;
+  if(results.length===0){
+    box.innerHTML='<div class="sr-empty">검색 결과 없음</div>';
+  } else {
+    box.innerHTML=results.map((r,i)=>`<div class="sr-item" onmousedown="event.preventDefault();selectDoorColorSearch(${gi},${i})"><span class="sr-model">${r.name}</span><span class="sr-cat">${r.label}</span></div>`).join('');
+  }
+  box.classList.add('show');
+}
+function hideDoorColorResults(gi){
+  const box=document.getElementById('door-search-results-'+gi);
+  if(box)box.classList.remove('show');
+}
+function selectDoorColorSearch(gi,i){
+  const r=(doorSearchResultsMap[gi]||[])[i];if(!r)return;
+  const brand=(doorGroups[gi]||{}).brand||'yerim';
+  updateDoorGroup(gi,'key',brand==='hansol'?r.name:(r.name+'|'+r.type));
+}
+function setDoorGroupBrand(gi,brand){
+  if(!doorGroups[gi]||doorGroups[gi].brand===brand)return;
+  doorGroups[gi].brand=brand;
+  doorGroups[gi].key=brand==='hansol'?HANSOL_DOOR_PRICES[0].name:(DOOR_PRICES[0].name+'|'+DOOR_PRICES[0].type);
   renderDoorGroups();updateDoorTotals();
 }
-function updateDoorRow(gi,id,field,val){
-  const item=doorGroups[gi].items.find(x=>x.id===id);if(item)item[field]=parseInt(val)||0;updateDoorTotals();
-}
-function getFlatDoorItems(){const flat=[];doorGroups.forEach(g=>g.items.forEach(it=>flat.push({id:it.id,key:g.key,w:it.w,h:it.h,qty:it.qty})));return flat;}
+function updateDoorGroup(gi,field,val){if(field==='key')doorGroups[gi].key=val;else if(field==='amount')doorGroups[gi].amount=val;renderDoorGroups();updateDoorTotals();}
 function resetDoorForm(){if(doorGroups.length>0&&!confirm('초기화할까요?'))return;doorGroups=[];doorCnt=0;renderDoorGroups();}
 function updateDoorTotals(){
-  const flat=getFlatDoorItems(),groups={};
-  flat.forEach(it=>{if(!groups[it.key])groups[it.key]=[];for(let i=0;i<it.qty;i++)groups[it.key].push({w:it.w,h:it.h});});
   let total=0;
-  Object.entries(groups).forEach(([key,pieces])=>{if(!pieces.length)return;total+=Math.round(calcSheetDecimal(pieces)*getUnitPrice(key));});
+  doorGroups.forEach(g=>{total+=Math.round((g.amount||0)*getUnitPrice(g.brand||'yerim',g.key));});
   const el=document.getElementById('door-total');if(el)el.textContent=total.toLocaleString()+' 원';
 }
 function renderDoorGroups(){
   const wrap=document.getElementById('door-items-wrap');if(!wrap)return;
   if(!doorGroups.length){wrap.innerHTML='<div style="text-align:center;padding:16px;color:var(--gray-500);font-size:13px">+ 색상 추가를 눌러 시작하세요</div>';updateDoorTotals();return;}
   wrap.innerHTML=doorGroups.map((g,gi)=>{
-    const[colorName,colorType]=g.key.split('|');
-    const piecesInGroup=g.items.reduce((s,it)=>s+it.qty,0);
-    const pieces=[];g.items.forEach(it=>{for(let i=0;i<it.qty;i++)pieces.push({w:it.w,h:it.h});});
-    const sheets=pieces.length>0?calcSheetDecimal(pieces):0,unit=getUnitPrice(g.key),groupAmt=Math.round(sheets*unit);
+    const brand=g.brand||'yerim';
+    let colorName,colorType;
+    if(brand==='hansol'){
+      colorName=g.key;
+      const hp=HANSOL_DOOR_PRICES.find(p=>p.name===g.key);
+      colorType=hp?hp.cat:'';
+    }else{
+      [colorName,colorType]=g.key.split('|');
+    }
+    const unit=getUnitPrice(brand,g.key),groupAmt=Math.round((g.amount||0)*unit);
+    const AMOUNTS=[0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0];
+    const colorOptions=brand==='hansol'
+      ?HANSOL_DOOR_PRICES.map(p=>`<option value="${p.name}"${p.name===g.key?' selected':''}>${p.name} (${p.cat})</option>`).join('')
+      :DOOR_PRICES.map(p=>`<option value="${p.name}|${p.type}"${(p.name+'|'+p.type)===g.key?' selected':''}>${p.name} (${p.type})</option>`).join('');
     const rows=g.open?`
       <div style="padding:10px 12px;background:#FAFAF8;border-top:1px solid var(--border)">
-        <div style="margin-bottom:8px">
+        <div style="margin-bottom:12px">
+          <label style="font-size:10px;color:var(--gray-500);font-weight:700;text-transform:uppercase;display:block;margin-bottom:4px">제조사</label>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <button onclick="setDoorGroupBrand(${gi},'yerim')" style="padding:9px 4px;border-radius:8px;border:1.5px solid ${brand==='yerim'?'#1A4F8A':'var(--border)'};background:${brand==='yerim'?'#1A4F8A':'white'};color:${brand==='yerim'?'white':'var(--gray-700)'};font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">예림</button>
+            <button onclick="setDoorGroupBrand(${gi},'hansol')" style="padding:9px 4px;border-radius:8px;border:1.5px solid ${brand==='hansol'?'#1A4F8A':'var(--border)'};background:${brand==='hansol'?'#1A4F8A':'white'};color:${brand==='hansol'?'white':'var(--gray-700)'};font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">한솔</button>
+          </div>
+        </div>
+        <div style="margin-bottom:8px;position:relative;">
+          <label style="font-size:10px;color:var(--gray-500);font-weight:700;text-transform:uppercase;display:block;margin-bottom:4px">색상 검색</label>
+          <input type="text" class="model-search-input" placeholder="색상명 검색 (예: 프렌치오크)" autocomplete="off"
+            oninput="onDoorColorSearch(${gi},this.value)"
+            onfocus="onDoorColorSearch(${gi},this.value)"
+            onblur="setTimeout(()=&gt;hideDoorColorResults(${gi}),150)">
+          <div class="model-search-results" id="door-search-results-${gi}"></div>
+        </div>
+        <div style="margin-bottom:12px">
           <label style="font-size:10px;color:var(--gray-500);font-weight:700;text-transform:uppercase;display:block;margin-bottom:4px">색상 선택</label>
           <select onchange="updateDoorGroup(${gi},'key',this.value)" style="width:100%;padding:8px 12px;border:1.5px solid #A8C4E8;border-radius:9px;font-size:14px;font-family:inherit;background:#EAF1FA;color:var(--blue);font-weight:700">
-            ${DOOR_PRICES.map(p=>`<option value="${p.name}|${p.type}"${(p.name+'|'+p.type)===g.key?' selected':''}>${p.name} (${p.type})</option>`).join('')}
+            ${colorOptions}
           </select>
         </div>
-        <table style="width:100%;border-collapse:collapse;font-size:13px">
-          <thead><tr style="background:#1A4F8A;color:white">
-            <th style="padding:7px 6px;text-align:center;width:24px;font-size:11px">#</th>
-            <th style="padding:7px 6px;text-align:center;font-size:11px">폭(mm)</th>
-            <th style="padding:7px 6px;text-align:center;font-size:11px">높이(mm)</th>
-            <th style="padding:7px 6px;text-align:center;width:50px;font-size:11px">수량</th>
-            <th style="padding:7px 4px;width:26px"></th>
-          </tr></thead>
-          <tbody>
-            ${g.items.map((it,ri)=>`
-              <tr style="border-bottom:1px solid var(--border);${ri%2===0?'background:white':'background:#FAFAF8'}">
-                <td style="padding:5px 4px;text-align:center;color:var(--gray-500);font-size:11px">${ri+1}</td>
-                <td style="padding:4px 3px"><input type="number" value="${it.w||''}" placeholder="폭" class="drow-w-${gi}" tabindex="${gi*100+ri*3+1}" onchange="updateDoorRow(${gi},${it.id},'w',this.value)" style="width:100%;padding:6px 4px;border:1px solid var(--border);border-radius:7px;font-size:13px;font-weight:700;text-align:center;font-family:inherit"></td>
-                <td style="padding:4px 3px"><input type="number" value="${it.h||''}" placeholder="높이" tabindex="${gi*100+ri*3+2}" onchange="updateDoorRow(${gi},${it.id},'h',this.value)" style="width:100%;padding:6px 4px;border:1px solid var(--border);border-radius:7px;font-size:13px;font-weight:700;text-align:center;font-family:inherit"></td>
-                <td style="padding:4px 3px"><input type="number" value="${it.qty}" min="1" tabindex="${gi*100+ri*3+3}" onchange="updateDoorRow(${gi},${it.id},'qty',this.value)" onkeydown="if(event.key==='Tab'&&!event.shiftKey&&${ri===g.items.length-1}){event.preventDefault();addDoorRow(${gi});}" style="width:100%;padding:6px 4px;border:1px solid var(--border);border-radius:7px;font-size:13px;font-weight:700;text-align:center;font-family:inherit"></td>
-                <td style="padding:4px 4px;text-align:center"><button onclick="removeDoorRow(${gi},${it.id})" tabindex="-1" style="background:none;border:1px solid #DDBBBB;border-radius:5px;color:#CC6666;cursor:pointer;font-size:12px;padding:2px 6px;line-height:1">×</button></td>
-              </tr>`).join('')}
-          </tbody>
-        </table>
-        <button onclick="addDoorRow(${gi})" style="width:100%;margin-top:8px;padding:8px;border:1.5px dashed #B8CDE8;border-radius:8px;background:none;color:var(--blue);font-size:13px;font-weight:600;cursor:pointer">+ 행 추가</button>
+        <div>
+          <label style="font-size:10px;color:var(--gray-500);font-weight:700;text-transform:uppercase;display:block;margin-bottom:6px">수량 (장)</label>
+          <input type="number" step="0.1" min="0" value="${g.amount||0}" onchange="updateDoorGroup(${gi},'amount',parseFloat(this.value)||0)" style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:9px;font-size:15px;font-weight:800;text-align:center;font-family:inherit;margin-bottom:8px;color:#1A4F8A">
+          <div style="font-size:9px;color:var(--gray-500);margin-bottom:6px">소수점 빠른 선택 (0.1 단위)</div>
+          <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px">
+            ${AMOUNTS.map(a=>`<button onclick="updateDoorGroup(${gi},'amount',${a})" style="padding:9px 4px;border-radius:8px;border:1.5px solid ${a===g.amount?'#1A4F8A':'var(--border)'};background:${a===g.amount?'#1A4F8A':'white'};color:${a===g.amount?'white':'var(--gray-700)'};font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">${a.toFixed(1)}</button>`).join('')}
+          </div>
+        </div>
       </div>`:''
     ;
     return `<div style="border:1.5px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden">
       <div onclick="toggleDoorGroup(${gi})" style="background:linear-gradient(135deg,#1A4F8A,#2563a8);padding:11px 14px;display:flex;align-items:center;gap:10px;cursor:pointer">
         <div style="width:22px;height:22px;background:rgba(255,255,255,0.2);border:1.5px solid rgba(255,255,255,0.35);border-radius:50%;color:white;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center">${gi+1}</div>
         <div style="flex:1">
-          <div style="font-size:14px;font-weight:700;color:white">${colorName} <span style="font-size:11px;opacity:0.75">(${colorType})</span></div>
-          <div style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:2px">${piecesInGroup}개 부재 · ${sheets}장 · ${groupAmt.toLocaleString()}원</div>
+          <div style="font-size:14px;font-weight:700;color:white">${colorName} <span style="font-size:11px;opacity:0.75">(${brand==='hansol'?'한솔':'예림'}${colorType?' · '+colorType:''})</span></div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:2px">수량 ${(g.amount||0).toFixed(1)}장 · ${groupAmt.toLocaleString()}원</div>
         </div>
         <div style="display:flex;align-items:center;gap:8px">
           <button onclick="event.stopPropagation();removeDoorGroup(${gi})" style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:6px;color:white;cursor:pointer;font-size:12px;padding:3px 8px">삭제</button>
@@ -1361,100 +1388,29 @@ function renderDoorGroups(){
   updateDoorTotals();
 }
 
-// ===== 재단 알고리즘 =====
-function normalizePiece(w,h){return{rowL:Math.max(w,h),rowH:Math.min(w,h)};}
-function maxRectsPack(pieces){
-  const sheets=[];
-  function splitFree(free,px,py,pw,ph){
-    const result=[];
-    for(const f of free){
-      const ox=px<f.x+f.w&&px+pw>f.x&&py<f.y+f.h&&py+ph>f.y;
-      if(!ox){result.push(f);continue;}
-      if(f.x<px)result.push({x:f.x,y:f.y,w:px-f.x,h:f.h});
-      if(f.x+f.w>px+pw+KERF)result.push({x:px+pw+KERF,y:f.y,w:f.x+f.w-(px+pw+KERF),h:f.h});
-      if(f.y<py)result.push({x:f.x,y:f.y,w:f.w,h:py-f.y});
-      if(f.y+f.h>py+ph+KERF)result.push({x:f.x,y:py+ph+KERF,w:f.w,h:f.y+f.h-(py+ph+KERF)});
-    }
-    return result.filter((a,i)=>a.w>0&&a.h>0&&!result.some((b,j)=>i!==j&&b.x<=a.x&&b.y<=a.y&&b.x+b.w>=a.x+a.w&&b.y+b.h>=a.y+a.h));
-  }
-  const pcs=[...pieces].sort((a,b)=>b.rowL*b.rowH-a.rowL*a.rowH);
-  for(const p of pcs){
-    let bestScore=Infinity,bestSh=null,bestF=null,bestW=p.rowH,bestH=p.rowL;
-    for(const sh of sheets){
-      for(const f of sh.free){
-        if(p.rowH<=f.w&&p.rowL<=f.h){const sc=Math.min(f.w-p.rowH,f.h-p.rowL);if(sc<bestScore){bestScore=sc;bestSh=sh;bestF=f;bestW=p.rowH;bestH=p.rowL;}}
-        if(p.rowL<=f.w&&p.rowH<=f.h){const sc=Math.min(f.w-p.rowL,f.h-p.rowH);if(sc<bestScore){bestScore=sc;bestSh=sh;bestF=f;bestW=p.rowL;bestH=p.rowH;}}
-      }
-    }
-    if(bestSh&&bestF){
-      bestSh.pieces.push({x:bestF.x,y:bestF.y,w:bestW,h:bestH,origW:p.origW,origH:p.origH,name:p.name});
-      bestSh.free=splitFree(bestSh.free,bestF.x,bestF.y,bestW,bestH);
-    }else{
-      const sh={pieces:[],free:[{x:0,y:0,w:1220,h:2440}]};sheets.push(sh);
-      sh.pieces.push({x:0,y:0,w:p.rowH,h:p.rowL,origW:p.origW,origH:p.origH,name:p.name});
-      sh.free=splitFree(sh.free,0,0,p.rowH,p.rowL);
-    }
-  }
-  return sheets;
-}
-function optimizeCuts(doors){
-  const pieces=[];
-  doors.forEach(d=>{for(let i=0;i<d.qty;i++){const{rowL,rowH}=normalizePiece(d.w,d.h);pieces.push({rowL,rowH,origW:d.w,origH:d.h,name:d.name});}});
-  const sheets=maxRectsPack(pieces);
-  sheets.sort((a,b)=>b.pieces.reduce((s,p)=>s+p.w*p.h,0)-a.pieces.reduce((s,p)=>s+p.w*p.h,0));
-  sheets.forEach(sh=>{sh.usedX=sh.pieces.length>0?Math.max(...sh.pieces.map(p=>p.x+p.w)):0;});
-  return sheets;
-}
-function calcSheetDecimal(pieces){
-  if(!pieces||!pieces.length)return 0;
-  const pcs=pieces.map(p=>({rowL:Math.max(p.w,p.h),rowH:Math.min(p.w,p.h)}));
-  const sorted=[...pcs].sort((a,b)=>b.rowL-a.rowL||b.rowH-a.rowH),columns=[];
-  for(const p of sorted){
-    let placed=false;
-    for(const col of columns){if(p.rowH<=col.colW&&col.usedY+p.rowL<=2440){col.usedY+=p.rowL+KERF;placed=true;break;}}
-    if(!placed)columns.push({colW:p.rowH,usedY:p.rowL+KERF});
-  }
-  const colsSorted=[...columns].sort((a,b)=>b.colW-a.colW),sheets=[];
-  for(const col of colsSorted){
-    let bestSh=null,bestWaste=Infinity;
-    for(const sh of sheets){const addX=sh.usedX>0?KERF:0,rem=1220-sh.usedX-addX-col.colW;if(rem>=0&&rem<bestWaste){bestWaste=rem;bestSh=sh;}}
-    if(bestSh)bestSh.usedX=bestSh.usedX+(bestSh.usedX>0?KERF:0)+col.colW;
-    else sheets.push({usedX:col.colW});
-  }
-  if(!sheets.length)return 0;
-  sheets.sort((a,b)=>b.usedX-a.usedX);
-  return(sheets.length-1)+Math.ceil(sheets[sheets.length-1].usedX/100)/10;
-}
-
 // ===== 도어 견적서 =====
-let lastSheets=[];
 function calcDoorQuote(){
-  const flat=getFlatDoorItems();
-  if(!flat.length){alert('색상과 사이즈를 추가해주세요');return;}
+  if(!doorGroups.length){alert('색상을 추가해주세요');return;}
   const client=document.getElementById('door-client').value||'(거래처명)';
   const date=document.getElementById('door-date').value;
-  const colorGroups={};
-  flat.forEach(it=>{
-    if(!colorGroups[it.key])colorGroups[it.key]=[];
-    for(let i=0;i<it.qty;i++)colorGroups[it.key].push({w:it.w,h:it.h,name:it.key});
-  });
-  lastSheets=optimizeCuts(Object.entries(colorGroups).flatMap(([key,pieces])=>{
-    const unique={};
-    pieces.forEach(p=>{const k=`${p.w}_${p.h}`;unique[k]=(unique[k]||0)+1;});
-    return Object.entries(unique).map(([k,qty])=>{const[w,h]=k.split('_');return{w:+w,h:+h,qty,name:key};});
-  }));
+  const fmtQty=n=>{const r=Math.round(n*10)/10;return Number.isInteger(r)?String(r):r.toFixed(1);};
   let rows='',total=0;
-  const colorSummary=Object.entries(colorGroups).map(([key,pieces])=>{
-    const sheetDecimal=calcSheetDecimal(pieces),unit=getUnitPrice(key),amt=Math.round(sheetDecimal*unit);
+  doorGroups.forEach(g=>{
+    const brand=g.brand||'yerim';
+    let colorName,colorType;
+    if(brand==='hansol'){
+      colorName=g.key;
+      const hp=HANSOL_DOOR_PRICES.find(p=>p.name===g.key);
+      colorType=hp?hp.cat:'';
+    }else{
+      [colorName,colorType]=g.key.split('|');
+    }
+    const amount=g.amount||0,unit=getUnitPrice(brand,g.key),amt=Math.round(amount*unit);
     total+=amt;
-    const[colorName,colorType]=key.split('|');
-    return{key,colorName,colorType,pieces,sheetDecimal,unit,amt};
-  });
-  colorSummary.forEach(({colorName,colorType,pieces,sheetDecimal,unit,amt})=>{
     rows+=`<tr>
-      <td>${colorName}<br><span style="font-size:11px;color:#888">${colorType}</span></td>
-      <td style="text-align:center">${pieces.length}개</td>
-      <td style="text-align:center">${sheetDecimal}장</td>
+      <td>${colorName}${colorType?`<br><span style="font-size:11px;color:#888">${colorType}</span>`:''}</td>
+      <td style="text-align:center">${brand==='hansol'?'한솔':'예림'}</td>
+      <td style="text-align:center">${fmtQty(amount)}</td>
       <td style="text-align:right">${unit.toLocaleString()}</td>
       <td style="text-align:right;font-weight:700">${amt.toLocaleString()}</td>
     </tr>`;
@@ -1467,12 +1423,8 @@ function calcDoorQuote(){
         <div class="pv-row"><span class="pv-k">견적일</span><span class="pv-v">${date}</span></div>
         <div class="pv-row"><span class="pv-k">원판규격</span><span class="pv-v">2440×1220mm · SUPER 레이저도어</span></div>
       </div>
-      <button onclick="drawCutLayout(lastSheets)" style="width:100%;padding:13px;background:linear-gradient(135deg,#1A4F8A,#2563a8);color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between">
-        <span>📐 재단 배치도 보기</span>
-        <span style="font-size:18px;background:rgba(255,255,255,0.2);border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center">▶</span>
-      </button>
       <div class="pv-table-wrap"><table class="pv-table">
-        <thead><tr><th>색상명</th><th>부재수</th><th>원판(장)</th><th>단가/장</th><th>금액</th></tr></thead>
+        <thead><tr><th>색상명</th><th>브랜드명</th><th>수량</th><th>단가</th><th>금액</th></tr></thead>
         <tbody>${rows}</tbody>
         <tfoot><tr><td colspan="4">합 &nbsp; 계</td><td>${total.toLocaleString()}</td></tr></tfoot>
       </table></div>
@@ -1484,52 +1436,6 @@ function calcDoorQuote(){
   document.getElementById('door-preview-ovl').classList.add('show');
 }
 function closeDoorPreview(){document.getElementById('door-preview-ovl').classList.remove('show');}
-function closeCutLayout(){document.getElementById('cut-layout-ovl').classList.remove('show');}
-function drawCutLayout(sheets){
-  const ovl=document.getElementById('cut-layout-ovl'),container=document.getElementById('cut-layout-container');
-  if(!ovl||!container)return;
-  const COLORS=['#B8D4E8','#F5D5B0','#C8E6C8','#F5C5D0','#D8D0F0','#F0E8C0','#C8E0E8','#E8D0C8'];
-  const keyColorMap={};let colorIdx=0;
-  getFlatDoorItems().forEach(it=>{if(!keyColorMap[it.key])keyColorMap[it.key]=COLORS[colorIdx++%COLORS.length];});
-  const SVG_W=160,SVG_H=320,scaleX=SVG_W/1220,scaleY=SVG_H/2440;
-  container.innerHTML=sheets.map((sheet,si)=>{
-    const usedArea=sheet.pieces.reduce((s,p)=>s+p.w*p.h,0),eff=Math.round(usedArea/(1220*2440)*100);
-    const cutYSet=new Set();sheet.pieces.forEach(p=>{if(p.y>0)cutYSet.add(p.y);});
-    const cutLines=[...cutYSet].map(y=>`<line x1="0" y1="${y*scaleY}" x2="${SVG_W}" y2="${y*scaleY}" stroke="#666" stroke-width="0.8" stroke-dasharray="2,2"/>`).join('');
-    const rects=sheet.pieces.map(p=>{
-      const color=keyColorMap[p.name]||'#DDD';
-      const px=p.x*scaleX,py=p.y*scaleY,pw=p.w*scaleX,ph=p.h*scaleY;
-      const fs=Math.min(pw,ph)>14?7:5;
-      return `<rect x="${px}" y="${py}" width="${pw}" height="${ph}" fill="${color}" stroke="#444" stroke-width="0.8" rx="1"/>
-        <text x="${px+pw/2}" y="${py+ph/2}" text-anchor="middle" dominant-baseline="middle" font-size="${fs}" fill="#222" font-family="sans-serif">${p.origW}×${p.origH}</text>`;
-    }).join('');
-    const maxX=sheet.pieces.reduce((m,p)=>Math.max(m,p.x+p.w),0),usedXpx=maxX*scaleX,wasteW=1220-maxX;
-    return `<div style="margin-bottom:24px;display:inline-block;margin-right:16px;vertical-align:top">
-      <div style="font-size:12px;font-weight:700;color:var(--blue);margin-bottom:3px">원판${si+1}번 · 효율${eff}%</div>
-      <div style="font-size:10px;color:var(--gray-500);margin-bottom:5px">사용${maxX}mm / 낭비${wasteW}mm</div>
-      <div style="display:flex;align-items:flex-start;gap:4px">
-        <svg width="${SVG_W}" height="${SVG_H}" style="border:1.5px solid #999;border-radius:4px;background:#F5F5F0;">
-          ${rects}${cutLines}
-          ${wasteW>0?`<rect x="${usedXpx}" y="0" width="${SVG_W-usedXpx}" height="${SVG_H}" fill="#E0E0D8" opacity="0.55"/>
-            <line x1="${usedXpx}" y1="0" x2="${usedXpx}" y2="${SVG_H}" stroke="#CC3333" stroke-width="1.5" stroke-dasharray="4,3"/>`:''}
-          <rect x="0" y="0" width="${SVG_W}" height="${SVG_H}" fill="none" stroke="#888" stroke-width="1.5"/>
-          <text x="2" y="${SVG_H-3}" font-size="6" fill="#bbb" font-family="sans-serif">←1220→</text>
-        </svg>
-        <div style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:9px;color:#aaa;align-self:center">2440mm</div>
-      </div>
-    </div>`;
-  }).join('');
-  container.innerHTML=`<div style="overflow-x:auto;white-space:nowrap;padding-bottom:8px">${container.innerHTML}</div>`;
-  const legend=Object.entries(keyColorMap).map(([key,color])=>{
-    const[name,type]=key.split('|');
-    return `<div style="display:flex;align-items:center;gap:6px;margin-bottom:5px">
-      <div style="width:14px;height:14px;background:${color};border:1px solid #888;border-radius:2px;flex-shrink:0"></div>
-      <span style="font-size:12px;color:var(--gray-700)">${name} <span style="color:#aaa;font-size:11px">(${type})</span></span>
-    </div>`;
-  }).join('');
-  document.getElementById('cut-legend').innerHTML=legend;
-  ovl.classList.add('show');
-}
 function doDoorPrint(){
   const content=document.getElementById('door-preview-area').innerHTML;
   const win=window.open('','_blank','width=420,height=900');
