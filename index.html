@@ -389,11 +389,11 @@ body{font-family:var(--fn);background:var(--cr);color:var(--g9);min-height:100vh
     <div class="modal-bar">
       <button class="cls-btn" onclick="closeDoorPreview()">‹ 뒤로</button>
       <h3>생산도어 발주 견적서</h3>
-      <div style="width:60px"></div>
+      <button onclick="saveDoorQuoteAsImage(this)" style="height:34px;padding:0 12px;background:var(--om-orange);border:none;border-radius:7px;font-size:13px;color:white;font-weight:800;cursor:pointer;white-space:nowrap;flex-shrink:0;">저장</button>
     </div>
     <div class="parea" id="door-preview-area"></div>
     <div style="display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--bd);background:white;position:sticky;bottom:0">
-      <button class="btn-pr" style="flex:1" onclick="doDoorPrint()">🖨 인쇄/저장</button>
+      <button class="btn-pr" style="flex:1" onclick="doDoorPrint()">🖨 인쇄</button>
     </div>
   </div>
 </div>
@@ -1553,6 +1553,23 @@ function shareFileBaseName(){
 }
 
 // ===== 단가표 이미지/PDF 저장 =====
+async function saveDoorQuoteAsImage(btnEl){
+  const el=document.getElementById('door-preview-area');if(!el)return;
+  const origText=btnEl?btnEl.textContent:null;
+  if(btnEl){btnEl.textContent='⏳ 생성중...';btnEl.disabled=true;}
+  try{
+    const client=document.getElementById('door-client')?.value||'견적서';
+    const canvas=await html2canvas(el,{scale:2.5,backgroundColor:'#ffffff',useCORS:true,scrollY:0});
+    const link=document.createElement('a');
+    link.download=`오션메이드_생산도어견적서_${client}_${today()}.png`;
+    link.href=canvas.toDataURL('image/png');
+    document.body.appendChild(link);link.click();document.body.removeChild(link);
+  }catch(e){
+    alert('이미지 생성 중 오류가 발생했습니다: '+e.message);
+  }finally{
+    if(btnEl){btnEl.textContent=origText;btnEl.disabled=false;}
+  }
+}
 async function saveQuoteAsImage(btnEl){
   const el=document.getElementById('parea');if(!el)return;
   const origText=btnEl?btnEl.textContent:null;
